@@ -1,0 +1,20 @@
+{
+  "env": "development",
+  "team": "quickhire-main",
+  "rules": {
+    "typescript": { "strict": true },
+    "testing": { "coverage": 100, "framework": "jest" },
+    "security": { "noSecrets": true, "noHardcodedCredentials": true }
+  },
+  "hooks": {
+    "pre-commit": "npm run lint && npm test",
+    "post-save": "npm run format"
+  },
+  "mcp_servers": {
+    "context7": { "enabled": true }
+  },
+  "guardrails": {
+    "forbidden_commands": ["rm -rf", "git push --force", "git reset --hard"],
+    "forbidden_paths": [".env", "*.key", "secrets/*", "credentials.json"]
+  }
+}

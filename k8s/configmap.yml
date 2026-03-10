@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: quickhire-config
+  namespace: quickhire-production
+  labels:
+    app: quickhire
+data:
+  NODE_ENV: "production"
+  PORT: "8000"
+  DB_HOST: "quickhire-postgres"
+  DB_PORT: "5432"
+  DB_NAME: "quickhire"
+  REDIS_HOST: "quickhire-redis"
+  REDIS_PORT: "6379"
+  LOG_LEVEL: "info"
+  LOG_FORMAT: "json"
+  CORS_ORIGIN: "https://quickhire.ai"
+  ENABLE_AUTO_APPLY: "true"
+  ENABLE_ML_MATCHING: "false"
+  ENABLE_NOTIFICATIONS: "true"
+  RATE_LIMIT_WINDOW_MS: "900000"
+  RATE_LIMIT_MAX_REQUESTS: "100"
+  MAX_APPLICATIONS_PER_DAY: "50"
+  PROMETHEUS_PORT: "9090"
