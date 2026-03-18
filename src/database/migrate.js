@@ -99,11 +99,11 @@ const command = process.argv[2];
 if (command === 'rollback') {
   rollbackMigration().catch((err) => {
     logger.error('Rollback error', { error: err.message });
-    process.exit(1);
+    process.exitCode = 1;
   });
 } else {
   runMigrations().catch((err) => {
     logger.error('Migration error', { error: err.message });
-    process.exit(1);
+    process.exitCode = 1;
   });
 }

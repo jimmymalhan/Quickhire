@@ -1,7 +1,6 @@
 const { jobScrapeQueue, applicationQueue, notificationQueue } = require('./queue');
 const ScrapeJobsJob = require('./jobs/scrapeJobsJob');
 const { processApplications } = require('./jobs/processApplications');
-const { cleanup } = require('./jobs/cleanupJob');
 const logger = require('../utils/logger');
 
 let scrapeJob = null;

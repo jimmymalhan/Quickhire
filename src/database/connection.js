@@ -31,6 +31,25 @@ function getPool() {
   return pool;
 }
 
+async function query(text, params) {
+  return getPool().query(text, params);
+}
+
+async function getClient() {
+  return getPool().connect();
+}
+
+async function testConnection() {
+  try {
+    await query('SELECT 1');
+    logger.info('Database connection established');
+    return true;
+  } catch (err) {
+    logger.error('Database connection failed', { error: err.message });
+    return false;
+  }
+}
+
 async function closePool() {
   if (pool) {
     await pool.end();
@@ -39,3 +58,14 @@ async function closePool() {
 }
 
 module.exports = { getPool, closePool };
+Object.defineProperty(module.exports, 'pool', {
+  enumerable: true,
+  get: getPool,
+});
+module.exports.query = query;
+module.exports.getClient = getClient;
+module.exports.testConnection = testConnection;
+
+// Initialize the shared pool eagerly so import-time expectations and
+// pool event handlers are registered consistently across the app and tests.
+getPool();

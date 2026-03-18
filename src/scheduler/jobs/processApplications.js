@@ -1,6 +1,5 @@
 const { query } = require('../../database/connection');
 const { submitApplication } = require('../../automation/applicationSubmitter');
-const ApplicationLog = require('../../database/models/ApplicationLog');
 const UserPreference = require('../../database/models/UserPreference');
 const logger = require('../../utils/logger');
 const config = require('../../utils/config');

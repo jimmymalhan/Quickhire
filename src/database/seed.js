@@ -60,5 +60,5 @@ const seedData = async () => {
 
 seedData().catch((err) => {
   logger.error('Seed error', { error: err.message });
-  process.exit(1);
+  process.exitCode = 1;
 });

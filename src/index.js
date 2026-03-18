@@ -3,6 +3,8 @@ const config = require('./utils/config');
 const logger = require('./utils/logger');
 const { testConnection } = require('./database/connection');
 
+let server = null;
+
 const start = async () => {
   logger.info('Starting Quickhire API server...');
 
@@ -12,7 +14,7 @@ const start = async () => {
     logger.warn('Database not available - starting in degraded mode');
   }
 
-  app.listen(config.port, () => {
+  server = app.listen(config.port, () => {
     logger.info(`Server running on port ${config.port} [${config.env}]`);
   });
 };
@@ -20,7 +22,15 @@ const start = async () => {
 // Graceful shutdown
 const shutdown = (signal) => {
   logger.info(`${signal} received. Shutting down gracefully...`);
-  process.exit(0);
+
+  if (server) {
+    server.close(() => {
+      process.exitCode = 0;
+    });
+    return;
+  }
+
+  process.exitCode = 0;
 };
 
 process.on('SIGTERM', () => shutdown('SIGTERM'));
