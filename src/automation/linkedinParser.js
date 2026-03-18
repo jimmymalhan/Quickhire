@@ -3,7 +3,6 @@
  * Extracts structured job data from LinkedIn job listing HTML
  */
 const crypto = require('crypto');
-const logger = require('../utils/logger');
 
 /**
  * Parse salary text into min/max numbers
@@ -34,12 +33,12 @@ const parseSalary = (salaryText) => {
   const singleMatch = cleaned.match(/\$?([\d.]+)\s*[kK]?/);
   if (singleMatch) {
     let amount = parseFloat(singleMatch[1]);
-    if (cleaned.toLowerCase().includes('k') || amount < 1000) {
-      amount *= 1000;
-    }
-    // Handle hourly rates
-    if (cleaned.toLowerCase().includes('/hr') || cleaned.toLowerCase().includes('hour')) {
+    const isHourly = cleaned.toLowerCase().includes('/hr') || cleaned.toLowerCase().includes('hour');
+    // Handle hourly rates first (before K notation check, since hourly values are small numbers)
+    if (isHourly) {
       amount = Math.round(amount * 2080); // 40hrs * 52 weeks
+    } else if (cleaned.toLowerCase().includes('k') || amount < 1000) {
+      amount *= 1000;
     }
     return { min: Math.round(amount), max: Math.round(amount) };
   }
@@ -54,9 +53,9 @@ const parseExperienceYears = (text) => {
   if (!text) {return null;}
 
   const patterns = [
+    /(\d+)\s*-\s*(\d+)\s*(?:years?|yrs?)/i,
     /(\d+)\+?\s*(?:years?|yrs?)(?:\s+of)?\s+(?:experience|exp)/i,
     /(?:experience|exp)(?:\s+of)?\s*:?\s*(\d+)\+?\s*(?:years?|yrs?)/i,
-    /(\d+)\s*-\s*(\d+)\s*(?:years?|yrs?)/i,
   ];
 
   for (const pattern of patterns) {

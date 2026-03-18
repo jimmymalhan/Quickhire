@@ -6,11 +6,11 @@ const { ScraperError } = require('../utils/errorCodes');
 
 class RetryHandler {
   constructor(options = {}) {
-    this.maxRetries = options.maxRetries || 3;
-    this.baseDelay = options.baseDelay || 1000;
-    this.maxDelay = options.maxDelay || 30000;
-    this.backoffMultiplier = options.backoffMultiplier || 2;
-    this.jitterFactor = options.jitterFactor || 0.1;
+    this.maxRetries = options.maxRetries ?? 3;
+    this.baseDelay = options.baseDelay ?? options.delayMs ?? 1000;
+    this.maxDelay = options.maxDelay ?? 30000;
+    this.backoffMultiplier = options.backoffMultiplier ?? 2;
+    this.jitterFactor = options.jitterFactor ?? 0.1;
   }
 
   /**
@@ -30,7 +30,7 @@ class RetryHandler {
         lastError = err;
 
         // Don't retry non-retryable errors
-        if (err instanceof ScraperError && !err.retryable) {
+        if ((err instanceof ScraperError && !err.retryable) || err.nonRetryable) {
           logger.warn('Non-retryable error, not retrying', {
             code: err.code,
             message: err.message,
@@ -110,4 +110,14 @@ class RetryHandler {
   }
 }
 
+/**
+ * Convenience wrapper: execute fn with retry options
+ */
+async function withRetry(fn, options = {}) {
+  const handler = new RetryHandler(options);
+  return handler.execute(fn);
+}
+
 module.exports = RetryHandler;
+module.exports.RetryHandler = RetryHandler;
+module.exports.withRetry = withRetry;

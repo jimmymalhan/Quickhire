@@ -6,6 +6,7 @@
 const logger = require('../utils/logger');
 
 const BROWSER_ENGINES = {
+  MOCK: 'mock',
   PUPPETEER: 'puppeteer',
   PLAYWRIGHT: 'playwright',
 };
@@ -18,9 +19,11 @@ class BrowserManager {
       options.userAgent ||
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
     this.timeout = options.timeout || 30000;
+    this.fixtureHtml = options.fixtureHtml || '';
     this.browser = null;
     this.page = null;
     this._lib = null;
+    this._mockState = null;
   }
 
   /**
@@ -53,6 +56,28 @@ class BrowserManager {
    * Launch browser instance
    */
   async launch() {
+    if (this.engine === BROWSER_ENGINES.MOCK) {
+      this._mockState = {
+        html: this.fixtureHtml || '<html><head><title>Mock Browser</title></head><body></body></html>',
+        url: 'about:blank',
+        userAgent: this.userAgent,
+        viewport: { width: 1920, height: 1080 },
+        timeout: this.timeout,
+      };
+
+      this.page = this._createMockPage();
+      this.browser = {
+        close: async () => {
+          this.browser = null;
+          this.page = null;
+          this._mockState = null;
+        },
+      };
+
+      logger.info('Mock browser launched', { engine: this.engine, headless: this.headless });
+      return this.page;
+    }
+
     const lib = await this._loadLibrary();
 
     const launchOptions = {
@@ -140,12 +165,12 @@ class BrowserManager {
     if (!this.page) {throw new Error('Browser not launched');}
 
     for (let i = 0; i < maxScrolls; i++) {
-      const previousHeight = await this.evaluate(() => document.body.scrollHeight);
+      const previousHeight = await this.evaluate(() => globalThis.document.body.scrollHeight);
 
-      await this.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await this.evaluate(() => globalThis.window.scrollTo(0, globalThis.document.body.scrollHeight));
       await this._delay(delayMs);
 
-      const newHeight = await this.evaluate(() => document.body.scrollHeight);
+      const newHeight = await this.evaluate(() => globalThis.document.body.scrollHeight);
       if (newHeight === previousHeight) {
         break;
       }
@@ -168,6 +193,7 @@ class BrowserManager {
       await this.browser.close();
       this.browser = null;
       this.page = null;
+      this._mockState = null;
       logger.debug('Browser closed');
     }
   }
@@ -181,6 +207,89 @@ class BrowserManager {
 
   async _delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  _createMockPage() {
+    const manager = this;
+
+    return {
+      setUserAgent: async (userAgent) => {
+        manager._mockState.userAgent = userAgent;
+      },
+      setViewport: async (viewport) => {
+        manager._mockState.viewport = viewport;
+      },
+      setDefaultTimeout: (timeout) => {
+        manager._mockState.timeout = timeout;
+      },
+      goto: async (url) => {
+        manager._mockState.url = url;
+        return undefined;
+      },
+      waitForSelector: async (selector) => {
+        if (!manager._selectorExists(selector)) {
+          throw new Error(`Selector not found: ${selector}`);
+        }
+        return undefined;
+      },
+      content: async () => manager._mockState.html,
+      evaluate: async (fn, ...args) => manager._evaluateInMockContext(fn, args),
+    };
+  }
+
+  _selectorExists(selector) {
+    const html = this._mockState?.html || '';
+    if (!selector) {return false;}
+
+    if (selector.startsWith('#')) {
+      const id = selector.slice(1);
+      return html.includes(`id="${id}"`) || html.includes(`id='${id}'`);
+    }
+
+    if (selector.startsWith('.')) {
+      const className = selector.slice(1);
+      return html.includes(`class="${className}`) || html.includes(`class='${className}`);
+    }
+
+    if (selector.startsWith('[') && selector.endsWith(']')) {
+      return html.includes(selector.replace(/\s+/g, ''));
+    }
+
+    return html.includes(`<${selector}`) || html.includes(`</${selector}>`);
+  }
+
+  _evaluateInMockContext(fn, args) {
+    const previousDocument = global.document;
+    const previousWindow = global.window;
+    const document = {
+      title: this._extractTitle(),
+      body: {
+        scrollHeight: this._mockState?.html ? this._mockState.html.length : 0,
+      },
+      querySelector: (selector) => (
+        this._selectorExists(selector)
+          ? { selector }
+          : null
+      ),
+    };
+    const window = {
+      scrollTo: () => undefined,
+    };
+
+    try {
+      global.document = document;
+      global.window = window;
+      return fn(...args);
+    } finally {
+      global.document = previousDocument;
+      global.window = previousWindow;
+    }
+  }
+
+  _extractTitle() {
+    const html = this._mockState?.html || '';
+    const match = html.match(/<title>(.*?)<\/title>/i);
+    return match ? match[1] : '';
   }
 }
 

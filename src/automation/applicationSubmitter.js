@@ -22,8 +22,8 @@ const getRateLimiter = () => {
     rateLimiter = new ApplicationRateLimiter({
       maxPerHourPerCompany: 8,
       maxPerHourGlobal: 25,
-      maxPerDayGlobal: config.application.maxPerDay || 50,
-      minIntervalMs: (config.application.minIntervalSeconds || 60) * 1000,
+      maxPerDayGlobal: config.application.maxPerDay ?? 50,
+      minIntervalMs: (config.application.minIntervalSeconds ?? 60) * 1000,
     });
   }
   return rateLimiter;
@@ -64,7 +64,7 @@ const submitApplication = async (userId, jobId, options = {}) => {
 
   // Step 1: Check daily cap (from database)
   const todayCount = await Application.countTodayByUser(userId);
-  const maxPerDay = dailyLimit || config.application.maxPerDay;
+  const maxPerDay = dailyLimit ?? config.application.maxPerDay;
   if (todayCount >= maxPerDay) {
     throw new AppError(
       ERROR_CODES.APPLICATION_LIMIT_REACHED,
@@ -128,12 +128,17 @@ const submitApplication = async (userId, jobId, options = {}) => {
     mockDelay: config.features.mockLinkedIn ? 50 : 0,
   });
 
+  // In mock mode, provide default profile data if none supplied
+  const effectiveProfile = config.features.mockLinkedIn && !userProfile.firstName
+    ? { firstName: 'Test', lastName: 'User', email: 'test@mock.example.com', ...userProfile }
+    : userProfile;
+
   while (attempts < maxAttempts) {
     attempts++;
     try {
       const submissionResult = await submitter.submit({
         job: job || { id: jobId },
-        userProfile,
+        userProfile: effectiveProfile,
         resumePath,
         coverLetter,
       });

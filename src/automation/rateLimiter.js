@@ -1,126 +1,199 @@
 /**
- * Rate Limiter for LinkedIn scraping
- * Token bucket + sliding window implementation
+ * Rate Limiter for LinkedIn application submissions
+ * Per-company and global rate limiting with sliding window tracking
  */
 const logger = require('../utils/logger');
 
+const DEFAULT_OPTIONS = {
+  maxPerHourPerCompany: 8,
+  maxPerHourGlobal: 25,
+  maxPerDayGlobal: 200,
+  minIntervalMs: 30000,
+  cooldownMs: 300000,
+};
+
 class RateLimiter {
   constructor(options = {}) {
-    this.maxRequestsPerMinute = options.maxPerMinute || 10;
-    this.maxRequestsPerHour = options.maxPerHour || 200;
-    this.minDelay = options.minDelay || 2000;
-    this.maxDelay = options.maxDelay || 10000;
+    this.options = { ...DEFAULT_OPTIONS, ...options };
 
-    // Sliding window tracking
+    // Sliding window tracking (company-level)
+    this.companyBuckets = new Map();
+    this.globalBucket = [];
+    this.dailyCount = 0;
+    this.lastSubmissionTime = 0;
+    this.cooldownUntil = 0;
+
+    // Legacy scraper-level tracking
+    this.maxRequestsPerMinute = options.maxPerMinute ?? 10;
+    this.maxRequestsPerHour = options.maxPerHour ?? 200;
+    this.minDelay = options.minDelay ?? 2000;
+    this.maxDelay = options.maxDelay ?? 10000;
     this.minuteWindow = [];
     this.hourWindow = [];
-
-    // Token bucket
     this.tokens = this.maxRequestsPerMinute;
     this.lastRefill = Date.now();
-
-    // Backoff state
     this.consecutiveErrors = 0;
     this.backoffUntil = 0;
   }
 
   /**
-   * Wait until a request can be made
+   * Check if a submission can proceed for a given company
+   * @param {string|null} companyId
+   * @returns {{ allowed: boolean, reason?: string, retryAfterMs?: number }}
    */
-  async acquire() {
-    // Check backoff
-    if (Date.now() < this.backoffUntil) {
-      const waitTime = this.backoffUntil - Date.now();
-      logger.debug('Rate limiter backoff', { waitMs: waitTime });
-      await this._sleep(waitTime);
-    }
-
-    // Refill tokens
-    this._refillTokens();
-
-    // Wait for available token
-    while (this.tokens <= 0 || this._isHourlyLimitReached()) {
-      const waitTime = this._calculateWaitTime();
-      logger.debug('Rate limiter waiting', { waitMs: waitTime, tokens: this.tokens });
-      await this._sleep(waitTime);
-      this._refillTokens();
-    }
-
-    // Consume token
-    this.tokens--;
+  canSubmit(companyId) {
     const now = Date.now();
-    this.minuteWindow.push(now);
-    this.hourWindow.push(now);
 
-    // Clean old entries
-    this._cleanWindows();
+    // Check cooldown
+    if (now < this.cooldownUntil) {
+      return {
+        allowed: false,
+        reason: 'cooldown_active',
+        retryAfterMs: this.cooldownUntil - now,
+      };
+    }
 
-    // Add jitter delay
-    const jitter = this.minDelay + Math.random() * (this.maxDelay - this.minDelay);
-    await this._sleep(jitter);
+    // Check min interval
+    if (this.lastSubmissionTime > 0) {
+      const elapsed = now - this.lastSubmissionTime;
+      if (elapsed < this.options.minIntervalMs) {
+        return {
+          allowed: false,
+          reason: 'min_interval',
+          retryAfterMs: this.options.minIntervalMs - elapsed,
+        };
+      }
+    }
+
+    // Check company hourly limit
+    if (companyId) {
+      const key = companyId.toLowerCase();
+      const companyTimestamps = this.companyBuckets.get(key) || [];
+      const hourAgo = now - 3600000;
+      const recentCompany = companyTimestamps.filter(t => t > hourAgo);
+      if (recentCompany.length >= this.options.maxPerHourPerCompany) {
+        return {
+          allowed: false,
+          reason: 'company_hourly_limit',
+          retryAfterMs: recentCompany[0] + 3600000 - now,
+        };
+      }
+    }
+
+    // Check global hourly limit
+    const hourAgo = now - 3600000;
+    const recentGlobal = this.globalBucket.filter(t => t > hourAgo);
+    if (recentGlobal.length >= this.options.maxPerHourGlobal) {
+      return {
+        allowed: false,
+        reason: 'global_hourly_limit',
+        retryAfterMs: recentGlobal[0] + 3600000 - now,
+      };
+    }
+
+    // Check daily limit
+    if (this.dailyCount >= this.options.maxPerDayGlobal) {
+      return {
+        allowed: false,
+        reason: 'daily_limit_reached',
+        retryAfterMs: 0,
+      };
+    }
+
+    return { allowed: true };
   }
 
   /**
-   * Report a successful request
+   * Record a submission for a given company
+   * @param {string|null} companyId
+   */
+  recordSubmission(companyId) {
+    const now = Date.now();
+    this.lastSubmissionTime = now;
+    this.dailyCount++;
+    this.globalBucket.push(now);
+
+    if (companyId) {
+      const key = companyId.toLowerCase();
+      if (!this.companyBuckets.has(key)) {
+        this.companyBuckets.set(key, []);
+      }
+      this.companyBuckets.get(key).push(now);
+    }
+
+    logger.debug('Rate limiter recorded submission', {
+      companyId,
+      dailyCount: this.dailyCount,
+      globalBucketSize: this.globalBucket.length,
+    });
+  }
+
+  /**
+   * Activate cooldown period
+   * @param {number} [durationMs] - Duration in ms, defaults to options.cooldownMs
+   */
+  activateCooldown(durationMs) {
+    const duration = durationMs !== undefined ? durationMs : this.options.cooldownMs;
+    this.cooldownUntil = Date.now() + duration;
+    logger.warn('Rate limiter cooldown activated', { durationMs: duration });
+  }
+
+  /**
+   * Get the wait time before a submission can proceed
+   * @param {string|null} companyId
+   * @returns {number} milliseconds to wait (0 if can proceed now)
+   */
+  getWaitTime(companyId) {
+    const result = this.canSubmit(companyId);
+    if (result.allowed) {
+      return 0;
+    }
+    return result.retryAfterMs || 0;
+  }
+
+  /**
+   * Legacy: check if can proceed (scraper-level)
+   */
+  canProceed() {
+    if (Date.now() < this.backoffUntil) {
+      return false;
+    }
+    this._refillTokens();
+    return this.tokens > 0;
+  }
+
+  /**
+   * Legacy: acquire a token (scraper-level)
+   */
+  async acquire() {
+    this._refillTokens();
+    this.tokens = Math.max(0, this.tokens - 1);
+    const now = Date.now();
+    this.minuteWindow.push(now);
+    this.hourWindow.push(now);
+    // Clean old entries
+    const oneMinuteAgo = now - 60000;
+    const oneHourAgo = now - 3600000;
+    this.minuteWindow = this.minuteWindow.filter((t) => t > oneMinuteAgo);
+    this.hourWindow = this.hourWindow.filter((t) => t > oneHourAgo);
+  }
+
+  /**
+   * Legacy: report a successful request
    */
   reportSuccess() {
     this.consecutiveErrors = Math.max(0, this.consecutiveErrors - 1);
   }
 
   /**
-   * Report a failed request (triggers exponential backoff)
+   * Legacy: report an error
    */
   reportError(isRateLimit = false) {
     this.consecutiveErrors++;
-
-    if (isRateLimit) {
-      // Aggressive backoff for rate limit responses
-      const backoff = Math.min(300000, 30000 * Math.pow(2, this.consecutiveErrors));
-      this.backoffUntil = Date.now() + backoff;
-      logger.warn('Rate limit detected, backing off', { backoffMs: backoff, errors: this.consecutiveErrors });
-    } else {
-      const backoff = Math.min(60000, 5000 * Math.pow(2, this.consecutiveErrors - 1));
-      this.backoffUntil = Date.now() + backoff;
-    }
+    const baseDelay = isRateLimit ? 60000 : 5000;
+    const backoff = baseDelay * Math.pow(2, this.consecutiveErrors - 1);
+    this.backoffUntil = Date.now() + Math.min(backoff, 300000);
   }
-
-  /**
-   * Check if we can make a request right now (non-blocking)
-   */
-  canProceed() {
-    if (Date.now() < this.backoffUntil) {return false;}
-    this._refillTokens();
-    return this.tokens > 0 && !this._isHourlyLimitReached();
-  }
-
-  /**
-   * Get current rate limiter status
-   */
-  getStatus() {
-    this._cleanWindows();
-    return {
-      availableTokens: Math.max(0, this.tokens),
-      requestsLastMinute: this.minuteWindow.length,
-      requestsLastHour: this.hourWindow.length,
-      isBackedOff: Date.now() < this.backoffUntil,
-      backoffRemaining: Math.max(0, this.backoffUntil - Date.now()),
-      consecutiveErrors: this.consecutiveErrors,
-    };
-  }
-
-  /**
-   * Reset the rate limiter state
-   */
-  reset() {
-    this.minuteWindow = [];
-    this.hourWindow = [];
-    this.tokens = this.maxRequestsPerMinute;
-    this.lastRefill = Date.now();
-    this.consecutiveErrors = 0;
-    this.backoffUntil = 0;
-  }
-
-  // --- Private ---
 
   _refillTokens() {
     const now = Date.now();
@@ -133,30 +206,72 @@ class RateLimiter {
   }
 
   _isHourlyLimitReached() {
-    this._cleanWindows();
-    return this.hourWindow.length >= this.maxRequestsPerHour;
+    const oneHourAgo = Date.now() - 3600000;
+    const recentRequests = this.hourWindow.filter((t) => t > oneHourAgo);
+    return recentRequests.length >= this.maxRequestsPerHour;
   }
 
-  _calculateWaitTime() {
-    if (this._isHourlyLimitReached()) {
-      // Wait until oldest hourly request expires
-      return Math.max(1000, this.hourWindow[0] + 3600000 - Date.now());
-    }
-    return Math.max(1000, 60000 / this.maxRequestsPerMinute);
-  }
-
-  _cleanWindows() {
+  /**
+   * Get comprehensive status
+   */
+  getStatus() {
     const now = Date.now();
-    const minuteAgo = now - 60000;
     const hourAgo = now - 3600000;
+    const recentGlobal = this.globalBucket.filter(t => t > hourAgo);
 
-    this.minuteWindow = this.minuteWindow.filter(t => t > minuteAgo);
-    this.hourWindow = this.hourWindow.filter(t => t > hourAgo);
+    const companyStats = {};
+    for (const [key, timestamps] of this.companyBuckets.entries()) {
+      const recentCompany = timestamps.filter(t => t > hourAgo);
+      companyStats[key] = {
+        hourlyCount: recentCompany.length,
+        hourlyRemaining: Math.max(0, this.options.maxPerHourPerCompany - recentCompany.length),
+      };
+    }
+
+    // Clean legacy windows
+    const oneMinuteAgo = now - 60000;
+    const recentMinute = this.minuteWindow.filter((t) => t > oneMinuteAgo);
+    const recentHour = this.hourWindow.filter((t) => t > hourAgo);
+
+    return {
+      // New application-level fields
+      dailyCount: this.dailyCount,
+      dailyRemaining: Math.max(0, this.options.maxPerDayGlobal - this.dailyCount),
+      globalHourlyCount: recentGlobal.length,
+      globalHourlyRemaining: Math.max(0, this.options.maxPerHourGlobal - recentGlobal.length),
+      inCooldown: now < this.cooldownUntil,
+      cooldownRemainingMs: Math.max(0, this.cooldownUntil - now),
+      companyStats,
+      lastSubmissionTime: this.lastSubmissionTime > 0 ? new Date(this.lastSubmissionTime) : null,
+      // Legacy scraper-level fields
+      availableTokens: this.tokens,
+      requestsLastMinute: recentMinute.length,
+      requestsLastHour: recentHour.length,
+      isBackedOff: now < this.backoffUntil,
+      backoffRemaining: Math.max(0, this.backoffUntil - now),
+      consecutiveErrors: this.consecutiveErrors,
+    };
   }
 
-  _sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  /**
+   * Reset all state
+   */
+  reset() {
+    this.companyBuckets = new Map();
+    this.globalBucket = [];
+    this.dailyCount = 0;
+    this.lastSubmissionTime = 0;
+    this.cooldownUntil = 0;
+    // Legacy
+    this.minuteWindow = [];
+    this.hourWindow = [];
+    this.tokens = this.maxRequestsPerMinute;
+    this.lastRefill = Date.now();
+    this.consecutiveErrors = 0;
+    this.backoffUntil = 0;
   }
 }
 
 module.exports = RateLimiter;
+module.exports.RateLimiter = RateLimiter;
+module.exports.DEFAULT_OPTIONS = DEFAULT_OPTIONS;

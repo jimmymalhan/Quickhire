@@ -184,7 +184,7 @@ class LinkedInFormSubmitter {
     const payload = filler.generatePayload(fields.map(f => f.name));
 
     // Require at minimum: name and email
-    const hasMinimum = payload.first_name && payload.last_name && payload.email;
+    const hasMinimum = !!(payload.first_name && payload.last_name && payload.email);
 
     return {
       success: hasMinimum,
@@ -208,7 +208,7 @@ class LinkedInFormSubmitter {
   /**
    * Execute the actual submission (mock or real)
    */
-  async _executeSubmission({ job, formData, resumeData, coverLetter }) {
+  async _executeSubmission({ job, formData, resumeData: _resumeData, coverLetter: _coverLetter }) {
     if (this.mockMode) {
       return this._mockSubmission(job, formData);
     }
@@ -221,7 +221,7 @@ class LinkedInFormSubmitter {
   /**
    * Mock submission for development/testing
    */
-  async _mockSubmission(job, formData) {
+  async _mockSubmission(_job, _formData) {
     if (this.mockDelay > 0) {
       await new Promise(resolve => setTimeout(resolve, this.mockDelay));
     }
@@ -281,6 +281,7 @@ class LinkedInFormSubmitter {
       LINKEDIN_ERRORS.ALREADY_APPLIED,
       LINKEDIN_ERRORS.JOB_CLOSED,
       LINKEDIN_ERRORS.FORM_VALIDATION,
+      'form_fill_failed',
     ].includes(errorType);
   }
 

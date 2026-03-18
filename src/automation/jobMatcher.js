@@ -14,7 +14,7 @@ const calculateMatchScore = (job, preferences) => {
       score += 40;
     }
   } else {
-    score += 20; // Neutral if no preference
+    score += 25; // Neutral if no preference
   }
 
   // Location matching (20 points)

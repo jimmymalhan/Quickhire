@@ -3,6 +3,8 @@ const path = require('path');
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
+const defaultRuntimeStateDir = path.resolve('/tmp/local-agent-runtime-quickhire/state');
+
 const config = {
   env: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.PORT, 10) || 8000,
@@ -75,6 +77,10 @@ const config = {
     sessionSecret: process.env.SESSION_SECRET || 'dev-session-secret',
     bcryptRounds: parseInt(process.env.BCRYPT_ROUNDS, 10) || 12,
     encryptionKey: process.env.ENCRYPTION_KEY,
+  },
+
+  runtime: {
+    stateDir: process.env.LOCAL_AGENT_RUNTIME_STATE_DIR || defaultRuntimeStateDir,
   },
 };
 

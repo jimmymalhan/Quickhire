@@ -16,20 +16,20 @@ const JobModel = require('../database/models/Job');
 class JobScraper {
   constructor(options = {}) {
     this.rateLimiter = new RateLimiter({
-      maxPerMinute: options.maxPerMinute || config.rateLimit?.maxRequests || 10,
-      maxPerHour: options.maxPerHour || 200,
-      minDelay: options.minDelay || 2000,
-      maxDelay: options.maxDelay || 8000,
+      maxPerMinute: options.maxPerMinute ?? config.rateLimit?.maxRequests ?? 10,
+      maxPerHour: options.maxPerHour ?? 200,
+      minDelay: options.minDelay ?? 2000,
+      maxDelay: options.maxDelay ?? 8000,
     });
 
     this.retryHandler = new RetryHandler({
-      maxRetries: options.maxRetries || config.application?.retryAttempts || 3,
-      baseDelay: options.retryDelay || config.application?.retryDelayMs || 5000,
+      maxRetries: options.maxRetries ?? config.application?.retryAttempts ?? 3,
+      baseDelay: options.retryDelay ?? config.application?.retryDelayMs ?? 5000,
       maxDelay: 30000,
     });
 
-    this.timeout = options.timeout || 30000;
-    this.maxJobsPerSearch = options.maxJobsPerSearch || 100;
+    this.timeout = options.timeout ?? 30000;
+    this.maxJobsPerSearch = options.maxJobsPerSearch ?? 100;
     this.userAgents = [
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -53,7 +53,7 @@ class JobScraper {
    */
   async scrapeJobs(searchParams) {
     this.metrics.startTime = Date.now();
-    const { keywords, location, jobType, experienceLevel, datePosted } = searchParams;
+    const { keywords, location, datePosted } = searchParams;
 
     logger.info('Starting job scrape', { keywords, location });
 
@@ -67,7 +67,8 @@ class JobScraper {
 
     const allJobs = [];
     let page = 0;
-    const maxPages = Math.ceil(this.maxJobsPerSearch / 25);
+    const pageSize = 25;
+    const maxPages = Math.ceil(this.maxJobsPerSearch / pageSize);
 
     while (page < maxPages) {
       try {
@@ -77,7 +78,7 @@ class JobScraper {
         allJobs.push(...pageJobs);
         page++;
 
-        if (allJobs.length >= this.maxJobsPerSearch) {break;}
+        if (pageJobs.length < pageSize || allJobs.length >= this.maxJobsPerSearch) {break;}
       } catch (err) {
         logger.error('Page scrape failed, stopping pagination', { page, error: err.message });
         break;
