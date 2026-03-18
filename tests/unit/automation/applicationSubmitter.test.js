@@ -54,8 +54,6 @@ const Application = require('../../../src/database/models/Application');
 const ApplicationLog = require('../../../src/database/models/ApplicationLog');
 const Job = require('../../../src/database/models/Job');
 const { submitApplication, submitBatch, getSubmissionStatus, _resetInstances } = require('../../../src/automation/applicationSubmitter');
-const { AppError } = require('../../../src/utils/errorCodes');
-
 describe('applicationSubmitter', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -147,13 +145,10 @@ describe('applicationSubmitter', () => {
     it('throws AppError with correct code when limit reached', async () => {
       Application.countTodayByUser.mockResolvedValue(50);
 
-      try {
-        await submitApplication('user-1', 'job-1');
-        fail('Should have thrown');
-      } catch (err) {
-        expect(err).toBeInstanceOf(AppError);
-        expect(err.code).toBe('APPLICATION_LIMIT_REACHED');
-      }
+      await expect(submitApplication('user-1', 'job-1')).rejects.toMatchObject({
+        name: 'AppError',
+        code: 'APPLICATION_LIMIT_REACHED',
+      });
     });
 
     it('accepts options object with userProfile and coverLetter', async () => {

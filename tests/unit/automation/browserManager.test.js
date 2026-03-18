@@ -87,6 +87,39 @@ describe('BrowserManager', () => {
     });
   });
 
+  describe('mock engine', () => {
+    it('should launch a local fixture page without external browser libraries', async () => {
+      const fixtureHtml = `
+        <html>
+          <head><title>Local Fixture</title></head>
+          <body>
+            <main>
+              <h1 id="apply-title">Apply Now</h1>
+              <button class="submit-button">Submit</button>
+            </main>
+          </body>
+        </html>
+      `;
+
+      manager = new BrowserManager({
+        engine: BROWSER_ENGINES.MOCK,
+        fixtureHtml,
+      });
+
+      const page = await manager.launch();
+      await manager.navigate('http://local.test/fixture');
+      await manager.waitForSelector('#apply-title');
+
+      expect(page).toBeTruthy();
+      expect(await page.content()).toContain('Apply Now');
+      expect(await manager.evaluate(() => globalThis.document.title)).toBe('Local Fixture');
+      expect(manager.isRunning()).toBe(true);
+
+      await manager.close();
+      expect(manager.isRunning()).toBe(false);
+    });
+  });
+
   describe('launch with Puppeteer', () => {
     beforeEach(() => {
       manager = new BrowserManager({ engine: 'puppeteer' });
@@ -205,7 +238,7 @@ describe('BrowserManager', () => {
     });
 
     it('should evaluate function in page context', async () => {
-      const fn = () => document.title;
+      const fn = () => globalThis.document.title;
       await manager.evaluate(fn);
       expect(manager.page.evaluate).toHaveBeenCalledWith(fn);
     });
@@ -306,6 +339,7 @@ describe('BrowserManager', () => {
 
   describe('BROWSER_ENGINES', () => {
     it('should export engine constants', () => {
+      expect(BROWSER_ENGINES.MOCK).toBe('mock');
       expect(BROWSER_ENGINES.PUPPETEER).toBe('puppeteer');
       expect(BROWSER_ENGINES.PLAYWRIGHT).toBe('playwright');
     });

@@ -5,10 +5,18 @@ jest.mock('../../../src/database/models/Job');
 jest.mock('../../../src/automation/applicationSubmitter');
 jest.mock('../../../src/automation/jobMatcher');
 jest.mock('../../../src/database/connection');
-jest.mock('../../../src/utils/logger');
+jest.mock('../../../src/utils/logger', () => ({
+  info: jest.fn(),
+  debug: jest.fn(),
+  warn: jest.fn(),
+  error: jest.fn(),
+}));
 jest.mock('../../../src/utils/config', () => ({
   application: { maxPerDay: 50, retryAttempts: 3, retryDelayMs: 100, minIntervalSeconds: 60 },
   features: { mockLinkedIn: true },
+  logging: { level: 'info' },
+  db: { host: 'localhost', port: 5432, name: 'test' },
+  redis: { host: 'localhost', port: 6379 },
 }));
 
 const {
