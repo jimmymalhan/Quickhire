@@ -283,5 +283,56 @@ develop:
 
 ---
 
-Last Updated: 2026-03-09
-Approval: Team Lead
+## 12. USER FEEDBACK & REQUIREMENTS (Jimmy Malhan)
+
+### Execution Model
+- ✓ Local agents do ALL work (zero Claude/Codex/Cursor tokens during execution)
+- ✓ Claude only for planning/approval, never implementation
+- ✓ 90/10 split: local agents execute, Claude audits
+- ✓ Autonomous workflow: agents self-heal, fix own bugs
+- ✓ Continuous polling: status updates every 10 seconds
+
+### Commit & Merge Policy
+- ✓ Only contributor: Jimmy Malhan (verify author on all commits)
+- ✓ NEVER commit directly to main (PR-only workflow)
+- ✓ Feature branches → PR → test green → auto-merge on CI pass
+- ✓ All uncommitted changes pushed (no orphaned state)
+- ✓ Cleanup stale background jobs/processes after done
+
+### CI/CD Pipeline
+- ✓ Tests CANNOT be skipped (hardcoded, unconditional)
+- ✓ Lint MUST pass 100% (0 errors)
+- ✓ Build MUST succeed before merge
+- ✓ Auto-merge on CI green + auto-approve
+- ✓ GitHub Actions enforces all gates
+
+### Code Quality
+- ✓ All tests passing locally before PR
+- ✓ All tests passing in CI before merge
+- ✓ Code reviewed by agents (no manual review required for CI)
+- ✓ Linting fixes applied automatically where safe
+- ✓ No technical debt bypass
+
+### Agent Behavior
+- ✓ Agents self-update skills over time
+- ✓ Custom templates created for reuse (can export to other projects like Kiro)
+- ✓ Agents fix own issues (self-healing network)
+- ✓ Agents escalate to local-review-agent, never Claude
+- ✓ Org chart: session-chief → [ci-enforcer, test-agent, lint-agent, etc.]
+
+### Documentation
+- ✓ README updated with custom agents, sub-agents, MCPs, skills
+- ✓ Reusable templates exported for other projects
+- ✓ All feedback added to GUARDRAILS.md as rules
+- ✓ CHANGELOG updated per commit
+
+### Guardrail Enforcement
+- ✓ CLAUDE_ENABLED=false (hard block, no Claude in execution)
+- ✓ CLAUDE_FALLBACK=false (no Claude fallback)
+- ✓ LOCAL_AGENT_PRIMARY=true (local agents first, always)
+- ✓ Escalation target: local-review-agent (never Claude)
+
+---
+
+Last Updated: 2026-03-18
+Approval: Jimmy Malhan
