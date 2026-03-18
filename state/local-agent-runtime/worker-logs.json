@@ -1814,5 +1814,25 @@
     "ts": "2026-03-18T19:49:56.798Z",
     "level": "info",
     "msg": "cmd=cmd-merge-verify-1773863328734 done status=complete progress=97%"
+  },
+  {
+    "ts": "2026-03-18T19:50:01.780Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-final-cleanup-1773863328734 action=admin",
+    "commandId": "cmd-final-cleanup-1773863328734",
+    "prompt": "backlog-admin mark-complete-admin cleanup"
+  },
+  {
+    "ts": "2026-03-18T19:50:01.824Z",
+    "level": "info",
+    "msg": "cmd=cmd-final-cleanup-1773863328734 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-final-cleanup-1773863328734",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:50:01.825Z",
+    "level": "info",
+    "msg": "cmd=cmd-final-cleanup-1773863328734 done status=complete progress=100%"
   }
 ]
