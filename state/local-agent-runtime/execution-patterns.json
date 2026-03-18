@@ -1,5 +1,27 @@
 [
   {
+    "id": "pat-1773866594703",
+    "agentId": "test-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "RUN: npm test -- --passWithNoTests && npm run lint. Report: test count, lint error count, any failures. If tests fail, e",
+    "resultStatus": "failed",
+    "durationMs": 3364,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha test\n> jest --coverage --passWithNoTests\n\n{\"error\":\"Authentication required\",\"level\":\"error\",\"message\":\"Request error\",\"method\":\"GET\",\"path\":\"/api/jobs/search\",\"ser",
+    "recordedAt": "2026-03-18T20:43:14.703Z"
+  },
+  {
+    "id": "pat-1773866591337",
+    "agentId": "test-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "RUN: npm test -- --passWithNoTests && npm run lint. Report: test count, lint error count, any failures. If tests fail, e",
+    "resultStatus": "failed",
+    "durationMs": 3453,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha test\n> jest --coverage --passWithNoTests\n\n{\"error\":\"Authentication required\",\"level\":\"error\",\"message\":\"Request error\",\"method\":\"GET\",\"path\":\"/api/jobs/search\",\"ser",
+    "recordedAt": "2026-03-18T20:43:11.337Z"
+  },
+  {
     "id": "pat-1773866507879",
     "agentId": "git-agent",
     "action": "agent-chat",

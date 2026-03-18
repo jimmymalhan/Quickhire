@@ -2372,5 +2372,135 @@
     "ts": "2026-03-18T20:41:47.880Z",
     "level": "info",
     "msg": "cmd=cmd-merge-verify-2026-03-18 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T20:43:07.882Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-phase1-test-lint-2026-03-18 action=run",
+    "commandId": "cmd-phase1-test-lint-2026-03-18",
+    "prompt": "RUN: npm test -- --passWithNoTests && npm run lint. Report: "
+  },
+  {
+    "ts": "2026-03-18T20:43:11.338Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase1-test-lint-2026-03-18 → test-agent attempt=1/2 (failed)",
+    "commandId": "cmd-phase1-test-lint-2026-03-18",
+    "agentId": "test-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:43:11.338Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase1-test-lint-2026-03-18 proof-failed agent=test-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-phase1-test-lint-2026-03-18",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T20:43:14.703Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase1-test-lint-2026-03-18 → test-agent attempt=2/2 (failed)",
+    "commandId": "cmd-phase1-test-lint-2026-03-18",
+    "agentId": "test-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T20:43:14.703Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase1-test-lint-2026-03-18 proof-failed agent=test-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-phase1-test-lint-2026-03-18",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T20:43:14.703Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase1-test-lint-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-phase1-test-lint-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:14.703Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-phase1-test-lint-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:24.390Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-phase1-test-lint-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:24.391Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase1-test-lint-2026-03-18 done status=complete progress=14%"
+  },
+  {
+    "ts": "2026-03-18T20:43:27.886Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-phase2-fix-resumeparser-2026-03-18 action=feature",
+    "commandId": "cmd-phase2-fix-resumeparser-2026-03-18",
+    "prompt": "FIX: resumeParser._parseExperienceText() - tests expect pars"
+  },
+  {
+    "ts": "2026-03-18T20:43:27.887Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase2-fix-resumeparser-2026-03-18 no agent matched attempt=1/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-phase2-fix-resumeparser-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:27.889Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase2-fix-resumeparser-2026-03-18 no agent matched attempt=2/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-phase2-fix-resumeparser-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:27.889Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase2-fix-resumeparser-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-phase2-fix-resumeparser-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:27.889Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-phase2-fix-resumeparser-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:57.902Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase2-fix-resumeparser-2026-03-18 stuck for 30s — escalating",
+    "commandId": "cmd-phase2-fix-resumeparser-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:57.903Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-phase3-verify-ci-2026-03-18 action=run",
+    "commandId": "cmd-phase3-verify-ci-2026-03-18",
+    "prompt": "RUN: npm test -- --passWithNoTests && npm run lint && npm ru"
+  },
+  {
+    "ts": "2026-03-18T20:43:57.904Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase3-verify-ci-2026-03-18 no agent matched attempt=1/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-phase3-verify-ci-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:57.904Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase3-verify-ci-2026-03-18 no agent matched attempt=2/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-phase3-verify-ci-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:57.904Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase3-verify-ci-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-phase3-verify-ci-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:43:57.904Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-phase3-verify-ci-2026-03-18"
   }
 ]
