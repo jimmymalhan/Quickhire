@@ -332,6 +332,56 @@ develop:
 - ✓ LOCAL_AGENT_PRIMARY=true (local agents first, always)
 - ✓ Escalation target: local-review-agent (never Claude)
 
+## 13. LOCAL AGENTS ONLY EXECUTION (HARD RULE)
+
+### Claude Zero-Execution Model
+- ❌ **NEVER** execute work directly (Bash, Edit, Write, etc.)
+- ❌ **NEVER** spawn agents for multi-task coordination
+- ❌ Claude uses 0% tokens during execution phase
+- ✓ Claude queues work in orchestration-controls.json
+- ✓ Local agents execute all tasks autonomously
+- ✓ Local agents self-heal and fix own bugs
+- ✓ Escalation target: local-review-agent (never Claude)
+
+### Multi-Orchestrator Replica System
+- ✓ 4 orchestrator types: CI/CD, Git Ops, PR Review, Docs
+- ✓ 2+ replicas per orchestrator (fault tolerance)
+- ✓ Parallel execution: all orchestrators work simultaneously
+- ✓ Auto-failover: if primary crashes, replica takes over
+- ✓ Never-stop principle: system continues working even if one orchestrator fails
+- ✓ Work queues: test-queue, lint-queue, build-queue, git-branch-queue, etc.
+- ✓ Heartbeat monitoring: each orchestrator reports status every 30 seconds
+- ✓ System state: stored in orchestrator-system.json
+
+### Agent Network Organization
+- CEO Agent (1): Master orchestrator, queue management
+- CI-Enforcer Agent (1): Polls every 30s, validates tests/lint
+- Test Agents (50+): Run test suites, report failures
+- Lint Agents (10+): Run ESLint, enforce 0 errors
+- Git Agents (20+): Branch creation, commits, pushes
+- PR Agents (10+): Create/manage PRs
+- Merge Agents (5+): Auto-merge on CI green
+- Cleanup Agents (10+): Delete stale branches
+- Monitor Agents (5+): Poll GitHub Actions
+- Review Agents (20+): Code review, escalation
+- Documentation Agents (10+): Write/update docs
+- Backlog Agent (1): Continuous queue drain
+
+### When Claude Receives a Request
+1. **STOP** (do not execute)
+2. **READ** current state (understand context only)
+3. **QUEUE** work in orchestration-controls.json
+4. **STEP BACK** (let agents execute)
+5. Agents self-report progress to user (no Claude intermediary)
+
+### Hard Blocks
+- `CLAUDE_ENABLED=false` — No Claude execution
+- `CLAUDE_FALLBACK=false` — No fallback to Claude
+- `CLAUDE_TOKENS_ALLOWED=0` — Zero tokens during execution
+- `LOCAL_AGENTS_ONLY=true` — Local agents only, always
+
+**RESULT:** Infinite agent scalability. Zero token bloat. True autonomy.
+
 ---
 
 Last Updated: 2026-03-18
