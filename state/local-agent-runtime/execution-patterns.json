@@ -1,5 +1,115 @@
 [
   {
+    "id": "pat-1773863401824",
+    "agentId": "backlog-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "backlog-admin mark-complete-admin cleanup",
+    "resultStatus": "complete",
+    "durationMs": 43,
+    "outputSnippet": "No queued commands found.\n",
+    "recordedAt": "2026-03-18T19:50:01.824Z"
+  },
+  {
+    "id": "pat-1773863396797",
+    "agentId": "git-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "git merge main cleanup branch",
+    "resultStatus": "complete",
+    "durationMs": 23,
+    "outputSnippet": " M state/local-agent-runtime/agent-health.json\n M state/local-agent-runtime/execution-patterns.json\n M state/local-agent-runtime/orchestration-controls.json\n M state/local-agent-runtime/worker-logs.js",
+    "recordedAt": "2026-03-18T19:49:56.797Z"
+  },
+  {
+    "id": "pat-1773863376859",
+    "agentId": "health-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "git ci github workflow check",
+    "resultStatus": "failed",
+    "durationMs": 44,
+    "outputSnippet": "status:503",
+    "recordedAt": "2026-03-18T19:49:36.859Z"
+  },
+  {
+    "id": "pat-1773863376813",
+    "agentId": "health-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "git ci github workflow check",
+    "resultStatus": "failed",
+    "durationMs": 50,
+    "outputSnippet": "status:503",
+    "recordedAt": "2026-03-18T19:49:36.813Z"
+  },
+  {
+    "id": "pat-1773863367016",
+    "agentId": "build-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "build compile bundle",
+    "resultStatus": "failed",
+    "durationMs": 124,
+    "outputSnippet": "",
+    "recordedAt": "2026-03-18T19:49:27.016Z"
+  },
+  {
+    "id": "pat-1773863366891",
+    "agentId": "build-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "build compile bundle",
+    "resultStatus": "failed",
+    "durationMs": 128,
+    "outputSnippet": "",
+    "recordedAt": "2026-03-18T19:49:26.891Z"
+  },
+  {
+    "id": "pat-1773863355096",
+    "agentId": "lint-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "lint eslint quality",
+    "resultStatus": "failed",
+    "durationMs": 1591,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha lint\n> eslint src/ tests/ --ext .js\n\n\n/Users/jimmymalhan/Doc/Quickhire/src/api/controllers/runtimeController.js\n  290:9  error  'workflow' is assigned a value but n",
+    "recordedAt": "2026-03-18T19:49:15.096Z"
+  },
+  {
+    "id": "pat-1773863353504",
+    "agentId": "lint-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "lint eslint quality",
+    "resultStatus": "failed",
+    "durationMs": 1746,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha lint\n> eslint src/ tests/ --ext .js\n\n\n/Users/jimmymalhan/Doc/Quickhire/src/api/controllers/runtimeController.js\n  290:9  error  'workflow' is assigned a value but n",
+    "recordedAt": "2026-03-18T19:49:13.504Z"
+  },
+  {
+    "id": "pat-1773863339548",
+    "agentId": "test-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "test spec unit passing",
+    "resultStatus": "failed",
+    "durationMs": 3562,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha test\n> jest --coverage --passWithNoTests\n\n{\"context\":{},\"error\":\"always fails\",\"level\":\"error\",\"maxRetries\":3,\"message\":\"All retries exhausted\",\"service\":\"quickhire",
+    "recordedAt": "2026-03-18T19:48:59.548Z"
+  },
+  {
+    "id": "pat-1773863335983",
+    "agentId": "test-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "test spec unit passing",
+    "resultStatus": "failed",
+    "durationMs": 4229,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha test\n> jest --coverage --passWithNoTests\n\n{\"context\":{},\"error\":\"always fails\",\"level\":\"error\",\"maxRetries\":3,\"message\":\"All retries exhausted\",\"service\":\"quickhire",
+    "recordedAt": "2026-03-18T19:48:55.983Z"
+  },
+  {
     "id": "pat-1773863296792",
     "agentId": "backlog-agent",
     "action": "agent-chat",

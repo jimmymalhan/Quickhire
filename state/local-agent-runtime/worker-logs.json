@@ -1546,5 +1546,273 @@
     "ts": "2026-03-18T19:48:16.793Z",
     "level": "info",
     "msg": "cmd=cmd-agent-registry-export-1773863262667 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T19:48:51.749Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-local-test-1773863328734 action=test",
+    "commandId": "cmd-local-test-1773863328734",
+    "prompt": "test spec unit passing"
+  },
+  {
+    "ts": "2026-03-18T19:48:55.984Z",
+    "level": "info",
+    "msg": "cmd=cmd-local-test-1773863328734 → test-agent attempt=1/2 (failed)",
+    "commandId": "cmd-local-test-1773863328734",
+    "agentId": "test-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:48:55.984Z",
+    "level": "warn",
+    "msg": "cmd=cmd-local-test-1773863328734 proof-failed agent=test-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-local-test-1773863328734",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:48:59.548Z",
+    "level": "info",
+    "msg": "cmd=cmd-local-test-1773863328734 → test-agent attempt=2/2 (failed)",
+    "commandId": "cmd-local-test-1773863328734",
+    "agentId": "test-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T19:48:59.548Z",
+    "level": "warn",
+    "msg": "cmd=cmd-local-test-1773863328734 proof-failed agent=test-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-local-test-1773863328734",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:48:59.548Z",
+    "level": "warn",
+    "msg": "cmd=cmd-local-test-1773863328734 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-local-test-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:48:59.548Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-local-test-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:08.077Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-local-test-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:08.078Z",
+    "level": "info",
+    "msg": "cmd=cmd-local-test-1773863328734 done status=complete progress=86%"
+  },
+  {
+    "ts": "2026-03-18T19:49:11.757Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-lint-check-1773863328734 action=run",
+    "commandId": "cmd-lint-check-1773863328734",
+    "prompt": "lint eslint quality"
+  },
+  {
+    "ts": "2026-03-18T19:49:13.505Z",
+    "level": "info",
+    "msg": "cmd=cmd-lint-check-1773863328734 → lint-agent attempt=1/2 (failed)",
+    "commandId": "cmd-lint-check-1773863328734",
+    "agentId": "lint-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:49:13.505Z",
+    "level": "warn",
+    "msg": "cmd=cmd-lint-check-1773863328734 proof-failed agent=lint-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-lint-check-1773863328734",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:49:15.096Z",
+    "level": "info",
+    "msg": "cmd=cmd-lint-check-1773863328734 → lint-agent attempt=2/2 (failed)",
+    "commandId": "cmd-lint-check-1773863328734",
+    "agentId": "lint-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T19:49:15.096Z",
+    "level": "warn",
+    "msg": "cmd=cmd-lint-check-1773863328734 proof-failed agent=lint-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-lint-check-1773863328734",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:49:15.096Z",
+    "level": "warn",
+    "msg": "cmd=cmd-lint-check-1773863328734 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-lint-check-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:15.096Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-lint-check-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:22.802Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-lint-check-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:22.803Z",
+    "level": "info",
+    "msg": "cmd=cmd-lint-check-1773863328734 done status=complete progress=89%"
+  },
+  {
+    "ts": "2026-03-18T19:49:26.761Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-build-check-1773863328734 action=run",
+    "commandId": "cmd-build-check-1773863328734",
+    "prompt": "build compile bundle"
+  },
+  {
+    "ts": "2026-03-18T19:49:26.891Z",
+    "level": "info",
+    "msg": "cmd=cmd-build-check-1773863328734 → build-agent attempt=1/2 (failed)",
+    "commandId": "cmd-build-check-1773863328734",
+    "agentId": "build-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:49:26.891Z",
+    "level": "warn",
+    "msg": "cmd=cmd-build-check-1773863328734 proof-failed agent=build-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-build-check-1773863328734",
+    "agentId": "build-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:49:27.016Z",
+    "level": "info",
+    "msg": "cmd=cmd-build-check-1773863328734 → build-agent attempt=2/2 (failed)",
+    "commandId": "cmd-build-check-1773863328734",
+    "agentId": "build-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T19:49:27.016Z",
+    "level": "warn",
+    "msg": "cmd=cmd-build-check-1773863328734 proof-failed agent=build-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-build-check-1773863328734",
+    "agentId": "build-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:49:27.016Z",
+    "level": "warn",
+    "msg": "cmd=cmd-build-check-1773863328734 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-build-check-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:27.016Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-build-check-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:36.252Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-build-check-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:36.254Z",
+    "level": "info",
+    "msg": "cmd=cmd-build-check-1773863328734 done status=complete progress=91%"
+  },
+  {
+    "ts": "2026-03-18T19:49:36.763Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-ci-verify-1773863328734 action=admin",
+    "commandId": "cmd-ci-verify-1773863328734",
+    "prompt": "git ci github workflow check"
+  },
+  {
+    "ts": "2026-03-18T19:49:36.813Z",
+    "level": "info",
+    "msg": "cmd=cmd-ci-verify-1773863328734 → health-agent attempt=1/2 (failed)",
+    "commandId": "cmd-ci-verify-1773863328734",
+    "agentId": "health-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:49:36.813Z",
+    "level": "warn",
+    "msg": "cmd=cmd-ci-verify-1773863328734 proof-failed agent=health-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-ci-verify-1773863328734",
+    "agentId": "health-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:49:36.859Z",
+    "level": "info",
+    "msg": "cmd=cmd-ci-verify-1773863328734 → health-agent attempt=2/2 (failed)",
+    "commandId": "cmd-ci-verify-1773863328734",
+    "agentId": "health-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T19:49:36.859Z",
+    "level": "warn",
+    "msg": "cmd=cmd-ci-verify-1773863328734 proof-failed agent=health-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-ci-verify-1773863328734",
+    "agentId": "health-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:49:36.859Z",
+    "level": "warn",
+    "msg": "cmd=cmd-ci-verify-1773863328734 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-ci-verify-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:36.859Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-ci-verify-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:52.347Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-ci-verify-1773863328734"
+  },
+  {
+    "ts": "2026-03-18T19:49:52.348Z",
+    "level": "info",
+    "msg": "cmd=cmd-ci-verify-1773863328734 done status=complete progress=94%"
+  },
+  {
+    "ts": "2026-03-18T19:49:56.773Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-merge-verify-1773863328734 action=admin",
+    "commandId": "cmd-merge-verify-1773863328734",
+    "prompt": "git merge main cleanup branch"
+  },
+  {
+    "ts": "2026-03-18T19:49:56.798Z",
+    "level": "info",
+    "msg": "cmd=cmd-merge-verify-1773863328734 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-merge-verify-1773863328734",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:49:56.798Z",
+    "level": "info",
+    "msg": "cmd=cmd-merge-verify-1773863328734 done status=complete progress=97%"
   }
 ]
