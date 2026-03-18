@@ -35,6 +35,8 @@ export const PAGE_SIZES = [10, 20, 50, 100] as const;
 
 export const NAV_ITEMS = [
   { path: '/', label: 'Dashboard', icon: 'home' },
+  { path: '/tracker', label: 'Tracker', icon: 'chart' },
+  { path: '/clawbot', label: 'Clawbot', icon: 'bot' },
   { path: '/applications', label: 'Applications', icon: 'briefcase' },
   { path: '/analytics', label: 'Analytics', icon: 'chart' },
   { path: '/settings', label: 'Settings', icon: 'settings' },

@@ -4,6 +4,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 import AuthCallbackPage from './pages/AuthCallbackPage';
 import DashboardPage from './pages/DashboardPage';
+import TrackerPage from './pages/TrackerPage';
+import ClawbotPage from './pages/ClawbotPage';
 import ApplicationsPage from './pages/ApplicationsPage';
 import SettingsPage from './pages/SettingsPage';
 import AnalyticsPage from './pages/AnalyticsPage';
@@ -25,6 +27,8 @@ function App() {
           }
         >
           <Route index element={<DashboardPage />} />
+          <Route path="tracker" element={<TrackerPage />} />
+          <Route path="clawbot" element={<ClawbotPage />} />
           <Route path="applications" element={<ApplicationsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
