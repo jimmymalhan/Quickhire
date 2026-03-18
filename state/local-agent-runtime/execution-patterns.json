@@ -1,5 +1,82 @@
 [
   {
+    "id": "pat-1773866838328",
+    "agentId": "build-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "RUN: npm run build. Report: success/failure. If success, continue. If fail, escalate.",
+    "resultStatus": "failed",
+    "durationMs": 128,
+    "outputSnippet": "",
+    "recordedAt": "2026-03-18T20:47:18.328Z"
+  },
+  {
+    "id": "pat-1773866838199",
+    "agentId": "build-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "RUN: npm run build. Report: success/failure. If success, continue. If fail, escalate.",
+    "resultStatus": "failed",
+    "durationMs": 182,
+    "outputSnippet": "",
+    "recordedAt": "2026-03-18T20:47:18.199Z"
+  },
+  {
+    "id": "pat-1773866816628",
+    "agentId": "lint-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "RUN: npm run lint. Report: error count. Must be ≤6 (current acceptable level). If higher, escalate.",
+    "resultStatus": "failed",
+    "durationMs": 1610,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha lint\n> eslint src/ tests/ --ext .js\n\n\n/Users/jimmymalhan/Doc/Quickhire/src/api/controllers/runtimeController.js\n  290:9  error  'workflow' is assigned a value but n",
+    "recordedAt": "2026-03-18T20:46:56.628Z"
+  },
+  {
+    "id": "pat-1773866815015",
+    "agentId": "lint-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "RUN: npm run lint. Report: error count. Must be ≤6 (current acceptable level). If higher, escalate.",
+    "resultStatus": "failed",
+    "durationMs": 2017,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha lint\n> eslint src/ tests/ --ext .js\n\n\n/Users/jimmymalhan/Doc/Quickhire/src/api/controllers/runtimeController.js\n  290:9  error  'workflow' is assigned a value but n",
+    "recordedAt": "2026-03-18T20:46:55.015Z"
+  },
+  {
+    "id": "pat-1773866795146",
+    "agentId": "test-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "TEST: npm test -- tests/unit/automation/resumeParser.test.js. Report: Pass/fail count. If PASS, continue. If FAIL, escal",
+    "resultStatus": "failed",
+    "durationMs": 3366,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha test\n> jest --coverage --passWithNoTests\n\n{\"error\":\"Authentication required\",\"level\":\"error\",\"message\":\"Request error\",\"method\":\"GET\",\"path\":\"/api/jobs/search\",\"ser",
+    "recordedAt": "2026-03-18T20:46:35.146Z"
+  },
+  {
+    "id": "pat-1773866791777",
+    "agentId": "test-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "TEST: npm test -- tests/unit/automation/resumeParser.test.js. Report: Pass/fail count. If PASS, continue. If FAIL, escal",
+    "resultStatus": "failed",
+    "durationMs": 3791,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha test\n> jest --coverage --passWithNoTests\n\n{\"error\":\"Authentication required\",\"level\":\"error\",\"message\":\"Request error\",\"method\":\"GET\",\"path\":\"/api/jobs/search\",\"ser",
+    "recordedAt": "2026-03-18T20:46:31.777Z"
+  },
+  {
+    "id": "pat-1773866783025",
+    "agentId": "git-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "FIX resumeParser._parseExperienceText(text). Parse text blocks where line[0]=title, line[1]=company. Find line with '20X",
+    "resultStatus": "complete",
+    "durationMs": 30,
+    "outputSnippet": " M state/local-agent-runtime/orchestration-controls.json\n M state/local-agent-runtime/worker-state.json\n",
+    "recordedAt": "2026-03-18T20:46:23.025Z"
+  },
+  {
     "id": "pat-1773866687955",
     "agentId": "git-agent",
     "action": "agent-chat",
