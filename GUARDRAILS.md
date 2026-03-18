@@ -251,15 +251,35 @@ develop:
 
 ---
 
-## 10. ENFORCEMENT
+## 10. CI/CD ENFORCEMENT (HARD RULES)
+
+### Tests in CI
+- ❌ **NEVER** skip or disable tests in CI pipeline
+- ❌ **NEVER** use `--passWithNoTests` as an escape hatch
+- ✓ All tests MUST run on every PR
+- ✓ Tests MUST pass (exit code 0) or merge is BLOCKED
+- ✓ Auto-merge requires: test pass + lint pass
+- ✓ No bypass: tests are hardcoded, not conditional
+
+### Merge Gate Enforcement
+- ✓ Test job runs unconditionally (no `if:` condition to skip)
+- ✓ Lint job runs unconditionally
+- ✓ Auto-merge requires: `needs: [test, lint]` (blocks if either fails)
+- ✓ CI Status gate checks: `needs.test.result == "success"` (explicit pass)
+- ✓ No direct commits to main (PR required)
+
+**RESULT:** Any test failure → merge BLOCKED. Both must be green.
+
+## 11. ENFORCEMENT
 
 - All PRs are automatically checked by CI/CD
 - Manual reviews required before merge
+- Tests CANNOT be skipped (hardcoded in workflow)
 - Violations logged and escalated
 - Weekly metrics review
 - Monthly retrospectives
 
-**No exceptions. Quality is non-negotiable.**
+**No exceptions. Quality is non-negotiable. Tests are mandatory.**
 
 ---
 
