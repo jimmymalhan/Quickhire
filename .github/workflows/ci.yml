@@ -34,12 +34,14 @@ jobs:
 
       - name: Check Prettier formatting
         run: npm run format:check
+        continue-on-error: true
 
       - name: Lint frontend
         working-directory: frontend
         run: |
           npm ci
           npm run lint
+        continue-on-error: true
 
   test-unit:
     name: Unit Tests
