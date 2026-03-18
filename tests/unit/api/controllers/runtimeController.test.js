@@ -7,6 +7,7 @@ jest.mock('../../../../src/utils/config', () => ({
 const {
   getRuntimeProgress,
   streamRuntimeProgress,
+  getRuntimeControl,
 } = require('../../../../src/api/controllers/runtimeController');
 
 describe('runtimeController', () => {
@@ -32,6 +33,12 @@ describe('runtimeController', () => {
           tasks: expect.any(Array),
           sessions: expect.any(Array),
           blockers: expect.any(Array),
+          orchestration: expect.objectContaining({
+            controller: expect.objectContaining({
+              preferredLane: expect.any(String),
+            }),
+            pendingCommands: expect.any(Array),
+          }),
           source: expect.objectContaining({
             provider: 'local-agent-runtime',
             connected: true,
@@ -54,6 +61,24 @@ describe('runtimeController', () => {
           id: 'runtime-ui',
         }),
       ]),
+    );
+  });
+
+  it('returns orchestration controls for the clawbot runtime', async () => {
+    await getRuntimeControl(req, res);
+
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        status: 'success',
+        code: 200,
+        data: expect.objectContaining({
+          controller: expect.objectContaining({
+            preferredProvider: 'local',
+            preferredLane: expect.any(String),
+          }),
+          toolLinks: expect.any(Array),
+        }),
+      }),
     );
   });
 
@@ -81,7 +106,11 @@ describe('runtimeController', () => {
     expect(streamRes.setHeader).toHaveBeenCalledWith('Cache-Control', 'no-cache');
     expect(streamRes.setHeader).toHaveBeenCalledWith('Connection', 'keep-alive');
     expect(streamRes.write).toHaveBeenCalledWith('event: progress\n');
-    expect(streamRes.write.mock.calls[1][0]).toContain('local-agent-runtime');
+    expect(
+      streamRes.write.mock.calls.some((call) =>
+        String(call[0]).includes('local-agent-runtime'),
+      ),
+    ).toBe(true);
     expect(setIntervalSpy).toHaveBeenCalled();
 
     closeHandler();

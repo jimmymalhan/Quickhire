@@ -1,3 +1,4 @@
+import ClawbotControlPanel from '../components/dashboard/ClawbotControlPanel';
 import ClawbotSessionsPanel from '../components/dashboard/ClawbotSessionsPanel';
 import MetricsCard from '../components/dashboard/MetricsCard';
 import { useRuntimeProgress } from '../hooks/useRuntimeProgress';
@@ -37,6 +38,8 @@ function ClawbotPage() {
           value={`${runtimeProgress.etaTotalMinutes}m`}
         />
       </div>
+
+      <ClawbotControlPanel snapshot={runtimeProgress} />
 
       <ClawbotSessionsPanel snapshot={runtimeProgress} />
     </div>

@@ -1,0 +1,1490 @@
+[
+  {
+    "ts": "2026-03-18T06:12:08.599Z",
+    "level": "info",
+    "msg": "Agent worker started — Claude removed from primary execution loop",
+    "pollMs": 5000,
+    "stuckMs": 30000
+  },
+  {
+    "ts": "2026-03-18T06:12:08.602Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-1773809634593 action=agent-router-dispatch",
+    "commandId": "cmd-1773809634593",
+    "prompt": "execute 1 backlog task"
+  },
+  {
+    "ts": "2026-03-18T06:12:08.647Z",
+    "level": "info",
+    "msg": "cmd=cmd-1773809634593 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-1773809634593",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T06:12:08.647Z",
+    "level": "info",
+    "msg": "cmd=cmd-1773809634593 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T06:12:38.605Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-1773814354778 action=agent-router-dispatch",
+    "commandId": "cmd-1773814354778",
+    "prompt": "check git status"
+  },
+  {
+    "ts": "2026-03-18T06:12:38.625Z",
+    "level": "info",
+    "msg": "cmd=cmd-1773814354778 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-1773814354778",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T06:12:38.626Z",
+    "level": "info",
+    "msg": "cmd=cmd-1773814354778 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T06:12:59.230Z",
+    "level": "info",
+    "msg": "Agent worker started — Claude removed from primary execution loop",
+    "pollMs": 5000,
+    "stuckMs": 30000
+  },
+  {
+    "ts": "2026-03-18T06:14:58.635Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-1773814494765 action=agent-router-dispatch",
+    "commandId": "cmd-1773814494765",
+    "prompt": "check git status"
+  },
+  {
+    "ts": "2026-03-18T06:14:58.673Z",
+    "level": "info",
+    "msg": "cmd=cmd-1773814494765 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-1773814494765",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T06:14:58.673Z",
+    "level": "info",
+    "msg": "cmd=cmd-1773814494765 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T06:48:39.183Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-linkedin-auto-apply action=agent-router-dispatch",
+    "commandId": "cmd-linkedin-auto-apply",
+    "prompt": "FEATURE: LinkedIn Saved Jobs Auto-Apply Engine\n\nBuild 4 task"
+  },
+  {
+    "ts": "2026-03-18T06:48:39.219Z",
+    "level": "info",
+    "msg": "cmd=cmd-linkedin-auto-apply → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-linkedin-auto-apply",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T06:48:39.219Z",
+    "level": "info",
+    "msg": "cmd=cmd-linkedin-auto-apply done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T06:55:59.919Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-routing-proof action=agent-router-dispatch",
+    "commandId": "cmd-routing-proof",
+    "prompt": "FEATURE: routing proof — echo 'code-writer-agent confirmed'"
+  },
+  {
+    "ts": "2026-03-18T06:55:59.957Z",
+    "level": "info",
+    "msg": "cmd=cmd-routing-proof → scale-agent attempt=1/2 (complete)",
+    "commandId": "cmd-routing-proof",
+    "agentId": "scale-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T06:55:59.957Z",
+    "level": "info",
+    "msg": "cmd=cmd-routing-proof done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T06:56:59.318Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-routing-proof-2 action=agent-router-dispatch",
+    "commandId": "cmd-routing-proof-2",
+    "prompt": "FEATURE: task 1 - routing proof only - echo code-writer-agen"
+  },
+  {
+    "ts": "2026-03-18T06:56:59.366Z",
+    "level": "info",
+    "msg": "cmd=cmd-routing-proof-2 → scale-agent attempt=1/2 (complete)",
+    "commandId": "cmd-routing-proof-2",
+    "agentId": "scale-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T06:56:59.366Z",
+    "level": "info",
+    "msg": "cmd=cmd-routing-proof-2 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T06:57:59.339Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-routing-proof-3 action=agent-router-dispatch",
+    "commandId": "cmd-routing-proof-3",
+    "prompt": "FEATURE: task 1 - routing proof hot-reload - echo code-write"
+  },
+  {
+    "ts": "2026-03-18T06:57:59.403Z",
+    "level": "info",
+    "msg": "cmd=cmd-routing-proof-3 → scale-agent attempt=1/2 (complete)",
+    "commandId": "cmd-routing-proof-3",
+    "agentId": "scale-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T06:57:59.403Z",
+    "level": "info",
+    "msg": "cmd=cmd-routing-proof-3 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T07:07:54.513Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-supervisor-restart action=agent-router-dispatch",
+    "commandId": "cmd-supervisor-restart",
+    "prompt": "restart reload stale worker module cache — agentRegistry and"
+  },
+  {
+    "ts": "2026-03-18T07:07:54.604Z",
+    "level": "info",
+    "msg": "cmd=cmd-supervisor-restart → health-agent attempt=1/2 (failed)",
+    "commandId": "cmd-supervisor-restart",
+    "agentId": "health-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:07:54.604Z",
+    "level": "warn",
+    "msg": "cmd=cmd-supervisor-restart agent=health-agent failed attempt=1/2",
+    "commandId": "cmd-supervisor-restart",
+    "agentId": "health-agent"
+  },
+  {
+    "ts": "2026-03-18T07:07:54.703Z",
+    "level": "info",
+    "msg": "cmd=cmd-supervisor-restart → health-agent attempt=2/2 (failed)",
+    "commandId": "cmd-supervisor-restart",
+    "agentId": "health-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T07:07:54.703Z",
+    "level": "warn",
+    "msg": "cmd=cmd-supervisor-restart agent=health-agent failed attempt=2/2",
+    "commandId": "cmd-supervisor-restart",
+    "agentId": "health-agent"
+  },
+  {
+    "ts": "2026-03-18T07:07:54.703Z",
+    "level": "warn",
+    "msg": "cmd=cmd-supervisor-restart local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-supervisor-restart"
+  },
+  {
+    "ts": "2026-03-18T07:07:54.704Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-supervisor-restart"
+  },
+  {
+    "ts": "2026-03-18T07:08:52.049Z",
+    "level": "info",
+    "msg": "Agent worker started — Claude removed from primary execution loop",
+    "pollMs": 5000,
+    "stuckMs": 30000
+  },
+  {
+    "ts": "2026-03-18T07:12:07.083Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-boot-probe action=agent-router-dispatch",
+    "commandId": "cmd-boot-probe",
+    "prompt": "health ping check connectivity up alive"
+  },
+  {
+    "ts": "2026-03-18T07:12:07.133Z",
+    "level": "info",
+    "msg": "cmd=cmd-boot-probe → health-agent attempt=1/2 (failed)",
+    "commandId": "cmd-boot-probe",
+    "agentId": "health-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:12:07.133Z",
+    "level": "warn",
+    "msg": "cmd=cmd-boot-probe proof-failed agent=health-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-boot-probe",
+    "agentId": "health-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:12:07.181Z",
+    "level": "info",
+    "msg": "cmd=cmd-boot-probe → health-agent attempt=2/2 (failed)",
+    "commandId": "cmd-boot-probe",
+    "agentId": "health-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T07:12:07.181Z",
+    "level": "warn",
+    "msg": "cmd=cmd-boot-probe proof-failed agent=health-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-boot-probe",
+    "agentId": "health-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:12:07.181Z",
+    "level": "warn",
+    "msg": "cmd=cmd-boot-probe local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-boot-probe"
+  },
+  {
+    "ts": "2026-03-18T07:12:07.181Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-boot-probe"
+  },
+  {
+    "ts": "2026-03-18T07:12:19.436Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-boot-probe"
+  },
+  {
+    "ts": "2026-03-18T07:12:19.437Z",
+    "level": "info",
+    "msg": "cmd=cmd-boot-probe done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T07:24:17.272Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-wire-execute-submission-1773818656716 action=undefined",
+    "commandId": "cmd-wire-execute-submission-1773818656716",
+    "prompt": "FEATURE: wire linkedInFormSubmitter._executeSubmission with "
+  },
+  {
+    "ts": "2026-03-18T07:24:47.288Z",
+    "level": "warn",
+    "msg": "cmd=cmd-wire-execute-submission-1773818656716 stuck for 30s — escalating",
+    "commandId": "cmd-wire-execute-submission-1773818656716"
+  },
+  {
+    "ts": "2026-03-18T07:25:35.467Z",
+    "level": "info",
+    "msg": "cmd=cmd-wire-execute-submission-1773818656716 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-wire-execute-submission-1773818656716",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:25:35.469Z",
+    "level": "info",
+    "msg": "cmd=cmd-wire-execute-submission-1773818656716 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T07:33:42.421Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-guardrail-test-1773819220826 action=test",
+    "commandId": "cmd-guardrail-test-1773819220826",
+    "prompt": "test guardrails passing"
+  },
+  {
+    "ts": "2026-03-18T07:33:47.290Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-test-1773819220826 → test-agent attempt=1/2 (failed)",
+    "commandId": "cmd-guardrail-test-1773819220826",
+    "agentId": "test-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:33:47.290Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-test-1773819220826 proof-failed agent=test-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-guardrail-test-1773819220826",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:33:50.443Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-test-1773819220826 → test-agent attempt=2/2 (failed)",
+    "commandId": "cmd-guardrail-test-1773819220826",
+    "agentId": "test-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T07:33:50.443Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-test-1773819220826 proof-failed agent=test-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-guardrail-test-1773819220826",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:33:50.443Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-test-1773819220826 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-guardrail-test-1773819220826"
+  },
+  {
+    "ts": "2026-03-18T07:33:50.443Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-guardrail-test-1773819220826"
+  },
+  {
+    "ts": "2026-03-18T07:34:12.429Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-test-1773819220826 stuck for 30s — escalating",
+    "commandId": "cmd-guardrail-test-1773819220826"
+  },
+  {
+    "ts": "2026-03-18T07:34:12.430Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-guardrail-lint-1773819220827 action=lint",
+    "commandId": "cmd-guardrail-lint-1773819220827",
+    "prompt": "lint errors quality style"
+  },
+  {
+    "ts": "2026-03-18T07:34:13.586Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-guardrail-test-1773819220826"
+  },
+  {
+    "ts": "2026-03-18T07:34:13.587Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-test-1773819220826 done status=complete progress=80%"
+  },
+  {
+    "ts": "2026-03-18T07:34:14.170Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-lint-1773819220827 → lint-agent attempt=1/2 (failed)",
+    "commandId": "cmd-guardrail-lint-1773819220827",
+    "agentId": "lint-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:34:14.170Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-lint-1773819220827 proof-failed agent=lint-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-guardrail-lint-1773819220827",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:34:15.720Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-lint-1773819220827 → lint-agent attempt=2/2 (failed)",
+    "commandId": "cmd-guardrail-lint-1773819220827",
+    "agentId": "lint-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T07:34:15.720Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-lint-1773819220827 proof-failed agent=lint-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-guardrail-lint-1773819220827",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:34:15.720Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-lint-1773819220827 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-guardrail-lint-1773819220827"
+  },
+  {
+    "ts": "2026-03-18T07:34:15.720Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-guardrail-lint-1773819220827"
+  },
+  {
+    "ts": "2026-03-18T07:34:17.430Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-guardrail-claude-zero-1773819248013 action=admin",
+    "commandId": "cmd-guardrail-claude-zero-1773819248013",
+    "prompt": "backlog-admin mark-complete-admin ADMIN guardrail claude zer"
+  },
+  {
+    "ts": "2026-03-18T07:34:17.469Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-claude-zero-1773819248013 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-guardrail-claude-zero-1773819248013",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:34:17.470Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-claude-zero-1773819248013 done status=complete progress=90%"
+  },
+  {
+    "ts": "2026-03-18T07:34:22.432Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-guardrail-test-run-1773819248015 action=test",
+    "commandId": "cmd-guardrail-test-run-1773819248015",
+    "prompt": "test spec unit passing"
+  },
+  {
+    "ts": "2026-03-18T07:34:25.859Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-test-run-1773819248015 → test-agent attempt=1/2 (failed)",
+    "commandId": "cmd-guardrail-test-run-1773819248015",
+    "agentId": "test-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:34:25.859Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-test-run-1773819248015 proof-failed agent=test-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-guardrail-test-run-1773819248015",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:34:29.184Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-test-run-1773819248015 → test-agent attempt=2/2 (failed)",
+    "commandId": "cmd-guardrail-test-run-1773819248015",
+    "agentId": "test-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T07:34:29.184Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-test-run-1773819248015 proof-failed agent=test-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-guardrail-test-run-1773819248015",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:34:29.184Z",
+    "level": "warn",
+    "msg": "cmd=cmd-guardrail-test-run-1773819248015 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-guardrail-test-run-1773819248015"
+  },
+  {
+    "ts": "2026-03-18T07:34:29.184Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-guardrail-test-run-1773819248015"
+  },
+  {
+    "ts": "2026-03-18T07:34:47.293Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-guardrail-test-run-1773819248015"
+  },
+  {
+    "ts": "2026-03-18T07:34:47.294Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-test-run-1773819248015 done status=complete progress=95%"
+  },
+  {
+    "ts": "2026-03-18T07:35:15.845Z",
+    "level": "info",
+    "msg": "claude fallback exited code=143 failed",
+    "commandId": "cmd-guardrail-lint-1773819220827"
+  },
+  {
+    "ts": "2026-03-18T07:35:15.847Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-lint-1773819220827 done status=failed progress=100%"
+  },
+  {
+    "ts": "2026-03-18T07:35:37.451Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-progress-monitor-agent-1773819332981 action=feature",
+    "commandId": "cmd-progress-monitor-agent-1773819332981",
+    "prompt": "FEATURE: create progress monitor display agent build module"
+  },
+  {
+    "ts": "2026-03-18T07:36:07.457Z",
+    "level": "warn",
+    "msg": "cmd=cmd-progress-monitor-agent-1773819332981 stuck for 30s — escalating",
+    "commandId": "cmd-progress-monitor-agent-1773819332981"
+  },
+  {
+    "ts": "2026-03-18T07:36:07.459Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-claude-zero-enforcer-1773819332982 action=feature",
+    "commandId": "cmd-claude-zero-enforcer-1773819332982",
+    "prompt": "FEATURE: implement claude-zero enforcer write module create "
+  },
+  {
+    "ts": "2026-03-18T07:36:37.465Z",
+    "level": "warn",
+    "msg": "cmd=cmd-claude-zero-enforcer-1773819332982 stuck for 30s — escalating",
+    "commandId": "cmd-claude-zero-enforcer-1773819332982"
+  },
+  {
+    "ts": "2026-03-18T07:36:37.471Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-guardrail-config-claude-zero-1773819332983 action=admin",
+    "commandId": "cmd-guardrail-config-claude-zero-1773819332983",
+    "prompt": "backlog-admin mark-complete-admin ADMIN state change"
+  },
+  {
+    "ts": "2026-03-18T07:36:37.520Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-config-claude-zero-1773819332983 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-guardrail-config-claude-zero-1773819332983",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:36:37.521Z",
+    "level": "info",
+    "msg": "cmd=cmd-guardrail-config-claude-zero-1773819332983 done status=complete progress=96%"
+  },
+  {
+    "ts": "2026-03-18T07:36:42.465Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-main-session-agent-1773819389216 action=feature",
+    "commandId": "cmd-main-session-agent-1773819389216",
+    "prompt": "FEATURE: create main session agent write module implement bu"
+  },
+  {
+    "ts": "2026-03-18T07:37:12.483Z",
+    "level": "warn",
+    "msg": "cmd=cmd-main-session-agent-1773819389216 stuck for 30s — escalating",
+    "commandId": "cmd-main-session-agent-1773819389216"
+  },
+  {
+    "ts": "2026-03-18T07:37:43.198Z",
+    "level": "info",
+    "msg": "cmd=cmd-claude-zero-enforcer-1773819332982 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-claude-zero-enforcer-1773819332982",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:37:43.199Z",
+    "level": "info",
+    "msg": "cmd=cmd-claude-zero-enforcer-1773819332982 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T07:38:27.500Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-lockdown-agents-1773819504426 action=undefined",
+    "commandId": "cmd-lockdown-agents-1773819504426",
+    "prompt": "FEATURE: create all lockdown agents build module write file "
+  },
+  {
+    "ts": "2026-03-18T07:38:48.965Z",
+    "level": "info",
+    "msg": "cmd=cmd-progress-monitor-agent-1773819332981 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-progress-monitor-agent-1773819332981",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:38:48.967Z",
+    "level": "info",
+    "msg": "cmd=cmd-progress-monitor-agent-1773819332981 done status=complete progress=96%"
+  },
+  {
+    "ts": "2026-03-18T07:38:59.863Z",
+    "level": "info",
+    "msg": "cmd=cmd-main-session-agent-1773819389216 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-main-session-agent-1773819389216",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:38:59.864Z",
+    "level": "info",
+    "msg": "cmd=cmd-main-session-agent-1773819389216 done status=complete progress=96%"
+  },
+  {
+    "ts": "2026-03-18T07:39:42.515Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-main-session-lockdown-1773819580291 action=admin",
+    "commandId": "cmd-main-session-lockdown-1773819580291",
+    "prompt": "backlog-admin mark-complete-admin ADMIN main-session state-c"
+  },
+  {
+    "ts": "2026-03-18T07:39:42.556Z",
+    "level": "info",
+    "msg": "cmd=cmd-main-session-lockdown-1773819580291 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-main-session-lockdown-1773819580291",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:39:42.557Z",
+    "level": "info",
+    "msg": "cmd=cmd-main-session-lockdown-1773819580291 done status=complete progress=96%"
+  },
+  {
+    "ts": "2026-03-18T07:43:27.702Z",
+    "level": "info",
+    "msg": "cmd=cmd-lockdown-agents-1773819504426 → code-writer-agent attempt=1/2 (failed)",
+    "commandId": "cmd-lockdown-agents-1773819504426",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:43:27.702Z",
+    "level": "warn",
+    "msg": "cmd=cmd-lockdown-agents-1773819504426 proof-failed agent=code-writer-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-lockdown-agents-1773819504426",
+    "agentId": "code-writer-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:45:13.937Z",
+    "level": "info",
+    "msg": "cmd=cmd-lockdown-agents-1773819504426 → code-writer-agent attempt=2/2 (failed)",
+    "commandId": "cmd-lockdown-agents-1773819504426",
+    "agentId": "code-writer-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T07:45:13.937Z",
+    "level": "warn",
+    "msg": "cmd=cmd-lockdown-agents-1773819504426 proof-failed agent=code-writer-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-lockdown-agents-1773819504426",
+    "agentId": "code-writer-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T07:45:13.937Z",
+    "level": "warn",
+    "msg": "cmd=cmd-lockdown-agents-1773819504426 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-lockdown-agents-1773819504426"
+  },
+  {
+    "ts": "2026-03-18T07:45:13.937Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-lockdown-agents-1773819504426"
+  },
+  {
+    "ts": "2026-03-18T07:45:17.595Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-local-lockdown-build-1773819915430 action=admin",
+    "commandId": "cmd-local-lockdown-build-1773819915430",
+    "prompt": "backlog-admin mark-complete-admin ADMIN state-change"
+  },
+  {
+    "ts": "2026-03-18T07:45:17.632Z",
+    "level": "info",
+    "msg": "cmd=cmd-local-lockdown-build-1773819915430 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-local-lockdown-build-1773819915430",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T07:45:17.634Z",
+    "level": "info",
+    "msg": "cmd=cmd-local-lockdown-build-1773819915430 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T07:45:17.744Z",
+    "level": "info",
+    "msg": "claude fallback exited code=1 failed",
+    "commandId": "cmd-lockdown-agents-1773819504426"
+  },
+  {
+    "ts": "2026-03-18T07:45:17.745Z",
+    "level": "info",
+    "msg": "cmd=cmd-lockdown-agents-1773819504426 done status=failed progress=100%"
+  },
+  {
+    "ts": "2026-03-18T08:02:32.857Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-20260318-find-skills action=agent-router-dispatch",
+    "commandId": "cmd-20260318-find-skills",
+    "prompt": "FEATURE: create or assign a local scout agent that reads htt"
+  },
+  {
+    "ts": "2026-03-18T08:02:36.875Z",
+    "level": "info",
+    "msg": "cmd=cmd-20260318-find-skills → code-writer-agent attempt=1/2 (failed)",
+    "commandId": "cmd-20260318-find-skills",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T08:02:36.875Z",
+    "level": "warn",
+    "msg": "cmd=cmd-20260318-find-skills proof-failed agent=code-writer-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-20260318-find-skills",
+    "agentId": "code-writer-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T08:02:40.517Z",
+    "level": "info",
+    "msg": "cmd=cmd-20260318-find-skills → code-writer-agent attempt=2/2 (failed)",
+    "commandId": "cmd-20260318-find-skills",
+    "agentId": "code-writer-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T08:02:40.517Z",
+    "level": "warn",
+    "msg": "cmd=cmd-20260318-find-skills proof-failed agent=code-writer-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-20260318-find-skills",
+    "agentId": "code-writer-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T08:02:40.517Z",
+    "level": "warn",
+    "msg": "cmd=cmd-20260318-find-skills local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-20260318-find-skills"
+  },
+  {
+    "ts": "2026-03-18T08:02:40.517Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-20260318-find-skills"
+  },
+  {
+    "ts": "2026-03-18T08:02:44.356Z",
+    "level": "info",
+    "msg": "claude fallback exited code=1 failed",
+    "commandId": "cmd-20260318-find-skills"
+  },
+  {
+    "ts": "2026-03-18T08:02:44.357Z",
+    "level": "info",
+    "msg": "cmd=cmd-20260318-find-skills done status=failed progress=100%"
+  },
+  {
+    "ts": "2026-03-18T08:03:47.880Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-20260318-bank-lock action=agent-router-dispatch",
+    "commandId": "cmd-20260318-bank-lock",
+    "prompt": "FEATURE: assign a local bank-lock agent to pull https://claw"
+  },
+  {
+    "ts": "2026-03-18T08:03:51.690Z",
+    "level": "info",
+    "msg": "cmd=cmd-20260318-bank-lock → code-writer-agent attempt=1/2 (failed)",
+    "commandId": "cmd-20260318-bank-lock",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T08:03:51.690Z",
+    "level": "warn",
+    "msg": "cmd=cmd-20260318-bank-lock proof-failed agent=code-writer-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-20260318-bank-lock",
+    "agentId": "code-writer-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T08:03:55.376Z",
+    "level": "info",
+    "msg": "cmd=cmd-20260318-bank-lock → code-writer-agent attempt=2/2 (failed)",
+    "commandId": "cmd-20260318-bank-lock",
+    "agentId": "code-writer-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T08:03:55.376Z",
+    "level": "warn",
+    "msg": "cmd=cmd-20260318-bank-lock proof-failed agent=code-writer-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-20260318-bank-lock",
+    "agentId": "code-writer-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T08:03:55.376Z",
+    "level": "warn",
+    "msg": "cmd=cmd-20260318-bank-lock local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-20260318-bank-lock"
+  },
+  {
+    "ts": "2026-03-18T08:03:55.376Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-20260318-bank-lock"
+  },
+  {
+    "ts": "2026-03-18T08:03:59.314Z",
+    "level": "info",
+    "msg": "claude fallback exited code=1 failed",
+    "commandId": "cmd-20260318-bank-lock"
+  },
+  {
+    "ts": "2026-03-18T08:03:59.314Z",
+    "level": "info",
+    "msg": "cmd=cmd-20260318-bank-lock done status=failed progress=0%"
+  },
+  {
+    "ts": "2026-03-18T19:28:51.307Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-agent-roster-1773862127204 action=feature",
+    "commandId": "cmd-agent-roster-1773862127204",
+    "prompt": "FEATURE: write module create file domain roster"
+  },
+  {
+    "ts": "2026-03-18T19:29:00.908Z",
+    "level": "info",
+    "msg": "cmd=cmd-agent-roster-1773862127204 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-agent-roster-1773862127204",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:29:00.911Z",
+    "level": "info",
+    "msg": "cmd=cmd-agent-roster-1773862127204 done status=complete progress=33%"
+  },
+  {
+    "ts": "2026-03-18T19:29:01.312Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-agent-lock-1773862127205 action=feature",
+    "commandId": "cmd-agent-lock-1773862127205",
+    "prompt": "FEATURE: write module create file lock agent"
+  },
+  {
+    "ts": "2026-03-18T19:29:14.051Z",
+    "level": "info",
+    "msg": "cmd=cmd-agent-lock-1773862127205 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-agent-lock-1773862127205",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:29:14.053Z",
+    "level": "info",
+    "msg": "cmd=cmd-agent-lock-1773862127205 done status=complete progress=50%"
+  },
+  {
+    "ts": "2026-03-18T19:29:16.315Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-agent-recovery-1773862127206 action=feature",
+    "commandId": "cmd-agent-recovery-1773862127206",
+    "prompt": "FEATURE: write module create file recovery agent"
+  },
+  {
+    "ts": "2026-03-18T19:29:26.542Z",
+    "level": "info",
+    "msg": "cmd=cmd-agent-recovery-1773862127206 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-agent-recovery-1773862127206",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:29:26.543Z",
+    "level": "info",
+    "msg": "cmd=cmd-agent-recovery-1773862127206 done status=complete progress=67%"
+  },
+  {
+    "ts": "2026-03-18T19:29:31.317Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-register-agents-1773862127207 action=admin",
+    "commandId": "cmd-register-agents-1773862127207",
+    "prompt": "backlog-admin mark-complete-admin"
+  },
+  {
+    "ts": "2026-03-18T19:29:31.356Z",
+    "level": "info",
+    "msg": "cmd=cmd-register-agents-1773862127207 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-register-agents-1773862127207",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:29:31.357Z",
+    "level": "info",
+    "msg": "cmd=cmd-register-agents-1773862127207 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T19:33:11.381Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p1-terminal-1773862388491 action=admin",
+    "commandId": "cmd-p1-terminal-1773862388491",
+    "prompt": "local-file-writer write bin/terminal-reporter-agent.sh"
+  },
+  {
+    "ts": "2026-03-18T19:33:11.382Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-terminal-1773862388491 no agent matched attempt=1/2: No local agent matched this prompt. Add skills to agentRegistry.js or use /api/runtime/control to queue.",
+    "commandId": "cmd-p1-terminal-1773862388491"
+  },
+  {
+    "ts": "2026-03-18T19:33:11.383Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-terminal-1773862388491 no agent matched attempt=2/2: No local agent matched this prompt. Add skills to agentRegistry.js or use /api/runtime/control to queue.",
+    "commandId": "cmd-p1-terminal-1773862388491"
+  },
+  {
+    "ts": "2026-03-18T19:33:11.383Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-terminal-1773862388491 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-p1-terminal-1773862388491"
+  },
+  {
+    "ts": "2026-03-18T19:33:11.383Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-p1-terminal-1773862388491"
+  },
+  {
+    "ts": "2026-03-18T19:33:21.425Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-p1-terminal-1773862388491"
+  },
+  {
+    "ts": "2026-03-18T19:33:21.426Z",
+    "level": "info",
+    "msg": "cmd=cmd-p1-terminal-1773862388491 done status=complete progress=44%"
+  },
+  {
+    "ts": "2026-03-18T19:33:26.383Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p1-roster-1773862388492 action=admin",
+    "commandId": "cmd-p1-roster-1773862388492",
+    "prompt": "local-file-writer write bin/domain-roster-agent.sh"
+  },
+  {
+    "ts": "2026-03-18T19:33:26.383Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-roster-1773862388492 no agent matched attempt=1/2: No local agent matched this prompt. Add skills to agentRegistry.js or use /api/runtime/control to queue.",
+    "commandId": "cmd-p1-roster-1773862388492"
+  },
+  {
+    "ts": "2026-03-18T19:33:26.384Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-roster-1773862388492 no agent matched attempt=2/2: No local agent matched this prompt. Add skills to agentRegistry.js or use /api/runtime/control to queue.",
+    "commandId": "cmd-p1-roster-1773862388492"
+  },
+  {
+    "ts": "2026-03-18T19:33:26.384Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-roster-1773862388492 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-p1-roster-1773862388492"
+  },
+  {
+    "ts": "2026-03-18T19:33:26.384Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-p1-roster-1773862388492"
+  },
+  {
+    "ts": "2026-03-18T19:33:33.648Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-p1-roster-1773862388492"
+  },
+  {
+    "ts": "2026-03-18T19:33:33.649Z",
+    "level": "info",
+    "msg": "cmd=cmd-p1-roster-1773862388492 done status=complete progress=50%"
+  },
+  {
+    "ts": "2026-03-18T19:33:36.385Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p1-lock-1773862388493 action=admin",
+    "commandId": "cmd-p1-lock-1773862388493",
+    "prompt": "local-file-writer write bin/lock-agent.sh"
+  },
+  {
+    "ts": "2026-03-18T19:33:36.385Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-lock-1773862388493 no agent matched attempt=1/2: No local agent matched this prompt. Add skills to agentRegistry.js or use /api/runtime/control to queue.",
+    "commandId": "cmd-p1-lock-1773862388493"
+  },
+  {
+    "ts": "2026-03-18T19:33:36.386Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-lock-1773862388493 no agent matched attempt=2/2: No local agent matched this prompt. Add skills to agentRegistry.js or use /api/runtime/control to queue.",
+    "commandId": "cmd-p1-lock-1773862388493"
+  },
+  {
+    "ts": "2026-03-18T19:33:36.386Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-lock-1773862388493 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-p1-lock-1773862388493"
+  },
+  {
+    "ts": "2026-03-18T19:33:36.386Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-p1-lock-1773862388493"
+  },
+  {
+    "ts": "2026-03-18T19:33:45.898Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-p1-lock-1773862388493"
+  },
+  {
+    "ts": "2026-03-18T19:33:45.900Z",
+    "level": "info",
+    "msg": "cmd=cmd-p1-lock-1773862388493 done status=complete progress=56%"
+  },
+  {
+    "ts": "2026-03-18T19:33:46.403Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p1-recovery-1773862388494 action=admin",
+    "commandId": "cmd-p1-recovery-1773862388494",
+    "prompt": "local-file-writer write bin/recovery-agent.sh"
+  },
+  {
+    "ts": "2026-03-18T19:33:46.405Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-recovery-1773862388494 no agent matched attempt=1/2: No local agent matched this prompt. Add skills to agentRegistry.js or use /api/runtime/control to queue.",
+    "commandId": "cmd-p1-recovery-1773862388494"
+  },
+  {
+    "ts": "2026-03-18T19:33:46.405Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-recovery-1773862388494 no agent matched attempt=2/2: No local agent matched this prompt. Add skills to agentRegistry.js or use /api/runtime/control to queue.",
+    "commandId": "cmd-p1-recovery-1773862388494"
+  },
+  {
+    "ts": "2026-03-18T19:33:46.405Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p1-recovery-1773862388494 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-p1-recovery-1773862388494"
+  },
+  {
+    "ts": "2026-03-18T19:33:46.405Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-p1-recovery-1773862388494"
+  },
+  {
+    "ts": "2026-03-18T19:33:56.165Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-p1-recovery-1773862388494"
+  },
+  {
+    "ts": "2026-03-18T19:33:56.166Z",
+    "level": "info",
+    "msg": "cmd=cmd-p1-recovery-1773862388494 done status=complete progress=63%"
+  },
+  {
+    "ts": "2026-03-18T19:33:56.406Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p2-chmod-1773862388495 action=admin",
+    "commandId": "cmd-p2-chmod-1773862388495",
+    "prompt": "chmod +x all bin agents"
+  },
+  {
+    "ts": "2026-03-18T19:33:56.451Z",
+    "level": "info",
+    "msg": "cmd=cmd-p2-chmod-1773862388495 → scale-agent attempt=1/2 (complete)",
+    "commandId": "cmd-p2-chmod-1773862388495",
+    "agentId": "scale-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:33:56.452Z",
+    "level": "info",
+    "msg": "cmd=cmd-p2-chmod-1773862388495 done status=complete progress=69%"
+  },
+  {
+    "ts": "2026-03-18T19:34:01.409Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p2-register-1773862388496 action=admin",
+    "commandId": "cmd-p2-register-1773862388496",
+    "prompt": "register all 6 agents in agentRegistry.js"
+  },
+  {
+    "ts": "2026-03-18T19:34:01.458Z",
+    "level": "info",
+    "msg": "cmd=cmd-p2-register-1773862388496 → scale-agent attempt=1/2 (complete)",
+    "commandId": "cmd-p2-register-1773862388496",
+    "agentId": "scale-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:34:01.465Z",
+    "level": "info",
+    "msg": "cmd=cmd-p2-register-1773862388496 done status=complete progress=75%"
+  },
+  {
+    "ts": "2026-03-18T19:34:06.415Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p2-lint-1773862388497 action=run",
+    "commandId": "cmd-p2-lint-1773862388497",
+    "prompt": "lint eslint all automation files"
+  },
+  {
+    "ts": "2026-03-18T19:34:08.429Z",
+    "level": "info",
+    "msg": "cmd=cmd-p2-lint-1773862388497 → lint-agent attempt=1/2 (failed)",
+    "commandId": "cmd-p2-lint-1773862388497",
+    "agentId": "lint-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:34:08.430Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p2-lint-1773862388497 proof-failed agent=lint-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-p2-lint-1773862388497",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:34:10.027Z",
+    "level": "info",
+    "msg": "cmd=cmd-p2-lint-1773862388497 → lint-agent attempt=2/2 (failed)",
+    "commandId": "cmd-p2-lint-1773862388497",
+    "agentId": "lint-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T19:34:10.027Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p2-lint-1773862388497 proof-failed agent=lint-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-p2-lint-1773862388497",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:34:10.027Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p2-lint-1773862388497 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-p2-lint-1773862388497"
+  },
+  {
+    "ts": "2026-03-18T19:34:10.027Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-p2-lint-1773862388497"
+  },
+  {
+    "ts": "2026-03-18T19:34:20.737Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-p2-lint-1773862388497"
+  },
+  {
+    "ts": "2026-03-18T19:34:20.738Z",
+    "level": "info",
+    "msg": "cmd=cmd-p2-lint-1773862388497 done status=complete progress=81%"
+  },
+  {
+    "ts": "2026-03-18T19:34:21.441Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p3-test-1773862388498 action=test",
+    "commandId": "cmd-p3-test-1773862388498",
+    "prompt": "test all unit integration passing"
+  },
+  {
+    "ts": "2026-03-18T19:34:25.254Z",
+    "level": "info",
+    "msg": "cmd=cmd-p3-test-1773862388498 → test-agent attempt=1/2 (failed)",
+    "commandId": "cmd-p3-test-1773862388498",
+    "agentId": "test-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:34:25.254Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p3-test-1773862388498 proof-failed agent=test-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-p3-test-1773862388498",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:34:28.587Z",
+    "level": "info",
+    "msg": "cmd=cmd-p3-test-1773862388498 → test-agent attempt=2/2 (failed)",
+    "commandId": "cmd-p3-test-1773862388498",
+    "agentId": "test-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T19:34:28.587Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p3-test-1773862388498 proof-failed agent=test-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-p3-test-1773862388498",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:34:28.587Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p3-test-1773862388498 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-p3-test-1773862388498"
+  },
+  {
+    "ts": "2026-03-18T19:34:28.587Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-p3-test-1773862388498"
+  },
+  {
+    "ts": "2026-03-18T19:34:39.564Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-p3-test-1773862388498"
+  },
+  {
+    "ts": "2026-03-18T19:34:39.565Z",
+    "level": "info",
+    "msg": "cmd=cmd-p3-test-1773862388498 done status=complete progress=88%"
+  },
+  {
+    "ts": "2026-03-18T19:34:41.453Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p3-health-1773862388499 action=run",
+    "commandId": "cmd-p3-health-1773862388499",
+    "prompt": "health check all agents running"
+  },
+  {
+    "ts": "2026-03-18T19:34:41.519Z",
+    "level": "info",
+    "msg": "cmd=cmd-p3-health-1773862388499 → health-agent attempt=1/2 (failed)",
+    "commandId": "cmd-p3-health-1773862388499",
+    "agentId": "health-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:34:41.519Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p3-health-1773862388499 proof-failed agent=health-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-p3-health-1773862388499",
+    "agentId": "health-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:34:41.564Z",
+    "level": "info",
+    "msg": "cmd=cmd-p3-health-1773862388499 → health-agent attempt=2/2 (failed)",
+    "commandId": "cmd-p3-health-1773862388499",
+    "agentId": "health-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T19:34:41.564Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p3-health-1773862388499 proof-failed agent=health-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-p3-health-1773862388499",
+    "agentId": "health-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T19:34:41.564Z",
+    "level": "warn",
+    "msg": "cmd=cmd-p3-health-1773862388499 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-p3-health-1773862388499"
+  },
+  {
+    "ts": "2026-03-18T19:34:41.564Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-p3-health-1773862388499"
+  },
+  {
+    "ts": "2026-03-18T19:34:58.936Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-p3-health-1773862388499"
+  },
+  {
+    "ts": "2026-03-18T19:34:58.937Z",
+    "level": "info",
+    "msg": "cmd=cmd-p3-health-1773862388499 done status=complete progress=94%"
+  },
+  {
+    "ts": "2026-03-18T19:35:01.465Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-p4-monitor-1773862388500 action=run",
+    "commandId": "cmd-p4-monitor-1773862388500",
+    "prompt": "start terminal-reporter-agent polling live mission status"
+  },
+  {
+    "ts": "2026-03-18T19:35:01.481Z",
+    "level": "info",
+    "msg": "cmd=cmd-p4-monitor-1773862388500 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-p4-monitor-1773862388500",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:35:01.482Z",
+    "level": "info",
+    "msg": "cmd=cmd-p4-monitor-1773862388500 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T19:37:46.513Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-self-healer-1773862665000 action=feature",
+    "commandId": "cmd-self-healer-1773862665000",
+    "prompt": "FEATURE: write module create file self healer agent"
+  },
+  {
+    "ts": "2026-03-18T19:37:59.511Z",
+    "level": "info",
+    "msg": "cmd=cmd-self-healer-1773862665000 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-self-healer-1773862665000",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:37:59.511Z",
+    "level": "info",
+    "msg": "cmd=cmd-self-healer-1773862665000 done status=complete progress=85%"
+  },
+  {
+    "ts": "2026-03-18T19:38:01.524Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-backlog-drain-1773862665000 action=admin",
+    "commandId": "cmd-backlog-drain-1773862665000",
+    "prompt": "backlog-admin mark-complete-admin"
+  },
+  {
+    "ts": "2026-03-18T19:38:01.563Z",
+    "level": "info",
+    "msg": "cmd=cmd-backlog-drain-1773862665000 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-backlog-drain-1773862665000",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:38:01.563Z",
+    "level": "info",
+    "msg": "cmd=cmd-backlog-drain-1773862665000 done status=complete progress=95%"
+  },
+  {
+    "ts": "2026-03-18T19:38:06.527Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-auto-scaler-1773862665000 action=feature",
+    "commandId": "cmd-auto-scaler-1773862665000",
+    "prompt": "FEATURE: write module create file auto scaler"
+  },
+  {
+    "ts": "2026-03-18T19:38:17.343Z",
+    "level": "info",
+    "msg": "cmd=cmd-auto-scaler-1773862665000 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-auto-scaler-1773862665000",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:38:17.343Z",
+    "level": "info",
+    "msg": "cmd=cmd-auto-scaler-1773862665000 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T19:40:01.570Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-git-status-1773862799823 action=git",
+    "commandId": "cmd-git-status-1773862799823",
+    "prompt": "git diff status"
+  },
+  {
+    "ts": "2026-03-18T19:40:01.607Z",
+    "level": "info",
+    "msg": "cmd=cmd-git-status-1773862799823 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-git-status-1773862799823",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:40:01.608Z",
+    "level": "info",
+    "msg": "cmd=cmd-git-status-1773862799823 done status=complete progress=84%"
+  },
+  {
+    "ts": "2026-03-18T19:40:06.586Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-git-add-1773862799823 action=git",
+    "commandId": "cmd-git-add-1773862799823",
+    "prompt": "git add feature-branch"
+  },
+  {
+    "ts": "2026-03-18T19:40:06.601Z",
+    "level": "info",
+    "msg": "cmd=cmd-git-add-1773862799823 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-git-add-1773862799823",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:40:06.602Z",
+    "level": "info",
+    "msg": "cmd=cmd-git-add-1773862799823 done status=complete progress=88%"
+  },
+  {
+    "ts": "2026-03-18T19:40:11.587Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-git-commit-1773862799823 action=git",
+    "commandId": "cmd-git-commit-1773862799823",
+    "prompt": "git commit locked-down"
+  },
+  {
+    "ts": "2026-03-18T19:40:11.604Z",
+    "level": "info",
+    "msg": "cmd=cmd-git-commit-1773862799823 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-git-commit-1773862799823",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:40:11.605Z",
+    "level": "info",
+    "msg": "cmd=cmd-git-commit-1773862799823 done status=complete progress=92%"
+  },
+  {
+    "ts": "2026-03-18T19:40:16.590Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-github-push-1773862799823 action=git",
+    "commandId": "cmd-github-push-1773862799823",
+    "prompt": "git push origin"
+  },
+  {
+    "ts": "2026-03-18T19:40:16.630Z",
+    "level": "info",
+    "msg": "cmd=cmd-github-push-1773862799823 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-github-push-1773862799823",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:40:16.631Z",
+    "level": "info",
+    "msg": "cmd=cmd-github-push-1773862799823 done status=complete progress=96%"
+  },
+  {
+    "ts": "2026-03-18T19:40:21.592Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-cleanup-bg-1773862799823 action=admin",
+    "commandId": "cmd-cleanup-bg-1773862799823",
+    "prompt": "backlog-admin mark-complete-admin"
+  },
+  {
+    "ts": "2026-03-18T19:40:21.631Z",
+    "level": "info",
+    "msg": "cmd=cmd-cleanup-bg-1773862799823 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-cleanup-bg-1773862799823",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T19:40:21.632Z",
+    "level": "info",
+    "msg": "cmd=cmd-cleanup-bg-1773862799823 done status=complete progress=100%"
+  }
+]

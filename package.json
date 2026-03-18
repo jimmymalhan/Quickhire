@@ -3,9 +3,13 @@
   "version": "0.0.1-alpha",
   "description": "Automatic LinkedIn Job Application Platform",
   "main": "src/index.js",
+  "bin": {
+    "agent": "bin/agent.js"
+  },
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
+    "agent": "node bin/agent.js",
     "test": "jest --coverage",
     "test:unit": "jest --testPathPattern=tests/unit",
     "test:integration": "jest --testPathPattern=tests/integration",

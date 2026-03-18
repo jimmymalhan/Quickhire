@@ -6,8 +6,11 @@
 const logger = require('../utils/logger');
 const config = require('../utils/config');
 const { FormFiller } = require('./formFiller');
+const { CustomQAHandler } = require('./customQAHandler');
 const { ResumeUploadHandler } = require('./resumeUploadHandler');
 const { withRetry } = require('./retryHandler');
+const BrowserManager = require('./browserManager');
+const { LinkedInSessionManager } = require('./linkedInSessionManager');
 
 const SUBMISSION_STATES = {
   PENDING: 'pending',
@@ -37,6 +40,11 @@ class LinkedInFormSubmitter {
     this.submissionTimeout = options.submissionTimeout || 30000;
     this.mockDelay = options.mockDelay !== undefined ? options.mockDelay : 100;
     this.mockFailRate = options.mockFailRate || 0;
+    // Injected or lazily created for real-mode submissions
+    this._browserManager = options.browserManager || null;
+    this._sessionManager =
+      options.sessionManager || new LinkedInSessionManager({ mockMode: this.mockMode });
+    this._qaHandler = options.qaHandler || new CustomQAHandler();
   }
 
   /**

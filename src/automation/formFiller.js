@@ -254,4 +254,174 @@ class FormFiller {
   }
 }
 
-module.exports = { FormFiller, FIELD_MAPPINGS };
+// ---------------------------------------------------------------------------
+// CustomQAHandler — answers custom Q&A fields on LinkedIn application forms
+// ---------------------------------------------------------------------------
+const fs = require('fs');
+const path = require('path');
+
+const DEFAULT_QA_CONFIG_PATH = path.resolve(__dirname, '../../config/qa-answers.json');
+
+/**
+ * CustomQAHandler
+ * Loads a Q&A answer config and fuzzy-matches question text to provide answers.
+ * Does NOT modify FormFiller — it is a standalone, additive export.
+ */
+class CustomQAHandler {
+  constructor(options = {}) {
+    this.configPath = options.configPath || DEFAULT_QA_CONFIG_PATH;
+    this._answers = [];
+    this._fallback = 'skip';
+    this._loaded = false;
+  }
+
+  /**
+   * Load answer config from the default path (lazy — called automatically by findAnswer).
+   * Gracefully falls back to empty config if the file is missing.
+   */
+  _ensureLoaded() {
+    if (this._loaded) {
+      return;
+    }
+    this.loadFromFile(this.configPath);
+  }
+
+  /**
+   * Load answer config from a custom file path.
+   * @param {string} filePath - Absolute or relative path to a qa-answers.json file.
+   */
+  loadFromFile(filePath) {
+    try {
+      const raw = fs.readFileSync(filePath, 'utf8');
+      const config = JSON.parse(raw);
+      this._answers = Array.isArray(config.answers) ? config.answers : [];
+      this._fallback = config.fallback || 'skip';
+      this._loaded = true;
+      logger.debug('CustomQAHandler: loaded Q&A config', {
+        file: filePath,
+        count: this._answers.length,
+      });
+    } catch (err) {
+      logger.warn('CustomQAHandler: could not load Q&A config, using empty defaults', {
+        file: filePath,
+        error: err.message,
+      });
+      this._answers = [];
+      this._fallback = 'skip';
+      this._loaded = true;
+    }
+  }
+
+  /**
+   * Find the best matching answer entry for a question text.
+   * @param {string} questionText - The label text of the form question.
+   * @returns {Object|null} matched answer entry or null if no match found.
+   */
+  findAnswer(questionText) {
+    this._ensureLoaded();
+
+    if (!questionText || typeof questionText !== 'string') {
+      return null;
+    }
+
+    const normalizedQuestion = questionText.toLowerCase().trim();
+
+    for (const entry of this._answers) {
+      if (!entry.pattern) {
+        continue;
+      }
+
+      const matched = this._matchPattern(normalizedQuestion, entry.pattern, entry.matchMode);
+      if (matched) {
+        return entry;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Answer a question given its text and the HTML field type.
+   * @param {string} questionText - The label text of the form question.
+   * @param {string} fieldType - 'text' | 'numeric' | 'boolean' | 'select' | etc.
+   * @returns {string|boolean|number|null} formatted answer, or null if no match / fallback=skip.
+   */
+  answerQuestion(questionText, fieldType) {
+    const entry = this.findAnswer(questionText);
+
+    if (!entry) {
+      if (this._fallback === 'skip') {
+        return null;
+      }
+      return null;
+    }
+
+    return this._formatAnswer(entry.value, fieldType || entry.type);
+  }
+
+  /**
+   * Match a question string against a pattern using the specified matchMode.
+   * @param {string} question - Normalised question text (lowercase).
+   * @param {string} pattern - Pattern from config.
+   * @param {string} matchMode - 'contains' | 'exact' | 'regex'
+   * @returns {boolean}
+   */
+  _matchPattern(question, pattern, matchMode) {
+    const mode = (matchMode || 'contains').toLowerCase();
+    const normalizedPattern = pattern.toLowerCase().trim();
+
+    switch (mode) {
+      case 'exact':
+        return question === normalizedPattern;
+
+      case 'regex': {
+        try {
+          const re = new RegExp(pattern, 'i');
+          return re.test(question);
+        } catch (err) {
+          logger.warn('CustomQAHandler: invalid regex pattern', { pattern, error: err.message });
+          return false;
+        }
+      }
+
+      case 'contains':
+      default:
+        return question.includes(normalizedPattern);
+    }
+  }
+
+  /**
+   * Format a raw config value into the expected type for the form field.
+   * @param {string} rawValue - The string value from config.
+   * @param {string} fieldType - Desired output type.
+   * @returns {string|boolean|number}
+   */
+  _formatAnswer(rawValue, fieldType) {
+    switch ((fieldType || 'text').toLowerCase()) {
+      case 'numeric':
+      case 'number':
+        return parseInt(rawValue, 10) || rawValue;
+
+      case 'boolean':
+      case 'checkbox': {
+        const lower = String(rawValue).toLowerCase();
+        return lower === 'yes' || lower === 'true' || lower === '1';
+      }
+
+      case 'text':
+      default:
+        return String(rawValue);
+    }
+  }
+
+  /**
+   * Return how many answer rules are currently loaded.
+   * @returns {number}
+   */
+  get answerCount() {
+    this._ensureLoaded();
+    return this._answers.length;
+  }
+}
+
+module.exports = { FormFiller, FIELD_MAPPINGS, CustomQAHandler };

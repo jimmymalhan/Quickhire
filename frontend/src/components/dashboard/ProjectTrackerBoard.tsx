@@ -90,6 +90,15 @@ function statusTone(status: string) {
 
 function ProjectTrackerBoard({ snapshot }: ProjectTrackerBoardProps) {
   const projects = buildProjects(snapshot);
+  const productCompletion = snapshot.overallProgress;
+  const businessMomentum = Math.min(
+    100,
+    Math.round(
+      snapshot.roiMetrics.localAgentUtilization * 0.5 +
+        snapshot.roiMetrics.tasksCompletedPerHour * 8 +
+        Math.min(snapshot.roiMetrics.cloudApiCallsSaved / 4, 30),
+    ),
+  );
 
   return (
     <section className="grid gap-4 xl:grid-cols-[1.3fr_0.7fr]" aria-label="Project tracker board">
@@ -103,7 +112,7 @@ function ProjectTrackerBoard({ snapshot }: ProjectTrackerBoardProps) {
               Backlog execution
             </h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-              Active product lanes, ETA pressure, and current ownership across the localhost runtime.
+              Active product lanes, business leverage, ETA pressure, and current ownership across the localhost runtime.
             </p>
           </div>
           <div className="rounded-2xl bg-gray-50 px-4 py-3 text-right dark:bg-gray-800">
@@ -114,6 +123,60 @@ function ProjectTrackerBoard({ snapshot }: ProjectTrackerBoardProps) {
               {snapshot.remainingPercent}%
             </p>
           </div>
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <article className="rounded-2xl border border-primary-100 bg-primary-50 p-4 dark:border-primary-900/50 dark:bg-primary-950/30">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-700 dark:text-primary-300">
+                  Product progress
+                </p>
+                <p className="mt-1 text-3xl font-bold text-gray-900 dark:text-white">
+                  {productCompletion}%
+                </p>
+              </div>
+              <div className="text-right text-sm text-gray-600 dark:text-gray-300">
+                <p>{snapshot.completedWorkflows.length} workflows done</p>
+                <p>{snapshot.remainingPercent}% left to close</p>
+              </div>
+            </div>
+            <div className="mt-3 h-3 rounded-full bg-white/70 dark:bg-gray-900/70">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-700 transition-all"
+                style={{ width: `${productCompletion}%` }}
+              />
+            </div>
+            <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+              Milestones completed are feeding the tracker, while the remaining work stays visible for the team.
+            </p>
+          </article>
+
+          <article className="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 dark:border-emerald-900/50 dark:bg-emerald-950/30">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">
+                  Business momentum
+                </p>
+                <p className="mt-1 text-3xl font-bold text-gray-900 dark:text-white">
+                  {businessMomentum}%
+                </p>
+              </div>
+              <div className="text-right text-sm text-gray-600 dark:text-gray-300">
+                <p>{snapshot.roiMetrics.tasksCompletedPerHour} tasks/hour</p>
+                <p>{snapshot.roiMetrics.cloudApiCallsSaved} cloud calls saved</p>
+              </div>
+            </div>
+            <div className="mt-3 h-3 rounded-full bg-white/70 dark:bg-gray-900/70">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 transition-all"
+                style={{ width: `${businessMomentum}%` }}
+              />
+            </div>
+            <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+              This shows ROI pressure, local agent utilization, and how much cloud spend the runtime is avoiding.
+            </p>
+          </article>
         </div>
 
         <div className="mt-6 grid gap-4 lg:grid-cols-3">

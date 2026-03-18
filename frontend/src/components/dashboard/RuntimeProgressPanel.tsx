@@ -92,6 +92,9 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
   const activeSessions = snapshot.sessions.filter(
     (session) => session.status !== 'idle',
   );
+  const sourceLabel = snapshot.source?.connected
+    ? `${snapshot.source.provider} connected`
+    : `${snapshot.source?.provider ?? 'runtime'} fallback`;
 
   const elapsedMs = Date.now() - new Date(snapshot.generatedAt).getTime();
   const elapsedFormatted =
@@ -103,28 +106,37 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
     <section className="card mb-8" aria-label="Runtime progress">
       {/* TOP BAR - Overall completion with ETA */}
       <div className="mb-6 rounded-xl bg-gradient-to-r from-primary-600 to-primary-800 p-5 text-white">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary-200">
-              Project completion
+              Live runtime snapshot
             </p>
             <p className="mt-1 text-3xl font-bold">
               {snapshot.overallProgress}%
             </p>
-          </div>
-          <div className="text-right">
-            <p className="text-xs text-primary-200">ETA to 100%</p>
-            <p className="text-lg font-semibold">
-              {formatMinutes(snapshot.etaTotalMinutes)}
+            <p className="mt-1 max-w-xl text-sm text-primary-100">
+              Product progress, blocker pressure, and session activity pulled from the runtime feed.
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-xs text-primary-200">Blockers</p>
-            <p className="text-lg font-semibold">{snapshot.blockerCount}</p>
-          </div>
-          <div className="text-right">
-            <p className="text-xs text-primary-200">Active sessions</p>
-            <p className="text-lg font-semibold">{activeSessions.length}</p>
+          <div className="grid grid-cols-2 gap-3 text-right sm:grid-cols-4">
+            <div>
+              <p className="text-xs text-primary-200">ETA to 100%</p>
+              <p className="text-lg font-semibold">
+                {formatMinutes(snapshot.etaTotalMinutes)}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-primary-200">Blockers</p>
+              <p className="text-lg font-semibold">{snapshot.blockerCount}</p>
+            </div>
+            <div>
+              <p className="text-xs text-primary-200">Active sessions</p>
+              <p className="text-lg font-semibold">{activeSessions.length}</p>
+            </div>
+            <div>
+              <p className="text-xs text-primary-200">Source</p>
+              <p className="text-lg font-semibold">{sourceLabel}</p>
+            </div>
           </div>
         </div>
         <div className="mt-4">
@@ -291,12 +303,12 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
                 key={blocker.id}
                 className={`rounded-lg border-l-4 p-3 ${severityColor(blocker.severity)}`}
               >
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  {blocker.title}
-                </p>
-                <div className="mt-1 flex items-center gap-2">
+                <div className="flex items-start justify-between gap-3">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                    {blocker.title}
+                  </p>
                   <span
-                    className={`rounded px-1.5 py-0.5 text-xs font-bold uppercase ${
+                    className={`shrink-0 rounded px-1.5 py-0.5 text-xs font-bold uppercase ${
                       blocker.severity === 'high'
                         ? 'bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200'
                         : blocker.severity === 'medium'
@@ -306,11 +318,11 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
                   >
                     {blocker.severity}
                   </span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
-                    ETA {formatMinutes(blocker.etaMinutes)}
-                  </span>
                 </div>
-                {/* Blocker progress bar */}
+                <div className="mt-1 flex items-center justify-between gap-2 text-xs text-gray-500 dark:text-gray-400">
+                  <span>Estimated clear time</span>
+                  <span>{formatMinutes(blocker.etaMinutes)}</span>
+                </div>
                 <div className="mt-2 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700">
                   <div
                     className="h-full rounded-full bg-orange-400 transition-all"
@@ -319,25 +331,30 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
                     }}
                   />
                 </div>
-                <div className="mt-2">
+                <div className="mt-3">
                   <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
-                    Resolution options:
+                    Resolution paths
                   </p>
-                  <div className="mt-1 flex flex-wrap gap-1">
-                    {blocker.options.map((option) => (
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {blocker.options.map((option, index) => (
                       <span
                         key={option}
-                        className="rounded-full bg-white px-2 py-0.5 text-xs text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-300"
+                        className={`rounded-full px-2.5 py-1 text-xs shadow-sm ${
+                          index === 0
+                            ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
+                            : 'bg-white text-gray-700 dark:bg-gray-800 dark:text-gray-300'
+                        }`}
                       >
+                        {index === 0 ? 'Preferred: ' : ''}
                         {option}
                       </span>
                     ))}
                   </div>
                 </div>
                 {blocker.assignedTo && (
-                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                    Assigned: {blocker.assignedTo}
-                  </p>
+                  <div className="mt-3 rounded-lg bg-white/70 px-3 py-2 text-xs text-gray-600 dark:bg-gray-900/60 dark:text-gray-300">
+                    Assigned to {blocker.assignedTo}
+                  </div>
                 )}
               </li>
             ))}
@@ -364,18 +381,26 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
               const heartbeatAge =
                 Date.now() - new Date(session.lastHeartbeatAt).getTime();
               const isStale = heartbeatAge > 60000;
+              const ownedTask = snapshot.tasks.find(
+                (task) => task.owner === session.owner,
+              );
               return (
                 <li
                   key={session.id}
-                  className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800"
                 >
-                  <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">
-                        {session.owner}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {session.model}
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                          {session.owner}
+                        </p>
+                        <span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-semibold text-gray-600 dark:bg-gray-900 dark:text-gray-300">
+                          {session.model}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        {session.currentTask}
                       </p>
                     </div>
                     <span
@@ -390,9 +415,28 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
                       {isStale ? 'stale' : session.status}
                     </span>
                   </div>
-                  <p className="mt-1 truncate text-xs text-gray-600 dark:text-gray-300">
-                    Working on: {session.currentTask}
-                  </p>
+                  <div className="mt-3 h-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                    <div
+                      className={`h-full rounded-full transition-all ${
+                        session.status === 'running' && !isStale
+                          ? 'bg-green-500'
+                          : 'bg-amber-500'
+                      }`}
+                      style={{
+                        width: `${ownedTask ? Math.max(15, ownedTask.progress) : 20}%`,
+                      }}
+                    />
+                  </div>
+                  <div className="mt-2 flex items-center justify-between gap-2 text-xs text-gray-500 dark:text-gray-400">
+                    <span>
+                      {ownedTask
+                        ? `Task progress ${ownedTask.progress}%`
+                        : 'No assigned task'}
+                    </span>
+                    <span>
+                      {formatMinutes(Math.max(1, Math.round(heartbeatAge / 60000)))} since heartbeat
+                    </span>
+                  </div>
                 </li>
               );
             })}

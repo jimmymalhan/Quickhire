@@ -1,0 +1,105 @@
+{
+  "checkedAt": "2026-03-18T19:45:54.515Z",
+  "agents": [
+    {
+      "id": "test-agent",
+      "name": "Test Runner",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    },
+    {
+      "id": "lint-agent",
+      "name": "Lint Checker",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    },
+    {
+      "id": "build-agent",
+      "name": "Build Runner",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    },
+    {
+      "id": "db-agent",
+      "name": "Database Agent",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    },
+    {
+      "id": "health-agent",
+      "name": "Health Checker",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    },
+    {
+      "id": "git-agent",
+      "name": "Git Agent",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    },
+    {
+      "id": "scale-agent",
+      "name": "Scale Agent",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    },
+    {
+      "id": "supervisor-agent",
+      "name": "Supervisor",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    },
+    {
+      "id": "code-writer-agent",
+      "name": "Code Writer",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    },
+    {
+      "id": "backlog-agent",
+      "name": "Backlog Executor",
+      "status": "healthy",
+      "recentFailures": 0,
+      "recentSuccesses": 0,
+      "totalRecentRuns": 0,
+      "minutesSinceSuccess": null,
+      "checkedAt": "2026-03-18T19:45:54.515Z"
+    }
+  ]
+}

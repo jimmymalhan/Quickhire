@@ -1,0 +1,14 @@
+{
+  "CLAUDE_ENABLED": false,
+  "CLAUDE_FALLBACK": false,
+  "LOCAL_AGENT_PRIMARY": true,
+  "LOCAL_REVIEW_AGENT": true,
+  "MAX_LOCAL_RETRIES": 3,
+  "ESCALATION_TARGET": "local-review-agent",
+  "REQUIRE_COMPLETION_PROOF": true,
+  "NOOP_IS_FAIL": true,
+  "HEARTBEAT_INTERVAL_MS": 5000,
+  "STUCK_THRESHOLD_MS": 30000,
+  "updatedAt": "2026-03-18T00:00:00.000Z",
+  "_comment": "Managed by guardrailLoader.js. Change CLAUDE_ENABLED to true only for emergency manual override."
+}

@@ -3,6 +3,19 @@ const config = require('../utils/config');
 const logger = require('../utils/logger');
 
 const createQueue = (name) => {
+  if (process.env.DISABLE_QUEUES === 'true') {
+    logger.info(`Queue "${name}" disabled (DISABLE_QUEUES=true)`);
+    return {
+      process: () => {},
+      add: async () => ({ id: null }),
+      getWaitingCount: async () => 0,
+      getActiveCount: async () => 0,
+      getCompletedCount: async () => 0,
+      getFailedCount: async () => 0,
+      on: () => {},
+    };
+  }
+
   const queue = new Bull(name, {
     redis: {
       host: config.redis.host,

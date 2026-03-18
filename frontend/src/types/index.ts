@@ -127,6 +127,8 @@ export interface RuntimeSession {
   model: string;
   status: RuntimeSessionStatus;
   currentTask: string;
+  role?: string;
+  provider?: string;
   startedAt: string;
   lastHeartbeatAt: string;
 }
@@ -138,6 +140,53 @@ export interface RuntimeBlocker {
   etaMinutes: number;
   options: string[];
   assignedTo?: string;
+}
+
+export interface RuntimeOrchestrationCommand {
+  id: string;
+  label: string;
+  action: string;
+  scope: string;
+  requestedBy: string;
+  target: string;
+  value: unknown;
+  status: string;
+  createdAt: string;
+}
+
+export interface RuntimeToolLink {
+  id: string;
+  label: string;
+  href: string;
+  category: string;
+}
+
+export interface RuntimeOrchestration {
+  schemaVersion: string;
+  controller: {
+    mode: string;
+    owner: string;
+    preferredProvider: string;
+    preferredLane: string;
+    targetAgentScale: number;
+    maxAgentScale: number;
+    mainSessionCapPercent: number;
+    cloudFallbackEnabled: boolean;
+    takeoverEnabled: boolean;
+    backlogStrategy: string;
+    status: string;
+    updatedAt: string;
+  };
+  guardrails: {
+    cpuLimitPercent: number;
+    memoryLimitPercent: number;
+    requireApprovalForDestructive: boolean;
+    autoRestoreDryRun: boolean;
+    roiKillSwitch: boolean;
+  };
+  pendingCommands: RuntimeOrchestrationCommand[];
+  toolLinks: RuntimeToolLink[];
+  lastCommandAt: string | null;
 }
 
 export interface ExecutiveDecision {
@@ -176,6 +225,7 @@ export interface RuntimeProgressSnapshot {
     localAgentUtilization: number;
     cloudApiCallsSaved: number;
   };
+  orchestration: RuntimeOrchestration;
   source?: {
     provider: string;
     stateDir: string;

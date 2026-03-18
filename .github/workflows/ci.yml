@@ -56,7 +56,7 @@ jobs:
       - run: npm ci
 
       - name: Run unit tests
-        run: npm run test:unit -- --forceExit
+        run: npm run test:unit -- --runInBand
         env:
           NODE_ENV: test
 
@@ -107,7 +107,7 @@ jobs:
           DB_PASSWORD: postgres_test
 
       - name: Run integration tests
-        run: npm run test:integration -- --forceExit
+        run: npm run test:integration -- --runInBand
         env:
           NODE_ENV: test
           DB_HOST: localhost

@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "answers": [
+    {
+      "pattern": "years of experience",
+      "type": "numeric",
+      "value": "5",
+      "matchMode": "contains"
+    },
+    {
+      "pattern": "authorized to work",
+      "type": "boolean",
+      "value": "yes",
+      "matchMode": "contains"
+    },
+    {
+      "pattern": "salary expectation",
+      "type": "text",
+      "value": "120000",
+      "matchMode": "contains"
+    },
+    {
+      "pattern": "willing to relocate",
+      "type": "boolean",
+      "value": "no",
+      "matchMode": "contains"
+    },
+    {
+      "pattern": "require sponsorship",
+      "type": "boolean",
+      "value": "no",
+      "matchMode": "contains"
+    }
+  ],
+  "fallback": "skip"
+}
