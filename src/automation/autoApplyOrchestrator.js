@@ -11,7 +11,7 @@ const { DailyCapEnforcer } = require('./dailyCapEnforcer');
 const { ApplicationRateLimiter } = require('./applicationRateLimiter');
 const Application = require('../database/models/Application');
 const SavedJob = require('../database/models/SavedJob');
-const UserPreference = require('../database/models/UserPreference');
+const _UserPreference = require('../database/models/UserPreference');
 
 const QUEUE_STATUS = {
   IDLE: 'idle',
@@ -504,7 +504,7 @@ class AutoApplyOrchestrator {
    */
   async _hasAlreadyApplied(userId, jobId) {
     try {
-      const count = await Application.countTodayByUser(userId);
+      const _count = await Application.countTodayByUser(userId);
       // Also check if an application record exists for this specific job
       const { query } = require('../database/connection');
       const result = await query(

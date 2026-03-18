@@ -2964,5 +2964,69 @@
     "level": "warn",
     "msg": "No local agent matched — trying claude CLI as fallback",
     "commandId": "cmd-pr-create"
+  },
+  {
+    "ts": "2026-03-18T20:48:19.191Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-commit-phase"
+  },
+  {
+    "ts": "2026-03-18T20:48:19.192Z",
+    "level": "info",
+    "msg": "cmd=cmd-commit-phase done status=complete progress=75%"
+  },
+  {
+    "ts": "2026-03-18T20:48:23.091Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-terminal-monitor action=run",
+    "commandId": "cmd-terminal-monitor",
+    "prompt": "MONITOR: Background job - every 10s read orchestration-contr"
+  },
+  {
+    "ts": "2026-03-18T20:48:23.094Z",
+    "level": "warn",
+    "msg": "cmd=cmd-terminal-monitor no agent matched attempt=1/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-terminal-monitor"
+  },
+  {
+    "ts": "2026-03-18T20:48:23.097Z",
+    "level": "warn",
+    "msg": "cmd=cmd-terminal-monitor no agent matched attempt=2/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-terminal-monitor"
+  },
+  {
+    "ts": "2026-03-18T20:48:23.097Z",
+    "level": "warn",
+    "msg": "cmd=cmd-terminal-monitor local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-terminal-monitor"
+  },
+  {
+    "ts": "2026-03-18T20:48:23.097Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-terminal-monitor"
+  },
+  {
+    "ts": "2026-03-18T20:48:30.998Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-pr-create"
+  },
+  {
+    "ts": "2026-03-18T20:48:30.999Z",
+    "level": "info",
+    "msg": "cmd=cmd-pr-create done status=complete progress=88%"
+  },
+  {
+    "ts": "2026-03-18T20:49:23.329Z",
+    "level": "info",
+    "msg": "claude fallback exited code=143 failed",
+    "commandId": "cmd-terminal-monitor"
+  },
+  {
+    "ts": "2026-03-18T20:49:23.331Z",
+    "level": "info",
+    "msg": "cmd=cmd-terminal-monitor done status=failed progress=100%"
   }
 ]

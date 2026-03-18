@@ -202,7 +202,12 @@ class ResumeParser {
    */
   _parseExperienceText(text) {
     const entries = [];
-    const blocks = text.split(/\n(?=\S)/).filter((b) => b.trim().length > 0);
+    // Split on blank lines to separate multiple experience entries.
+    // Single entries (no blank lines) stay as one block.
+    let blocks = text.split(/\n\s*\n/).filter((b) => b.trim().length > 0);
+    if (blocks.length === 0) {
+      blocks = [text];
+    }
 
     for (const block of blocks) {
       const lines = block.split('\n').map((l) => l.trim()).filter((l) => l.length > 0);
@@ -210,7 +215,7 @@ class ResumeParser {
 
       const entry = {
         title: lines[0] || '',
-        company: lines.length > 1 ? lines[1] : '',
+        company: '',
         duration: '',
         description: [],
       };
@@ -241,7 +246,11 @@ class ResumeParser {
    */
   _parseEducationText(text) {
     const entries = [];
-    const blocks = text.split(/\n(?=\S)/).filter((b) => b.trim().length > 0);
+    // Split on blank lines to separate multiple education entries.
+    let blocks = text.split(/\n\s*\n/).filter((b) => b.trim().length > 0);
+    if (blocks.length === 0) {
+      blocks = [text];
+    }
 
     for (const block of blocks) {
       const lines = block.split('\n').map((l) => l.trim()).filter((l) => l.length > 0);

@@ -287,10 +287,6 @@ function buildSnapshot() {
     claims: [],
     collisions: [],
   });
-  const workflow = readJson(path.join(stateDir, 'workflow-state.json'), {
-    inProgressWorkflows: [],
-    completedWorkflows: [],
-  });
   const workflowState = readJson(path.join(stateDir, 'workflow-state.json'), {
     inProgressWorkflows: [],
     completedWorkflows: [],

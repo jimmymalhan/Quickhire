@@ -9,7 +9,7 @@ const { FormFiller } = require('./formFiller');
 const { CustomQAHandler } = require('./customQAHandler');
 const { ResumeUploadHandler } = require('./resumeUploadHandler');
 const { withRetry } = require('./retryHandler');
-const BrowserManager = require('./browserManager');
+const _BrowserManager = require('./browserManager');
 const { LinkedInSessionManager } = require('./linkedInSessionManager');
 
 const SUBMISSION_STATES = {

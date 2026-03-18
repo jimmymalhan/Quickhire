@@ -1,8 +1,8 @@
 {
-  "status": "running",
-  "activeCommandId": "cmd-pr-create",
-  "startedAt": "2026-03-18T20:47:53.025Z",
-  "lastHeartbeatAt": "2026-03-18T20:47:58.026Z",
-  "updatedAt": "2026-03-18T20:47:58.026Z",
+  "status": "idle",
+  "activeCommandId": null,
+  "startedAt": null,
+  "lastHeartbeatAt": null,
+  "updatedAt": "2026-03-18T20:49:23.331Z",
   "workerBootedAt": "2026-03-18T07:08:52.049Z"
 }
