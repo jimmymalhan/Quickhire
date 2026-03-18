@@ -7,7 +7,6 @@ on:
     branches: [main, develop]
 
 env:
-  MOCK_DB: 'true'
   NODE_ENV: test
 
 jobs:
@@ -24,7 +23,7 @@ jobs:
       - name: Run test suite
         run: npm test -- --passWithNoTests --no-coverage
         env:
-          MOCK_DB: 'true'
+          NODE_ENV: test
 
   lint:
     name: Lint
