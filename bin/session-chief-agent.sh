@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # session-chief-agent.sh — Owns the whole mission. Picks next highest-ROI slice.
 # Assigns work. Keeps backlog moving until runnable backlog = 0.
-# ZERO Claude. ZERO external API. Pure local execution.
+# ZERO LocalAgent. ZERO external API. Pure local execution.
 set -uo pipefail
 ROOT="${QUICKHIRE_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 CP="$ROOT/state/local-agent-runtime/orchestration-controls.json"

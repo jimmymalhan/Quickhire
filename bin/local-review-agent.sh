@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # local-review-agent.sh — Local failure analysis and audit agent.
 # Called when a task fails MAX_LOCAL_RETRIES times.
-# NEVER calls Claude. Performs deterministic local analysis only.
+# NEVER calls LocalAgent. Performs deterministic local analysis only.
 #
 # Output contract:
 #   REVIEW: <failed-task-id>

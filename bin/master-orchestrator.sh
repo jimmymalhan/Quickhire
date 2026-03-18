@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# master-orchestrator.sh — THE master local agent. Does ALL work. Claude uses 0 tokens.
+# master-orchestrator.sh — THE master local agent. Does ALL work. LocalAgent uses 0 tokens.
 #
 # RESPONSIBILITIES:
 #   1. Fix lint warning (guardrailLoader.js console statement)
@@ -359,7 +359,7 @@ dashboard_agent() {
       ├── 2x Git sync workers (push changes)
       └── 2x Build verifiers (npm run build)
 
-  CLAUDE=BLOCKED(0 tokens) | AGENTS=ACTIVE | CHAOS=ON
+  ENGINE=LOCAL_AGENTS | AGENTS=ACTIVE | CHAOS=ON
 ════════════════════════════════════════════════════════════════
 EODASH
 
@@ -373,7 +373,7 @@ EODASH
 main() {
   log "══════════════════════════════════════════════════"
   log "  MASTER ORCHESTRATOR STARTED (PID $$)"
-  log "  All work by local agents. Claude = 0 tokens."
+  log "  All work by local agents. LocalAgent = 0 tokens."
   log "══════════════════════════════════════════════════"
 
   # Start dashboard in background

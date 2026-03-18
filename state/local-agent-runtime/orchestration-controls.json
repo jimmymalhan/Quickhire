@@ -1,9 +1,9 @@
 {
   "orchestration": {
     "mode": "LOCAL_AGENTS_ONLY",
-    "claudeTokensAllowed": 0,
+    "LocalAgentTokensAllowed": 0,
     "handoffTime": "2026-03-18T22:50:00.000Z",
-    "notes": "Claude STOPPED. All remaining work handed to local agents. Pick up where left off."
+    "notes": "LocalAgent STOPPED. All remaining work handed to local agents. Pick up where left off."
   },
   "completedTasks": [
     {"id": "cmd-test", "status": "DONE", "result": "1386/1386 passed, 65 suites"},

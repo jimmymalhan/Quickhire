@@ -535,7 +535,7 @@
     "promptSnippet": "git push origin",
     "resultStatus": "complete",
     "durationMs": 38,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T19:40:16.629Z"
   },
   {
@@ -546,7 +546,7 @@
     "promptSnippet": "git commit locked-down",
     "resultStatus": "complete",
     "durationMs": 15,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T19:40:11.604Z"
   },
   {
@@ -557,7 +557,7 @@
     "promptSnippet": "git add feature-branch",
     "resultStatus": "complete",
     "durationMs": 14,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T19:40:06.601Z"
   },
   {
@@ -568,7 +568,7 @@
     "promptSnippet": "git diff status",
     "resultStatus": "complete",
     "durationMs": 35,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T19:40:01.607Z"
   },
   {
@@ -612,7 +612,7 @@
     "promptSnippet": "start terminal-reporter-agent polling live mission status",
     "resultStatus": "complete",
     "durationMs": 15,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T19:35:01.481Z"
   },
   {
@@ -928,10 +928,10 @@
     "agentId": "code-writer-agent",
     "action": "agent-chat",
     "scope": "agentRouter",
-    "promptSnippet": "FEATURE: implement claude-zero enforcer write module create file",
+    "promptSnippet": "FEATURE: implement LocalAgent-zero enforcer write module create file",
     "resultStatus": "complete",
     "durationMs": 95738,
-    "outputSnippet": "It looks like write permission isn't auto-approved for this path. Can you approve the write to `src/automation/claudeZeroEnforcer.js`, or would you prefer I show you the full file content so you can c",
+    "outputSnippet": "It looks like write permission isn't auto-approved for this path. Can you approve the write to `src/automation/LocalAgentZeroEnforcer.js`, or would you prefer I show you the full file content so you can c",
     "recordedAt": "2026-03-18T07:37:43.197Z"
   },
   {
@@ -972,10 +972,10 @@
     "agentId": "backlog-agent",
     "action": "agent-chat",
     "scope": "agentRouter",
-    "promptSnippet": "backlog-admin mark-complete-admin ADMIN guardrail claude zero",
+    "promptSnippet": "backlog-admin mark-complete-admin ADMIN guardrail LocalAgent zero",
     "resultStatus": "complete",
     "durationMs": 38,
-    "outputSnippet": "Marked complete: cmd-guardrail-write-1773819248014 - FEATURE: update src/automation/guardrailLoader.js to export CLAUDE_DOES_NOTHING flag. If true, any code path that would call claude CLI must throw ",
+    "outputSnippet": "Marked complete: cmd-guardrail-write-1773819248014 - FEATURE: update src/automation/guardrailLoader.js to export CLAUDE_DOES_NOTHING flag. If true, any code path that would call LocalAgent CLI must throw ",
     "recordedAt": "2026-03-18T07:34:17.469Z"
   },
   {
@@ -1129,7 +1129,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 37,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:14:58.673Z"
   },
   {
@@ -1151,7 +1151,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 36,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:14:54.685Z"
   },
   {
@@ -1162,7 +1162,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 25,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:14:54.625Z"
   },
   {
@@ -1195,7 +1195,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 43,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:14:54.435Z"
   },
   {
@@ -1217,7 +1217,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 21,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:12:54.872Z"
   },
   {
@@ -1228,7 +1228,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 23,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:12:46.658Z"
   },
   {
@@ -1239,7 +1239,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 20,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:12:38.625Z"
   },
   {
@@ -1261,7 +1261,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 36,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:12:25.830Z"
   },
   {
@@ -1283,7 +1283,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 22,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:08:40.846Z"
   },
   {
@@ -1316,7 +1316,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 38,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:08:40.649Z"
   },
   {
@@ -1349,7 +1349,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 24,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:06:55.473Z"
   },
   {
@@ -1382,7 +1382,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 36,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:06:52.590Z"
   },
   {
@@ -1404,7 +1404,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 40,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:04:42.035Z"
   },
   {
@@ -1415,7 +1415,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 25,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T06:00:27.109Z"
   },
   {
@@ -1437,7 +1437,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 11,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T05:40:44.991Z"
   },
   {
@@ -1459,7 +1459,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 31,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T05:40:44.971Z"
   },
   {
@@ -1492,7 +1492,7 @@
     "promptSnippet": "check git status",
     "resultStatus": "complete",
     "durationMs": 41,
-    "outputSnippet": " M .claude/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
+    "outputSnippet": " M .LocalAgent/settings.json\n M .github/workflows/ci.yml\n M frontend/src/components/dashboard/ClawbotSessionsPanel.tsx\n M frontend/src/components/dashboard/ProjectTrackerBoard.tsx\n M frontend/src/componen",
     "recordedAt": "2026-03-18T05:27:58.680Z"
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-18T22:09:25Z",
+  "updatedAt": "2026-03-18T22:10:12Z",
   "tests": {
     "status": "pass",
     "count": "Tests:       1 todo, 1386 passed, 1387 total"
@@ -13,6 +13,6 @@
     "noDirectCommitsToMain": true,
     "prRequired": true,
     "ciMustPassBeforeMerge": true,
-    "claudeEnabled": false
+    "LocalAgentEnabled": false
   }
 }

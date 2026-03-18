@@ -35,7 +35,7 @@ while true; do
   log "Progress: ${PROGRESS}% | Completed: $COMPLETED | Pending: $PENDING"
   log "Orchestrators: $ORCH_COUNT active"
   log "PR #3 CI: $PR_STATUS"
-  log "Claude: BLOCKED (0 tokens) | Agents: ACTIVE"
+  log "Engine: Local Agents Only | Agents: ACTIVE"
   log "═══════════════════════════════════════════════════════"
   log ""
 

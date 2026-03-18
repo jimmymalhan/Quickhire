@@ -7,13 +7,13 @@
  *  1. Read orchestration-controls.json
  *  2. Pick pendingCommands[0] where status === 'queued'
  *  3. Single-process lock (no collision)
- *  4. Route to local agent via agentRouter (Claude NOT called)
- *  5. Only if routing fails AND claude CLI is present → fallback spawn
+ *  4. Route to local agent via agentRouter (agent NOT called)
+ *  5. Only if routing fails AND agent CLI is present → fallback spawn
  *  6. Mark command complete / failed, update workerProgress %
  *  7. Flush logs every 10 s
  *  8. Escalate if stuck > 30 s
  *
- * Claude = advisor only. Local agents = executors.
+ * agent = advisor only. Local agents = executors.
  */
 
 const fs = require('fs');
@@ -63,7 +63,7 @@ const LOG_FLUSH_MS = 10000;
 const STUCK_MS = 30000;
 const MAX_LOG_ENTRIES = 500;
 // Local agents are retried MAX_LOCAL_RETRIES times. After that → local-review-agent.
-// Value read from guardrail-config.json (default 3). Claude is NEVER the fallback.
+// Value read from guardrail-config.json (default 3). agent is NEVER the fallback.
 function getMaxLocalRetries() {
   return guardrailLoader.maxLocalRetries();
 }
@@ -145,18 +145,18 @@ function calcProgress(commands) {
 
 /**
  * Escalate a failed task to local-review-agent for deterministic triage.
- * Claude is NEVER called here. CLAUDE_ENABLED=false is enforced.
+ * agent is NEVER called here. CLAUDE_ENABLED=false is enforced.
  *
- * If CLAUDE_ENABLED=true (manual emergency override), the old claude path
+ * If CLAUDE_ENABLED=true (manual emergency override), the old agent path
  * is gated behind this function — but the guardrail default keeps it false.
  */
 async function escalateToLocalReview(prompt, commandId) {
   const startMs = Date.now();
 
-  // Hard guardrail: if CLAUDE_ENABLED=false, reject any attempt to call Claude.
-  if (guardrailLoader.isClaudeEnabled()) {
+  // Hard guardrail: if CLAUDE_ENABLED=false, reject any attempt to call agent.
+  if (guardrailLoader.isagentEnabled()) {
     // Emergency override path — should never reach here in normal operation.
-    // Log warning and still route to local-review-agent (Claude CLI not called).
+    // Log warning and still route to local-review-agent (agent CLI not called).
     emit('warn', 'GUARDRAIL: CLAUDE_ENABLED=true detected — routing to local-review-agent anyway', { commandId });
   } else {
     emit('info', `GUARDRAIL: CLAUDE_ENABLED=false — local-review-agent handles escalation`, { commandId });
@@ -201,7 +201,7 @@ async function executeCommand(command) {
   const maxRetries = getMaxLocalRetries();
 
   // 1. Try local agents up to maxRetries times.
-  //    After exhaustion → local-review-agent. Claude is NEVER called.
+  //    After exhaustion → local-review-agent. agent is NEVER called.
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     // agentRouter: memory retrieval → health gate → spawn local binary
     const routeResult = await agentRouter.route(prompt); // eslint-disable-line no-await-in-loop
@@ -239,7 +239,7 @@ async function executeCommand(command) {
   }
 
   // 2. All local retries exhausted → escalate to local-review-agent.
-  //    GUARDRAIL: Claude is NEVER called. CLAUDE_ENABLED=false enforced.
+  //    GUARDRAIL: agent is NEVER called. CLAUDE_ENABLED=false enforced.
   emit('warn', `cmd=${command.id} local agents exhausted after ${maxRetries} attempts — escalating to local-review-agent`, {
     commandId: command.id,
   });
@@ -339,7 +339,7 @@ async function tick() {
 function start() {
   if (process.env.DISABLE_WORKER === 'true') {return;}
 
-  emit('info', 'Agent worker started — Claude removed from primary execution loop', {
+  emit('info', 'Agent worker started — agent removed from primary execution loop', {
     pollMs: POLL_MS,
     stuckMs: STUCK_MS,
   });

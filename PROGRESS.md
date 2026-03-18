@@ -387,7 +387,7 @@ Sub-tasks: 50 | Status: ⏳ PENDING
 
 **View Task List**:
 ```bash
-cd ~/.claude/tasks/quickhire-main
+cd ~/.agent/tasks/quickhire-main
 ls -la
 ```
 
@@ -404,7 +404,7 @@ cat /Users/jimmymalhan/Doc/Quickhire/PROGRESS.md
 
 **Watch Team Activity**:
 - Team messages are automatically delivered
-- Check team config: /Users/jimmymalhan/.claude/teams/quickhire-main/config.json
+- Check team config: /Users/jimmymalhan/.agent/teams/quickhire-main/config.json
 
 ---
 

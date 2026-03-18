@@ -2,7 +2,7 @@
 
 /**
  * agentRegistry.js — Maps skill keywords to deterministic local executors.
- * No Claude. No API calls. Pure local execution.
+ * No agent. No API calls. Pure local execution.
  *
  * Each agent has:
  *   id          — unique identifier
@@ -125,7 +125,7 @@ const AGENTS = [
   {
     id: 'code-writer-agent',
     name: 'Code Writer',
-    description: 'Executes FEATURE prompts via claude CLI — writes files, builds modules, creates implementations',
+    description: 'Executes FEATURE prompts via agent CLI — writes files, builds modules, creates implementations',
     capabilities: ['feature'],
     skills: ['feature:', 'linkedin', 'session manager', 'walker', 'customqa', 'submitter', 'build module', 'create file', 'implement', 'write module', 'task 1', 'task 2', 'task 3', 'task 4'],
     executor: { cmd: 'sh', args: ['-c', `${path.resolve(root, 'bin/code-writer.sh')}`], cwd: root },
@@ -134,7 +134,7 @@ const AGENTS = [
   {
     id: 'local-review-agent',
     name: 'Local Review Agent',
-    description: 'Analyzes task failures after 3 local retries. No Claude. Deterministic root-cause triage only.',
+    description: 'Analyzes task failures after 3 local retries. No agent. Deterministic root-cause triage only.',
     capabilities: ['review', 'admin'],
     skills: ['review-task', 'local-review', 'escalate-local', 'triage', 'audit-failure', 'analyze-failure'],
     executor: { cmd: 'sh', args: [path.resolve(root, 'bin/local-review-agent.sh')], cwd: root },

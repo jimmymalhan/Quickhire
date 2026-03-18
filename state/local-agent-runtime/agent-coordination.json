@@ -11,8 +11,8 @@
     },
     {
       "id": "claim-test-repair",
-      "owner": "claude-agent",
-      "model": "claude-opus-4-6",
+      "owner": "LocalAgent-agent",
+      "model": "local-agent",
       "status": "completed",
       "task": "Fix all 6 failing backend test suites - 57/57 green, 1196 tests passing",
       "started_at": "2026-03-17T13:00:00Z",

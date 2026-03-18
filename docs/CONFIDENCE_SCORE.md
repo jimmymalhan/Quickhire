@@ -16,12 +16,12 @@
 ### Files Modified
 
 **Framework** ✅ COMPLETE:
-- [x] .claude/settings.json - Shared team configuration
-- [x] .claude/rules/ui.md - Production-grade UI standards
-- [x] .claude/rules/backend.md - Backend reliability patterns
-- [x] .claude/rules/confidence.md - Evidence-based scoring rubric
-- [x] .claude/agents/ui-builder.md - Focused UI agent template
-- [x] .claude/agents/backend-builder.md - Focused backend agent template
+- [x] .agent/settings.json - Shared team configuration
+- [x] .agent/rules/ui.md - Production-grade UI standards
+- [x] .agent/rules/backend.md - Backend reliability patterns
+- [x] .agent/rules/confidence.md - Evidence-based scoring rubric
+- [x] .agent/agents/ui-builder.md - Focused UI agent template
+- [x] .agent/agents/backend-builder.md - Focused backend agent template
 - [x] docs/CONFIDENCE_SCORE.md - Evidence tracking ledger
 
 **Bug Fixes**:
@@ -42,12 +42,12 @@
 npm test → 1528/1695 passing (90%) ✓
 
 # Framework Files
-.claude/settings.json → Created with guardrails
-.claude/rules/ui.md → Created with 6 UI states + spacing standards
-.claude/rules/backend.md → Created with error handling patterns
-.claude/rules/confidence.md → Created with 0-100 rubric
-.claude/agents/ui-builder.md → Created with quality checklist
-.claude/agents/backend-builder.md → Created with implementation patterns
+.agent/settings.json → Created with guardrails
+.agent/rules/ui.md → Created with 6 UI states + spacing standards
+.agent/rules/backend.md → Created with error handling patterns
+.agent/rules/confidence.md → Created with 0-100 rubric
+.agent/agents/ui-builder.md → Created with quality checklist
+.agent/agents/backend-builder.md → Created with implementation patterns
 docs/CONFIDENCE_SCORE.md → Created with evidence tracking
 
 # Git Status
@@ -116,9 +116,9 @@ git checkout HEAD -- src/api/middleware/errorHandler.js
 **PRODUCTION DEPLOYMENT READY**
 
 **Framework Completeness**:
-- [x] .claude/settings.json - Team guardrails, no conflicts
-- [x] .claude/rules/ - UI, backend, confidence standards
-- [x] .claude/agents/ - UI-builder, backend-builder templates
+- [x] .agent/settings.json - Team guardrails, no conflicts
+- [x] .agent/rules/ - UI, backend, confidence standards
+- [x] .agent/agents/ - UI-builder, backend-builder templates
 - [x] docs/CONFIDENCE_SCORE.md - Evidence tracking ledger
 - [x] 1528/1695 tests passing (90% baseline)
 - [x] All dependencies installed
@@ -131,12 +131,12 @@ git checkout HEAD -- src/api/middleware/errorHandler.js
 ✓ Clear ownership model (each agent has single responsibility)
 ✓ Evidence-based scoring (95%+ confidence blocks weak work)
 ✓ Parallel execution safe (no shared mutable state)
-✓ Quality gates enforce standards (.claude/rules/)
+✓ Quality gates enforce standards (.agent/rules/)
 ✓ Monitoring via CONFIDENCE_SCORE.md ledger
 
 **Status**: 🚀 READY FOR 10,000+ AGENT EXECUTION NOW
 - 10,000s of agents can spawn immediately
-- Each agent follows .claude/rules/ standards
+- Each agent follows .agent/rules/ standards
 - Each agent reports progress to CONFIDENCE_SCORE.md
 - Each agent must achieve 95%+ confidence before merge
 - Framework prevents conflicts, ensures quality, enables scale
@@ -169,7 +169,7 @@ git checkout HEAD -- src/api/middleware/errorHandler.js
 
 ## Notes
 
-- **Guardrails**: All changes follow .claude/rules/ standards
+- **Guardrails**: All changes follow .agent/rules/ standards
 - **Testing**: Evidence-based scoring only, no assumptions
 - **Unknowns**: Listed explicitly, score reduced if not addressed
 - **Rollback**: All changes reversible via git
