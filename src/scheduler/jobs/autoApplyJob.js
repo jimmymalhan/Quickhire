@@ -118,8 +118,6 @@ const autoApplyJob = async (job = {}) => {
  * @returns {Array} Array of user objects with preferences
  */
 const getEligibleUsers = async (specificUserId) => {
-  let result;
-
   if (specificUserId) {
     const preferences = await UserPreference.findByUserId(specificUserId);
     if (!preferences || !preferences.auto_apply_enabled) {

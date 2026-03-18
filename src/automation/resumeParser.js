@@ -171,7 +171,7 @@ class ResumeParser {
     const emailMatch = text.match(/[\w.+-]+@[\w.-]+\.\w+/);
     if (emailMatch) {contact.email = emailMatch[0];}
 
-    const phoneMatch = text.match(/[\+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]{7,}/);
+    const phoneMatch = text.match(/[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]{7,}/);
     if (phoneMatch) {contact.phone = phoneMatch[0].trim();}
 
     const linkedinMatch = text.match(/linkedin\.com\/in\/[\w-]+/i);
