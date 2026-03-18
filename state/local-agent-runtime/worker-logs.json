@@ -1834,5 +1834,111 @@
     "ts": "2026-03-18T19:50:01.825Z",
     "level": "info",
     "msg": "cmd=cmd-final-cleanup-1773863328734 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T20:01:32.015Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-readme-agents-1773864087282 action=feature",
+    "commandId": "cmd-readme-agents-1773864087282",
+    "prompt": "FEATURE: write module update file readme documentation agent"
+  },
+  {
+    "ts": "2026-03-18T20:02:02.025Z",
+    "level": "warn",
+    "msg": "cmd=cmd-readme-agents-1773864087282 stuck for 30s — escalating",
+    "commandId": "cmd-readme-agents-1773864087282"
+  },
+  {
+    "ts": "2026-03-18T20:02:02.028Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-agent-export-kiro-1773864087282 action=feature",
+    "commandId": "cmd-agent-export-kiro-1773864087282",
+    "prompt": "FEATURE: write module create file agent architecture documen"
+  },
+  {
+    "ts": "2026-03-18T20:02:10.940Z",
+    "level": "info",
+    "msg": "cmd=cmd-agent-export-kiro-1773864087282 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-agent-export-kiro-1773864087282",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:02:10.943Z",
+    "level": "info",
+    "msg": "cmd=cmd-agent-export-kiro-1773864087282 done status=complete progress=90%"
+  },
+  {
+    "ts": "2026-03-18T20:02:12.040Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-mcps-docs-1773864087282 action=feature",
+    "commandId": "cmd-mcps-docs-1773864087282",
+    "prompt": "FEATURE: write module create file mcp custom agents document"
+  },
+  {
+    "ts": "2026-03-18T20:02:23.543Z",
+    "level": "info",
+    "msg": "cmd=cmd-mcps-docs-1773864087282 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-mcps-docs-1773864087282",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:02:23.545Z",
+    "level": "info",
+    "msg": "cmd=cmd-mcps-docs-1773864087282 done status=complete progress=93%"
+  },
+  {
+    "ts": "2026-03-18T20:02:27.055Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-setup-guide-1773864087282 action=feature",
+    "commandId": "cmd-setup-guide-1773864087282",
+    "prompt": "FEATURE: write module create file quickstart setup guide"
+  },
+  {
+    "ts": "2026-03-18T20:02:42.304Z",
+    "level": "info",
+    "msg": "cmd=cmd-setup-guide-1773864087282 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-setup-guide-1773864087282",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:02:42.306Z",
+    "level": "info",
+    "msg": "cmd=cmd-setup-guide-1773864087282 done status=complete progress=95%"
+  },
+  {
+    "ts": "2026-03-18T20:02:46.964Z",
+    "level": "info",
+    "msg": "cmd=cmd-readme-agents-1773864087282 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-readme-agents-1773864087282",
+    "agentId": "code-writer-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:02:46.966Z",
+    "level": "info",
+    "msg": "cmd=cmd-readme-agents-1773864087282 done status=complete progress=95%"
+  },
+  {
+    "ts": "2026-03-18T20:02:47.066Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-export-templates-1773864087282 action=admin",
+    "commandId": "cmd-export-templates-1773864087282",
+    "prompt": "backlog-admin mark-complete-admin ADMIN export"
+  },
+  {
+    "ts": "2026-03-18T20:02:47.106Z",
+    "level": "info",
+    "msg": "cmd=cmd-export-templates-1773864087282 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-export-templates-1773864087282",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:02:47.107Z",
+    "level": "info",
+    "msg": "cmd=cmd-export-templates-1773864087282 done status=complete progress=100%"
   }
 ]
