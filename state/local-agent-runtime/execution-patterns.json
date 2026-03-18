@@ -1,5 +1,49 @@
 [
   {
+    "id": "pat-1773866392846",
+    "agentId": "backlog-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "backlog-admin mark-complete-admin ADMIN merge-blocker",
+    "resultStatus": "complete",
+    "durationMs": 36,
+    "outputSnippet": "No queued commands found.\n",
+    "recordedAt": "2026-03-18T20:39:52.846Z"
+  },
+  {
+    "id": "pat-1773866392566",
+    "agentId": "code-writer-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "FEATURE: write module create file pr quality enforcer",
+    "resultStatus": "complete",
+    "durationMs": 14759,
+    "outputSnippet": "I need clarification on this feature request. \"Write module create file PR quality enforcer\" is a bit ambiguous. Are you asking for:\n\n1. **A Node.js module** that validates PR quality before merge (ch",
+    "recordedAt": "2026-03-18T20:39:52.566Z"
+  },
+  {
+    "id": "pat-1773866372841",
+    "agentId": "git-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "backlog-admin mark-complete-admin ADMIN branch-protection",
+    "resultStatus": "complete",
+    "durationMs": 38,
+    "outputSnippet": " M state/local-agent-runtime/agent-health.json\n M state/local-agent-runtime/execution-patterns.json\n M state/local-agent-runtime/orchestration-controls.json\n M state/local-agent-runtime/worker-logs.js",
+    "recordedAt": "2026-03-18T20:39:32.841Z"
+  },
+  {
+    "id": "pat-1773866367842",
+    "agentId": "backlog-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "backlog-admin mark-complete-admin ADMIN ci-pipeline-gate",
+    "resultStatus": "complete",
+    "durationMs": 39,
+    "outputSnippet": "Marked complete: cmd-gh-action-update-1773866366619 - FEATURE: update .github/workflows/main.yml — on any PR/push to main: run npm test, npm lint, npm build, retry failed 2x, auto-comment on PR with t",
+    "recordedAt": "2026-03-18T20:39:27.842Z"
+  },
+  {
     "id": "pat-1773866011636",
     "agentId": "lint-agent",
     "action": "agent-chat",
