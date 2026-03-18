@@ -1,7 +1,7 @@
 {
-  "step": "commit_remaining",
+  "step": "wait_ci",
   "status": "running",
   "detail": "",
-  "timestamp": "2026-03-18T22:19:00.241882Z",
+  "timestamp": "2026-03-18T22:19:07.473658Z",
   "worker": "37175"
 }
