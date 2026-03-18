@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-03-18T21:39:17Z",
+  "updatedAt": "2026-03-18T22:09:25Z",
   "tests": {
-    "status": "fail",
-    "count": "Tests:       6 failed, 1 todo, 1380 passed, 1387 total"
+    "status": "pass",
+    "count": "Tests:       1 todo, 1386 passed, 1387 total"
   },
   "lint": {
     "status": "pass",
     "errors": 0
   },
-  "mergeAllowed": false,
+  "mergeAllowed": true,
   "rules": {
     "noDirectCommitsToMain": true,
     "prRequired": true,
