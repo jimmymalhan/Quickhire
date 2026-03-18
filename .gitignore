@@ -24,6 +24,10 @@ dist/
 build/
 .next/
 out/
+frontend/dist/
+frontend/*.tsbuildinfo
+frontend/*.d.ts
+frontend/*.js
 
 # Logs
 logs/

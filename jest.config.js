@@ -1,6 +1,15 @@
 module.exports = {
   testEnvironment: 'node',
   coverageDirectory: 'coverage',
+  modulePathIgnorePatterns: [
+    '<rootDir>/.claude/worktrees/',
+    '<rootDir>/coverage/',
+    '<rootDir>/frontend/dist/',
+  ],
+  testPathIgnorePatterns: [
+    '<rootDir>/.claude/worktrees/',
+    '<rootDir>/node_modules/',
+  ],
   collectCoverageFrom: [
     'src/**/*.js',
     '!src/index.js',
