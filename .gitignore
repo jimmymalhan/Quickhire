@@ -1,6 +1,5 @@
 # Dependencies
 node_modules/
-package-lock.json
 yarn.lock
 __pycache__/
 *.pyc
@@ -24,6 +23,10 @@ dist/
 build/
 .next/
 out/
+frontend/dist/
+frontend/*.tsbuildinfo
+frontend/*.d.ts
+frontend/*.js
 
 # Logs
 logs/
@@ -49,3 +52,4 @@ credentials.json
 secrets.json
 .aws/
 *.pem
+.claude/worktrees/

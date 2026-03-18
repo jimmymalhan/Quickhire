@@ -1,0 +1,119 @@
+name: Deploy to Production
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag to deploy'
+        required: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://quickhire.app
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.28.0'
+
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG_PRODUCTION }}" | base64 -d > $HOME/.kube/config
+
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Save rollback info
+        id: rollback
+        run: |
+          BACKEND_IMAGE=$(kubectl get deployment quickhire-backend -n quickhire-production -o jsonpath='{.spec.template.spec.containers[0].image}' 2>/dev/null || echo "none")
+          FRONTEND_IMAGE=$(kubectl get deployment quickhire-frontend -n quickhire-production -o jsonpath='{.spec.template.spec.containers[0].image}' 2>/dev/null || echo "none")
+          echo "backend_image=${BACKEND_IMAGE}" >> $GITHUB_OUTPUT
+          echo "frontend_image=${FRONTEND_IMAGE}" >> $GITHUB_OUTPUT
+
+      - name: Deploy to production namespace
+        run: |
+          kubectl set image deployment/quickhire-backend \
+            backend=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.tag }} \
+            -n quickhire-production
+          kubectl set image deployment/quickhire-frontend \
+            frontend=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend:${{ steps.version.outputs.tag }} \
+            -n quickhire-production
+
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/quickhire-backend -n quickhire-production --timeout=600s
+          kubectl rollout status deployment/quickhire-frontend -n quickhire-production --timeout=600s
+
+      - name: Run smoke tests
+        id: smoke
+        run: |
+          PROD_URL=$(kubectl get svc quickhire-backend -n quickhire-production -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+
+          echo "Checking backend health..."
+          curl -sf "${PROD_URL}/health" || exit 1
+
+          echo "Checking metrics endpoint..."
+          curl -sf "${PROD_URL}/metrics" || true
+
+          echo "Production smoke tests passed"
+
+      - name: Rollback on failure
+        if: failure() && steps.smoke.outcome == 'failure'
+        run: |
+          echo "Rolling back production deployment..."
+          kubectl rollout undo deployment/quickhire-backend -n quickhire-production
+          kubectl rollout undo deployment/quickhire-frontend -n quickhire-production
+          kubectl rollout status deployment/quickhire-backend -n quickhire-production --timeout=300s
+          kubectl rollout status deployment/quickhire-frontend -n quickhire-production --timeout=300s
+          echo "Rollback complete"
+
+      - name: Notify deployment success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'success',
+              description: 'Production deployment successful',
+              context: 'deploy/production'
+            });
+
+      - name: Notify deployment failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'failure',
+              description: 'Production deployment failed (rollback attempted)',
+              context: 'deploy/production'
+            });

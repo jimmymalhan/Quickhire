@@ -1,0 +1,132 @@
+groups:
+  - name: quickhire-api
+    rules:
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.01
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate on {{ $labels.instance }}"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 1%)"
+
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High p95 response time on {{ $labels.instance }}"
+          description: "p95 latency is {{ $value }}s (threshold: 1s)"
+
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "{{ $labels.instance }} has been unreachable for 1 minute"
+
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is above 80% (current: {{ $value | humanizePercentage }})"
+
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 70
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is above 70% (current: {{ $value }}%)"
+
+  - name: quickhire-application
+    rules:
+      - alert: HighApplicationFailureRate
+        expr: rate(job_applications_failed_total[1h]) / rate(job_applications_total[1h]) > 0.05
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High application failure rate"
+          description: "Application failure rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+
+      - alert: JobScraperNotRunning
+        expr: time() - job_scraper_last_run_timestamp > 28800
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Job scraper has not run in 8 hours"
+          description: "Last scraper run was {{ $value | humanizeDuration }} ago"
+
+      - alert: QueueBacklog
+        expr: bull_queue_waiting > 1000
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Job queue backlog is growing"
+          description: "{{ $value }} jobs waiting in queue"
+
+  - name: quickhire-database
+    rules:
+      - alert: DatabaseConnectionFailure
+        expr: pg_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "PostgreSQL is down"
+          description: "Cannot connect to PostgreSQL for more than 1 minute"
+
+      - alert: PostgresConnectionsHigh
+        expr: pg_stat_activity_count / pg_settings_max_connections > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PostgreSQL connections nearing limit"
+          description: "{{ $value | humanizePercentage }} of max connections used"
+
+      - alert: PostgresSlowQueries
+        expr: pg_stat_activity_max_tx_duration > 300
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Long-running PostgreSQL query detected"
+          description: "Query running for {{ $value }}s"
+
+      - alert: RedisConnectionFailure
+        expr: redis_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis is down"
+          description: "Cannot connect to Redis for more than 1 minute"
+
+      - alert: RedisMemoryHigh
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis memory usage high"
+          description: "{{ $value | humanizePercentage }} of max memory used"
+
+      - alert: LowDiskSpace
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space is below 10% (current: {{ $value | humanizePercentage }} free)"
