@@ -21,4 +21,15 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 'error',
     'jsx-a11y/no-noninteractive-element-interactions': 'warn',
   },
+  overrides: [
+    {
+      files: [
+        'src/context/*.tsx',
+        'src/test/testUtils.tsx',
+      ],
+      rules: {
+        'react-refresh/only-export-components': 'off',
+      },
+    },
+  ],
 };

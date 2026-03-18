@@ -69,7 +69,7 @@ describe('useApi', () => {
   });
 
   it('execute returns data on success', async () => {
-    const apiFunc = vi.fn().mockResolvedValue(42);
+    const apiFunc = vi.fn<[], Promise<number>>().mockResolvedValue(42);
     const { result } = renderHook(() => useApi(apiFunc));
 
     let returnValue: number | null = null;

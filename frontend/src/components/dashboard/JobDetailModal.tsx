@@ -31,15 +31,20 @@ function JobDetailModal({ job, onClose, onApply, isApplied = false }: JobDetailM
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="job-detail-title"
     >
+      <button
+        type="button"
+        className="absolute inset-0 bg-black/50"
+        aria-label="Close job details"
+        onClick={onClose}
+      />
       <div
         ref={dialogRef}
-        className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-6 shadow-xl dark:bg-gray-800"
+        className="relative max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-6 shadow-xl dark:bg-gray-800"
         tabIndex={-1}
       >
         <div className="flex items-start justify-between">

@@ -105,3 +105,80 @@ export interface DashboardMetrics {
   offersReceived: number;
   successRate: number;
 }
+
+export type RuntimeTaskStatus = 'queued' | 'in_progress' | 'blocked' | 'done';
+export type RuntimeSessionStatus = 'running' | 'idle' | 'stalled';
+export type RuntimeBlockerSeverity = 'low' | 'medium' | 'high';
+export type ExecutiveRole = 'ceo' | 'cto' | 'director' | 'manager' | 'engineer';
+
+export interface RuntimeTask {
+  id: string;
+  title: string;
+  status: RuntimeTaskStatus;
+  progress: number;
+  owner: string;
+  etaMinutes: number | null;
+  blockerId?: string | null;
+}
+
+export interface RuntimeSession {
+  id: string;
+  owner: string;
+  model: string;
+  status: RuntimeSessionStatus;
+  currentTask: string;
+  startedAt: string;
+  lastHeartbeatAt: string;
+}
+
+export interface RuntimeBlocker {
+  id: string;
+  title: string;
+  severity: RuntimeBlockerSeverity;
+  etaMinutes: number;
+  options: string[];
+  assignedTo?: string;
+}
+
+export interface ExecutiveDecision {
+  id: string;
+  role: ExecutiveRole;
+  owner: string;
+  action: string;
+  priority: 'critical' | 'high' | 'medium' | 'low';
+  timestamp: string;
+  outcome?: string;
+}
+
+export interface RuntimeProgressSnapshot {
+  generatedAt: string;
+  overallProgress: number;
+  remainingPercent: number;
+  blockerCount: number;
+  etaTotalMinutes: number;
+  tasks: RuntimeTask[];
+  sessions: RuntimeSession[];
+  blockers: RuntimeBlocker[];
+  upcomingTasks: string[];
+  completedWorkflows: string[];
+  executiveDecisions: ExecutiveDecision[];
+  resourceUsage: {
+    cpuPercent: number;
+    memoryPercent: number;
+    cpuThreshold: number;
+    memoryThreshold: number;
+  };
+  lessons: string[];
+  decisions: string[];
+  roiMetrics: {
+    tasksCompletedPerHour: number;
+    blockersResolvedPerHour: number;
+    localAgentUtilization: number;
+    cloudApiCallsSaved: number;
+  };
+  source?: {
+    provider: string;
+    stateDir: string;
+    connected: boolean;
+  };
+}
