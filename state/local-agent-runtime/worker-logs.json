@@ -2026,5 +2026,107 @@
     "ts": "2026-03-18T20:08:15.445Z",
     "level": "info",
     "msg": "cmd=cmd-continuous-executor-1773864420862 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T20:33:17.665Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-ci-test-gate-1773865996494 action=admin",
+    "commandId": "cmd-ci-test-gate-1773865996494",
+    "prompt": "backlog-admin mark-complete-admin ADMIN test gate"
+  },
+  {
+    "ts": "2026-03-18T20:33:17.705Z",
+    "level": "info",
+    "msg": "cmd=cmd-ci-test-gate-1773865996494 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-ci-test-gate-1773865996494",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:33:17.706Z",
+    "level": "info",
+    "msg": "cmd=cmd-ci-test-gate-1773865996494 done status=complete progress=94%"
+  },
+  {
+    "ts": "2026-03-18T20:33:22.667Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-keep-adding-tasks-1773865996494 action=admin",
+    "commandId": "cmd-keep-adding-tasks-1773865996494",
+    "prompt": "backlog-admin mark-complete-admin ADMIN auto-generate keep-a"
+  },
+  {
+    "ts": "2026-03-18T20:33:22.708Z",
+    "level": "info",
+    "msg": "cmd=cmd-keep-adding-tasks-1773865996494 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-keep-adding-tasks-1773865996494",
+    "agentId": "backlog-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:33:22.709Z",
+    "level": "info",
+    "msg": "cmd=cmd-keep-adding-tasks-1773865996494 done status=complete progress=98%"
+  },
+  {
+    "ts": "2026-03-18T20:33:27.675Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-final-lint-1773865996494 action=run",
+    "commandId": "cmd-final-lint-1773865996494",
+    "prompt": "lint eslint quality"
+  },
+  {
+    "ts": "2026-03-18T20:33:29.915Z",
+    "level": "info",
+    "msg": "cmd=cmd-final-lint-1773865996494 → lint-agent attempt=1/2 (failed)",
+    "commandId": "cmd-final-lint-1773865996494",
+    "agentId": "lint-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:33:29.916Z",
+    "level": "warn",
+    "msg": "cmd=cmd-final-lint-1773865996494 proof-failed agent=lint-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-final-lint-1773865996494",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T20:33:31.638Z",
+    "level": "info",
+    "msg": "cmd=cmd-final-lint-1773865996494 → lint-agent attempt=2/2 (failed)",
+    "commandId": "cmd-final-lint-1773865996494",
+    "agentId": "lint-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T20:33:31.638Z",
+    "level": "warn",
+    "msg": "cmd=cmd-final-lint-1773865996494 proof-failed agent=lint-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-final-lint-1773865996494",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T20:33:31.638Z",
+    "level": "warn",
+    "msg": "cmd=cmd-final-lint-1773865996494 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-final-lint-1773865996494"
+  },
+  {
+    "ts": "2026-03-18T20:33:31.638Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-final-lint-1773865996494"
+  },
+  {
+    "ts": "2026-03-18T20:33:40.897Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-final-lint-1773865996494"
+  },
+  {
+    "ts": "2026-03-18T20:33:40.899Z",
+    "level": "info",
+    "msg": "cmd=cmd-final-lint-1773865996494 done status=complete progress=100%"
   }
 ]

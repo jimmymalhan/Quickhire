@@ -1,5 +1,49 @@
 [
   {
+    "id": "pat-1773866011636",
+    "agentId": "lint-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "lint eslint quality",
+    "resultStatus": "failed",
+    "durationMs": 1720,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha lint\n> eslint src/ tests/ --ext .js\n\n\n/Users/jimmymalhan/Doc/Quickhire/src/api/controllers/runtimeController.js\n  290:9  error  'workflow' is assigned a value but n",
+    "recordedAt": "2026-03-18T20:33:31.636Z"
+  },
+  {
+    "id": "pat-1773866009915",
+    "agentId": "lint-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "lint eslint quality",
+    "resultStatus": "failed",
+    "durationMs": 2237,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha lint\n> eslint src/ tests/ --ext .js\n\n\n/Users/jimmymalhan/Doc/Quickhire/src/api/controllers/runtimeController.js\n  290:9  error  'workflow' is assigned a value but n",
+    "recordedAt": "2026-03-18T20:33:29.915Z"
+  },
+  {
+    "id": "pat-1773866002707",
+    "agentId": "backlog-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "backlog-admin mark-complete-admin ADMIN auto-generate keep-adding",
+    "resultStatus": "complete",
+    "durationMs": 39,
+    "outputSnippet": "Marked complete: cmd-final-test-1773865996494 - test: npm test -- --passWithNoTests verify all tests pass before allowing merge\n",
+    "recordedAt": "2026-03-18T20:33:22.707Z"
+  },
+  {
+    "id": "pat-1773865997704",
+    "agentId": "backlog-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "backlog-admin mark-complete-admin ADMIN test gate",
+    "resultStatus": "complete",
+    "durationMs": 37,
+    "outputSnippet": "Marked complete: cmd-github-workflow-1773865996494 - FEATURE: create/update .github/workflows/local-agent-test-gate.yml — GitHub Action: on every push, run tests/lint/build, block merge if fails. Auto",
+    "recordedAt": "2026-03-18T20:33:17.704Z"
+  },
+  {
     "id": "pat-1773864495443",
     "agentId": "code-writer-agent",
     "action": "agent-chat",
