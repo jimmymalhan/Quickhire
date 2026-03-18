@@ -1,5 +1,27 @@
 [
   {
+    "id": "pat-1773866687955",
+    "agentId": "git-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "RUN: terminal-reporter-agent poll orchestration-controls.json every 10s, print status. This is background continuous job",
+    "resultStatus": "complete",
+    "durationMs": 20,
+    "outputSnippet": " M state/local-agent-runtime/agent-health.json\n M state/local-agent-runtime/execution-patterns.json\n M state/local-agent-runtime/orchestration-controls.json\n M state/local-agent-runtime/worker-logs.js",
+    "recordedAt": "2026-03-18T20:44:47.955Z"
+  },
+  {
+    "id": "pat-1773866682943",
+    "agentId": "git-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "ADMIN: backlog-admin keep draining queue continuously. No manual intervention needed. This runs as background job.",
+    "resultStatus": "complete",
+    "durationMs": 12,
+    "outputSnippet": " M state/local-agent-runtime/agent-health.json\n M state/local-agent-runtime/orchestration-controls.json\n M state/local-agent-runtime/worker-logs.json\n M state/local-agent-runtime/worker-state.json\n",
+    "recordedAt": "2026-03-18T20:44:42.943Z"
+  },
+  {
     "id": "pat-1773866594703",
     "agentId": "test-agent",
     "action": "agent-chat",

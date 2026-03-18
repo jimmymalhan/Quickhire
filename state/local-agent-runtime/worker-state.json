@@ -1,8 +1,8 @@
 {
-  "status": "running",
-  "activeCommandId": "cmd-phase3-verify-ci-2026-03-18",
-  "startedAt": "2026-03-18T20:43:57.903Z",
-  "lastHeartbeatAt": "2026-03-18T20:43:57.903Z",
-  "updatedAt": "2026-03-18T20:43:57.903Z",
+  "status": "idle",
+  "activeCommandId": null,
+  "startedAt": null,
+  "lastHeartbeatAt": null,
+  "updatedAt": "2026-03-18T20:44:47.956Z",
   "workerBootedAt": "2026-03-18T07:08:52.049Z"
 }

@@ -2502,5 +2502,151 @@
     "level": "warn",
     "msg": "No local agent matched — trying claude CLI as fallback",
     "commandId": "cmd-phase3-verify-ci-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:05.535Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-phase2-fix-resumeparser-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:05.536Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase2-fix-resumeparser-2026-03-18 done status=complete progress=29%"
+  },
+  {
+    "ts": "2026-03-18T20:44:07.491Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-phase3-verify-ci-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:07.492Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase3-verify-ci-2026-03-18 done status=complete progress=43%"
+  },
+  {
+    "ts": "2026-03-18T20:44:07.910Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-phase4-commit-fixes-2026-03-18 action=admin",
+    "commandId": "cmd-phase4-commit-fixes-2026-03-18",
+    "prompt": "ADMIN: git checkout -b fix/ci-linting-tests. git add -A. git"
+  },
+  {
+    "ts": "2026-03-18T20:44:07.911Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase4-commit-fixes-2026-03-18 no agent matched attempt=1/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-phase4-commit-fixes-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:07.912Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase4-commit-fixes-2026-03-18 no agent matched attempt=2/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-phase4-commit-fixes-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:07.912Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase4-commit-fixes-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-phase4-commit-fixes-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:07.912Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-phase4-commit-fixes-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:26.660Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-phase4-commit-fixes-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:26.660Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase4-commit-fixes-2026-03-18 done status=complete progress=57%"
+  },
+  {
+    "ts": "2026-03-18T20:44:27.919Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-phase5-pr-to-develop-2026-03-18 action=admin",
+    "commandId": "cmd-phase5-pr-to-develop-2026-03-18",
+    "prompt": "ADMIN: gh pr create --base develop --head fix/ci-linting-tes"
+  },
+  {
+    "ts": "2026-03-18T20:44:27.921Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase5-pr-to-develop-2026-03-18 no agent matched attempt=1/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-phase5-pr-to-develop-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:27.923Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase5-pr-to-develop-2026-03-18 no agent matched attempt=2/2: Agent 'test-agent' is degraded — skipping. Will recover once failure rate drops.",
+    "commandId": "cmd-phase5-pr-to-develop-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:27.923Z",
+    "level": "warn",
+    "msg": "cmd=cmd-phase5-pr-to-develop-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-phase5-pr-to-develop-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:27.923Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-phase5-pr-to-develop-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:40.021Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-phase5-pr-to-develop-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:44:40.022Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase5-pr-to-develop-2026-03-18 done status=complete progress=71%"
+  },
+  {
+    "ts": "2026-03-18T20:44:42.927Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-phase6-backlog-drain-2026-03-18 action=admin",
+    "commandId": "cmd-phase6-backlog-drain-2026-03-18",
+    "prompt": "ADMIN: backlog-admin keep draining queue continuously. No ma"
+  },
+  {
+    "ts": "2026-03-18T20:44:42.943Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase6-backlog-drain-2026-03-18 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-phase6-backlog-drain-2026-03-18",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:44:42.944Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase6-backlog-drain-2026-03-18 done status=complete progress=86%"
+  },
+  {
+    "ts": "2026-03-18T20:44:47.933Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-phase7-terminal-reporter-2026-03-18 action=run",
+    "commandId": "cmd-phase7-terminal-reporter-2026-03-18",
+    "prompt": "RUN: terminal-reporter-agent poll orchestration-controls.jso"
+  },
+  {
+    "ts": "2026-03-18T20:44:47.955Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase7-terminal-reporter-2026-03-18 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-phase7-terminal-reporter-2026-03-18",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:44:47.956Z",
+    "level": "info",
+    "msg": "cmd=cmd-phase7-terminal-reporter-2026-03-18 done status=complete progress=100%"
   }
 ]
