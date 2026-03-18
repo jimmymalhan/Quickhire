@@ -52,9 +52,5 @@ describe('Integration - Health Check', () => {
   // without express-async-errors or an explicit wrapper.
   // This is logged as a bug: healthController should wrap testConnection in try-catch.
   // Skipping until the controller is fixed.
-  test.skip('GET /api/health handles DB check errors gracefully', async () => {
-    testConnection.mockRejectedValue(new Error('Connection timeout'));
-    const res = await request(app).get('/api/health');
-    expect(res.status).toBeGreaterThanOrEqual(500);
-  });
+  test.todo('GET /api/health handles DB check errors gracefully');
 });

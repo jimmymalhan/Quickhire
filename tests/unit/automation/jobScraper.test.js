@@ -276,7 +276,7 @@ describe('JobScraper', () => {
       axios.get.mockResolvedValueOnce({ status: 200, data: '<html></html>' });
       jobParser.parseJobListing.mockReturnValueOnce({ title: 'Dev' });
 
-      const result = await scraper.scrapeJobDetail('https://linkedin.com/jobs/view/1');
+      await scraper.scrapeJobDetail('https://linkedin.com/jobs/view/1');
       expect(jobParser.normalizeJob).toHaveBeenCalled();
     });
   });

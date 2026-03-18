@@ -180,9 +180,8 @@ describe('JobParser', () => {
         </html>
       `;
       const jobs = parser.parseSearchResults(html);
-      if (jobs.length > 0) {
-        expect(jobs[0].hash).toBeDefined();
-      }
+      expect(jobs).toHaveLength(1);
+      expect(jobs[0].hash).toBeDefined();
     });
   });
 

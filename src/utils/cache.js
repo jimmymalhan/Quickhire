@@ -80,7 +80,7 @@ class Cache {
   _isExpired(key) {
     const ts = this.memoryCacheTimestamps.get(key);
     const ttl = this.memoryCacheTtls.get(key);
-    if (ts === undefined) return true;
+    if (ts === undefined) {return true;}
     if (ttl !== undefined) {
       return Date.now() - ts > ttl;
     }

@@ -49,9 +49,8 @@ describe('jobParser', () => {
         </li>
       `;
       const jobs = parseSearchResults(html);
-      if (jobs.length > 0) {
-        expect(jobs[0].jobId).toBe('98765');
-      }
+      expect(jobs).toHaveLength(1);
+      expect(jobs[0].jobId).toBe('98765');
     });
 
     it('should parse JSON-LD structured data as fallback', () => {
@@ -89,9 +88,8 @@ describe('jobParser', () => {
         </li>
       `;
       const jobs = parseSearchResults(html);
-      if (jobs.length > 0 && jobs[0].postedAt) {
-        expect(jobs[0].postedAt).toBe('2024-03-01');
-      }
+      expect(jobs).toHaveLength(1);
+      expect(jobs[0].postedAt).toBe('2024-03-01');
     });
 
     it('should handle HTML with no job cards', () => {

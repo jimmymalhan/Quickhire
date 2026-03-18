@@ -274,6 +274,7 @@ describe('jobController', () => {
       cache.get.mockResolvedValue(cached);
 
       await getRecommendations(req, res, next);
+      expect(res.json).toHaveBeenCalledWith(JSON.parse(cached));
     });
 
     it('calls next on error', async () => {

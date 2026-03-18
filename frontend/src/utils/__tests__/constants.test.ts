@@ -114,9 +114,11 @@ describe('constants', () => {
   });
 
   describe('NAV_ITEMS', () => {
-    it('has dashboard, applications, analytics, settings', () => {
+    it('has dashboard, tracker, clawbot, applications, analytics, settings', () => {
       const labels = NAV_ITEMS.map((n) => n.label);
       expect(labels).toContain('Dashboard');
+      expect(labels).toContain('Tracker');
+      expect(labels).toContain('Clawbot');
       expect(labels).toContain('Applications');
       expect(labels).toContain('Analytics');
       expect(labels).toContain('Settings');
@@ -135,8 +137,8 @@ describe('constants', () => {
       expect(dashboard?.path).toBe('/');
     });
 
-    it('has 4 nav items', () => {
-      expect(NAV_ITEMS).toHaveLength(4);
+    it('has 6 nav items', () => {
+      expect(NAV_ITEMS).toHaveLength(6);
     });
   });
 });

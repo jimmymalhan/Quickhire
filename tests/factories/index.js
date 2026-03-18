@@ -78,7 +78,7 @@ function createJob(overrides = {}) {
  * @returns {object}
  */
 function createApplication(overrides = {}) {
-  const id = nextId();
+  nextId();
   return {
     id: overrides.id || uuidv4(),
     user_id: overrides.user_id || uuidv4(),

@@ -383,7 +383,7 @@ class JobParser {
       .map(item => {
         const title = (item.title || '').trim();
         const company = (item.companyName || (item.company && item.company.name) || '').trim();
-        if (!title || !company) return null;
+        if (!title || !company) {return null;}
 
         const location = (item.formattedLocation || item.location || '').trim();
         const description = item.description
@@ -431,7 +431,7 @@ class JobParser {
     const salaryMin = typeof raw.salaryMin === 'number' ? raw.salaryMin : null;
     const salaryMax = typeof raw.salaryMax === 'number' ? raw.salaryMax : null;
 
-    const linkedinJobId = raw.linkedinJobId != null ? String(raw.linkedinJobId) : null;
+    const linkedinJobId = raw.linkedinJobId !== null && raw.linkedinJobId !== undefined ? String(raw.linkedinJobId) : null;
 
     return {
       linkedinJobId,
@@ -584,10 +584,10 @@ function _extractPostedDate(html) {
 }
 
 function _parseRelativeDate(text) {
-  if (!text) return null;
+  if (!text) {return null;}
   const now = new Date();
   const match = text.match(/(\d+)\s+(day|week|month|hour|minute)s?\s+ago/i);
-  if (!match) return null;
+  if (!match) {return null;}
   const amount = parseInt(match[1], 10);
   const unit = match[2].toLowerCase();
   switch (unit) {
@@ -645,13 +645,13 @@ function _parseExperienceYears(text) {
 }
 
 function _parseExperienceLevel(level) {
-  if (!level) return null;
+  if (!level) {return null;}
   const l = level.toLowerCase();
-  if (l.includes('entry') || l.includes('intern')) return 0;
-  if (l.includes('associate') || l.includes('junior')) return 2;
-  if (l.includes('mid')) return 4;
-  if (l.includes('senior')) return 7;
-  if (l.includes('director') || l.includes('executive')) return 12;
+  if (l.includes('entry') || l.includes('intern')) {return 0;}
+  if (l.includes('associate') || l.includes('junior')) {return 2;}
+  if (l.includes('mid')) {return 4;}
+  if (l.includes('senior')) {return 7;}
+  if (l.includes('director') || l.includes('executive')) {return 12;}
   return null;
 }
 

@@ -39,7 +39,7 @@ describe('errorCodes - ERROR_CODES', () => {
   });
 
   test('all error codes have code and status properties', () => {
-    for (const [key, value] of Object.entries(ERROR_CODES)) {
+    for (const [_key, value] of Object.entries(ERROR_CODES)) {
       expect(value).toHaveProperty('code');
       expect(value).toHaveProperty('status');
       expect(typeof value.code).toBe('string');

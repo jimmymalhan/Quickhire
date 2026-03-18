@@ -16,25 +16,34 @@ describe('logger - module', () => {
     process.env = originalEnv;
   });
 
-  test('exports a logger instance', () => {
+  test('exports a logger instance or throws expected error', () => {
     // The logger depends on config module which needs dotenv.
     // In test environment it may throw if winston is not installed.
     // We test the module structure.
+    let logger = null;
+    let loadError = null;
     try {
-      const logger = require('../../../src/utils/logger');
-      expect(logger).toBeDefined();
-      // Winston logger has standard methods
-      if (logger.info) {
-        expect(typeof logger.info).toBe('function');
-        expect(typeof logger.error).toBe('function');
-        expect(typeof logger.warn).toBe('function');
-        expect(typeof logger.debug).toBe('function');
-      }
+      logger = require('../../../src/utils/logger');
     } catch (err) {
-      // If winston is not installed, the module will throw
-      // This is expected in a test-only environment
-      expect(err.message).toMatch(/Cannot find module|config/i);
+      loadError = err;
     }
+
+    // Either the module loaded successfully or threw an expected error
+    const loadedSuccessfully = logger !== null;
+    const threwExpectedError = loadError !== null &&
+      /Cannot find module|config/i.test(loadError.message);
+    expect(loadedSuccessfully || threwExpectedError).toBe(true);
+
+    // If loaded, verify it has the expected interface
+    const hasValidInterface = !loadedSuccessfully || (
+      logger && (!logger.info || (
+        typeof logger.info === 'function' &&
+        typeof logger.error === 'function' &&
+        typeof logger.warn === 'function' &&
+        typeof logger.debug === 'function'
+      ))
+    );
+    expect(hasValidInterface).toBe(true);
   });
 
   test('logger is importable without throwing in test env', () => {

@@ -438,9 +438,10 @@ describe('Security - Environment', () => {
   test('config does not expose secrets as defaults in production', () => {
     expect(config.jwt.secret).toBeDefined();
     // In test env, the default is acceptable, but in prod it should be overridden
-    if (config.env === 'production') {
-      expect(config.jwt.secret).not.toContain('dev-');
-      expect(config.jwt.secret).not.toContain('default');
-    }
+    // In test env, the default is acceptable; in production it must be overridden
+    const isProduction = config.env === 'production';
+    expect(
+      !isProduction || (!config.jwt.secret.includes('dev-') && !config.jwt.secret.includes('default'))
+    ).toBe(true);
   });
 });

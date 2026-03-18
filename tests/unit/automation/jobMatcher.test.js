@@ -206,9 +206,11 @@ describe('jobMatcher', () => {
       ];
       const results = matchJobsForUser(jobs, prefs);
       expect(results.length).toBeGreaterThanOrEqual(1);
-      if (results.length > 1) {
-        expect(results[0].match.score).toBeGreaterThanOrEqual(results[1].match.score);
-      }
+      // If multiple results, verify descending score order
+      const hasMultipleResults = results.length > 1;
+      expect(
+        !hasMultipleResults || results[0].match.score >= results[1].match.score
+      ).toBe(true);
     });
 
     it('filters out non-matching jobs', () => {

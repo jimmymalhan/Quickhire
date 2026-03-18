@@ -243,7 +243,6 @@ describe('Submission Pipeline Integration', () => {
 
   describe('Error recovery scenarios', () => {
     it('retries after transient failure', async () => {
-      const attempts = 0;
       const submitter = new LinkedInFormSubmitter({
         mockMode: true,
         mockDelay: 0,

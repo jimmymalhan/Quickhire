@@ -16,12 +16,10 @@ jest.mock('../../src/database/connection', () => ({
 }));
 
 const app = require('../../src/app');
-const { query } = require('../../src/database/connection');
+const { query: _query } = require('../../src/database/connection');
 const config = require('../../src/utils/config');
-const { createUser, createJob, createApplication, createUserPreference } = require('../factories');
-
 // Helper: generate valid auth token
-function generateToken(payload = { userId: 'user-123', email: 'test@example.com' }) {
+function _generateToken(payload = { userId: 'user-123', email: 'test@example.com' }) {
   return jwt.sign(payload, config.jwt.secret, { expiresIn: '1h' });
 }
 
