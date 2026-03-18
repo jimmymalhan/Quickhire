@@ -286,9 +286,9 @@ develop:
 ## 12. USER FEEDBACK & REQUIREMENTS (Jimmy Malhan)
 
 ### Execution Model
-- ✓ Local agents do ALL work (zero Claude/Codex/Cursor tokens during execution)
-- ✓ Claude only for planning/approval, never implementation
-- ✓ 90/10 split: local agents execute, Claude audits
+- ✓ Local agents do ALL work (zero agent/Codex/Cursor tokens during execution)
+- ✓ agent only for planning/approval, never implementation
+- ✓ 90/10 split: local agents execute, agent audits
 - ✓ Autonomous workflow: agents self-heal, fix own bugs
 - ✓ Continuous polling: status updates every 10 seconds
 
@@ -317,7 +317,7 @@ develop:
 - ✓ Agents self-update skills over time
 - ✓ Custom templates created for reuse (can export to other projects like Kiro)
 - ✓ Agents fix own issues (self-healing network)
-- ✓ Agents escalate to local-review-agent, never Claude
+- ✓ Agents escalate to local-review-agent, never agent
 - ✓ Org chart: session-chief → [ci-enforcer, test-agent, lint-agent, etc.]
 
 ### Documentation
@@ -327,21 +327,21 @@ develop:
 - ✓ CHANGELOG updated per commit
 
 ### Guardrail Enforcement
-- ✓ CLAUDE_ENABLED=false (hard block, no Claude in execution)
-- ✓ CLAUDE_FALLBACK=false (no Claude fallback)
+- ✓ CLAUDE_ENABLED=false (hard block, no agent in execution)
+- ✓ CLAUDE_FALLBACK=false (no agent fallback)
 - ✓ LOCAL_AGENT_PRIMARY=true (local agents first, always)
-- ✓ Escalation target: local-review-agent (never Claude)
+- ✓ Escalation target: local-review-agent (never agent)
 
 ## 13. LOCAL AGENTS ONLY EXECUTION (HARD RULE)
 
-### Claude Zero-Execution Model
+### agent Zero-Execution Model
 - ❌ **NEVER** execute work directly (Bash, Edit, Write, etc.)
 - ❌ **NEVER** spawn agents for multi-task coordination
-- ❌ Claude uses 0% tokens during execution phase
-- ✓ Claude queues work in orchestration-controls.json
+- ❌ agent uses 0% tokens during execution phase
+- ✓ agent queues work in orchestration-controls.json
 - ✓ Local agents execute all tasks autonomously
 - ✓ Local agents self-heal and fix own bugs
-- ✓ Escalation target: local-review-agent (never Claude)
+- ✓ Escalation target: local-review-agent (never agent)
 
 ### Multi-Orchestrator Replica System
 - ✓ 4 orchestrator types: CI/CD, Git Ops, PR Review, Docs
@@ -367,20 +367,51 @@ develop:
 - Documentation Agents (10+): Write/update docs
 - Backlog Agent (1): Continuous queue drain
 
-### When Claude Receives a Request
+### When agent Receives a Request
 1. **STOP** (do not execute)
 2. **READ** current state (understand context only)
 3. **QUEUE** work in orchestration-controls.json
 4. **STEP BACK** (let agents execute)
-5. Agents self-report progress to user (no Claude intermediary)
+5. Agents self-report progress to user (no agent intermediary)
 
 ### Hard Blocks
-- `CLAUDE_ENABLED=false` — No Claude execution
-- `CLAUDE_FALLBACK=false` — No fallback to Claude
+- `CLAUDE_ENABLED=false` — No agent execution
+- `CLAUDE_FALLBACK=false` — No fallback to agent
 - `CLAUDE_TOKENS_ALLOWED=0` — Zero tokens during execution
 - `LOCAL_AGENTS_ONLY=true` — Local agents only, always
 
-**RESULT:** Infinite agent scalability. Zero token bloat. True autonomy.
+### Session Timeout Enforcement
+- ✓ session-timeout-agent.sh starts at T+0 of every session
+- ✓ All worker agents (ci-enforcer, monitor) spawn immediately at T+0
+- ✓ agent gets MAX 60 seconds to queue work
+- ✓ At T+60: agent session TERMINATED, agents continue
+- ✓ Zero pause during handoff: agents already running before agent exits
+- ✓ Handoff state saved to session-handoff.json
+- ✓ No work lost: orchestration-controls.json has full task queue
+
+### Agent Scripts (bin/)
+- `bin/agent-supervisor.sh` — MASTER: starts all agents, restarts crashed, dashboard every 10s
+- `bin/ci-enforcer-agent.sh` — Tests + lint every 30s, writes ci-status.json
+- `bin/orchestration-monitor.sh` — Live dashboard every 10s, reads all state files
+- `bin/session-timeout-agent.sh` — Starts agents at T+0, kills agent at T+60
+- `bin/chaos-monkey-agent.sh` — Kills random agent every 2min, tests resilience (Netflix/Amazon)
+- `bin/pr-watcher-agent.sh` — Monitors PRs, auto-merges when CI green, cleanups
+- `bin/queue-drain-agent.sh` — Reads orchestration-controls.json, executes pending tasks
+
+### Chaos Monkey Strategy (Netflix/Amazon)
+- ✓ Randomly kill 1 agent every 2 minutes
+- ✓ Supervisor auto-restarts killed agents within 10 seconds
+- ✓ System NEVER goes down — if it can't survive chaos, it's not production-ready
+- ✓ Proves fault tolerance continuously
+- ✓ Agents are disposable, the SYSTEM is immortal
+
+### Startup Command (One Command to Rule Them All)
+```bash
+bash bin/agent-supervisor.sh
+```
+This starts ALL agents, prints dashboard every 10s, and auto-heals crashed agents.
+
+**RESULT:** Infinite agent scalability. Zero token bloat. True autonomy. Chaos-proven resilience.
 
 ---
 

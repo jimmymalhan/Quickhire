@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# code-writer.sh — Execute FEATURE prompts via claude CLI.
+# code-writer.sh — Execute FEATURE prompts via LocalAgent CLI.
 # Called by code-writer-agent in agentRegistry.js.
 # AGENT_PROMPT is injected by agentRouter.spawnAgent().
 
@@ -10,13 +10,13 @@ if [ -z "${AGENT_PROMPT:-}" ]; then
   exit 1
 fi
 
-# Try claude CLI first
-if command -v claude >/dev/null 2>&1; then
-  exec claude --print "$AGENT_PROMPT"
+# Try LocalAgent CLI first
+if command -v LocalAgent >/dev/null 2>&1; then
+  exec LocalAgent --print "$AGENT_PROMPT"
 fi
 
-# Fallback: claude not installed — emit structured error so completion
+# Fallback: LocalAgent not installed — emit structured error so completion
 # proof validator rejects this as a failure, not a silent success
-echo "BLOCKED: claude CLI not found. Install claude CLI to enable code-writer-agent."
+echo "BLOCKED: LocalAgent CLI not found. Install LocalAgent CLI to enable code-writer-agent."
 echo "Prompt preview: ${AGENT_PROMPT:0:120}"
 exit 1

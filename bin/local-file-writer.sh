@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# local-file-writer.sh — Pure local file executor. ZERO Claude. ZERO external API.
+# local-file-writer.sh — Pure local file executor. ZERO LocalAgent. ZERO external API.
 # Reads AGENT_PROMPT which must be a JSON object: {"path":"<rel>","content":"<text>","mode":"write|append"}
 # Falls back to treating AGENT_PROMPT as a node script if not JSON.
 set -euo pipefail

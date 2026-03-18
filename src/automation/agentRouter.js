@@ -11,7 +11,7 @@
  *  5. Write learning back to execution-patterns.json
  *  6. Return structured result to caller
  *
- * Claude is NOT called here. Claude = advisor only.
+ * agent is NOT called here. agent = advisor only.
  * Local agents = executors.
  */
 

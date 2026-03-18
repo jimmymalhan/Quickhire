@@ -15,7 +15,7 @@
 ## Phase 0: Repo Stabilization
 
 - [ ] Ignore duplicate agent worktrees in test/tooling config.
-  - Update [`/Users/jimmymalhan/Doc/Quickhire/jest.config.js`](/Users/jimmymalhan/Doc/Quickhire/jest.config.js) to exclude `.claude/worktrees/**`.
+  - Update [`/Users/jimmymalhan/Doc/Quickhire/jest.config.js`](/Users/jimmymalhan/Doc/Quickhire/jest.config.js) to exclude `.agent/worktrees/**`.
 - [ ] Fix backend lint failures.
   - Clean browser globals and unused variables in automation and scheduler files.
   - Remove or refactor `process.exit()` usage in runtime entrypoints.

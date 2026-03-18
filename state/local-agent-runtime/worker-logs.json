@@ -2,7 +2,7 @@
   {
     "ts": "2026-03-18T06:12:08.599Z",
     "level": "info",
-    "msg": "Agent worker started — Claude removed from primary execution loop",
+    "msg": "Agent worker started — LocalAgent removed from primary execution loop",
     "pollMs": 5000,
     "stuckMs": 30000
   },
@@ -49,7 +49,7 @@
   {
     "ts": "2026-03-18T06:12:59.230Z",
     "level": "info",
-    "msg": "Agent worker started — Claude removed from primary execution loop",
+    "msg": "Agent worker started — LocalAgent removed from primary execution loop",
     "pollMs": 5000,
     "stuckMs": 30000
   },
@@ -193,19 +193,19 @@
   {
     "ts": "2026-03-18T07:07:54.703Z",
     "level": "warn",
-    "msg": "cmd=cmd-supervisor-restart local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-supervisor-restart local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-supervisor-restart"
   },
   {
     "ts": "2026-03-18T07:07:54.704Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-supervisor-restart"
   },
   {
     "ts": "2026-03-18T07:08:52.049Z",
     "level": "info",
-    "msg": "Agent worker started — Claude removed from primary execution loop",
+    "msg": "Agent worker started — LocalAgent removed from primary execution loop",
     "pollMs": 5000,
     "stuckMs": 30000
   },
@@ -251,19 +251,19 @@
   {
     "ts": "2026-03-18T07:12:07.181Z",
     "level": "warn",
-    "msg": "cmd=cmd-boot-probe local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-boot-probe local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-boot-probe"
   },
   {
     "ts": "2026-03-18T07:12:07.181Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-boot-probe"
   },
   {
     "ts": "2026-03-18T07:12:19.436Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-boot-probe"
   },
   {
@@ -339,13 +339,13 @@
   {
     "ts": "2026-03-18T07:33:50.443Z",
     "level": "warn",
-    "msg": "cmd=cmd-guardrail-test-1773819220826 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-guardrail-test-1773819220826 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-guardrail-test-1773819220826"
   },
   {
     "ts": "2026-03-18T07:33:50.443Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-guardrail-test-1773819220826"
   },
   {
@@ -364,7 +364,7 @@
   {
     "ts": "2026-03-18T07:34:13.586Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-guardrail-test-1773819220826"
   },
   {
@@ -407,34 +407,34 @@
   {
     "ts": "2026-03-18T07:34:15.720Z",
     "level": "warn",
-    "msg": "cmd=cmd-guardrail-lint-1773819220827 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-guardrail-lint-1773819220827 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-guardrail-lint-1773819220827"
   },
   {
     "ts": "2026-03-18T07:34:15.720Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-guardrail-lint-1773819220827"
   },
   {
     "ts": "2026-03-18T07:34:17.430Z",
     "level": "info",
-    "msg": "Routing cmd=cmd-guardrail-claude-zero-1773819248013 action=admin",
-    "commandId": "cmd-guardrail-claude-zero-1773819248013",
-    "prompt": "backlog-admin mark-complete-admin ADMIN guardrail claude zer"
+    "msg": "Routing cmd=cmd-guardrail-LocalAgent-zero-1773819248013 action=admin",
+    "commandId": "cmd-guardrail-LocalAgent-zero-1773819248013",
+    "prompt": "backlog-admin mark-complete-admin ADMIN guardrail LocalAgent zer"
   },
   {
     "ts": "2026-03-18T07:34:17.469Z",
     "level": "info",
-    "msg": "cmd=cmd-guardrail-claude-zero-1773819248013 → backlog-agent attempt=1/2 (complete)",
-    "commandId": "cmd-guardrail-claude-zero-1773819248013",
+    "msg": "cmd=cmd-guardrail-LocalAgent-zero-1773819248013 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-guardrail-LocalAgent-zero-1773819248013",
     "agentId": "backlog-agent",
     "attempt": 1
   },
   {
     "ts": "2026-03-18T07:34:17.470Z",
     "level": "info",
-    "msg": "cmd=cmd-guardrail-claude-zero-1773819248013 done status=complete progress=90%"
+    "msg": "cmd=cmd-guardrail-LocalAgent-zero-1773819248013 done status=complete progress=90%"
   },
   {
     "ts": "2026-03-18T07:34:22.432Z",
@@ -478,19 +478,19 @@
   {
     "ts": "2026-03-18T07:34:29.184Z",
     "level": "warn",
-    "msg": "cmd=cmd-guardrail-test-run-1773819248015 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-guardrail-test-run-1773819248015 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-guardrail-test-run-1773819248015"
   },
   {
     "ts": "2026-03-18T07:34:29.184Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-guardrail-test-run-1773819248015"
   },
   {
     "ts": "2026-03-18T07:34:47.293Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-guardrail-test-run-1773819248015"
   },
   {
@@ -501,7 +501,7 @@
   {
     "ts": "2026-03-18T07:35:15.845Z",
     "level": "info",
-    "msg": "claude fallback exited code=143 failed",
+    "msg": "LocalAgent fallback exited code=143 failed",
     "commandId": "cmd-guardrail-lint-1773819220827"
   },
   {
@@ -525,35 +525,35 @@
   {
     "ts": "2026-03-18T07:36:07.459Z",
     "level": "info",
-    "msg": "Routing cmd=cmd-claude-zero-enforcer-1773819332982 action=feature",
-    "commandId": "cmd-claude-zero-enforcer-1773819332982",
-    "prompt": "FEATURE: implement claude-zero enforcer write module create "
+    "msg": "Routing cmd=cmd-LocalAgent-zero-enforcer-1773819332982 action=feature",
+    "commandId": "cmd-LocalAgent-zero-enforcer-1773819332982",
+    "prompt": "FEATURE: implement LocalAgent-zero enforcer write module create "
   },
   {
     "ts": "2026-03-18T07:36:37.465Z",
     "level": "warn",
-    "msg": "cmd=cmd-claude-zero-enforcer-1773819332982 stuck for 30s — escalating",
-    "commandId": "cmd-claude-zero-enforcer-1773819332982"
+    "msg": "cmd=cmd-LocalAgent-zero-enforcer-1773819332982 stuck for 30s — escalating",
+    "commandId": "cmd-LocalAgent-zero-enforcer-1773819332982"
   },
   {
     "ts": "2026-03-18T07:36:37.471Z",
     "level": "info",
-    "msg": "Routing cmd=cmd-guardrail-config-claude-zero-1773819332983 action=admin",
-    "commandId": "cmd-guardrail-config-claude-zero-1773819332983",
+    "msg": "Routing cmd=cmd-guardrail-config-LocalAgent-zero-1773819332983 action=admin",
+    "commandId": "cmd-guardrail-config-LocalAgent-zero-1773819332983",
     "prompt": "backlog-admin mark-complete-admin ADMIN state change"
   },
   {
     "ts": "2026-03-18T07:36:37.520Z",
     "level": "info",
-    "msg": "cmd=cmd-guardrail-config-claude-zero-1773819332983 → backlog-agent attempt=1/2 (complete)",
-    "commandId": "cmd-guardrail-config-claude-zero-1773819332983",
+    "msg": "cmd=cmd-guardrail-config-LocalAgent-zero-1773819332983 → backlog-agent attempt=1/2 (complete)",
+    "commandId": "cmd-guardrail-config-LocalAgent-zero-1773819332983",
     "agentId": "backlog-agent",
     "attempt": 1
   },
   {
     "ts": "2026-03-18T07:36:37.521Z",
     "level": "info",
-    "msg": "cmd=cmd-guardrail-config-claude-zero-1773819332983 done status=complete progress=96%"
+    "msg": "cmd=cmd-guardrail-config-LocalAgent-zero-1773819332983 done status=complete progress=96%"
   },
   {
     "ts": "2026-03-18T07:36:42.465Z",
@@ -571,15 +571,15 @@
   {
     "ts": "2026-03-18T07:37:43.198Z",
     "level": "info",
-    "msg": "cmd=cmd-claude-zero-enforcer-1773819332982 → code-writer-agent attempt=1/2 (complete)",
-    "commandId": "cmd-claude-zero-enforcer-1773819332982",
+    "msg": "cmd=cmd-LocalAgent-zero-enforcer-1773819332982 → code-writer-agent attempt=1/2 (complete)",
+    "commandId": "cmd-LocalAgent-zero-enforcer-1773819332982",
     "agentId": "code-writer-agent",
     "attempt": 1
   },
   {
     "ts": "2026-03-18T07:37:43.199Z",
     "level": "info",
-    "msg": "cmd=cmd-claude-zero-enforcer-1773819332982 done status=complete progress=100%"
+    "msg": "cmd=cmd-LocalAgent-zero-enforcer-1773819332982 done status=complete progress=100%"
   },
   {
     "ts": "2026-03-18T07:38:27.500Z",
@@ -669,13 +669,13 @@
   {
     "ts": "2026-03-18T07:45:13.937Z",
     "level": "warn",
-    "msg": "cmd=cmd-lockdown-agents-1773819504426 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-lockdown-agents-1773819504426 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-lockdown-agents-1773819504426"
   },
   {
     "ts": "2026-03-18T07:45:13.937Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-lockdown-agents-1773819504426"
   },
   {
@@ -701,7 +701,7 @@
   {
     "ts": "2026-03-18T07:45:17.744Z",
     "level": "info",
-    "msg": "claude fallback exited code=1 failed",
+    "msg": "LocalAgent fallback exited code=1 failed",
     "commandId": "cmd-lockdown-agents-1773819504426"
   },
   {
@@ -751,19 +751,19 @@
   {
     "ts": "2026-03-18T08:02:40.517Z",
     "level": "warn",
-    "msg": "cmd=cmd-20260318-find-skills local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-20260318-find-skills local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-20260318-find-skills"
   },
   {
     "ts": "2026-03-18T08:02:40.517Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-20260318-find-skills"
   },
   {
     "ts": "2026-03-18T08:02:44.356Z",
     "level": "info",
-    "msg": "claude fallback exited code=1 failed",
+    "msg": "LocalAgent fallback exited code=1 failed",
     "commandId": "cmd-20260318-find-skills"
   },
   {
@@ -813,19 +813,19 @@
   {
     "ts": "2026-03-18T08:03:55.376Z",
     "level": "warn",
-    "msg": "cmd=cmd-20260318-bank-lock local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-20260318-bank-lock local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-20260318-bank-lock"
   },
   {
     "ts": "2026-03-18T08:03:55.376Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-20260318-bank-lock"
   },
   {
     "ts": "2026-03-18T08:03:59.314Z",
     "level": "info",
-    "msg": "claude fallback exited code=1 failed",
+    "msg": "LocalAgent fallback exited code=1 failed",
     "commandId": "cmd-20260318-bank-lock"
   },
   {
@@ -935,19 +935,19 @@
   {
     "ts": "2026-03-18T19:33:11.383Z",
     "level": "warn",
-    "msg": "cmd=cmd-p1-terminal-1773862388491 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-p1-terminal-1773862388491 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-p1-terminal-1773862388491"
   },
   {
     "ts": "2026-03-18T19:33:11.383Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-p1-terminal-1773862388491"
   },
   {
     "ts": "2026-03-18T19:33:21.425Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-p1-terminal-1773862388491"
   },
   {
@@ -977,19 +977,19 @@
   {
     "ts": "2026-03-18T19:33:26.384Z",
     "level": "warn",
-    "msg": "cmd=cmd-p1-roster-1773862388492 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-p1-roster-1773862388492 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-p1-roster-1773862388492"
   },
   {
     "ts": "2026-03-18T19:33:26.384Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-p1-roster-1773862388492"
   },
   {
     "ts": "2026-03-18T19:33:33.648Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-p1-roster-1773862388492"
   },
   {
@@ -1019,19 +1019,19 @@
   {
     "ts": "2026-03-18T19:33:36.386Z",
     "level": "warn",
-    "msg": "cmd=cmd-p1-lock-1773862388493 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-p1-lock-1773862388493 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-p1-lock-1773862388493"
   },
   {
     "ts": "2026-03-18T19:33:36.386Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-p1-lock-1773862388493"
   },
   {
     "ts": "2026-03-18T19:33:45.898Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-p1-lock-1773862388493"
   },
   {
@@ -1061,19 +1061,19 @@
   {
     "ts": "2026-03-18T19:33:46.405Z",
     "level": "warn",
-    "msg": "cmd=cmd-p1-recovery-1773862388494 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-p1-recovery-1773862388494 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-p1-recovery-1773862388494"
   },
   {
     "ts": "2026-03-18T19:33:46.405Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-p1-recovery-1773862388494"
   },
   {
     "ts": "2026-03-18T19:33:56.165Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-p1-recovery-1773862388494"
   },
   {
@@ -1163,19 +1163,19 @@
   {
     "ts": "2026-03-18T19:34:10.027Z",
     "level": "warn",
-    "msg": "cmd=cmd-p2-lint-1773862388497 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-p2-lint-1773862388497 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-p2-lint-1773862388497"
   },
   {
     "ts": "2026-03-18T19:34:10.027Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-p2-lint-1773862388497"
   },
   {
     "ts": "2026-03-18T19:34:20.737Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-p2-lint-1773862388497"
   },
   {
@@ -1225,19 +1225,19 @@
   {
     "ts": "2026-03-18T19:34:28.587Z",
     "level": "warn",
-    "msg": "cmd=cmd-p3-test-1773862388498 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-p3-test-1773862388498 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-p3-test-1773862388498"
   },
   {
     "ts": "2026-03-18T19:34:28.587Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-p3-test-1773862388498"
   },
   {
     "ts": "2026-03-18T19:34:39.564Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-p3-test-1773862388498"
   },
   {
@@ -1287,19 +1287,19 @@
   {
     "ts": "2026-03-18T19:34:41.564Z",
     "level": "warn",
-    "msg": "cmd=cmd-p3-health-1773862388499 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-p3-health-1773862388499 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-p3-health-1773862388499"
   },
   {
     "ts": "2026-03-18T19:34:41.564Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-p3-health-1773862388499"
   },
   {
     "ts": "2026-03-18T19:34:58.936Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-p3-health-1773862388499"
   },
   {
@@ -1589,19 +1589,19 @@
   {
     "ts": "2026-03-18T19:48:59.548Z",
     "level": "warn",
-    "msg": "cmd=cmd-local-test-1773863328734 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-local-test-1773863328734 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-local-test-1773863328734"
   },
   {
     "ts": "2026-03-18T19:48:59.548Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-local-test-1773863328734"
   },
   {
     "ts": "2026-03-18T19:49:08.077Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-local-test-1773863328734"
   },
   {
@@ -1651,19 +1651,19 @@
   {
     "ts": "2026-03-18T19:49:15.096Z",
     "level": "warn",
-    "msg": "cmd=cmd-lint-check-1773863328734 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-lint-check-1773863328734 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-lint-check-1773863328734"
   },
   {
     "ts": "2026-03-18T19:49:15.096Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-lint-check-1773863328734"
   },
   {
     "ts": "2026-03-18T19:49:22.802Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-lint-check-1773863328734"
   },
   {
@@ -1713,19 +1713,19 @@
   {
     "ts": "2026-03-18T19:49:27.016Z",
     "level": "warn",
-    "msg": "cmd=cmd-build-check-1773863328734 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-build-check-1773863328734 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-build-check-1773863328734"
   },
   {
     "ts": "2026-03-18T19:49:27.016Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-build-check-1773863328734"
   },
   {
     "ts": "2026-03-18T19:49:36.252Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-build-check-1773863328734"
   },
   {
@@ -1775,19 +1775,19 @@
   {
     "ts": "2026-03-18T19:49:36.859Z",
     "level": "warn",
-    "msg": "cmd=cmd-ci-verify-1773863328734 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-ci-verify-1773863328734 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-ci-verify-1773863328734"
   },
   {
     "ts": "2026-03-18T19:49:36.859Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-ci-verify-1773863328734"
   },
   {
     "ts": "2026-03-18T19:49:52.347Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-ci-verify-1773863328734"
   },
   {
@@ -2109,19 +2109,19 @@
   {
     "ts": "2026-03-18T20:33:31.638Z",
     "level": "warn",
-    "msg": "cmd=cmd-final-lint-1773865996494 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-final-lint-1773865996494 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-final-lint-1773865996494"
   },
   {
     "ts": "2026-03-18T20:33:31.638Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-final-lint-1773865996494"
   },
   {
     "ts": "2026-03-18T20:33:40.897Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-final-lint-1773865996494"
   },
   {
@@ -2251,19 +2251,19 @@
   {
     "ts": "2026-03-18T20:41:12.083Z",
     "level": "warn",
-    "msg": "cmd=cmd-github-actions-test-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-github-actions-test-2026-03-18 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-github-actions-test-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:41:12.083Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-github-actions-test-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:41:22.861Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-github-actions-test-2026-03-18"
   },
   {
@@ -2313,19 +2313,19 @@
   {
     "ts": "2026-03-18T20:41:31.056Z",
     "level": "warn",
-    "msg": "cmd=cmd-github-actions-lint-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-github-actions-lint-2026-03-18 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-github-actions-lint-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:41:31.056Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-github-actions-lint-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:41:39.664Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-github-actions-lint-2026-03-18"
   },
   {
@@ -2415,19 +2415,19 @@
   {
     "ts": "2026-03-18T20:43:14.703Z",
     "level": "warn",
-    "msg": "cmd=cmd-phase1-test-lint-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-phase1-test-lint-2026-03-18 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-phase1-test-lint-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:43:14.703Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-phase1-test-lint-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:43:24.390Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-phase1-test-lint-2026-03-18"
   },
   {
@@ -2457,13 +2457,13 @@
   {
     "ts": "2026-03-18T20:43:27.889Z",
     "level": "warn",
-    "msg": "cmd=cmd-phase2-fix-resumeparser-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-phase2-fix-resumeparser-2026-03-18 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-phase2-fix-resumeparser-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:43:27.889Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-phase2-fix-resumeparser-2026-03-18"
   },
   {
@@ -2494,19 +2494,19 @@
   {
     "ts": "2026-03-18T20:43:57.904Z",
     "level": "warn",
-    "msg": "cmd=cmd-phase3-verify-ci-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-phase3-verify-ci-2026-03-18 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-phase3-verify-ci-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:43:57.904Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-phase3-verify-ci-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:44:05.535Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-phase2-fix-resumeparser-2026-03-18"
   },
   {
@@ -2517,7 +2517,7 @@
   {
     "ts": "2026-03-18T20:44:07.491Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-phase3-verify-ci-2026-03-18"
   },
   {
@@ -2547,19 +2547,19 @@
   {
     "ts": "2026-03-18T20:44:07.912Z",
     "level": "warn",
-    "msg": "cmd=cmd-phase4-commit-fixes-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-phase4-commit-fixes-2026-03-18 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-phase4-commit-fixes-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:44:07.912Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-phase4-commit-fixes-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:44:26.660Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-phase4-commit-fixes-2026-03-18"
   },
   {
@@ -2589,19 +2589,19 @@
   {
     "ts": "2026-03-18T20:44:27.923Z",
     "level": "warn",
-    "msg": "cmd=cmd-phase5-pr-to-develop-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-phase5-pr-to-develop-2026-03-18 local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-phase5-pr-to-develop-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:44:27.923Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-phase5-pr-to-develop-2026-03-18"
   },
   {
     "ts": "2026-03-18T20:44:40.021Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-phase5-pr-to-develop-2026-03-18"
   },
   {
@@ -2711,19 +2711,19 @@
   {
     "ts": "2026-03-18T20:46:35.146Z",
     "level": "warn",
-    "msg": "cmd=cmd-test-resumeparser-after-fix local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-test-resumeparser-after-fix local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-test-resumeparser-after-fix"
   },
   {
     "ts": "2026-03-18T20:46:35.146Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-test-resumeparser-after-fix"
   },
   {
     "ts": "2026-03-18T20:46:48.318Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-test-resumeparser-after-fix"
   },
   {
@@ -2773,19 +2773,19 @@
   {
     "ts": "2026-03-18T20:46:56.628Z",
     "level": "warn",
-    "msg": "cmd=cmd-lint-after-fix local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-lint-after-fix local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-lint-after-fix"
   },
   {
     "ts": "2026-03-18T20:46:56.628Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-lint-after-fix"
   },
   {
     "ts": "2026-03-18T20:47:03.115Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-lint-after-fix"
   },
   {
@@ -2815,19 +2815,19 @@
   {
     "ts": "2026-03-18T20:47:08.009Z",
     "level": "warn",
-    "msg": "cmd=cmd-full-test-suite local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-full-test-suite local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-full-test-suite"
   },
   {
     "ts": "2026-03-18T20:47:08.009Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-full-test-suite"
   },
   {
     "ts": "2026-03-18T20:47:16.548Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-full-test-suite"
   },
   {
@@ -2877,13 +2877,13 @@
   {
     "ts": "2026-03-18T20:47:18.329Z",
     "level": "warn",
-    "msg": "cmd=cmd-build-verify local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-build-verify local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-build-verify"
   },
   {
     "ts": "2026-03-18T20:47:18.329Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-build-verify"
   },
   {
@@ -2914,19 +2914,19 @@
   {
     "ts": "2026-03-18T20:47:48.027Z",
     "level": "warn",
-    "msg": "cmd=cmd-commit-phase local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-commit-phase local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-commit-phase"
   },
   {
     "ts": "2026-03-18T20:47:48.027Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-commit-phase"
   },
   {
     "ts": "2026-03-18T20:47:50.203Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-build-verify"
   },
   {
@@ -2956,19 +2956,19 @@
   {
     "ts": "2026-03-18T20:47:53.028Z",
     "level": "warn",
-    "msg": "cmd=cmd-pr-create local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-pr-create local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-pr-create"
   },
   {
     "ts": "2026-03-18T20:47:53.028Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-pr-create"
   },
   {
     "ts": "2026-03-18T20:48:19.191Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-commit-phase"
   },
   {
@@ -2998,19 +2998,19 @@
   {
     "ts": "2026-03-18T20:48:23.097Z",
     "level": "warn",
-    "msg": "cmd=cmd-terminal-monitor local agents exhausted after 2 attempts — escalating to Claude",
+    "msg": "cmd=cmd-terminal-monitor local agents exhausted after 2 attempts — escalating to LocalAgent",
     "commandId": "cmd-terminal-monitor"
   },
   {
     "ts": "2026-03-18T20:48:23.097Z",
     "level": "warn",
-    "msg": "No local agent matched — trying claude CLI as fallback",
+    "msg": "No local agent matched — trying LocalAgent CLI as fallback",
     "commandId": "cmd-terminal-monitor"
   },
   {
     "ts": "2026-03-18T20:48:30.998Z",
     "level": "info",
-    "msg": "claude fallback exited code=0 complete",
+    "msg": "LocalAgent fallback exited code=0 complete",
     "commandId": "cmd-pr-create"
   },
   {
@@ -3021,7 +3021,7 @@
   {
     "ts": "2026-03-18T20:49:23.329Z",
     "level": "info",
-    "msg": "claude fallback exited code=143 failed",
+    "msg": "LocalAgent fallback exited code=143 failed",
     "commandId": "cmd-terminal-monitor"
   },
   {

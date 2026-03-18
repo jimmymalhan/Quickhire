@@ -46,50 +46,6 @@ jobs:
           fi
           echo "✅ Lint passed (0 errors)"
 
-  # Auto-merge: when tests + lint pass on a PR, auto-approve and merge
-  auto-merge:
-    name: Auto-Merge (CI Green)
-    runs-on: ubuntu-latest
-    needs: [test, lint]
-    if: github.event_name == 'pull_request'
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Auto-approve PR
-        uses: actions/github-script@v7
-        with:
-          script: |
-            // Auto-approve the PR since CI passed
-            await github.rest.pulls.createReview({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number,
-              event: 'APPROVE',
-              body: '✅ CI passed: all tests green, lint clean. Auto-approved by CI pipeline.'
-            });
-            console.log('✅ PR auto-approved');
-
-      - name: Enable auto-merge
-        uses: actions/github-script@v7
-        with:
-          script: |
-            // Merge the PR
-            try {
-              await github.rest.pulls.merge({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: context.issue.number,
-                merge_method: 'squash',
-                commit_title: `${context.payload.pull_request.title} (#${context.issue.number})`,
-              });
-              console.log('✅ PR auto-merged');
-            } catch (e) {
-              console.log('⚠️ Could not auto-merge (may need manual merge):', e.message);
-            }
-
   # Status gate — required check for branch protection
   ci-status:
     name: CI Status
@@ -106,3 +62,45 @@ jobs:
             echo "❌ CI failed — test=${{ needs.test.result }} lint=${{ needs.lint.result }}"
             exit 1
           fi
+
+  # Auto-merge: runs after ALL checks pass. continue-on-error so it never blocks.
+  auto-merge:
+    name: Auto-Merge (CI Green)
+    runs-on: ubuntu-latest
+    needs: [test, lint, ci-status]
+    if: github.event_name == 'pull_request'
+    continue-on-error: true
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Auto-approve PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              event: 'APPROVE',
+              body: '✅ CI passed: all tests green, lint clean. Auto-approved.'
+            });
+
+      - name: Merge PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                merge_method: 'squash',
+                commit_title: `${context.payload.pull_request.title} (#${context.issue.number})`,
+              });
+              console.log('✅ PR auto-merged');
+            } catch (e) {
+              console.log('⚠️ Auto-merge skipped:', e.message);
+            }

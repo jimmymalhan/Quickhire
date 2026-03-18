@@ -10,7 +10,7 @@
  *     b. Mark the stuck command 'escalated' in orchestration-controls.json
  *     c. Append rescue record to watchdog-state.json
  *
- * Claude is NOT called here. Recovery is purely local state manipulation.
+ * agent is NOT called here. Recovery is purely local state manipulation.
  * agentWorker will pick up the next queued command on its next poll tick.
  */
 

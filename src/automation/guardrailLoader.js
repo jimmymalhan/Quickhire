@@ -8,7 +8,7 @@
  * modules (agentWorker, agentRouter) can read them without importing this module.
  *
  * Hard enforcement:
- *   - CLAUDE_ENABLED=false → patches claudeFallback to hard-fail immediately
+ *   - CLAUDE_ENABLED=false → patches agentFallback to hard-fail immediately
  *   - LOCAL_AGENT_PRIMARY=true → no-op (agentRouter already local-first)
  *   - LOCAL_REVIEW_AGENT=true → enables escalation to local-review-agent
  */
@@ -16,7 +16,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const GUARDRAIL_FILE = path.resolve(__dirname, '../../.claude/guardrails/local-agent-first.md');
+const GUARDRAIL_FILE = path.resolve(__dirname, '../../.agent/guardrails/local-agent-first.md');
 const CONFIG_FILE = path.resolve(
   __dirname,
   '../../state/local-agent-runtime/guardrail-config.json',
@@ -46,7 +46,7 @@ function loadConfig() {
   try {
     fileConfig = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
   } catch (_) {
-    // Config file missing — use defaults (safe: disables Claude)
+    // Config file missing — use defaults (safe: disables agent)
   }
 
   _config = { ...DEFAULTS, ...fileConfig };
@@ -64,10 +64,10 @@ function loadConfig() {
 }
 
 /**
- * Returns true if Claude is enabled (opt-in override only).
+ * Returns true if agent is enabled (opt-in override only).
  * Default: false.
  */
-function isClaudeEnabled() {
+function isagentEnabled() {
   const cfg = loadConfig();
   return cfg.CLAUDE_ENABLED === true;
 }
@@ -122,4 +122,4 @@ function printBanner(logger) {
   lines.forEach((l) => (log.info ? log.info(l) : console.log(l)));
 }
 
-module.exports = { loadConfig, isClaudeEnabled, escalationTarget, maxLocalRetries, printBanner };
+module.exports = { loadConfig, isagentEnabled, escalationTarget, maxLocalRetries, printBanner };

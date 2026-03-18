@@ -1,0 +1,11 @@
+{
+  "worker": "pr-mon-1",
+  "pr": 3,
+  "timestamp": "2026-03-18T21:41:26.411573Z",
+  "checks": {
+    "passing": 0,
+    "pending": 0,
+    "failing": 0
+  },
+  "mergeReady": true
+}

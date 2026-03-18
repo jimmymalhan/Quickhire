@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ci-enforcer-agent.sh — Hard CI enforcement. ZERO Claude. Pure local execution.
+# ci-enforcer-agent.sh — Hard CI enforcement. ZERO LocalAgent. Pure local execution.
 #
 # HARD RULES (enforced by this agent):
 #   1. NEVER commit directly to main
@@ -47,7 +47,7 @@ write_status() {
     "noDirectCommitsToMain": true,
     "prRequired": true,
     "ciMustPassBeforeMerge": true,
-    "claudeEnabled": false
+    "aiEnabled": false
   }
 }
 EOJSON
