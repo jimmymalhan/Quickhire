@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * Saved Jobs Walker
  * Navigates LinkedIn's saved jobs page, paginates via infinite scroll,

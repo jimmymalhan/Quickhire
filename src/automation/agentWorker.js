@@ -43,7 +43,7 @@ function isNoopOutput(output) {
  * Returns { valid: boolean, reason?: string }
  */
 function validateCompletion(prompt, agentId, output, exitStatus) {
-  if (exitStatus !== 'complete') return { valid: false, reason: `exit status=${exitStatus}` };
+  if (exitStatus !== 'complete') {return { valid: false, reason: `exit status=${exitStatus}` };}
   if (isFeaturePrompt(prompt) && isNoopOutput(output)) {
     return {
       valid: false,
@@ -96,7 +96,7 @@ function emit(level, msg, meta = {}) {
 }
 
 function flushLogs() {
-  if (!pendingLogs.length) return;
+  if (!pendingLogs.length) {return;}
   const existing = readJson(workerLogsPath, []);
   writeJson(workerLogsPath, [...existing, ...pendingLogs].slice(-MAX_LOG_ENTRIES));
   pendingLogs = [];
@@ -135,7 +135,7 @@ function updateCommandInControls(commandId, patch) {
 }
 
 function calcProgress(commands) {
-  if (!commands.length) return 0;
+  if (!commands.length) {return 0;}
   const terminal = ['complete', 'failed', 'escalated'];
   const done = commands.filter((c) => terminal.includes(c.status)).length;
   return Math.round((done / commands.length) * 100);
@@ -250,10 +250,10 @@ async function executeCommand(command) {
 
 function checkStuck() {
   const ws = readWorkerState();
-  if (ws.status !== 'running' || !ws.startedAt || !ws.activeCommandId) return;
+  if (ws.status !== 'running' || !ws.startedAt || !ws.activeCommandId) {return;}
 
   const ageMs = Date.now() - new Date(ws.startedAt).getTime();
-  if (ageMs <= STUCK_MS) return;
+  if (ageMs <= STUCK_MS) {return;}
 
   emit('warn', `cmd=${ws.activeCommandId} stuck for ${Math.round(ageMs / 1000)}s — escalating`, {
     commandId: ws.activeCommandId,
@@ -277,7 +277,7 @@ let isProcessing = false;
 async function tick() {
   checkStuck();
 
-  if (isProcessing) return;
+  if (isProcessing) {return;}
 
   const controls = readControls();
   const commands = controls.pendingCommands || [];
@@ -337,7 +337,7 @@ async function tick() {
 // ─── start ────────────────────────────────────────────────────────────────────
 
 function start() {
-  if (process.env.DISABLE_WORKER === 'true') return;
+  if (process.env.DISABLE_WORKER === 'true') {return;}
 
   emit('info', 'Agent worker started — Claude removed from primary execution loop', {
     pollMs: POLL_MS,

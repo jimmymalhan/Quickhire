@@ -50,13 +50,13 @@ let rescueCount = 0;
 function watch() {
   const ws = readJson(workerStatePath, {});
 
-  if (ws.status !== 'running' || !ws.startedAt || !ws.activeCommandId) return;
+  if (ws.status !== 'running' || !ws.startedAt || !ws.activeCommandId) {return;}
 
   // Use lastHeartbeatAt if available (heartbeat = active work in progress)
   // Fall back to startedAt only if heartbeat was never written
   const checkFrom = ws.lastHeartbeatAt || ws.startedAt;
   const ageMs = Date.now() - new Date(checkFrom).getTime();
-  if (ageMs <= WATCHDOG_TIMEOUT_MS) return;
+  if (ageMs <= WATCHDOG_TIMEOUT_MS) {return;}
 
   rescueCount += 1;
   const rescuedAt = new Date().toISOString();
@@ -78,7 +78,7 @@ function watch() {
   // (b) Escalate the stuck command in orchestration-controls
   const controls = readJson(controlsPath, { pendingCommands: [] });
   const commands = (controls.pendingCommands || []).map((cmd) => {
-    if (cmd.id !== ws.activeCommandId) return cmd;
+    if (cmd.id !== ws.activeCommandId) {return cmd;}
     const retryCount = (cmd.retryCount || 0) + 1;
     // Auto-requeue up to 2 times before escalating permanently
     if (retryCount <= 2) {
@@ -117,7 +117,7 @@ function watch() {
 // ─── start ────────────────────────────────────────────────────────────────────
 
 function start() {
-  if (process.env.DISABLE_WORKER === 'true') return;
+  if (process.env.DISABLE_WORKER === 'true') {return;}
 
   // eslint-disable-next-line no-console
   console.log(

@@ -54,7 +54,7 @@ class CustomQAHandler {
     const q = questionText.toLowerCase().trim();
 
     for (const entry of this.answers) {
-      if (!entry.pattern) continue;
+      if (!entry.pattern) {continue;}
       const mode = entry.matchMode || 'contains';
 
       if (mode === 'exact' && q === entry.pattern.toLowerCase().trim()) {

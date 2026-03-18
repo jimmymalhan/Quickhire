@@ -2208,5 +2208,169 @@
     "ts": "2026-03-18T20:39:52.848Z",
     "level": "info",
     "msg": "cmd=cmd-merge-blocker-1773866366619 done status=complete progress=100%"
+  },
+  {
+    "ts": "2026-03-18T20:41:02.838Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-github-actions-test-2026-03-18 action=run",
+    "commandId": "cmd-github-actions-test-2026-03-18",
+    "prompt": "run npm test to verify pipeline works"
+  },
+  {
+    "ts": "2026-03-18T20:41:08.233Z",
+    "level": "info",
+    "msg": "cmd=cmd-github-actions-test-2026-03-18 → test-agent attempt=1/2 (failed)",
+    "commandId": "cmd-github-actions-test-2026-03-18",
+    "agentId": "test-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:41:08.234Z",
+    "level": "warn",
+    "msg": "cmd=cmd-github-actions-test-2026-03-18 proof-failed agent=test-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-github-actions-test-2026-03-18",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T20:41:12.083Z",
+    "level": "info",
+    "msg": "cmd=cmd-github-actions-test-2026-03-18 → test-agent attempt=2/2 (failed)",
+    "commandId": "cmd-github-actions-test-2026-03-18",
+    "agentId": "test-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T20:41:12.083Z",
+    "level": "warn",
+    "msg": "cmd=cmd-github-actions-test-2026-03-18 proof-failed agent=test-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-github-actions-test-2026-03-18",
+    "agentId": "test-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T20:41:12.083Z",
+    "level": "warn",
+    "msg": "cmd=cmd-github-actions-test-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-github-actions-test-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:41:12.083Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-github-actions-test-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:41:22.861Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-github-actions-test-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:41:22.862Z",
+    "level": "info",
+    "msg": "cmd=cmd-github-actions-test-2026-03-18 done status=complete progress=40%"
+  },
+  {
+    "ts": "2026-03-18T20:41:27.851Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-github-actions-lint-2026-03-18 action=run",
+    "commandId": "cmd-github-actions-lint-2026-03-18",
+    "prompt": "run npm run lint for CI verification"
+  },
+  {
+    "ts": "2026-03-18T20:41:29.460Z",
+    "level": "info",
+    "msg": "cmd=cmd-github-actions-lint-2026-03-18 → lint-agent attempt=1/2 (failed)",
+    "commandId": "cmd-github-actions-lint-2026-03-18",
+    "agentId": "lint-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:41:29.460Z",
+    "level": "warn",
+    "msg": "cmd=cmd-github-actions-lint-2026-03-18 proof-failed agent=lint-agent attempt=1/2: exit status=failed",
+    "commandId": "cmd-github-actions-lint-2026-03-18",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T20:41:31.056Z",
+    "level": "info",
+    "msg": "cmd=cmd-github-actions-lint-2026-03-18 → lint-agent attempt=2/2 (failed)",
+    "commandId": "cmd-github-actions-lint-2026-03-18",
+    "agentId": "lint-agent",
+    "attempt": 2
+  },
+  {
+    "ts": "2026-03-18T20:41:31.056Z",
+    "level": "warn",
+    "msg": "cmd=cmd-github-actions-lint-2026-03-18 proof-failed agent=lint-agent attempt=2/2: exit status=failed",
+    "commandId": "cmd-github-actions-lint-2026-03-18",
+    "agentId": "lint-agent",
+    "proofReason": "exit status=failed"
+  },
+  {
+    "ts": "2026-03-18T20:41:31.056Z",
+    "level": "warn",
+    "msg": "cmd=cmd-github-actions-lint-2026-03-18 local agents exhausted after 2 attempts — escalating to Claude",
+    "commandId": "cmd-github-actions-lint-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:41:31.056Z",
+    "level": "warn",
+    "msg": "No local agent matched — trying claude CLI as fallback",
+    "commandId": "cmd-github-actions-lint-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:41:39.664Z",
+    "level": "info",
+    "msg": "claude fallback exited code=0 complete",
+    "commandId": "cmd-github-actions-lint-2026-03-18"
+  },
+  {
+    "ts": "2026-03-18T20:41:39.665Z",
+    "level": "info",
+    "msg": "cmd=cmd-github-actions-lint-2026-03-18 done status=complete progress=60%"
+  },
+  {
+    "ts": "2026-03-18T20:41:42.859Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-branch-protection-setup-2026-03-18 action=admin",
+    "commandId": "cmd-branch-protection-setup-2026-03-18",
+    "prompt": "gh api repos/:owner/:repo/branches/main/protection --input -"
+  },
+  {
+    "ts": "2026-03-18T20:41:42.883Z",
+    "level": "info",
+    "msg": "cmd=cmd-branch-protection-setup-2026-03-18 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-branch-protection-setup-2026-03-18",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:41:42.884Z",
+    "level": "info",
+    "msg": "cmd=cmd-branch-protection-setup-2026-03-18 done status=complete progress=80%"
+  },
+  {
+    "ts": "2026-03-18T20:41:47.860Z",
+    "level": "info",
+    "msg": "Routing cmd=cmd-merge-verify-2026-03-18 action=admin",
+    "commandId": "cmd-merge-verify-2026-03-18",
+    "prompt": "verify branch protection: all commits via PR only"
+  },
+  {
+    "ts": "2026-03-18T20:41:47.879Z",
+    "level": "info",
+    "msg": "cmd=cmd-merge-verify-2026-03-18 → git-agent attempt=1/2 (complete)",
+    "commandId": "cmd-merge-verify-2026-03-18",
+    "agentId": "git-agent",
+    "attempt": 1
+  },
+  {
+    "ts": "2026-03-18T20:41:47.880Z",
+    "level": "info",
+    "msg": "cmd=cmd-merge-verify-2026-03-18 done status=complete progress=100%"
   }
 ]

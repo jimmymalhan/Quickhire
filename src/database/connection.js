@@ -42,7 +42,7 @@ if (process.env.MOCK_DB === 'true') {
   // ---------------------------------------------------------------------------
   let pool = null;
 
-  function getPool() {
+  const getPool = () => {
     if (!pool) {
       pool = new Pool({
         host: config.db.host,
@@ -64,17 +64,13 @@ if (process.env.MOCK_DB === 'true') {
       });
     }
     return pool;
-  }
+  };
 
-  async function query(text, params) {
-    return getPool().query(text, params);
-  }
+  const query = async (text, params) => getPool().query(text, params);
 
-  async function getClient() {
-    return getPool().connect();
-  }
+  const getClient = async () => getPool().connect();
 
-  async function testConnection() {
+  const testConnection = async () => {
     try {
       await query('SELECT 1');
       logger.info('Database connection established');
@@ -83,14 +79,14 @@ if (process.env.MOCK_DB === 'true') {
       logger.error('Database connection failed', { error: err.message });
       return false;
     }
-  }
+  };
 
-  async function closePool() {
+  const closePool = async () => {
     if (pool) {
       await pool.end();
       pool = null;
     }
-  }
+  };
 
   module.exports = { getPool, closePool };
   Object.defineProperty(module.exports, 'pool', {

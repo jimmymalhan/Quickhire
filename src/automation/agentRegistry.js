@@ -194,7 +194,7 @@ function findBestAgent(prompt) {
     const caps = agent.capabilities || ['run'];
     // GUARDRAIL: FEATURE prompts must only go to feature-capable agents.
     // Admin, supervisor, and run agents are never eligible for FEATURE: work.
-    if (isFeature && !caps.includes('feature')) continue;
+    if (isFeature && !caps.includes('feature')) {continue;}
 
     const score = scoreAgent(agent, prompt);
     if (score > bestScore) {

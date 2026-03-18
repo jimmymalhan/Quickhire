@@ -5,7 +5,6 @@
  */
 const { query } = require('../../database/connection');
 const UserPreference = require('../../database/models/UserPreference');
-const SavedJob = require('../../database/models/SavedJob');
 const { AutoApplyOrchestrator } = require('../../automation/autoApplyOrchestrator');
 const logger = require('../../utils/logger');
 const config = require('../../utils/config');
@@ -129,7 +128,7 @@ const getEligibleUsers = async (specificUserId) => {
     return [{ id: specificUserId, preferences }];
   }
 
-  result = await query(
+  const result = await query(
     `SELECT u.id, u.first_name, u.last_name, u.email
      FROM users u
      JOIN user_preferences up ON u.id = up.user_id
@@ -159,7 +158,7 @@ const getEligibleUsers = async (specificUserId) => {
  * @returns {boolean}
  */
 const isWithinSchedule = (preferences) => {
-  if (!preferences) return true;
+  if (!preferences) {return true;}
 
   const {
     auto_apply_start_hour,
@@ -168,7 +167,7 @@ const isWithinSchedule = (preferences) => {
   } = preferences;
 
   // No schedule configured = always eligible
-  if (auto_apply_start_hour == null && auto_apply_end_hour == null && !auto_apply_days) {
+  if (auto_apply_start_hour === null && auto_apply_end_hour === null && !auto_apply_days) {
     return true;
   }
 
@@ -184,7 +183,7 @@ const isWithinSchedule = (preferences) => {
   }
 
   // Check hour range
-  if (auto_apply_start_hour != null && auto_apply_end_hour != null) {
+  if (auto_apply_start_hour !== null && auto_apply_end_hour !== null) {
     if (currentHour < auto_apply_start_hour || currentHour >= auto_apply_end_hour) {
       return false;
     }

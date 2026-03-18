@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * LinkedIn Session Manager
  * Manages LinkedIn login, session persistence, and re-authentication

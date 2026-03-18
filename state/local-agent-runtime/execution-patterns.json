@@ -1,5 +1,71 @@
 [
   {
+    "id": "pat-1773866507879",
+    "agentId": "git-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "verify branch protection: all commits via PR only",
+    "resultStatus": "complete",
+    "durationMs": 17,
+    "outputSnippet": " M src/automation/agentHealthMonitor.js\n M src/automation/agentRegistry.js\n M src/automation/agentWatchdog.js\n M src/automation/agentWorker.js\n M src/automation/customQAHandler.js\n M src/automation/gu",
+    "recordedAt": "2026-03-18T20:41:47.879Z"
+  },
+  {
+    "id": "pat-1773866502883",
+    "agentId": "git-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "gh api repos/:owner/:repo/branches/main/protection --input - << EOF\n{\n  \"required_status_checks\": {\"strict\": true, \"cont",
+    "resultStatus": "complete",
+    "durationMs": 17,
+    "outputSnippet": " M src/automation/agentHealthMonitor.js\n M src/automation/agentRegistry.js\n M src/automation/agentWatchdog.js\n M src/automation/agentWorker.js\n M src/automation/customQAHandler.js\n M src/automation/gu",
+    "recordedAt": "2026-03-18T20:41:42.883Z"
+  },
+  {
+    "id": "pat-1773866491056",
+    "agentId": "lint-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "run npm run lint for CI verification",
+    "resultStatus": "failed",
+    "durationMs": 1594,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha lint\n> eslint src/ tests/ --ext .js\n\n\n/Users/jimmymalhan/Doc/Quickhire/src/api/controllers/runtimeController.js\n  290:9  error  'workflow' is assigned a value but n",
+    "recordedAt": "2026-03-18T20:41:31.056Z"
+  },
+  {
+    "id": "pat-1773866489460",
+    "agentId": "lint-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "run npm run lint for CI verification",
+    "resultStatus": "failed",
+    "durationMs": 1604,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha lint\n> eslint src/ tests/ --ext .js\n\n\n/Users/jimmymalhan/Doc/Quickhire/src/api/controllers/runtimeController.js\n  290:9  error  'workflow' is assigned a value but n",
+    "recordedAt": "2026-03-18T20:41:29.460Z"
+  },
+  {
+    "id": "pat-1773866472083",
+    "agentId": "test-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "run npm test to verify pipeline works",
+    "resultStatus": "failed",
+    "durationMs": 3848,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha test\n> jest --coverage --passWithNoTests\n\n{\"error\":\"Authentication required\",\"level\":\"error\",\"message\":\"Request error\",\"method\":\"GET\",\"path\":\"/api/jobs/search\",\"ser",
+    "recordedAt": "2026-03-18T20:41:12.083Z"
+  },
+  {
+    "id": "pat-1773866468233",
+    "agentId": "test-agent",
+    "action": "agent-chat",
+    "scope": "agentRouter",
+    "promptSnippet": "run npm test to verify pipeline works",
+    "resultStatus": "failed",
+    "durationMs": 5392,
+    "outputSnippet": "\n> quickhire-auto-apply@0.0.1-alpha test\n> jest --coverage --passWithNoTests\n\n{\"context\":{},\"error\":\"always fails\",\"level\":\"error\",\"maxRetries\":3,\"message\":\"All retries exhausted\",\"service\":\"quickhire",
+    "recordedAt": "2026-03-18T20:41:08.233Z"
+  },
+  {
     "id": "pat-1773866392846",
     "agentId": "backlog-agent",
     "action": "agent-chat",

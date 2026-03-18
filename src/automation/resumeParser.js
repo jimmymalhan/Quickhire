@@ -132,8 +132,8 @@ class ResumeParser {
     logger.debug('Parsed text resume', {
       sections: Object.keys(resume).filter((k) => {
         const val = resume[k];
-        if (Array.isArray(val)) return val.length > 0;
-        if (typeof val === 'object') return Object.keys(val).length > 0;
+        if (Array.isArray(val)) {return val.length > 0;}
+        if (typeof val === 'object') {return Object.keys(val).length > 0;}
         return val && val.length > 0;
       }),
     });
@@ -148,7 +148,7 @@ class ResumeParser {
    */
   _detectSection(line) {
     const cleaned = line.replace(/[:#\-=_*]/g, '').trim();
-    if (cleaned.length === 0 || cleaned.length > 50) return null;
+    if (cleaned.length === 0 || cleaned.length > 50) {return null;}
 
     for (const [section, pattern] of Object.entries(SECTION_HEADERS)) {
       if (pattern.test(cleaned)) {
@@ -169,13 +169,13 @@ class ResumeParser {
     const lines = text.split('\n');
 
     const emailMatch = text.match(/[\w.+-]+@[\w.-]+\.\w+/);
-    if (emailMatch) contact.email = emailMatch[0];
+    if (emailMatch) {contact.email = emailMatch[0];}
 
     const phoneMatch = text.match(/[\+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]{7,}/);
-    if (phoneMatch) contact.phone = phoneMatch[0].trim();
+    if (phoneMatch) {contact.phone = phoneMatch[0].trim();}
 
     const linkedinMatch = text.match(/linkedin\.com\/in\/[\w-]+/i);
-    if (linkedinMatch) contact.linkedin = linkedinMatch[0];
+    if (linkedinMatch) {contact.linkedin = linkedinMatch[0];}
 
     // First non-empty line that is not email/phone is likely the name
     for (const line of lines) {
@@ -183,7 +183,7 @@ class ResumeParser {
       if (
         trimmed.length > 0 &&
         !trimmed.includes('@') &&
-        !/^[\+]?[(]?[0-9]/.test(trimmed) &&
+        !/^[+]?[(]?[0-9]/.test(trimmed) &&
         !/linkedin/i.test(trimmed) &&
         !/http/i.test(trimmed)
       ) {
@@ -206,7 +206,7 @@ class ResumeParser {
 
     for (const block of blocks) {
       const lines = block.split('\n').map((l) => l.trim()).filter((l) => l.length > 0);
-      if (lines.length === 0) continue;
+      if (lines.length === 0) {continue;}
 
       const entry = {
         title: lines[0] || '',
@@ -245,7 +245,7 @@ class ResumeParser {
 
     for (const block of blocks) {
       const lines = block.split('\n').map((l) => l.trim()).filter((l) => l.length > 0);
-      if (lines.length === 0) continue;
+      if (lines.length === 0) {continue;}
 
       entries.push({
         degree: lines[0] || '',
@@ -327,11 +327,11 @@ class ResumeParser {
     // Contact
     if (resume.contact && Object.keys(resume.contact).length > 0) {
       const contactLines = [];
-      if (resume.contact.name) contactLines.push(resume.contact.name);
-      if (resume.contact.email) contactLines.push(resume.contact.email);
-      if (resume.contact.phone) contactLines.push(resume.contact.phone);
-      if (resume.contact.linkedin) contactLines.push(resume.contact.linkedin);
-      if (resume.contact.location) contactLines.push(resume.contact.location);
+      if (resume.contact.name) {contactLines.push(resume.contact.name);}
+      if (resume.contact.email) {contactLines.push(resume.contact.email);}
+      if (resume.contact.phone) {contactLines.push(resume.contact.phone);}
+      if (resume.contact.linkedin) {contactLines.push(resume.contact.linkedin);}
+      if (resume.contact.location) {contactLines.push(resume.contact.location);}
       if (contactLines.length > 0) {
         sections.push('CONTACT\n' + contactLines.join('\n'));
       }
@@ -346,9 +346,9 @@ class ResumeParser {
     if (Array.isArray(resume.experience) && resume.experience.length > 0) {
       const expLines = resume.experience.map((exp) => {
         const parts = [];
-        if (exp.title) parts.push(exp.title);
-        if (exp.company) parts.push(exp.company);
-        if (exp.duration) parts.push(exp.duration);
+        if (exp.title) {parts.push(exp.title);}
+        if (exp.company) {parts.push(exp.company);}
+        if (exp.duration) {parts.push(exp.duration);}
         if (Array.isArray(exp.description)) {
           exp.description.forEach((d) => parts.push(`- ${d}`));
         } else if (exp.description) {
@@ -363,9 +363,9 @@ class ResumeParser {
     if (Array.isArray(resume.education) && resume.education.length > 0) {
       const eduLines = resume.education.map((edu) => {
         const parts = [];
-        if (edu.degree) parts.push(edu.degree);
-        if (edu.institution) parts.push(edu.institution);
-        if (edu.year) parts.push(edu.year);
+        if (edu.degree) {parts.push(edu.degree);}
+        if (edu.institution) {parts.push(edu.institution);}
+        if (edu.year) {parts.push(edu.year);}
         return parts.join('\n');
       });
       sections.push('EDUCATION\n' + eduLines.join('\n\n'));

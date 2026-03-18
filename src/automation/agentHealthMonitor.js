@@ -112,13 +112,13 @@ function monitor() {
  */
 function isAgentHealthy(agentId) {
   const health = readJson(healthPath, null);
-  if (!health) return true; // no data yet — assume healthy
+  if (!health) {return true;} // no data yet — assume healthy
   const entry = (health.agents || []).find((a) => a.id === agentId);
   return !entry || entry.status !== 'degraded';
 }
 
 function start() {
-  if (process.env.DISABLE_WORKER === 'true') return;
+  if (process.env.DISABLE_WORKER === 'true') {return;}
 
   monitor(); // run immediately
   setInterval(monitor, MONITOR_MS).unref();

@@ -40,7 +40,7 @@ let _config = null;
  * Idempotent — returns cached object on repeated calls.
  */
 function loadConfig() {
-  if (_config) return _config;
+  if (_config) {return _config;}
 
   let fileConfig = {};
   try {
@@ -54,7 +54,7 @@ function loadConfig() {
   // Stamp process.env so any module can check without importing this file.
   // Booleans → 'true'/'false' strings (process.env is string-only).
   for (const [key, val] of Object.entries(_config)) {
-    if (key.startsWith('_')) continue;
+    if (key.startsWith('_')) {continue;}
     if (process.env[key] === undefined) {
       process.env[key] = String(val);
     }
