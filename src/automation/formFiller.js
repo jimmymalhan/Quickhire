@@ -15,7 +15,12 @@ const FIELD_MAPPINGS = {
   years_experience: ['yearsExperience', 'years_experience', 'experience', 'years_of_experience'],
   current_company: ['currentCompany', 'current_company', 'company', 'employer'],
   current_title: ['currentTitle', 'current_title', 'title', 'job_title', 'position'],
-  salary_expectation: ['salaryExpectation', 'salary_expectation', 'expected_salary', 'desired_salary'],
+  salary_expectation: [
+    'salaryExpectation',
+    'salary_expectation',
+    'expected_salary',
+    'desired_salary',
+  ],
   start_date: ['startDate', 'start_date', 'availability', 'available_date'],
   cover_letter: ['coverLetter', 'cover_letter', 'cover', 'message'],
   work_authorization: ['workAuthorization', 'work_authorization', 'authorized', 'visa_status'],
@@ -48,7 +53,9 @@ class FormFiller {
    * Resolve a form field name to its canonical name
    */
   resolveFieldName(fieldName) {
-    if (!fieldName) {return null;}
+    if (!fieldName) {
+      return null;
+    }
     const normalized = fieldName.toLowerCase().replace(/[-\s]+/g, '_');
     return this.fieldMap[normalized] || null;
   }
@@ -92,11 +99,22 @@ class FormFiller {
     const value = this.getFieldValue(canonical);
     if (value === null || value === undefined) {
       this.skippedFields.push({ fieldName, canonicalName: canonical, reason: 'no_value' });
-      return { fieldName, canonicalName: canonical, value: null, filled: false, reason: 'no_value' };
+      return {
+        fieldName,
+        canonicalName: canonical,
+        value: null,
+        filled: false,
+        reason: 'no_value',
+      };
     }
 
     const formattedValue = this._formatValue(value, fieldType);
-    this.filledFields.push({ fieldName, canonicalName: canonical, value: formattedValue, fieldType });
+    this.filledFields.push({
+      fieldName,
+      canonicalName: canonical,
+      value: formattedValue,
+      fieldType,
+    });
 
     return { fieldName, canonicalName: canonical, value: formattedValue, filled: true };
   }
@@ -114,12 +132,12 @@ class FormFiller {
     const results = [];
     for (const field of fields) {
       const name = typeof field === 'string' ? field : field.name;
-      const type = typeof field === 'string' ? 'text' : (field.type || 'text');
+      const type = typeof field === 'string' ? 'text' : field.type || 'text';
       results.push(this.fillField(name, type));
     }
 
-    const filled = results.filter(r => r.filled);
-    const skipped = results.filter(r => !r.filled);
+    const filled = results.filter((r) => r.filled);
+    const skipped = results.filter((r) => !r.filled);
 
     logger.debug('Form fill complete', {
       total: fields.length,
@@ -182,9 +200,7 @@ class FormFiller {
       valid: missing.length === 0,
       missing,
       available,
-      completeness: requiredFields.length > 0
-        ? available.length / requiredFields.length
-        : 1,
+      completeness: requiredFields.length > 0 ? available.length / requiredFields.length : 1,
     };
   }
 
@@ -197,10 +213,14 @@ class FormFiller {
         return typeof value === 'number' ? value : parseInt(value, 10) || value;
       case 'boolean':
       case 'checkbox':
-        if (typeof value === 'boolean') {return value;}
+        if (typeof value === 'boolean') {
+          return value;
+        }
         return value === 'true' || value === 'yes' || value === '1';
       case 'date':
-        if (value instanceof Date) {return value.toISOString().split('T')[0];}
+        if (value instanceof Date) {
+          return value.toISOString().split('T')[0];
+        }
         return String(value);
       case 'select':
       case 'dropdown':
@@ -217,8 +237,8 @@ class FormFiller {
     return {
       filledCount: this.filledFields.length,
       skippedCount: this.skippedFields.length,
-      filledFields: this.filledFields.map(f => f.canonicalName),
-      skippedFields: this.skippedFields.map(f => ({
+      filledFields: this.filledFields.map((f) => f.canonicalName),
+      skippedFields: this.skippedFields.map((f) => ({
         field: f.fieldName,
         reason: f.reason,
       })),

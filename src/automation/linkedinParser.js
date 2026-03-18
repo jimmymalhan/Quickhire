@@ -8,22 +8,26 @@ const crypto = require('crypto');
  * Parse salary text into min/max numbers
  */
 const parseSalary = (salaryText) => {
-  if (!salaryText) {return { min: null, max: null };}
+  if (!salaryText) {
+    return { min: null, max: null };
+  }
 
   const cleaned = salaryText.replace(/,/g, '').replace(/\s+/g, ' ').trim();
 
   // Match patterns like "$80,000 - $120,000" or "$80K - $120K"
-  const rangeMatch = cleaned.match(
-    /\$?([\d.]+)\s*[kK]?\s*[-–to]+\s*\$?([\d.]+)\s*[kK]?/
-  );
+  const rangeMatch = cleaned.match(/\$?([\d.]+)\s*[kK]?\s*[-–to]+\s*\$?([\d.]+)\s*[kK]?/);
   if (rangeMatch) {
     let min = parseFloat(rangeMatch[1]);
     let max = parseFloat(rangeMatch[2]);
 
     // Handle K notation
     if (cleaned.toLowerCase().includes('k') || min < 1000) {
-      if (min < 1000) {min *= 1000;}
-      if (max < 1000) {max *= 1000;}
+      if (min < 1000) {
+        min *= 1000;
+      }
+      if (max < 1000) {
+        max *= 1000;
+      }
     }
 
     return { min: Math.round(min), max: Math.round(max) };
@@ -33,7 +37,8 @@ const parseSalary = (salaryText) => {
   const singleMatch = cleaned.match(/\$?([\d.]+)\s*[kK]?/);
   if (singleMatch) {
     let amount = parseFloat(singleMatch[1]);
-    const isHourly = cleaned.toLowerCase().includes('/hr') || cleaned.toLowerCase().includes('hour');
+    const isHourly =
+      cleaned.toLowerCase().includes('/hr') || cleaned.toLowerCase().includes('hour');
     // Handle hourly rates first (before K notation check, since hourly values are small numbers)
     if (isHourly) {
       amount = Math.round(amount * 2080); // 40hrs * 52 weeks
@@ -50,7 +55,9 @@ const parseSalary = (salaryText) => {
  * Extract experience years from description text
  */
 const parseExperienceYears = (text) => {
-  if (!text) {return null;}
+  if (!text) {
+    return null;
+  }
 
   const patterns = [
     /(\d+)\s*-\s*(\d+)\s*(?:years?|yrs?)/i,
@@ -74,10 +81,18 @@ const parseExperienceYears = (text) => {
 const parseJobLevel = (title, description) => {
   const combined = `${title || ''} ${description || ''}`.toLowerCase();
 
-  if (/\b(principal|staff|distinguished|fellow)\b/.test(combined)) {return 'staff';}
-  if (/\b(senior|sr\.?|lead|iii)\b/.test(combined)) {return 'senior';}
-  if (/\b(mid[- ]?level|intermediate|ii)\b/.test(combined)) {return 'mid';}
-  if (/\b(junior|jr\.?|entry[- ]?level|associate|i\b|intern)\b/.test(combined)) {return 'entry';}
+  if (/\b(principal|staff|distinguished|fellow)\b/.test(combined)) {
+    return 'staff';
+  }
+  if (/\b(senior|sr\.?|lead|iii)\b/.test(combined)) {
+    return 'senior';
+  }
+  if (/\b(mid[- ]?level|intermediate|ii)\b/.test(combined)) {
+    return 'mid';
+  }
+  if (/\b(junior|jr\.?|entry[- ]?level|associate|i\b|intern)\b/.test(combined)) {
+    return 'entry';
+  }
 
   return 'mid'; // default
 };
@@ -86,7 +101,9 @@ const parseJobLevel = (title, description) => {
  * Extract requirements from job description
  */
 const parseRequirements = (descriptionText) => {
-  if (!descriptionText) {return [];}
+  if (!descriptionText) {
+    return [];
+  }
 
   const requirements = [];
   const lines = descriptionText.split(/\n/);
@@ -102,7 +119,10 @@ const parseRequirements = (descriptionText) => {
     }
 
     // Detect end of requirements section
-    if (inRequirementsSection && /^(responsibilities|about|benefits|what we offer|nice to have)/i.test(trimmed)) {
+    if (
+      inRequirementsSection &&
+      /^(responsibilities|about|benefits|what we offer|nice to have)/i.test(trimmed)
+    ) {
       inRequirementsSection = false;
       continue;
     }
@@ -123,19 +143,62 @@ const parseRequirements = (descriptionText) => {
  * Extract skills/technologies from description text
  */
 const parseSkills = (text) => {
-  if (!text) {return [];}
+  if (!text) {
+    return [];
+  }
 
   const knownSkills = [
-    'javascript', 'typescript', 'python', 'java', 'c\\+\\+', 'c#', 'go', 'rust', 'ruby',
-    'react', 'angular', 'vue', 'node\\.?js', 'express', 'django', 'flask', 'spring',
-    'aws', 'azure', 'gcp', 'docker', 'kubernetes', 'terraform',
-    'sql', 'postgresql', 'mysql', 'mongodb', 'redis', 'elasticsearch',
-    'git', 'ci/cd', 'jenkins', 'github actions',
-    'rest', 'graphql', 'grpc', 'microservices',
-    'agile', 'scrum', 'kanban',
-    'machine learning', 'deep learning', 'nlp', 'computer vision',
-    'html', 'css', 'sass', 'tailwind',
-    'linux', 'unix', 'bash',
+    'javascript',
+    'typescript',
+    'python',
+    'java',
+    'c\\+\\+',
+    'c#',
+    'go',
+    'rust',
+    'ruby',
+    'react',
+    'angular',
+    'vue',
+    'node\\.?js',
+    'express',
+    'django',
+    'flask',
+    'spring',
+    'aws',
+    'azure',
+    'gcp',
+    'docker',
+    'kubernetes',
+    'terraform',
+    'sql',
+    'postgresql',
+    'mysql',
+    'mongodb',
+    'redis',
+    'elasticsearch',
+    'git',
+    'ci/cd',
+    'jenkins',
+    'github actions',
+    'rest',
+    'graphql',
+    'grpc',
+    'microservices',
+    'agile',
+    'scrum',
+    'kanban',
+    'machine learning',
+    'deep learning',
+    'nlp',
+    'computer vision',
+    'html',
+    'css',
+    'sass',
+    'tailwind',
+    'linux',
+    'unix',
+    'bash',
   ];
 
   const found = [];

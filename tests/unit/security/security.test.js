@@ -87,7 +87,7 @@ describe('Security - SQL Injection Prevention', () => {
     const payloads = [
       "'; DROP TABLE users; --",
       "1' OR '1'='1",
-      "1; SELECT * FROM users",
+      '1; SELECT * FROM users',
       "' UNION SELECT * FROM users --",
       "1' AND 1=1 --",
       "admin'--",
@@ -126,7 +126,7 @@ describe('Security - SQL Injection Prevention', () => {
     // Verify the injection string is passed as a parameter, not interpolated
     const [sql, params] = query.mock.calls[0];
     expect(sql).toContain('$1'); // parameterized
-    expect(sql).not.toContain("DROP TABLE"); // not in SQL
+    expect(sql).not.toContain('DROP TABLE'); // not in SQL
     expect(params[0]).toBe("admin@test.com'; DROP TABLE users;--"); // safely in params
   });
 
@@ -136,9 +136,7 @@ describe('Security - SQL Injection Prevention', () => {
 
     // Clear prior mock calls
     query.mockClear();
-    query
-      .mockResolvedValueOnce({ rows: [{ count: '0' }] })
-      .mockResolvedValueOnce({ rows: [] });
+    query.mockResolvedValueOnce({ rows: [{ count: '0' }] }).mockResolvedValueOnce({ rows: [] });
 
     await Job.search({ title: "'; DROP TABLE jobs; --" });
 
@@ -146,7 +144,7 @@ describe('Security - SQL Injection Prevention', () => {
     // Both use parameterized queries
     const [countSql, countParams] = query.mock.calls[0];
     expect(countSql).toContain('$1'); // parameterized
-    expect(countSql).not.toContain("DROP TABLE");
+    expect(countSql).not.toContain('DROP TABLE');
     expect(countParams).toContain("%'; DROP TABLE jobs; --%");
   });
 });
@@ -416,10 +414,7 @@ describe('Security - Environment', () => {
   test('.env.example exists with placeholder values', () => {
     const fs = require('fs');
     const path = require('path');
-    const envExample = fs.readFileSync(
-      path.join(__dirname, '../../../.env.example'),
-      'utf8'
-    );
+    const envExample = fs.readFileSync(path.join(__dirname, '../../../.env.example'), 'utf8');
     expect(envExample).toBeDefined();
     expect(envExample).not.toContain('real_password');
     expect(envExample).not.toContain('sk_live');
@@ -428,10 +423,7 @@ describe('Security - Environment', () => {
   test('.gitignore excludes .env files', () => {
     const fs = require('fs');
     const path = require('path');
-    const gitignore = fs.readFileSync(
-      path.join(__dirname, '../../../.gitignore'),
-      'utf8'
-    );
+    const gitignore = fs.readFileSync(path.join(__dirname, '../../../.gitignore'), 'utf8');
     expect(gitignore).toContain('.env');
   });
 
@@ -441,7 +433,8 @@ describe('Security - Environment', () => {
     // In test env, the default is acceptable; in production it must be overridden
     const isProduction = config.env === 'production';
     expect(
-      !isProduction || (!config.jwt.secret.includes('dev-') && !config.jwt.secret.includes('default'))
+      !isProduction ||
+        (!config.jwt.secret.includes('dev-') && !config.jwt.secret.includes('default')),
     ).toBe(true);
   });
 });

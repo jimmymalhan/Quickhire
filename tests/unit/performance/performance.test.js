@@ -184,8 +184,12 @@ describe('Performance - Formatters', () => {
 
   test('formats 10,000 user responses within 100ms', () => {
     const user = {
-      id: 'uuid', email: 'test@test.com', first_name: 'John',
-      last_name: 'Doe', profile_pic_url: 'https://pic.com/1', created_at: new Date().toISOString(),
+      id: 'uuid',
+      email: 'test@test.com',
+      first_name: 'John',
+      last_name: 'Doe',
+      profile_pic_url: 'https://pic.com/1',
+      created_at: new Date().toISOString(),
     };
     const start = Date.now();
     for (let i = 0; i < 10000; i++) {
@@ -197,8 +201,13 @@ describe('Performance - Formatters', () => {
 
   test('formats 10,000 job responses within 100ms', () => {
     const job = {
-      id: 'uuid', title: 'Engineer', company: 'Corp', location: 'Remote',
-      salary_min: 80000, salary_max: 150000, description: 'Great job',
+      id: 'uuid',
+      title: 'Engineer',
+      company: 'Corp',
+      location: 'Remote',
+      salary_min: 80000,
+      salary_max: 150000,
+      description: 'Great job',
     };
     const start = Date.now();
     for (let i = 0; i < 10000; i++) {
@@ -210,8 +219,12 @@ describe('Performance - Formatters', () => {
 
   test('formats 10,000 application responses within 100ms', () => {
     const app = {
-      id: 'uuid', user_id: 'u1', job_id: 'j1', status: 'pending',
-      submission_attempts: 1, resume_version: 1,
+      id: 'uuid',
+      user_id: 'u1',
+      job_id: 'j1',
+      status: 'pending',
+      submission_attempts: 1,
+      resume_version: 1,
     };
     const start = Date.now();
     for (let i = 0; i < 10000; i++) {
@@ -306,7 +319,9 @@ describe('Performance - Memory Patterns', () => {
     }
 
     // Force GC if available (run with --expose-gc)
-    if (global.gc) {global.gc();}
+    if (global.gc) {
+      global.gc();
+    }
 
     const finalMem = process.memoryUsage().heapUsed;
     const memGrowth = (finalMem - initialMem) / 1024 / 1024; // MB

@@ -66,9 +66,7 @@ describe('RetryHandler', () => {
     });
 
     it('retries on failure and succeeds', async () => {
-      const fn = jest.fn()
-        .mockRejectedValueOnce(new Error('fail'))
-        .mockResolvedValue('success');
+      const fn = jest.fn().mockRejectedValueOnce(new Error('fail')).mockResolvedValue('success');
 
       const result = await handler.execute(fn);
       expect(result).toBe('success');
@@ -83,16 +81,15 @@ describe('RetryHandler', () => {
     });
 
     it('does not retry non-retryable ScraperError', async () => {
-      const fn = jest.fn().mockRejectedValue(
-        new ScraperError('SCRAPE_AUTH_REQUIRED', {})
-      );
+      const fn = jest.fn().mockRejectedValue(new ScraperError('SCRAPE_AUTH_REQUIRED', {}));
 
       await expect(handler.execute(fn)).rejects.toThrow('Scraper error');
       expect(fn).toHaveBeenCalledTimes(1);
     });
 
     it('retries retryable ScraperError', async () => {
-      const fn = jest.fn()
+      const fn = jest
+        .fn()
         .mockRejectedValueOnce(new ScraperError('SCRAPE_FAILED', {}))
         .mockResolvedValue('ok');
 
@@ -102,7 +99,8 @@ describe('RetryHandler', () => {
     });
 
     it('throws last error when all retries fail', async () => {
-      const fn = jest.fn()
+      const fn = jest
+        .fn()
         .mockRejectedValueOnce(new Error('error1'))
         .mockRejectedValueOnce(new Error('error2'))
         .mockRejectedValueOnce(new Error('error3'))
@@ -112,7 +110,8 @@ describe('RetryHandler', () => {
     });
 
     it('succeeds on last possible attempt', async () => {
-      const fn = jest.fn()
+      const fn = jest
+        .fn()
         .mockRejectedValueOnce(new Error('fail'))
         .mockRejectedValueOnce(new Error('fail'))
         .mockRejectedValueOnce(new Error('fail'))
@@ -132,10 +131,7 @@ describe('RetryHandler', () => {
 
   describe('executeBatch', () => {
     it('executes multiple functions', async () => {
-      const fns = [
-        jest.fn().mockResolvedValue('a'),
-        jest.fn().mockResolvedValue('b'),
-      ];
+      const fns = [jest.fn().mockResolvedValue('a'), jest.fn().mockResolvedValue('b')];
 
       const { results, errors } = await handler.executeBatch(fns);
       expect(results).toEqual(['a', 'b']);
@@ -163,13 +159,14 @@ describe('RetryHandler', () => {
       let concurrent = 0;
       let maxConcurrent = 0;
 
-      const makeFn = () => jest.fn(async () => {
-        concurrent++;
-        maxConcurrent = Math.max(maxConcurrent, concurrent);
-        await new Promise(r => setTimeout(r, 5));
-        concurrent--;
-        return 'ok';
-      });
+      const makeFn = () =>
+        jest.fn(async () => {
+          concurrent++;
+          maxConcurrent = Math.max(maxConcurrent, concurrent);
+          await new Promise((r) => setTimeout(r, 5));
+          concurrent--;
+          return 'ok';
+        });
 
       const fns = Array.from({ length: 10 }, makeFn);
       await handler.executeBatch(fns, { concurrency: 3 });
@@ -188,9 +185,7 @@ describe('RetryHandler', () => {
     });
 
     it('retries wrapped function on failure', async () => {
-      const fn = jest.fn()
-        .mockRejectedValueOnce(new Error('fail'))
-        .mockResolvedValue('ok');
+      const fn = jest.fn().mockRejectedValueOnce(new Error('fail')).mockResolvedValue('ok');
 
       const wrapped = handler.wrap(fn);
       const result = await wrapped();
@@ -201,7 +196,12 @@ describe('RetryHandler', () => {
 
   describe('_calculateDelay', () => {
     it('increases delay exponentially', () => {
-      const h = new RetryHandler({ baseDelay: 1000, backoffMultiplier: 2, maxDelay: 100000, jitterFactor: 0 });
+      const h = new RetryHandler({
+        baseDelay: 1000,
+        backoffMultiplier: 2,
+        maxDelay: 100000,
+        jitterFactor: 0,
+      });
       const delay0 = h._calculateDelay(0);
       const delay1 = h._calculateDelay(1);
       const delay2 = h._calculateDelay(2);
@@ -210,7 +210,12 @@ describe('RetryHandler', () => {
     });
 
     it('caps at maxDelay', () => {
-      const h = new RetryHandler({ baseDelay: 1000, backoffMultiplier: 10, maxDelay: 5000, jitterFactor: 0 });
+      const h = new RetryHandler({
+        baseDelay: 1000,
+        backoffMultiplier: 10,
+        maxDelay: 5000,
+        jitterFactor: 0,
+      });
       const delay = h._calculateDelay(10);
       expect(delay).toBeLessThanOrEqual(5000);
     });

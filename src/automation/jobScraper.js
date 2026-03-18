@@ -73,12 +73,16 @@ class JobScraper {
     while (page < maxPages) {
       try {
         const pageJobs = await this._scrapePage(searchParams, page);
-        if (!pageJobs || pageJobs.length === 0) {break;}
+        if (!pageJobs || pageJobs.length === 0) {
+          break;
+        }
 
         allJobs.push(...pageJobs);
         page++;
 
-        if (pageJobs.length < pageSize || allJobs.length >= this.maxJobsPerSearch) {break;}
+        if (pageJobs.length < pageSize || allJobs.length >= this.maxJobsPerSearch) {
+          break;
+        }
       } catch (err) {
         logger.error('Page scrape failed, stopping pagination', { page, error: err.message });
         break;
@@ -90,7 +94,7 @@ class JobScraper {
     this.metrics.duplicatesSkipped = allJobs.length - uniqueJobs.length;
 
     // Normalize all jobs
-    const normalizedJobs = uniqueJobs.map(j => jobParser.normalizeJob(j));
+    const normalizedJobs = uniqueJobs.map((j) => jobParser.normalizeJob(j));
 
     // Cache results
     await cache.set(cacheKey, normalizedJobs, 1800); // 30 min cache
@@ -134,40 +138,42 @@ class JobScraper {
    * Scrape a single job listing page
    */
   async scrapeJobDetail(url) {
-    return this.retryHandler.execute(async () => {
-      await this.rateLimiter.acquire();
-      this.metrics.totalRequests++;
+    return this.retryHandler.execute(
+      async () => {
+        await this.rateLimiter.acquire();
+        this.metrics.totalRequests++;
 
-      try {
-        const html = await this._fetchPage(url);
-        const job = jobParser.parseJobListing(html, url);
-        this.rateLimiter.reportSuccess();
-        this.metrics.successfulRequests++;
-        return jobParser.normalizeJob(job);
-      } catch (err) {
-        this.metrics.failedRequests++;
-        const isRateLimit = err.response?.status === 429;
-        this.rateLimiter.reportError(isRateLimit);
-        throw err;
-      }
-    }, { url });
+        try {
+          const html = await this._fetchPage(url);
+          const job = jobParser.parseJobListing(html, url);
+          this.rateLimiter.reportSuccess();
+          this.metrics.successfulRequests++;
+          return jobParser.normalizeJob(job);
+        } catch (err) {
+          this.metrics.failedRequests++;
+          const isRateLimit = err.response?.status === 429;
+          this.rateLimiter.reportError(isRateLimit);
+          throw err;
+        }
+      },
+      { url },
+    );
   }
 
   /**
    * Get scraper metrics
    */
   getMetrics() {
-    const elapsed = this.metrics.startTime
-      ? (Date.now() - this.metrics.startTime) / 1000
-      : 0;
+    const elapsed = this.metrics.startTime ? (Date.now() - this.metrics.startTime) / 1000 : 0;
 
     return {
       ...this.metrics,
       elapsedSeconds: elapsed,
       requestsPerSecond: elapsed > 0 ? this.metrics.totalRequests / elapsed : 0,
-      successRate: this.metrics.totalRequests > 0
-        ? this.metrics.successfulRequests / this.metrics.totalRequests
-        : 0,
+      successRate:
+        this.metrics.totalRequests > 0
+          ? this.metrics.successfulRequests / this.metrics.totalRequests
+          : 0,
       rateLimiter: this.rateLimiter.getStatus(),
       deduplicator: deduplicator.getStats(),
     };
@@ -193,29 +199,32 @@ class JobScraper {
   // --- Private ---
 
   async _scrapePage(searchParams, page) {
-    return this.retryHandler.execute(async () => {
-      await this.rateLimiter.acquire();
-      this.metrics.totalRequests++;
+    return this.retryHandler.execute(
+      async () => {
+        await this.rateLimiter.acquire();
+        this.metrics.totalRequests++;
 
-      const url = this._buildSearchUrl(searchParams, page);
+        const url = this._buildSearchUrl(searchParams, page);
 
-      try {
-        const html = await this._fetchPage(url);
-        const jobs = jobParser.parseSearchResults(html);
-        this.rateLimiter.reportSuccess();
-        this.metrics.successfulRequests++;
-        return jobs;
-      } catch (err) {
-        this.metrics.failedRequests++;
-        const isRateLimit = err.response?.status === 429;
-        this.rateLimiter.reportError(isRateLimit);
-        throw new ScraperError(
-          isRateLimit ? 'SCRAPE_RATE_LIMITED' : 'SCRAPE_FAILED',
-          { url, page },
-          err
-        );
-      }
-    }, { page });
+        try {
+          const html = await this._fetchPage(url);
+          const jobs = jobParser.parseSearchResults(html);
+          this.rateLimiter.reportSuccess();
+          this.metrics.successfulRequests++;
+          return jobs;
+        } catch (err) {
+          this.metrics.failedRequests++;
+          const isRateLimit = err.response?.status === 429;
+          this.rateLimiter.reportError(isRateLimit);
+          throw new ScraperError(
+            isRateLimit ? 'SCRAPE_RATE_LIMITED' : 'SCRAPE_FAILED',
+            { url, page },
+            err,
+          );
+        }
+      },
+      { page },
+    );
   }
 
   async _fetchPage(url) {
@@ -223,10 +232,10 @@ class JobScraper {
       timeout: this.timeout,
       headers: {
         'User-Agent': this._getRandomUserAgent(),
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
         'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive',
+        Connection: 'keep-alive',
         'Cache-Control': 'no-cache',
       },
       maxRedirects: 3,
@@ -247,12 +256,24 @@ class JobScraper {
     const base = 'https://www.linkedin.com/jobs/search/';
     const queryParams = new URLSearchParams();
 
-    if (params.keywords) {queryParams.set('keywords', params.keywords);}
-    if (params.location) {queryParams.set('location', params.location);}
-    if (params.jobType) {queryParams.set('f_JT', params.jobType);}
-    if (params.experienceLevel) {queryParams.set('f_E', params.experienceLevel);}
-    if (params.datePosted) {queryParams.set('f_TPR', params.datePosted);}
-    if (page > 0) {queryParams.set('start', String(page * 25));}
+    if (params.keywords) {
+      queryParams.set('keywords', params.keywords);
+    }
+    if (params.location) {
+      queryParams.set('location', params.location);
+    }
+    if (params.jobType) {
+      queryParams.set('f_JT', params.jobType);
+    }
+    if (params.experienceLevel) {
+      queryParams.set('f_E', params.experienceLevel);
+    }
+    if (params.datePosted) {
+      queryParams.set('f_TPR', params.datePosted);
+    }
+    if (page > 0) {
+      queryParams.set('start', String(page * 25));
+    }
 
     return `${base}?${queryParams.toString()}`;
   }

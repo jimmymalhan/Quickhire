@@ -31,7 +31,8 @@ const LINKEDIN_ERRORS = {
 
 class LinkedInFormSubmitter {
   constructor(options = {}) {
-    this.mockMode = options.mockMode !== undefined ? options.mockMode : config.features.mockLinkedIn;
+    this.mockMode =
+      options.mockMode !== undefined ? options.mockMode : config.features.mockLinkedIn;
     this.resumeHandler = new ResumeUploadHandler();
     this.submissionTimeout = options.submissionTimeout || 30000;
     this.mockDelay = options.mockDelay !== undefined ? options.mockDelay : 100;
@@ -145,7 +146,7 @@ class LinkedInFormSubmitter {
         delayMs: 2000,
         backoffMultiplier: 2,
       },
-    ).catch(err => {
+    ).catch((err) => {
       if (err.nonRetryable && err.result) {
         return err.result;
       }
@@ -181,7 +182,7 @@ class LinkedInFormSubmitter {
     ];
 
     const result = filler.fillForm(fields);
-    const payload = filler.generatePayload(fields.map(f => f.name));
+    const payload = filler.generatePayload(fields.map((f) => f.name));
 
     // Require at minimum: name and email
     const hasMinimum = !!(payload.first_name && payload.last_name && payload.email);
@@ -223,7 +224,7 @@ class LinkedInFormSubmitter {
    */
   async _mockSubmission(_job, _formData) {
     if (this.mockDelay > 0) {
-      await new Promise(resolve => setTimeout(resolve, this.mockDelay));
+      await new Promise((resolve) => setTimeout(resolve, this.mockDelay));
     }
 
     // Simulate random failures based on mockFailRate
@@ -267,7 +268,11 @@ class LinkedInFormSubmitter {
     if (message.includes('rate') || message.includes('throttl') || message.includes('too many')) {
       return LINKEDIN_ERRORS.RATE_LIMITED;
     }
-    if (message.includes('network') || message.includes('timeout') || message.includes('ECONNREFUSED')) {
+    if (
+      message.includes('network') ||
+      message.includes('timeout') ||
+      message.includes('ECONNREFUSED')
+    ) {
       return LINKEDIN_ERRORS.NETWORK_ERROR;
     }
     return LINKEDIN_ERRORS.UNKNOWN;

@@ -18,7 +18,9 @@ describe('requestLogger middleware', () => {
       expect(req.id).toBeDefined();
       expect(typeof req.id).toBe('string');
       // UUID v4 format check
-      expect(req.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+      expect(req.id).toMatch(
+        /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+      );
     });
 
     it('calls next', () => {

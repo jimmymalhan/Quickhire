@@ -119,28 +119,30 @@ function buildSnapshot() {
     lastHeartbeatAt: claim.updated_at || progress.updated_at || new Date().toISOString(),
   }));
 
-  const syntheticSessions = sessions.length > 0
-    ? sessions
-    : tasks
-      .filter((task) => task.status === 'in_progress')
-      .map((task) => ({
-        id: `session-${task.id}`,
-        owner: task.owner,
-        model: 'local-agent-runtime',
-        status: 'running',
-        currentTask: task.title,
-        startedAt: progress.started_at || new Date().toISOString(),
-        lastHeartbeatAt: progress.updated_at || new Date().toISOString(),
-      }));
+  const syntheticSessions =
+    sessions.length > 0
+      ? sessions
+      : tasks
+          .filter((task) => task.status === 'in_progress')
+          .map((task) => ({
+            id: `session-${task.id}`,
+            owner: task.owner,
+            model: 'local-agent-runtime',
+            status: 'running',
+            currentTask: task.title,
+            startedAt: progress.started_at || new Date().toISOString(),
+            lastHeartbeatAt: progress.updated_at || new Date().toISOString(),
+          }));
 
   const activeTasks = tasks.filter((t) => t.status === 'in_progress');
   const completedCount = tasks.filter((t) => t.status === 'done').length;
   const startedAt = progress.started_at ? new Date(progress.started_at) : new Date();
   const elapsedHours = Math.max(0.1, (Date.now() - startedAt.getTime()) / 3600000);
   const remainingPercent = Number(progress.overall?.remaining_percent || 100);
-  const etaTotalMinutes = completedCount > 0
-    ? Math.round((remainingPercent / (100 - remainingPercent)) * elapsedHours * 60)
-    : activeTasks.length * 30;
+  const etaTotalMinutes =
+    completedCount > 0
+      ? Math.round((remainingPercent / (100 - remainingPercent)) * elapsedHours * 60)
+      : activeTasks.length * 30;
 
   const executiveDecisions = (coordination.decisions || []).map((d, i) => ({
     id: d.id || `dec-${i}`,
@@ -177,11 +179,17 @@ function buildSnapshot() {
     executiveDecisions,
     resourceUsage,
     roiMetrics: {
-      tasksCompletedPerHour: Math.round(completedCount / elapsedHours * 10) / 10,
-      blockersResolvedPerHour: Math.round((coordination.resolvedCollisions || 0) / elapsedHours * 10) / 10,
-      localAgentUtilization: syntheticSessions.length > 0
-        ? Math.round((syntheticSessions.filter((s) => s.status === 'running').length / syntheticSessions.length) * 100)
-        : 0,
+      tasksCompletedPerHour: Math.round((completedCount / elapsedHours) * 10) / 10,
+      blockersResolvedPerHour:
+        Math.round(((coordination.resolvedCollisions || 0) / elapsedHours) * 10) / 10,
+      localAgentUtilization:
+        syntheticSessions.length > 0
+          ? Math.round(
+              (syntheticSessions.filter((s) => s.status === 'running').length /
+                syntheticSessions.length) *
+                100,
+            )
+          : 0,
       cloudApiCallsSaved: coordination.localCompletions || 0,
     },
     lessons: parseLearningHeadings(path.join(learningsDir, 'LEARNINGS.md')),

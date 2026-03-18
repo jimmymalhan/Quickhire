@@ -30,19 +30,19 @@ describe('logger - module', () => {
 
     // Either the module loaded successfully or threw an expected error
     const loadedSuccessfully = logger !== null;
-    const threwExpectedError = loadError !== null &&
-      /Cannot find module|config/i.test(loadError.message);
+    const threwExpectedError =
+      loadError !== null && /Cannot find module|config/i.test(loadError.message);
     expect(loadedSuccessfully || threwExpectedError).toBe(true);
 
     // If loaded, verify it has the expected interface
-    const hasValidInterface = !loadedSuccessfully || (
-      logger && (!logger.info || (
-        typeof logger.info === 'function' &&
-        typeof logger.error === 'function' &&
-        typeof logger.warn === 'function' &&
-        typeof logger.debug === 'function'
-      ))
-    );
+    const hasValidInterface =
+      !loadedSuccessfully ||
+      (logger &&
+        (!logger.info ||
+          (typeof logger.info === 'function' &&
+            typeof logger.error === 'function' &&
+            typeof logger.warn === 'function' &&
+            typeof logger.debug === 'function')));
     expect(hasValidInterface).toBe(true);
   });
 
@@ -74,7 +74,9 @@ describe('logger - mock logger interface', () => {
     }
 
     function log(msgLevel, message, meta = {}) {
-      if (!shouldLog(msgLevel)) {return;}
+      if (!shouldLog(msgLevel)) {
+        return;
+      }
       logs.push({ level: msgLevel, message, meta, timestamp: new Date().toISOString() });
     }
 
@@ -85,7 +87,9 @@ describe('logger - mock logger interface', () => {
       http: (msg, meta) => log('http', msg, meta),
       debug: (msg, meta) => log('debug', msg, meta),
       getLogs: () => [...logs],
-      clearLogs: () => { logs.length = 0; },
+      clearLogs: () => {
+        logs.length = 0;
+      },
     };
   }
 

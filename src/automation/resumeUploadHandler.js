@@ -32,9 +32,7 @@ class ResumeUploadHandler {
     // Check extension
     const ext = path.extname(filePath).toLowerCase();
     if (!this.allowedExtensions.includes(ext)) {
-      errors.push(
-        `Invalid file type: ${ext}. Allowed: ${this.allowedExtensions.join(', ')}`,
-      );
+      errors.push(`Invalid file type: ${ext}. Allowed: ${this.allowedExtensions.join(', ')}`);
     }
 
     // Check file exists
@@ -70,7 +68,7 @@ class ResumeUploadHandler {
     }
 
     // Filter to valid resumes
-    const validResumes = resumes.filter(r => {
+    const validResumes = resumes.filter((r) => {
       const validation = this.validateFile(r.path);
       return validation.valid;
     });
@@ -81,10 +79,10 @@ class ResumeUploadHandler {
     }
 
     // If job has tags/keywords, try to find a matching tagged resume
-    if (job.title && validResumes.some(r => r.tags && r.tags.length > 0)) {
+    if (job.title && validResumes.some((r) => r.tags && r.tags.length > 0)) {
       const jobTitleLower = job.title.toLowerCase();
-      const tagged = validResumes.find(r =>
-        r.tags && r.tags.some(tag => jobTitleLower.includes(tag.toLowerCase())),
+      const tagged = validResumes.find(
+        (r) => r.tags && r.tags.some((tag) => jobTitleLower.includes(tag.toLowerCase())),
       );
       if (tagged) {
         logger.debug('Selected tagged resume', { path: tagged.path, tags: tagged.tags });

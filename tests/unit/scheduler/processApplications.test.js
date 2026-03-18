@@ -16,7 +16,11 @@ jest.mock('../../../src/utils/config', () => ({
   redis: { host: 'localhost', port: 6379 },
 }));
 
-const { processApplications, checkUserRateLimit, checkDailyLimit } = require('../../../src/scheduler/jobs/processApplications');
+const {
+  processApplications,
+  checkUserRateLimit,
+  checkDailyLimit,
+} = require('../../../src/scheduler/jobs/processApplications');
 const { query } = require('../../../src/database/connection');
 const { submitApplication } = require('../../../src/automation/applicationSubmitter');
 const UserPreference = require('../../../src/database/models/UserPreference');

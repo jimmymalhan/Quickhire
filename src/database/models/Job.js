@@ -38,9 +38,20 @@ class JobModel {
     `;
 
     const values = [
-      id, job.linkedinJobId, job.title, job.company, job.location,
-      job.salaryMin, job.salaryMax, job.description, job.jobLevel,
-      job.experienceYears, job.postedAt, new Date(), job.url, job.hash,
+      id,
+      job.linkedinJobId,
+      job.title,
+      job.company,
+      job.location,
+      job.salaryMin,
+      job.salaryMax,
+      job.description,
+      job.jobLevel,
+      job.experienceYears,
+      job.postedAt,
+      new Date(),
+      job.url,
+      job.hash,
     ];
 
     try {
@@ -65,7 +76,9 @@ class JobModel {
    * Bulk insert jobs
    */
   async bulkCreate(jobs) {
-    if (!jobs.length) {return [];}
+    if (!jobs.length) {
+      return [];
+    }
 
     const results = [];
     for (const job of jobs) {
@@ -78,7 +91,9 @@ class JobModel {
   }
 
   async bulkInsert(jobs) {
-    if (!jobs.length) {return { inserted: 0, updated: 0, errors: 0 };}
+    if (!jobs.length) {
+      return { inserted: 0, updated: 0, errors: 0 };
+    }
 
     let inserted = 0;
     const updated = 0;
@@ -108,9 +123,7 @@ class JobModel {
    * Find job by hash
    */
   async findByHash(hash) {
-    const result = await this._query(
-      `SELECT * FROM ${this.tableName} WHERE hash = $1`, [hash]
-    );
+    const result = await this._query(`SELECT * FROM ${this.tableName} WHERE hash = $1`, [hash]);
     return result.rows[0] || null;
   }
 
@@ -118,9 +131,9 @@ class JobModel {
    * Find job by LinkedIn job ID
    */
   async findByLinkedInJobId(linkedinJobId) {
-    const result = await this._query(
-      `SELECT * FROM ${this.tableName} WHERE linkedin_job_id = $1`, [linkedinJobId]
-    );
+    const result = await this._query(`SELECT * FROM ${this.tableName} WHERE linkedin_job_id = $1`, [
+      linkedinJobId,
+    ]);
     return result.rows[0] || null;
   }
 
@@ -129,9 +142,7 @@ class JobModel {
   }
 
   async findById(id) {
-    const result = await this._query(
-      `SELECT * FROM ${this.tableName} WHERE id = $1`, [id]
-    );
+    const result = await this._query(`SELECT * FROM ${this.tableName} WHERE id = $1`, [id]);
     return result.rows[0] || null;
   }
 
@@ -140,7 +151,7 @@ class JobModel {
    */
   async getExistingHashes() {
     const result = await this._query(`SELECT hash FROM ${this.tableName}`);
-    return result.rows.map(r => r.hash);
+    return result.rows.map((r) => r.hash);
   }
 
   /**
@@ -229,9 +240,7 @@ class JobModel {
     }
 
     const where = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
-    const result = await this._query(
-      `SELECT COUNT(*) FROM ${this.tableName} ${where}`, values
-    );
+    const result = await this._query(`SELECT COUNT(*) FROM ${this.tableName} ${where}`, values);
     return parseInt(result.rows[0].count, 10);
   }
 
@@ -240,7 +249,8 @@ class JobModel {
    */
   async getRecent(limit = 20) {
     const result = await this._query(
-      `SELECT * FROM ${this.tableName} ORDER BY created_at DESC LIMIT $1`, [limit]
+      `SELECT * FROM ${this.tableName} ORDER BY created_at DESC LIMIT $1`,
+      [limit],
     );
     return result.rows;
   }
@@ -250,7 +260,7 @@ class JobModel {
    */
   async deleteOlderThan(days) {
     const result = await this._query(
-      `DELETE FROM ${this.tableName} WHERE created_at < NOW() - INTERVAL '${parseInt(days, 10)} days' RETURNING id`
+      `DELETE FROM ${this.tableName} WHERE created_at < NOW() - INTERVAL '${parseInt(days, 10)} days' RETURNING id`,
     );
     return result.rowCount;
   }

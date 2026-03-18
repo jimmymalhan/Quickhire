@@ -161,7 +161,13 @@ describe('jobMatcher', () => {
     });
 
     it('returns matched=false when score below 50', () => {
-      const job = { ...baseJob, title: 'Chef', location: 'Paris', salary_max: 10000, job_level: 'executive' };
+      const job = {
+        ...baseJob,
+        title: 'Chef',
+        location: 'Paris',
+        salary_max: 10000,
+        job_level: 'executive',
+      };
       const prefs = {
         target_roles: ['Engineer'],
         target_locations: ['NYC'],
@@ -201,21 +207,40 @@ describe('jobMatcher', () => {
 
     it('returns matching jobs sorted by score descending', () => {
       const jobs = [
-        { title: 'Chef', company: 'Restaurant', location: 'Paris', salary_min: 30000, salary_max: 40000, job_level: 'entry' },
-        { title: 'Software Engineer', company: 'Acme', location: 'San Francisco, CA', salary_min: 100000, salary_max: 150000, job_level: 'mid' },
+        {
+          title: 'Chef',
+          company: 'Restaurant',
+          location: 'Paris',
+          salary_min: 30000,
+          salary_max: 40000,
+          job_level: 'entry',
+        },
+        {
+          title: 'Software Engineer',
+          company: 'Acme',
+          location: 'San Francisco, CA',
+          salary_min: 100000,
+          salary_max: 150000,
+          job_level: 'mid',
+        },
       ];
       const results = matchJobsForUser(jobs, prefs);
       expect(results.length).toBeGreaterThanOrEqual(1);
       // If multiple results, verify descending score order
       const hasMultipleResults = results.length > 1;
-      expect(
-        !hasMultipleResults || results[0].match.score >= results[1].match.score
-      ).toBe(true);
+      expect(!hasMultipleResults || results[0].match.score >= results[1].match.score).toBe(true);
     });
 
     it('filters out non-matching jobs', () => {
       const jobs = [
-        { title: 'Chef', company: 'Restaurant', location: 'Paris', salary_min: 10000, salary_max: 20000, job_level: 'executive' },
+        {
+          title: 'Chef',
+          company: 'Restaurant',
+          location: 'Paris',
+          salary_min: 10000,
+          salary_max: 20000,
+          job_level: 'executive',
+        },
       ];
       const prefs2 = {
         target_roles: ['Engineer'],
@@ -229,7 +254,14 @@ describe('jobMatcher', () => {
 
     it('returns each result with job and match properties', () => {
       const jobs = [
-        { title: 'Software Engineer', company: 'Acme', location: 'San Francisco', salary_min: 100000, salary_max: 150000, job_level: 'mid' },
+        {
+          title: 'Software Engineer',
+          company: 'Acme',
+          location: 'San Francisco',
+          salary_min: 100000,
+          salary_max: 150000,
+          job_level: 'mid',
+        },
       ];
       const results = matchJobsForUser(jobs, prefs);
       expect(results[0]).toHaveProperty('job');
@@ -244,7 +276,14 @@ describe('jobMatcher', () => {
 
     it('filters excluded companies', () => {
       const jobs = [
-        { title: 'Software Engineer', company: 'BadCo', location: 'San Francisco', salary_min: 100000, salary_max: 150000, job_level: 'mid' },
+        {
+          title: 'Software Engineer',
+          company: 'BadCo',
+          location: 'San Francisco',
+          salary_min: 100000,
+          salary_max: 150000,
+          job_level: 'mid',
+        },
       ];
       const prefsWithExclusion = { ...prefs, excluded_companies: ['BadCo'] };
       const results = matchJobsForUser(jobs, prefsWithExclusion);

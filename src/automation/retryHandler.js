@@ -73,9 +73,7 @@ class RetryHandler {
     for (let i = 0; i < fns.length; i += concurrency) {
       const batch = fns.slice(i, i + concurrency);
       const batchResults = await Promise.allSettled(
-        batch.map((fn, idx) =>
-          this.execute(fn, { batchIndex: i + idx })
-        )
+        batch.map((fn, idx) => this.execute(fn, { batchIndex: i + idx })),
       );
 
       for (const result of batchResults) {
@@ -106,7 +104,7 @@ class RetryHandler {
   }
 
   _sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
 

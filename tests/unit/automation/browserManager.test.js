@@ -2,50 +2,58 @@ const BrowserManager = require('../../../src/automation/browserManager');
 const { BROWSER_ENGINES } = require('../../../src/automation/browserManager');
 
 // Mock puppeteer and playwright
-jest.mock('puppeteer', () => {
-  const mockPage = {
-    setUserAgent: jest.fn().mockResolvedValue(undefined),
-    setViewport: jest.fn().mockResolvedValue(undefined),
-    setDefaultTimeout: jest.fn(),
-    goto: jest.fn().mockResolvedValue(undefined),
-    waitForSelector: jest.fn().mockResolvedValue(undefined),
-    content: jest.fn().mockResolvedValue('<html></html>'),
-    evaluate: jest.fn().mockResolvedValue(null),
-  };
-  const mockBrowser = {
-    newPage: jest.fn().mockResolvedValue(mockPage),
-    close: jest.fn().mockResolvedValue(undefined),
-  };
-  return {
-    launch: jest.fn().mockResolvedValue(mockBrowser),
-    __mockPage: mockPage,
-    __mockBrowser: mockBrowser,
-  };
-}, { virtual: true });
-
-jest.mock('playwright', () => {
-  const mockPage = {
-    setDefaultTimeout: jest.fn(),
-    goto: jest.fn().mockResolvedValue(undefined),
-    waitForSelector: jest.fn().mockResolvedValue(undefined),
-    content: jest.fn().mockResolvedValue('<html></html>'),
-    evaluate: jest.fn().mockResolvedValue(null),
-  };
-  const mockContext = {
-    newPage: jest.fn().mockResolvedValue(mockPage),
-  };
-  const mockBrowser = {
-    newContext: jest.fn().mockResolvedValue(mockContext),
-    close: jest.fn().mockResolvedValue(undefined),
-  };
-  return {
-    chromium: {
+jest.mock(
+  'puppeteer',
+  () => {
+    const mockPage = {
+      setUserAgent: jest.fn().mockResolvedValue(undefined),
+      setViewport: jest.fn().mockResolvedValue(undefined),
+      setDefaultTimeout: jest.fn(),
+      goto: jest.fn().mockResolvedValue(undefined),
+      waitForSelector: jest.fn().mockResolvedValue(undefined),
+      content: jest.fn().mockResolvedValue('<html></html>'),
+      evaluate: jest.fn().mockResolvedValue(null),
+    };
+    const mockBrowser = {
+      newPage: jest.fn().mockResolvedValue(mockPage),
+      close: jest.fn().mockResolvedValue(undefined),
+    };
+    return {
       launch: jest.fn().mockResolvedValue(mockBrowser),
-    },
-    __mockPage: mockPage,
-    __mockBrowser: mockBrowser,
-  };
-}, { virtual: true });
+      __mockPage: mockPage,
+      __mockBrowser: mockBrowser,
+    };
+  },
+  { virtual: true },
+);
+
+jest.mock(
+  'playwright',
+  () => {
+    const mockPage = {
+      setDefaultTimeout: jest.fn(),
+      goto: jest.fn().mockResolvedValue(undefined),
+      waitForSelector: jest.fn().mockResolvedValue(undefined),
+      content: jest.fn().mockResolvedValue('<html></html>'),
+      evaluate: jest.fn().mockResolvedValue(null),
+    };
+    const mockContext = {
+      newPage: jest.fn().mockResolvedValue(mockPage),
+    };
+    const mockBrowser = {
+      newContext: jest.fn().mockResolvedValue(mockContext),
+      close: jest.fn().mockResolvedValue(undefined),
+    };
+    return {
+      chromium: {
+        launch: jest.fn().mockResolvedValue(mockBrowser),
+      },
+      __mockPage: mockPage,
+      __mockBrowser: mockBrowser,
+    };
+  },
+  { virtual: true },
+);
 
 jest.mock('../../../src/utils/logger', () => ({
   info: jest.fn(),
@@ -181,7 +189,7 @@ describe('BrowserManager', () => {
     it('should throw if browser not launched', async () => {
       const newManager = new BrowserManager();
       await expect(newManager.navigate('https://example.com')).rejects.toThrow(
-        'Browser not launched'
+        'Browser not launched',
       );
     });
   });
@@ -208,9 +216,7 @@ describe('BrowserManager', () => {
 
     it('should throw if browser not launched', async () => {
       const newManager = new BrowserManager();
-      await expect(newManager.waitForSelector('.test')).rejects.toThrow(
-        'Browser not launched'
-      );
+      await expect(newManager.waitForSelector('.test')).rejects.toThrow('Browser not launched');
     });
   });
 
@@ -260,7 +266,9 @@ describe('BrowserManager', () => {
       let callCount = 0;
       manager.page.evaluate.mockImplementation(() => {
         callCount++;
-        if (callCount <= 2) {return 1000;}
+        if (callCount <= 2) {
+          return 1000;
+        }
         return 1000; // same height = stop
       });
 
@@ -315,19 +323,27 @@ describe('BrowserManager', () => {
     it('should fall back to puppeteer when playwright unavailable', async () => {
       // Reset modules to test fallback
       jest.resetModules();
-      jest.doMock('playwright', () => {
-        throw new Error('not installed');
-      }, { virtual: true });
-      jest.doMock('puppeteer', () => ({
-        launch: jest.fn().mockResolvedValue({
-          newPage: jest.fn().mockResolvedValue({
-            setUserAgent: jest.fn(),
-            setViewport: jest.fn(),
-            setDefaultTimeout: jest.fn(),
+      jest.doMock(
+        'playwright',
+        () => {
+          throw new Error('not installed');
+        },
+        { virtual: true },
+      );
+      jest.doMock(
+        'puppeteer',
+        () => ({
+          launch: jest.fn().mockResolvedValue({
+            newPage: jest.fn().mockResolvedValue({
+              setUserAgent: jest.fn(),
+              setViewport: jest.fn(),
+              setDefaultTimeout: jest.fn(),
+            }),
+            close: jest.fn(),
           }),
-          close: jest.fn(),
         }),
-      }), { virtual: true });
+        { virtual: true },
+      );
 
       const BM = require('../../../src/automation/browserManager');
       const m = new BM({ engine: 'playwright' });

@@ -86,7 +86,8 @@ function createApplication(overrides = {}) {
     status: overrides.status || 'pending',
     applied_at: overrides.applied_at || null,
     response_received_at: overrides.response_received_at || null,
-    submission_attempts: overrides.submission_attempts !== undefined ? overrides.submission_attempts : 0,
+    submission_attempts:
+      overrides.submission_attempts !== undefined ? overrides.submission_attempts : 0,
     last_attempt_at: overrides.last_attempt_at || null,
     error_message: overrides.error_message || null,
     resume_version: overrides.resume_version !== undefined ? overrides.resume_version : 1,
@@ -104,7 +105,8 @@ function createUserPreference(overrides = {}) {
   return {
     id: overrides.id || uuidv4(),
     user_id: overrides.user_id || uuidv4(),
-    auto_apply_enabled: overrides.auto_apply_enabled !== undefined ? overrides.auto_apply_enabled : true,
+    auto_apply_enabled:
+      overrides.auto_apply_enabled !== undefined ? overrides.auto_apply_enabled : true,
     target_roles: overrides.target_roles || ['Software Engineer', 'Full Stack Developer'],
     target_locations: overrides.target_locations || ['San Francisco, CA', 'Remote'],
     min_salary: overrides.min_salary !== undefined ? overrides.min_salary : 80000,
@@ -112,9 +114,12 @@ function createUserPreference(overrides = {}) {
     experience_level: overrides.experience_level || ['mid', 'senior'],
     excluded_companies: overrides.excluded_companies || [],
     apply_interval_minutes: overrides.apply_interval_minutes || 60,
-    notification_enabled: overrides.notification_enabled !== undefined ? overrides.notification_enabled : true,
-    email_notifications: overrides.email_notifications !== undefined ? overrides.email_notifications : true,
-    push_notifications: overrides.push_notifications !== undefined ? overrides.push_notifications : false,
+    notification_enabled:
+      overrides.notification_enabled !== undefined ? overrides.notification_enabled : true,
+    email_notifications:
+      overrides.email_notifications !== undefined ? overrides.email_notifications : true,
+    push_notifications:
+      overrides.push_notifications !== undefined ? overrides.push_notifications : false,
     daily_limit: overrides.daily_limit || 20,
     created_at: overrides.created_at || new Date().toISOString(),
     updated_at: overrides.updated_at || new Date().toISOString(),

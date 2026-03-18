@@ -26,7 +26,9 @@ describe('RetryHandler', () => {
       let attempts = 0;
       const result = await handler.execute(() => {
         attempts++;
-        if (attempts < 3) {throw new Error('fail');}
+        if (attempts < 3) {
+          throw new Error('fail');
+        }
         return 'ok';
       });
       expect(result).toBe('ok');
@@ -35,7 +37,9 @@ describe('RetryHandler', () => {
 
     it('should throw after max retries', async () => {
       await expect(
-        handler.execute(() => { throw new Error('always fails'); })
+        handler.execute(() => {
+          throw new Error('always fails');
+        }),
       ).rejects.toThrow('always fails');
     });
 
@@ -45,7 +49,7 @@ describe('RetryHandler', () => {
         handler.execute(() => {
           attempts++;
           throw new ScraperError('PARSE_FAILED');
-        })
+        }),
       ).rejects.toThrow(ScraperError);
       expect(attempts).toBe(1);
     });
@@ -56,7 +60,7 @@ describe('RetryHandler', () => {
         handler.execute(() => {
           attempts++;
           throw new ScraperError('SCRAPE_FAILED');
-        })
+        }),
       ).rejects.toThrow(ScraperError);
       expect(attempts).toBe(4); // 1 initial + 3 retries
     });
@@ -68,7 +72,9 @@ describe('RetryHandler', () => {
           attempts.push(attempt);
           throw new Error('fail');
         });
-      } catch (e) { /* expected */ }
+      } catch (e) {
+        /* expected */
+      }
       expect(attempts).toEqual([0, 1, 2, 3]);
     });
 
@@ -95,7 +101,9 @@ describe('RetryHandler', () => {
     it('should collect errors for failed functions', async () => {
       const fns = [
         () => 'ok',
-        () => { throw new ScraperError('PARSE_FAILED'); },
+        () => {
+          throw new ScraperError('PARSE_FAILED');
+        },
       ];
       const { results, errors } = await handler.executeBatch(fns);
       expect(results.length).toBe(1);
@@ -105,13 +113,15 @@ describe('RetryHandler', () => {
     it('should respect concurrency', async () => {
       let concurrent = 0;
       let maxConcurrent = 0;
-      const fns = Array(10).fill(null).map(() => async () => {
-        concurrent++;
-        maxConcurrent = Math.max(maxConcurrent, concurrent);
-        await new Promise(r => setTimeout(r, 10));
-        concurrent--;
-        return 'done';
-      });
+      const fns = Array(10)
+        .fill(null)
+        .map(() => async () => {
+          concurrent++;
+          maxConcurrent = Math.max(maxConcurrent, concurrent);
+          await new Promise((r) => setTimeout(r, 10));
+          concurrent--;
+          return 'done';
+        });
       await handler.executeBatch(fns, { concurrency: 3 });
       expect(maxConcurrent).toBeLessThanOrEqual(3);
     });
@@ -122,7 +132,9 @@ describe('RetryHandler', () => {
       let calls = 0;
       const fn = () => {
         calls++;
-        if (calls < 2) {throw new Error('fail');}
+        if (calls < 2) {
+          throw new Error('fail');
+        }
         return 'wrapped result';
       };
       const wrapped = handler.wrap(fn);

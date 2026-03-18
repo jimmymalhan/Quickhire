@@ -91,7 +91,9 @@ class Deduplicator {
       const cacheKey = `job:hash:${hash}`;
 
       // Check local set first (fast)
-      if (this.seenHashes.has(hash)) {continue;}
+      if (this.seenHashes.has(hash)) {
+        continue;
+      }
 
       // Check cache
       const cached = await cache.has(cacheKey);
@@ -114,7 +116,7 @@ class Deduplicator {
    */
   deduplicateAgainstDb(jobs, existingHashes) {
     const dbHashSet = new Set(existingHashes);
-    return jobs.filter(job => {
+    return jobs.filter((job) => {
       const hash = job.hash || this.computeHash(job);
       job.hash = hash;
       return !dbHashSet.has(hash);
@@ -136,7 +138,7 @@ class Deduplicator {
 
     // Company exact match
     if (job1.company && job2.company) {
-      score += (job1.company.toLowerCase().trim() === job2.company.toLowerCase().trim()) ? 2 : 0;
+      score += job1.company.toLowerCase().trim() === job2.company.toLowerCase().trim() ? 2 : 0;
       total += 2;
     }
 
@@ -157,12 +159,16 @@ class Deduplicator {
     const assigned = new Set();
 
     for (let i = 0; i < jobs.length; i++) {
-      if (assigned.has(i)) {continue;}
+      if (assigned.has(i)) {
+        continue;
+      }
       const group = [i];
       assigned.add(i);
 
       for (let j = i + 1; j < jobs.length; j++) {
-        if (assigned.has(j)) {continue;}
+        if (assigned.has(j)) {
+          continue;
+        }
         if (this.similarity(jobs[i], jobs[j]) >= threshold) {
           group.push(j);
           assigned.add(j);
@@ -170,7 +176,7 @@ class Deduplicator {
       }
 
       if (group.length > 1) {
-        groups.push(group.map(idx => jobs[idx]));
+        groups.push(group.map((idx) => jobs[idx]));
       }
     }
 
@@ -188,7 +194,7 @@ class Deduplicator {
   getStats() {
     return {
       totalSeen: this.seenHashes.size,
-      bloomFilterUsage: this.bloomFilter.filter(b => b > 0).length / this.bloomFilter.length,
+      bloomFilterUsage: this.bloomFilter.filter((b) => b > 0).length / this.bloomFilter.length,
     };
   }
 
@@ -210,7 +216,9 @@ class Deduplicator {
 
   _bloomMightContain(value) {
     for (let i = 0; i < this.hashFunctions; i++) {
-      if (this.bloomFilter[this._bloomHash(value, i + 1)] === 0) {return false;}
+      if (this.bloomFilter[this._bloomHash(value, i + 1)] === 0) {
+        return false;
+      }
     }
     return true;
   }
@@ -218,11 +226,13 @@ class Deduplicator {
   _stringSimilarity(a, b) {
     const s1 = a.toLowerCase().trim();
     const s2 = b.toLowerCase().trim();
-    if (s1 === s2) {return 1;}
+    if (s1 === s2) {
+      return 1;
+    }
 
     const words1 = new Set(s1.split(/\s+/));
     const words2 = new Set(s2.split(/\s+/));
-    const intersection = [...words1].filter(w => words2.has(w)).length;
+    const intersection = [...words1].filter((w) => words2.has(w)).length;
     const union = new Set([...words1, ...words2]).size;
     return union > 0 ? intersection / union : 0;
   }

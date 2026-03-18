@@ -60,7 +60,14 @@ jest.mock('../../../../src/utils/errorCodes', () => {
   };
 });
 
-const { generateTokens, getLinkedInAuthUrl, handleOAuthCallback, refreshToken, getProfile, logout } = require('../../../../src/api/controllers/authController');
+const {
+  generateTokens,
+  getLinkedInAuthUrl,
+  handleOAuthCallback,
+  refreshToken,
+  getProfile,
+  logout,
+} = require('../../../../src/api/controllers/authController');
 const User = require('../../../../src/database/models/User');
 const UserPreference = require('../../../../src/database/models/UserPreference');
 const cache = require('../../../../src/utils/cache');
@@ -116,7 +123,7 @@ describe('authController', () => {
           data: expect.objectContaining({
             authUrl: expect.stringContaining('linkedin.com/oauth'),
           }),
-        })
+        }),
       );
     });
 
@@ -133,15 +140,18 @@ describe('authController', () => {
     it('calls next with error when no code provided', async () => {
       req.query = {};
       await handleOAuthCallback(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'INVALID_INPUT' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'INVALID_INPUT' }));
     });
 
     it('creates new user on first login', async () => {
       req.query = { code: 'auth_code_123' };
       User.findByLinkedInId.mockResolvedValue(null);
-      User.create.mockResolvedValue({ id: 'new-user', email: 'new@test.com', first_name: 'Test', last_name: 'User' });
+      User.create.mockResolvedValue({
+        id: 'new-user',
+        email: 'new@test.com',
+        first_name: 'Test',
+        last_name: 'User',
+      });
       UserPreference.createOrUpdate.mockResolvedValue({});
       cache.set.mockResolvedValue(true);
 
@@ -155,13 +165,18 @@ describe('authController', () => {
             accessToken: expect.any(String),
             refreshToken: expect.any(String),
           }),
-        })
+        }),
       );
     });
 
     it('updates existing user tokens on subsequent login', async () => {
       req.query = { code: 'auth_code_123' };
-      User.findByLinkedInId.mockResolvedValue({ id: 'existing-user', email: 'old@test.com', first_name: 'Old', last_name: 'User' });
+      User.findByLinkedInId.mockResolvedValue({
+        id: 'existing-user',
+        email: 'old@test.com',
+        first_name: 'Old',
+        last_name: 'User',
+      });
       User.update.mockResolvedValue({});
       cache.set.mockResolvedValue(true);
 
@@ -174,7 +189,12 @@ describe('authController', () => {
     it('stores refresh token in cache', async () => {
       req.query = { code: 'auth_code_123' };
       User.findByLinkedInId.mockResolvedValue(null);
-      User.create.mockResolvedValue({ id: 'u1', email: 't@t.com', first_name: 'T', last_name: 'U' });
+      User.create.mockResolvedValue({
+        id: 'u1',
+        email: 't@t.com',
+        first_name: 'T',
+        last_name: 'U',
+      });
       UserPreference.createOrUpdate.mockResolvedValue({});
       cache.set.mockResolvedValue(true);
 
@@ -182,7 +202,7 @@ describe('authController', () => {
       expect(cache.set).toHaveBeenCalledWith(
         expect.stringContaining('refresh:'),
         expect.any(String),
-        expect.any(Number)
+        expect.any(Number),
       );
     });
   });
@@ -191,13 +211,13 @@ describe('authController', () => {
     it('calls next with error when no token provided', async () => {
       req.body = {};
       await refreshToken(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'INVALID_INPUT' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'INVALID_INPUT' }));
     });
 
     it('refreshes tokens with valid refresh token', async () => {
-      const validToken = jwt.sign({ id: 'user-1', email: 'test@test.com' }, 'test-refresh-secret', { expiresIn: '7d' });
+      const validToken = jwt.sign({ id: 'user-1', email: 'test@test.com' }, 'test-refresh-secret', {
+        expiresIn: '7d',
+      });
       req.body = { refreshToken: validToken };
       cache.get.mockResolvedValue(validToken);
       User.findById.mockResolvedValue({ id: 'user-1', email: 'test@test.com' });
@@ -211,7 +231,7 @@ describe('authController', () => {
             accessToken: expect.any(String),
             refreshToken: expect.any(String),
           }),
-        })
+        }),
       );
     });
 
@@ -219,48 +239,44 @@ describe('authController', () => {
       const expiredToken = jwt.sign(
         { id: 'user-1', email: 'test@test.com' },
         'test-refresh-secret',
-        { expiresIn: '0s' }
+        { expiresIn: '0s' },
       );
       // Wait a moment for token to expire
-      await new Promise(r => setTimeout(r, 10));
+      await new Promise((r) => setTimeout(r, 10));
       req.body = { refreshToken: expiredToken };
 
       await refreshToken(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'TOKEN_EXPIRED' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'TOKEN_EXPIRED' }));
     });
 
     it('rejects invalid refresh token', async () => {
       req.body = { refreshToken: 'invalid.token.here' };
 
       await refreshToken(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'INVALID_TOKEN' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'INVALID_TOKEN' }));
     });
 
     it('rejects revoked token (not in cache)', async () => {
-      const validToken = jwt.sign({ id: 'user-1', email: 'test@test.com' }, 'test-refresh-secret', { expiresIn: '7d' });
+      const validToken = jwt.sign({ id: 'user-1', email: 'test@test.com' }, 'test-refresh-secret', {
+        expiresIn: '7d',
+      });
       req.body = { refreshToken: validToken };
       cache.get.mockResolvedValue(null);
 
       await refreshToken(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'INVALID_TOKEN' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'INVALID_TOKEN' }));
     });
 
     it('rejects when user not found', async () => {
-      const validToken = jwt.sign({ id: 'user-1', email: 'test@test.com' }, 'test-refresh-secret', { expiresIn: '7d' });
+      const validToken = jwt.sign({ id: 'user-1', email: 'test@test.com' }, 'test-refresh-secret', {
+        expiresIn: '7d',
+      });
       req.body = { refreshToken: validToken };
       cache.get.mockResolvedValue(validToken);
       User.findById.mockResolvedValue(null);
 
       await refreshToken(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
   });
 
@@ -283,7 +299,7 @@ describe('authController', () => {
             id: 'user-1',
             email: 'test@test.com',
           }),
-        })
+        }),
       );
     });
 
@@ -291,9 +307,7 @@ describe('authController', () => {
       User.findById.mockResolvedValue(null);
 
       await getProfile(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
   });
 
@@ -307,7 +321,7 @@ describe('authController', () => {
         expect.objectContaining({
           status: 'success',
           data: expect.objectContaining({ message: 'Logged out successfully' }),
-        })
+        }),
       );
     });
 

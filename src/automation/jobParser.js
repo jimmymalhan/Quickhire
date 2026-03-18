@@ -11,12 +11,15 @@ const { ScraperError } = require('../utils/errorCodes');
  * Parse search results HTML into array of job objects
  */
 const parseSearchResults = (html) => {
-  if (!html || typeof html !== 'string') {return [];}
+  if (!html || typeof html !== 'string') {
+    return [];
+  }
 
   const jobs = [];
 
   // Match job card patterns in LinkedIn search results HTML
-  const cardPattern = /<li[^>]*class="[^"]*(?:job-search-card|result-card|jobs-search__results-list)[^"]*"[^>]*>([\s\S]*?)<\/li>/gi;
+  const cardPattern =
+    /<li[^>]*class="[^"]*(?:job-search-card|result-card|jobs-search__results-list)[^"]*"[^>]*>([\s\S]*?)<\/li>/gi;
   let cardMatch;
 
   while ((cardMatch = cardPattern.exec(html)) !== null) {
@@ -35,7 +38,7 @@ const parseSearchResults = (html) => {
       const jobId = urnMatch[1];
       const surroundingHtml = html.substring(
         Math.max(0, urnMatch.index - 200),
-        Math.min(html.length, urnMatch.index + urnMatch[0].length + 500)
+        Math.min(html.length, urnMatch.index + urnMatch[0].length + 500),
       );
       const job = _extractJobFromCard(surroundingHtml);
       if (job) {
@@ -60,7 +63,7 @@ const parseSearchResults = (html) => {
       const jobId = dataJobMatch[1];
       const surroundingHtml = html.substring(
         Math.max(0, dataJobMatch.index - 100),
-        Math.min(html.length, dataJobMatch.index + dataJobMatch[0].length + 500)
+        Math.min(html.length, dataJobMatch.index + dataJobMatch[0].length + 500),
       );
       const job = _extractJobFromCard(surroundingHtml);
       if (job) {
@@ -73,7 +76,8 @@ const parseSearchResults = (html) => {
 
   // Fallback: try li elements inside search results list
   if (jobs.length === 0) {
-    const listPattern = /<ul[^>]*class="[^"]*jobs-search__results-list[^"]*"[^>]*>([\s\S]*?)<\/ul>/gi;
+    const listPattern =
+      /<ul[^>]*class="[^"]*jobs-search__results-list[^"]*"[^>]*>([\s\S]*?)<\/ul>/gi;
     let listMatch;
     while ((listMatch = listPattern.exec(html)) !== null) {
       const listHtml = listMatch[1];
@@ -274,12 +278,15 @@ class JobParser {
    * Parse search results HTML into array of job objects
    */
   parseSearchResults(html) {
-    if (!html || typeof html !== 'string') {return [];}
+    if (!html || typeof html !== 'string') {
+      return [];
+    }
 
     const jobs = [];
 
     // Match job card patterns
-    const cardPattern = /<li[^>]*class="[^"]*(?:job-search-card|result-card|jobs-search__results-list)[^"]*"[^>]*>([\s\S]*?)<\/li>/gi;
+    const cardPattern =
+      /<li[^>]*class="[^"]*(?:job-search-card|result-card|jobs-search__results-list)[^"]*"[^>]*>([\s\S]*?)<\/li>/gi;
     let cardMatch;
 
     while ((cardMatch = cardPattern.exec(html)) !== null) {
@@ -298,7 +305,7 @@ class JobParser {
         const jobId = urnMatch[1];
         const surroundingHtml = html.substring(
           Math.max(0, urnMatch.index - 200),
-          Math.min(html.length, urnMatch.index + urnMatch[0].length + 500)
+          Math.min(html.length, urnMatch.index + urnMatch[0].length + 500),
         );
         const job = _extractJobFromCard(surroundingHtml);
         if (job) {
@@ -327,7 +334,7 @@ class JobParser {
         const jobId = dataJobMatch[1];
         const surroundingHtml = html.substring(
           Math.max(0, dataJobMatch.index - 100),
-          Math.min(html.length, dataJobMatch.index + dataJobMatch[0].length + 500)
+          Math.min(html.length, dataJobMatch.index + dataJobMatch[0].length + 500),
         );
         const job = _extractJobFromCard(surroundingHtml);
         if (job) {
@@ -341,7 +348,8 @@ class JobParser {
 
     // Fallback: li elements inside search results list
     if (jobs.length === 0) {
-      const listPattern = /<ul[^>]*class="[^"]*jobs-search__results-list[^"]*"[^>]*>([\s\S]*?)<\/ul>/gi;
+      const listPattern =
+        /<ul[^>]*class="[^"]*jobs-search__results-list[^"]*"[^>]*>([\s\S]*?)<\/ul>/gi;
       let listMatch;
       while ((listMatch = listPattern.exec(html)) !== null) {
         const listHtml = listMatch[1];
@@ -380,14 +388,18 @@ class JobParser {
     }
 
     return items
-      .map(item => {
+      .map((item) => {
         const title = (item.title || '').trim();
         const company = (item.companyName || (item.company && item.company.name) || '').trim();
-        if (!title || !company) {return null;}
+        if (!title || !company) {
+          return null;
+        }
 
         const location = (item.formattedLocation || item.location || '').trim();
         const description = item.description
-          ? (typeof item.description === 'object' ? item.description.text : item.description)
+          ? typeof item.description === 'object'
+            ? item.description.text
+            : item.description
           : '';
         const linkedinJobId = (item.jobId || item.id || '').toString();
 
@@ -412,11 +424,7 @@ class JobParser {
    * Compute a short hash for a job object
    */
   computeHash(job) {
-    return _generateShortHash(
-      (job.title || ''),
-      (job.company || ''),
-      (job.location || '')
-    );
+    return _generateShortHash(job.title || '', job.company || '', job.location || '');
   }
 
   /**
@@ -431,7 +439,10 @@ class JobParser {
     const salaryMin = typeof raw.salaryMin === 'number' ? raw.salaryMin : null;
     const salaryMax = typeof raw.salaryMax === 'number' ? raw.salaryMax : null;
 
-    const linkedinJobId = raw.linkedinJobId !== null && raw.linkedinJobId !== undefined ? String(raw.linkedinJobId) : null;
+    const linkedinJobId =
+      raw.linkedinJobId !== null && raw.linkedinJobId !== undefined
+        ? String(raw.linkedinJobId)
+        : null;
 
     return {
       linkedinJobId,
@@ -469,9 +480,10 @@ function _extractJobFromCard(cardHtml) {
     /<span[^>]*class="[^"]*location[^"]*"[^>]*>([\s\S]*?)<\/span>/i,
   ]);
 
-  const urlMatch = cardHtml.match(/href="(https?:\/\/[^"]*\/jobs\/view\/[^"]*)"/i)
-    || cardHtml.match(/href="(\/jobs\/view\/[^"]*)"/i)
-    || cardHtml.match(/href="(\/jobs\/\d+)"/i);
+  const urlMatch =
+    cardHtml.match(/href="(https?:\/\/[^"]*\/jobs\/view\/[^"]*)"/i) ||
+    cardHtml.match(/href="(\/jobs\/view\/[^"]*)"/i) ||
+    cardHtml.match(/href="(\/jobs\/\d+)"/i);
   const url = urlMatch ? urlMatch[1] : '';
 
   const jobIdMatch = url.match(/\/jobs\/(?:view\/)?(\d+)/);
@@ -480,7 +492,9 @@ function _extractJobFromCard(cardHtml) {
   const dateMatch = cardHtml.match(/<time[^>]*datetime="([^"]*)"[^>]*>/i);
   const postedAt = dateMatch ? dateMatch[1] : null;
 
-  if (!_cleanText(title)) {return null;}
+  if (!_cleanText(title)) {
+    return null;
+  }
 
   return {
     jobId,
@@ -539,7 +553,9 @@ function _extractText(html, patterns) {
 }
 
 function _cleanText(text) {
-  if (!text) {return '';}
+  if (!text) {
+    return '';
+  }
   return text
     .replace(/<[^>]*>/g, '') // Remove HTML tags
     .replace(/&amp;/g, '&')
@@ -555,14 +571,20 @@ function _cleanText(text) {
 function _extractJobId(html, url) {
   // Try URL first
   const urlMatch = (url || '').match(/\/jobs\/view\/(\d+)/);
-  if (urlMatch) {return urlMatch[1];}
+  if (urlMatch) {
+    return urlMatch[1];
+  }
 
   // Try data attributes
   const dataMatch = html.match(/data-job-id="(\d+)"/i);
-  if (dataMatch) {return dataMatch[1];}
+  if (dataMatch) {
+    return dataMatch[1];
+  }
 
   const urnMatch = html.match(/urn:li:jobPosting:(\d+)/);
-  if (urnMatch) {return urnMatch[1];}
+  if (urnMatch) {
+    return urnMatch[1];
+  }
 
   return null;
 }
@@ -575,7 +597,9 @@ function _extractPostedDate(html) {
   }
 
   // Try relative date text
-  const relativeMatch = html.match(/<span[^>]*class="[^"]*posted-time[^"]*"[^>]*>([\s\S]*?)<\/span>/i);
+  const relativeMatch = html.match(
+    /<span[^>]*class="[^"]*posted-time[^"]*"[^>]*>([\s\S]*?)<\/span>/i,
+  );
   if (relativeMatch) {
     return _parseRelativeDate(_cleanText(relativeMatch[1]));
   }
@@ -584,24 +608,40 @@ function _extractPostedDate(html) {
 }
 
 function _parseRelativeDate(text) {
-  if (!text) {return null;}
+  if (!text) {
+    return null;
+  }
   const now = new Date();
   const match = text.match(/(\d+)\s+(day|week|month|hour|minute)s?\s+ago/i);
-  if (!match) {return null;}
+  if (!match) {
+    return null;
+  }
   const amount = parseInt(match[1], 10);
   const unit = match[2].toLowerCase();
   switch (unit) {
-  case 'minute': now.setMinutes(now.getMinutes() - amount); break;
-  case 'hour': now.setHours(now.getHours() - amount); break;
-  case 'day': now.setDate(now.getDate() - amount); break;
-  case 'week': now.setDate(now.getDate() - (amount * 7)); break;
-  case 'month': now.setMonth(now.getMonth() - amount); break;
+    case 'minute':
+      now.setMinutes(now.getMinutes() - amount);
+      break;
+    case 'hour':
+      now.setHours(now.getHours() - amount);
+      break;
+    case 'day':
+      now.setDate(now.getDate() - amount);
+      break;
+    case 'week':
+      now.setDate(now.getDate() - amount * 7);
+      break;
+    case 'month':
+      now.setMonth(now.getMonth() - amount);
+      break;
   }
   return now;
 }
 
 function _parseSalary(salaryText) {
-  if (!salaryText) {return { min: null, max: null };}
+  if (!salaryText) {
+    return { min: null, max: null };
+  }
 
   const cleaned = salaryText.replace(/,/g, '').replace(/\s+/g, ' ').trim();
 
@@ -610,8 +650,12 @@ function _parseSalary(salaryText) {
     let min = parseFloat(rangeMatch[1]);
     let max = parseFloat(rangeMatch[2]);
     if (cleaned.toLowerCase().includes('k') || min < 1000) {
-      if (min < 1000) {min *= 1000;}
-      if (max < 1000) {max *= 1000;}
+      if (min < 1000) {
+        min *= 1000;
+      }
+      if (max < 1000) {
+        max *= 1000;
+      }
     }
     return { min: Math.round(min), max: Math.round(max) };
   }
@@ -630,28 +674,52 @@ function _parseSalary(salaryText) {
 
 function _detectJobLevel(title, description) {
   const combined = `${title || ''} ${description || ''}`.toLowerCase();
-  if (/\b(principal|staff|distinguished|fellow)\b/.test(combined)) {return 'staff';}
-  if (/\b(senior|sr\.?|lead|iii)\b/.test(combined)) {return 'senior';}
-  if (/\b(mid[- ]?level|intermediate|ii)\b/.test(combined)) {return 'mid';}
-  if (/\b(junior|jr\.?|entry[- ]?level|associate|intern)\b/.test(combined)) {return 'entry';}
+  if (/\b(principal|staff|distinguished|fellow)\b/.test(combined)) {
+    return 'staff';
+  }
+  if (/\b(senior|sr\.?|lead|iii)\b/.test(combined)) {
+    return 'senior';
+  }
+  if (/\b(mid[- ]?level|intermediate|ii)\b/.test(combined)) {
+    return 'mid';
+  }
+  if (/\b(junior|jr\.?|entry[- ]?level|associate|intern)\b/.test(combined)) {
+    return 'entry';
+  }
   return 'mid';
 }
 
 function _parseExperienceYears(text) {
-  if (!text) {return null;}
+  if (!text) {
+    return null;
+  }
   const match = text.match(/(\d+)\+?\s*(?:years?|yrs?)(?:\s+of)?\s+(?:experience|exp)/i);
-  if (match) {return parseInt(match[1], 10);}
+  if (match) {
+    return parseInt(match[1], 10);
+  }
   return null;
 }
 
 function _parseExperienceLevel(level) {
-  if (!level) {return null;}
+  if (!level) {
+    return null;
+  }
   const l = level.toLowerCase();
-  if (l.includes('entry') || l.includes('intern')) {return 0;}
-  if (l.includes('associate') || l.includes('junior')) {return 2;}
-  if (l.includes('mid')) {return 4;}
-  if (l.includes('senior')) {return 7;}
-  if (l.includes('director') || l.includes('executive')) {return 12;}
+  if (l.includes('entry') || l.includes('intern')) {
+    return 0;
+  }
+  if (l.includes('associate') || l.includes('junior')) {
+    return 2;
+  }
+  if (l.includes('mid')) {
+    return 4;
+  }
+  if (l.includes('senior')) {
+    return 7;
+  }
+  if (l.includes('director') || l.includes('executive')) {
+    return 12;
+  }
   return null;
 }
 

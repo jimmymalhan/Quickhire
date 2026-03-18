@@ -8,7 +8,11 @@ jest.mock('../../../src/utils/logger', () => ({
   debug: jest.fn(),
 }));
 
-const { parseSearchResults, parseJobListing, normalizeJob } = require('../../../src/automation/jobParser');
+const {
+  parseSearchResults,
+  parseJobListing,
+  normalizeJob,
+} = require('../../../src/automation/jobParser');
 
 describe('jobParser', () => {
   describe('parseSearchResults', () => {

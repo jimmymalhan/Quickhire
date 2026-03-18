@@ -38,29 +38,25 @@ describe('auth middleware', () => {
 
   it('calls next with UNAUTHORIZED when no auth header', () => {
     authenticate(req, res, next);
-    expect(next).toHaveBeenCalledWith(
-      expect.objectContaining({ code: 'UNAUTHORIZED' })
-    );
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'UNAUTHORIZED' }));
   });
 
   it('calls next with UNAUTHORIZED when auth header missing Bearer', () => {
     req.headers.authorization = 'Basic token123';
     authenticate(req, res, next);
-    expect(next).toHaveBeenCalledWith(
-      expect.objectContaining({ code: 'UNAUTHORIZED' })
-    );
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'UNAUTHORIZED' }));
   });
 
   it('calls next with UNAUTHORIZED for empty auth header', () => {
     req.headers.authorization = '';
     authenticate(req, res, next);
-    expect(next).toHaveBeenCalledWith(
-      expect.objectContaining({ code: 'UNAUTHORIZED' })
-    );
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'UNAUTHORIZED' }));
   });
 
   it('sets req.user and calls next for valid token', () => {
-    const token = jwt.sign({ id: 'user-1', email: 'test@test.com' }, 'test-jwt-secret', { expiresIn: '1h' });
+    const token = jwt.sign({ id: 'user-1', email: 'test@test.com' }, 'test-jwt-secret', {
+      expiresIn: '1h',
+    });
     req.headers.authorization = `Bearer ${token}`;
 
     authenticate(req, res, next);
@@ -76,18 +72,14 @@ describe('auth middleware', () => {
 
     // Token expires immediately
     authenticate(req, res, next);
-    expect(next).toHaveBeenCalledWith(
-      expect.objectContaining({ code: 'TOKEN_EXPIRED' })
-    );
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'TOKEN_EXPIRED' }));
   });
 
   it('calls next with INVALID_TOKEN for invalid token', () => {
     req.headers.authorization = 'Bearer invalid.token.here';
 
     authenticate(req, res, next);
-    expect(next).toHaveBeenCalledWith(
-      expect.objectContaining({ code: 'INVALID_TOKEN' })
-    );
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'INVALID_TOKEN' }));
   });
 
   it('calls next with INVALID_TOKEN for token with wrong secret', () => {
@@ -95,17 +87,13 @@ describe('auth middleware', () => {
     req.headers.authorization = `Bearer ${token}`;
 
     authenticate(req, res, next);
-    expect(next).toHaveBeenCalledWith(
-      expect.objectContaining({ code: 'INVALID_TOKEN' })
-    );
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'INVALID_TOKEN' }));
   });
 
   it('handles Bearer with no token', () => {
     req.headers.authorization = 'Bearer ';
 
     authenticate(req, res, next);
-    expect(next).toHaveBeenCalledWith(
-      expect.objectContaining({ code: 'INVALID_TOKEN' })
-    );
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'INVALID_TOKEN' }));
   });
 });

@@ -35,7 +35,7 @@ describe('Integration - User Model', () => {
       expect(result).toEqual(mockUser);
       expect(query).toHaveBeenCalledWith(
         expect.stringContaining('SELECT * FROM users WHERE id = $1'),
-        [mockUser.id]
+        [mockUser.id],
       );
     });
 
@@ -59,10 +59,9 @@ describe('Integration - User Model', () => {
 
       const result = await User.findByEmail('test@example.com');
       expect(result).toEqual(mockUser);
-      expect(query).toHaveBeenCalledWith(
-        expect.stringContaining('email = $1'),
-        ['test@example.com']
-      );
+      expect(query).toHaveBeenCalledWith(expect.stringContaining('email = $1'), [
+        'test@example.com',
+      ]);
     });
 
     test('returns null when email not found', async () => {
@@ -107,7 +106,7 @@ describe('Integration - User Model', () => {
       expect(result).toBeDefined();
       expect(query).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO users'),
-        expect.arrayContaining([userData.email, userData.linkedinId])
+        expect.arrayContaining([userData.email, userData.linkedinId]),
       );
     });
   });
@@ -121,7 +120,7 @@ describe('Integration - User Model', () => {
       expect(result).toBeDefined();
       expect(query).toHaveBeenCalledWith(
         expect.stringContaining('UPDATE users SET'),
-        expect.arrayContaining(['user-id', 'Updated'])
+        expect.arrayContaining(['user-id', 'Updated']),
       );
     });
 
@@ -139,10 +138,9 @@ describe('Integration - User Model', () => {
 
       const result = await User.softDelete('user-id');
       expect(result).toBeDefined();
-      expect(query).toHaveBeenCalledWith(
-        expect.stringContaining('SET deleted_at = NOW()'),
-        ['user-id']
-      );
+      expect(query).toHaveBeenCalledWith(expect.stringContaining('SET deleted_at = NOW()'), [
+        'user-id',
+      ]);
     });
 
     test('returns null when user not found for deletion', async () => {
@@ -300,7 +298,7 @@ describe('Integration - Job Model', () => {
       expect(result).toBeDefined();
       expect(query).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO jobs'),
-        expect.any(Array)
+        expect.any(Array),
       );
     });
 
@@ -389,9 +387,7 @@ describe('Integration - Application Model', () => {
     });
 
     test('respects pagination', async () => {
-      query
-        .mockResolvedValueOnce({ rows: [{ count: '50' }] })
-        .mockResolvedValueOnce({ rows: [] });
+      query.mockResolvedValueOnce({ rows: [{ count: '50' }] }).mockResolvedValueOnce({ rows: [] });
 
       const result = await Application.findByUserId('user-123', { page: 2, limit: 10 });
       expect(result.page).toBe(2);
@@ -412,7 +408,7 @@ describe('Integration - Application Model', () => {
       expect(result).toBeDefined();
       expect(query).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO applications'),
-        expect.any(Array)
+        expect.any(Array),
       );
     });
 
@@ -430,10 +426,11 @@ describe('Integration - Application Model', () => {
 
       const result = await Application.updateStatus('app-1', 'submitted');
       expect(result).toBeDefined();
-      expect(query).toHaveBeenCalledWith(
-        expect.stringContaining('UPDATE applications'),
-        ['app-1', 'submitted', null]
-      );
+      expect(query).toHaveBeenCalledWith(expect.stringContaining('UPDATE applications'), [
+        'app-1',
+        'submitted',
+        null,
+      ]);
     });
 
     test('updates status with error message', async () => {
@@ -513,7 +510,7 @@ describe('Integration - UserPreference Model', () => {
       expect(result).toBeDefined();
       expect(query).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO user_preferences'),
-        expect.any(Array)
+        expect.any(Array),
       );
     });
 

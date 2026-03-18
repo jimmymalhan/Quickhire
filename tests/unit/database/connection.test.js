@@ -69,7 +69,7 @@ describe('database - connection', () => {
         database: 'quickhire_test',
         user: 'postgres',
         password: 'test',
-      })
+      }),
     );
   });
 
@@ -93,10 +93,9 @@ describe('database - query', () => {
 
     const result = await connection.query('SELECT * FROM users WHERE id = $1', ['uuid-1']);
     expect(result).toEqual(mockResult);
-    expect(connection.pool.query).toHaveBeenCalledWith(
-      'SELECT * FROM users WHERE id = $1',
-      ['uuid-1']
-    );
+    expect(connection.pool.query).toHaveBeenCalledWith('SELECT * FROM users WHERE id = $1', [
+      'uuid-1',
+    ]);
   });
 
   test('executes query without params', async () => {

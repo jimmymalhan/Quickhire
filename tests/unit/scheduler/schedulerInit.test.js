@@ -19,7 +19,12 @@ jest.mock('../../../src/scheduler/jobs/processApplications');
 jest.mock('../../../src/scheduler/jobs/cleanupJob');
 jest.mock('../../../src/utils/logger');
 
-const { initScheduler, triggerScrape, triggerApplicationProcessing, getQueueStats } = require('../../../src/scheduler/schedulerInit');
+const {
+  initScheduler,
+  triggerScrape,
+  triggerApplicationProcessing,
+  getQueueStats,
+} = require('../../../src/scheduler/schedulerInit');
 const { jobScrapeQueue, applicationQueue } = require('../../../src/scheduler/queue');
 
 describe('schedulerInit', () => {
@@ -32,7 +37,11 @@ describe('schedulerInit', () => {
       initScheduler();
 
       expect(jobScrapeQueue.process).toHaveBeenCalledWith('scrape', 2, expect.any(Function));
-      expect(applicationQueue.process).toHaveBeenCalledWith('process-applications', 1, expect.any(Function));
+      expect(applicationQueue.process).toHaveBeenCalledWith(
+        'process-applications',
+        1,
+        expect.any(Function),
+      );
     });
 
     it('should schedule recurring jobs', () => {

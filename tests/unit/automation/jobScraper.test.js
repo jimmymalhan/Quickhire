@@ -238,10 +238,10 @@ describe('JobScraper', () => {
       JobModel.getExistingHashes.mockResolvedValueOnce(['hash1', 'hash2']);
 
       await scraper.scrapeAndStore(searchParams);
-      expect(deduplicator.deduplicateAgainstDb).toHaveBeenCalledWith(
-        expect.any(Array),
-        ['hash1', 'hash2']
-      );
+      expect(deduplicator.deduplicateAgainstDb).toHaveBeenCalledWith(expect.any(Array), [
+        'hash1',
+        'hash2',
+      ]);
     });
   });
 
@@ -252,7 +252,10 @@ describe('JobScraper', () => {
       jobParser.parseJobListing.mockReturnValueOnce({ title: 'Senior Dev' });
 
       const result = await scraper.scrapeJobDetail('https://linkedin.com/jobs/view/123');
-      expect(jobParser.parseJobListing).toHaveBeenCalledWith(html, 'https://linkedin.com/jobs/view/123');
+      expect(jobParser.parseJobListing).toHaveBeenCalledWith(
+        html,
+        'https://linkedin.com/jobs/view/123',
+      );
       expect(result.normalized).toBe(true);
     });
 
@@ -267,9 +270,7 @@ describe('JobScraper', () => {
     it('should throw on persistent failure', async () => {
       axios.get.mockRejectedValue(new Error('Timeout'));
 
-      await expect(
-        scraper.scrapeJobDetail('https://linkedin.com/jobs/view/123')
-      ).rejects.toThrow();
+      await expect(scraper.scrapeJobDetail('https://linkedin.com/jobs/view/123')).rejects.toThrow();
     });
 
     it('should normalize the parsed job', async () => {
@@ -393,13 +394,16 @@ describe('JobScraper', () => {
     });
 
     it('should handle all params together', () => {
-      const url = scraper._buildSearchUrl({
-        keywords: 'dev',
-        location: 'NYC',
-        jobType: 'F',
-        experienceLevel: '4',
-        datePosted: 'r86400',
-      }, 1);
+      const url = scraper._buildSearchUrl(
+        {
+          keywords: 'dev',
+          location: 'NYC',
+          jobType: 'F',
+          experienceLevel: '4',
+          datePosted: 'r86400',
+        },
+        1,
+      );
       expect(url).toContain('keywords=dev');
       expect(url).toContain('start=25');
     });

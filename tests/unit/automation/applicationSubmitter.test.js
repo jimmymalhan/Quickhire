@@ -53,7 +53,12 @@ jest.mock('../../../src/utils/errorCodes', () => {
 const Application = require('../../../src/database/models/Application');
 const ApplicationLog = require('../../../src/database/models/ApplicationLog');
 const Job = require('../../../src/database/models/Job');
-const { submitApplication, submitBatch, getSubmissionStatus, _resetInstances } = require('../../../src/automation/applicationSubmitter');
+const {
+  submitApplication,
+  submitBatch,
+  getSubmissionStatus,
+  _resetInstances,
+} = require('../../../src/automation/applicationSubmitter');
 describe('applicationSubmitter', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -88,7 +93,9 @@ describe('applicationSubmitter', () => {
       Application.countTodayByUser.mockResolvedValue(0);
       Application.create.mockResolvedValue(null);
 
-      await expect(submitApplication('user-1', 'job-1')).rejects.toThrow('Application already exists');
+      await expect(submitApplication('user-1', 'job-1')).rejects.toThrow(
+        'Application already exists',
+      );
     });
 
     it('creates application log on creation', async () => {
@@ -198,33 +205,23 @@ describe('applicationSubmitter', () => {
         .mockResolvedValueOnce({ id: 'app-2', status: 'submitted' });
       ApplicationLog.create.mockResolvedValue({});
 
-      const result = await submitBatch('user-1', [
-        { jobId: 'job-1' },
-        { jobId: 'job-2' },
-      ]);
+      const result = await submitBatch('user-1', [{ jobId: 'job-1' }, { jobId: 'job-2' }]);
       expect(result.submitted).toHaveLength(2);
     });
 
     it('handles failures in batch', async () => {
       Application.countTodayByUser.mockResolvedValue(0);
-      Application.create
-        .mockResolvedValueOnce({ id: 'app-1' })
-        .mockResolvedValueOnce(null); // conflict
+      Application.create.mockResolvedValueOnce({ id: 'app-1' }).mockResolvedValueOnce(null); // conflict
       Application.updateStatus.mockResolvedValue({ id: 'app-1', status: 'submitted' });
       ApplicationLog.create.mockResolvedValue({});
 
-      const result = await submitBatch('user-1', [
-        { jobId: 'job-1' },
-        { jobId: 'job-2' },
-      ]);
+      const result = await submitBatch('user-1', [{ jobId: 'job-1' }, { jobId: 'job-2' }]);
       expect(result.submitted).toHaveLength(1);
       expect(result.failed).toHaveLength(1);
     });
 
     it('stops batch when daily cap reached', async () => {
-      Application.countTodayByUser
-        .mockResolvedValueOnce(0)
-        .mockResolvedValueOnce(50);
+      Application.countTodayByUser.mockResolvedValueOnce(0).mockResolvedValueOnce(50);
       Application.create.mockResolvedValue({ id: 'app-1' });
       Application.updateStatus.mockResolvedValue({ id: 'app-1', status: 'submitted' });
       ApplicationLog.create.mockResolvedValue({});
@@ -234,7 +231,9 @@ describe('applicationSubmitter', () => {
         { jobId: 'job-2' },
         { jobId: 'job-3' },
       ]);
-      expect(result.submitted.length + result.skipped.length + result.failed.length).toBeLessThanOrEqual(3);
+      expect(
+        result.submitted.length + result.skipped.length + result.failed.length,
+      ).toBeLessThanOrEqual(3);
     });
   });
 

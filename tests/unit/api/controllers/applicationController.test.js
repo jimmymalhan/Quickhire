@@ -38,7 +38,12 @@ jest.mock('../../../../src/utils/errorCodes', () => {
   };
 });
 
-const { listApplications, getApplication, applyToJob, updateApplicationStatus } = require('../../../../src/api/controllers/applicationController');
+const {
+  listApplications,
+  getApplication,
+  applyToJob,
+  updateApplicationStatus,
+} = require('../../../../src/api/controllers/applicationController');
 const Application = require('../../../../src/database/models/Application');
 const ApplicationLog = require('../../../../src/database/models/ApplicationLog');
 const { submitApplication } = require('../../../../src/automation/applicationSubmitter');
@@ -68,7 +73,7 @@ describe('applicationController', () => {
       await listApplications(req, res, next);
       expect(Application.findByUserId).toHaveBeenCalledWith('user-1', expect.any(Object));
       expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'success', code: 200 })
+        expect.objectContaining({ status: 'success', code: 200 }),
       );
     });
 
@@ -82,9 +87,12 @@ describe('applicationController', () => {
       });
 
       await listApplications(req, res, next);
-      expect(Application.findByUserId).toHaveBeenCalledWith('user-1', expect.objectContaining({
-        status: 'submitted',
-      }));
+      expect(Application.findByUserId).toHaveBeenCalledWith(
+        'user-1',
+        expect.objectContaining({
+          status: 'submitted',
+        }),
+      );
     });
 
     it('defaults page and limit', async () => {
@@ -96,10 +104,13 @@ describe('applicationController', () => {
       });
 
       await listApplications(req, res, next);
-      expect(Application.findByUserId).toHaveBeenCalledWith('user-1', expect.objectContaining({
-        page: 1,
-        limit: 20,
-      }));
+      expect(Application.findByUserId).toHaveBeenCalledWith(
+        'user-1',
+        expect.objectContaining({
+          page: 1,
+          limit: 20,
+        }),
+      );
     });
 
     it('caps limit at 100', async () => {
@@ -112,9 +123,12 @@ describe('applicationController', () => {
       });
 
       await listApplications(req, res, next);
-      expect(Application.findByUserId).toHaveBeenCalledWith('user-1', expect.objectContaining({
-        limit: 100,
-      }));
+      expect(Application.findByUserId).toHaveBeenCalledWith(
+        'user-1',
+        expect.objectContaining({
+          limit: 100,
+        }),
+      );
     });
 
     it('includes pagination meta', async () => {
@@ -150,7 +164,7 @@ describe('applicationController', () => {
         expect.objectContaining({
           status: 'success',
           data: expect.objectContaining({ logs: expect.any(Array) }),
-        })
+        }),
       );
     });
 
@@ -159,9 +173,7 @@ describe('applicationController', () => {
       Application.findById.mockResolvedValue(null);
 
       await getApplication(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
 
     it('calls next with NOT_FOUND when application belongs to another user', async () => {
@@ -169,9 +181,7 @@ describe('applicationController', () => {
       Application.findById.mockResolvedValue({ id: 'app-1', user_id: 'other-user' });
 
       await getApplication(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
 
     it('calls next on error', async () => {
@@ -193,7 +203,7 @@ describe('applicationController', () => {
       expect(submitApplication).toHaveBeenCalledWith('user-1', 'job-1', 2);
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'success', code: 201 })
+        expect.objectContaining({ status: 'success', code: 201 }),
       );
     });
 
@@ -225,15 +235,17 @@ describe('applicationController', () => {
 
       await updateApplicationStatus(req, res, next);
       expect(Application.updateStatus).toHaveBeenCalledWith('app-1', 'submitted');
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'success' })
-      );
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ status: 'success' }));
     });
 
     it('logs status change', async () => {
       req.params = { id: 'app-1' };
       req.body = { status: 'viewed' };
-      Application.findById.mockResolvedValue({ id: 'app-1', user_id: 'user-1', status: 'submitted' });
+      Application.findById.mockResolvedValue({
+        id: 'app-1',
+        user_id: 'user-1',
+        status: 'submitted',
+      });
       Application.updateStatus.mockResolvedValue({ id: 'app-1', status: 'viewed' });
       ApplicationLog.create.mockResolvedValue({});
 
@@ -242,7 +254,7 @@ describe('applicationController', () => {
         expect.objectContaining({
           action: 'status_changed',
           details: { from: 'submitted', to: 'viewed' },
-        })
+        }),
       );
     });
 
@@ -251,9 +263,7 @@ describe('applicationController', () => {
       req.body = { status: 'invalid_status' };
 
       await updateApplicationStatus(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'INVALID_INPUT' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'INVALID_INPUT' }));
     });
 
     it('accepts all valid statuses', async () => {
@@ -262,7 +272,11 @@ describe('applicationController', () => {
         jest.clearAllMocks();
         req.params = { id: 'app-1' };
         req.body = { status };
-        Application.findById.mockResolvedValue({ id: 'app-1', user_id: 'user-1', status: 'pending' });
+        Application.findById.mockResolvedValue({
+          id: 'app-1',
+          user_id: 'user-1',
+          status: 'pending',
+        });
         Application.updateStatus.mockResolvedValue({ id: 'app-1', status });
         ApplicationLog.create.mockResolvedValue({});
 
@@ -277,9 +291,7 @@ describe('applicationController', () => {
       Application.findById.mockResolvedValue(null);
 
       await updateApplicationStatus(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
 
     it('returns NOT_FOUND when app belongs to another user', async () => {
@@ -288,9 +300,7 @@ describe('applicationController', () => {
       Application.findById.mockResolvedValue({ id: 'app-1', user_id: 'other-user' });
 
       await updateApplicationStatus(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
   });
 });

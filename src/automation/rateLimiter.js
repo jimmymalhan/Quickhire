@@ -70,7 +70,7 @@ class RateLimiter {
       const key = companyId.toLowerCase();
       const companyTimestamps = this.companyBuckets.get(key) || [];
       const hourAgo = now - 3600000;
-      const recentCompany = companyTimestamps.filter(t => t > hourAgo);
+      const recentCompany = companyTimestamps.filter((t) => t > hourAgo);
       if (recentCompany.length >= this.options.maxPerHourPerCompany) {
         return {
           allowed: false,
@@ -82,7 +82,7 @@ class RateLimiter {
 
     // Check global hourly limit
     const hourAgo = now - 3600000;
-    const recentGlobal = this.globalBucket.filter(t => t > hourAgo);
+    const recentGlobal = this.globalBucket.filter((t) => t > hourAgo);
     if (recentGlobal.length >= this.options.maxPerHourGlobal) {
       return {
         allowed: false,
@@ -217,11 +217,11 @@ class RateLimiter {
   getStatus() {
     const now = Date.now();
     const hourAgo = now - 3600000;
-    const recentGlobal = this.globalBucket.filter(t => t > hourAgo);
+    const recentGlobal = this.globalBucket.filter((t) => t > hourAgo);
 
     const companyStats = {};
     for (const [key, timestamps] of this.companyBuckets.entries()) {
-      const recentCompany = timestamps.filter(t => t > hourAgo);
+      const recentCompany = timestamps.filter((t) => t > hourAgo);
       companyStats[key] = {
         hourlyCount: recentCompany.length,
         hourlyRemaining: Math.max(0, this.options.maxPerHourPerCompany - recentCompany.length),

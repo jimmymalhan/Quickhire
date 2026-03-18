@@ -61,7 +61,7 @@ describe('queue', () => {
       expect.objectContaining({
         host: 'localhost',
         port: 6379,
-      })
+      }),
     );
   });
 
@@ -73,7 +73,7 @@ describe('queue', () => {
         removeOnComplete: 100,
         removeOnFail: 50,
         attempts: 3,
-      })
+      }),
     );
   });
 

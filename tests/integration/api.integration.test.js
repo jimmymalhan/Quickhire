@@ -65,7 +65,9 @@ const { triggerScrape } = require('../../src/scheduler/schedulerInit');
 const { query } = require('../../src/database/connection');
 
 const generateToken = (userId = 'test-user-1') => {
-  return jwt.sign({ id: userId, email: 'test@example.com' }, 'test-jwt-secret-for-testing-only', { expiresIn: '1h' });
+  return jwt.sign({ id: userId, email: 'test@example.com' }, 'test-jwt-secret-for-testing-only', {
+    expiresIn: '1h',
+  });
 };
 
 describe('API Integration Tests', () => {
@@ -88,7 +90,12 @@ describe('API Integration Tests', () => {
     });
 
     it('should return search results', async () => {
-      Job.search.mockResolvedValue({ jobs: [{ id: '1', title: 'Engineer' }], total: 1, page: 1, limit: 20 });
+      Job.search.mockResolvedValue({
+        jobs: [{ id: '1', title: 'Engineer' }],
+        total: 1,
+        page: 1,
+        limit: 20,
+      });
 
       const res = await request(app)
         .get('/api/jobs/search?role=Engineer')
@@ -143,7 +150,12 @@ describe('API Integration Tests', () => {
   describe('GET /api/jobs/recommendations', () => {
     it('should return recommendations', async () => {
       UserPreference.findByUserId.mockResolvedValue({ target_roles: ['Engineer'] });
-      Job.search.mockResolvedValue({ jobs: [{ id: '1', title: 'Engineer' }], total: 1, page: 1, limit: 200 });
+      Job.search.mockResolvedValue({
+        jobs: [{ id: '1', title: 'Engineer' }],
+        total: 1,
+        page: 1,
+        limit: 200,
+      });
       matchJobsForUser.mockReturnValue([
         { job: { id: '1', title: 'Engineer' }, match: { score: 85, reason: 'Good match' } },
       ]);
@@ -172,9 +184,7 @@ describe('API Integration Tests', () => {
     it('should return a job by id', async () => {
       Job.findById.mockResolvedValue({ id: '1', title: 'Engineer', company: 'TechCo' });
 
-      const res = await request(app)
-        .get('/api/jobs/1')
-        .set('Authorization', `Bearer ${authToken}`);
+      const res = await request(app).get('/api/jobs/1').set('Authorization', `Bearer ${authToken}`);
 
       expect(res.status).toBe(200);
       expect(res.body.data.title).toBe('Engineer');
@@ -256,7 +266,11 @@ describe('API Integration Tests', () => {
 
   describe('GET /api/applications/:id', () => {
     it('should return application details', async () => {
-      Application.findById.mockResolvedValue({ id: '1', user_id: 'test-user-1', status: 'submitted' });
+      Application.findById.mockResolvedValue({
+        id: '1',
+        user_id: 'test-user-1',
+        status: 'submitted',
+      });
 
       const res = await request(app)
         .get('/api/applications/1')
@@ -350,7 +364,11 @@ describe('API Integration Tests', () => {
 
   describe('PATCH /api/applications/:id/status', () => {
     it('should update application status', async () => {
-      Application.findById.mockResolvedValue({ id: '1', user_id: 'test-user-1', status: 'pending' });
+      Application.findById.mockResolvedValue({
+        id: '1',
+        user_id: 'test-user-1',
+        status: 'pending',
+      });
       Application.updateStatus.mockResolvedValue({ id: '1', status: 'archived' });
 
       const res = await request(app)

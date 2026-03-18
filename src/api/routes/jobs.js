@@ -1,6 +1,11 @@
 const express = require('express');
 const { authenticate } = require('../middleware/auth');
-const { searchJobs, getJobById, triggerJobScrape, getRecommendations } = require('../controllers/jobController');
+const {
+  searchJobs,
+  getJobById,
+  triggerJobScrape,
+  getRecommendations,
+} = require('../controllers/jobController');
 
 const router = express.Router();
 

@@ -45,7 +45,7 @@ class ScrapeJobsJob {
       const summary = {
         totalScraped: results.reduce((sum, r) => sum + (r.scraped || 0), 0),
         totalStored: results.reduce((sum, r) => sum + (r.stored || 0), 0),
-        totalErrors: results.filter(r => r.error).length,
+        totalErrors: results.filter((r) => r.error).length,
         duration: Date.now() - startTime,
         configs: results.length,
       };

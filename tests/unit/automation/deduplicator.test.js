@@ -188,9 +188,7 @@ describe('Deduplicator', () => {
     it('returns unique jobs checking cache', async () => {
       cache.has.mockResolvedValue(false);
       cache.set.mockResolvedValue(true);
-      const jobs = [
-        { title: 'Engineer', company: 'Acme', location: 'NYC', linkedinJobId: 'li1' },
-      ];
+      const jobs = [{ title: 'Engineer', company: 'Acme', location: 'NYC', linkedinJobId: 'li1' }];
       const result = await dedup.deduplicateWithCache(jobs);
       expect(result).toHaveLength(1);
       expect(cache.set).toHaveBeenCalled();
@@ -198,9 +196,7 @@ describe('Deduplicator', () => {
 
     it('skips cached jobs', async () => {
       cache.has.mockResolvedValue(true);
-      const jobs = [
-        { title: 'Engineer', company: 'Acme', location: 'NYC', linkedinJobId: 'li1' },
-      ];
+      const jobs = [{ title: 'Engineer', company: 'Acme', location: 'NYC', linkedinJobId: 'li1' }];
       const result = await dedup.deduplicateWithCache(jobs);
       expect(result).toHaveLength(0);
     });
@@ -272,7 +268,7 @@ describe('Deduplicator', () => {
       const sameTitleDiffCompany = { title: 'Software Engineer', company: 'Beta', location: 'NYC' };
       const diffTitleSameCompany = { title: 'Chef', company: 'Acme', location: 'NYC' };
       expect(dedup.similarity(base, sameTitleDiffCompany)).toBeGreaterThan(
-        dedup.similarity(base, diffTitleSameCompany)
+        dedup.similarity(base, diffTitleSameCompany),
       );
     });
 
@@ -345,7 +341,7 @@ describe('Deduplicator', () => {
     it('clears bloom filter', () => {
       dedup.markSeen({ title: 'A', company: 'B', location: 'C' });
       dedup.reset();
-      expect(dedup.bloomFilter.every(b => b === 0)).toBe(true);
+      expect(dedup.bloomFilter.every((b) => b === 0)).toBe(true);
     });
   });
 

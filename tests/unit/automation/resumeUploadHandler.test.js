@@ -8,7 +8,11 @@ jest.mock('../../../src/utils/logger', () => ({
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const { ResumeUploadHandler, ALLOWED_EXTENSIONS, MAX_FILE_SIZE_BYTES } = require('../../../src/automation/resumeUploadHandler');
+const {
+  ResumeUploadHandler,
+  ALLOWED_EXTENSIONS,
+  MAX_FILE_SIZE_BYTES,
+} = require('../../../src/automation/resumeUploadHandler');
 
 describe('ResumeUploadHandler', () => {
   let handler;

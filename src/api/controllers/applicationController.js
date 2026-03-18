@@ -74,7 +74,10 @@ const updateApplicationStatus = async (req, res, next) => {
     const { status } = req.body;
     const validStatuses = ['pending', 'submitted', 'viewed', 'rejected', 'archived'];
     if (!validStatuses.includes(status)) {
-      throw new AppError(ERROR_CODES.INVALID_INPUT, `Invalid status. Must be one of: ${validStatuses.join(', ')}`);
+      throw new AppError(
+        ERROR_CODES.INVALID_INPUT,
+        `Invalid status. Must be one of: ${validStatuses.join(', ')}`,
+      );
     }
 
     const application = await Application.findById(req.params.id);
@@ -107,7 +110,10 @@ const autoApply = async (req, res, next) => {
     // Validate user has preferences set
     const preferences = await UserPreference.findByUserId(req.user.id);
     if (!preferences) {
-      throw new AppError(ERROR_CODES.INVALID_INPUT, 'Set up your preferences before using auto-apply');
+      throw new AppError(
+        ERROR_CODES.INVALID_INPUT,
+        'Set up your preferences before using auto-apply',
+      );
     }
 
     if (!preferences.auto_apply_enabled) {
@@ -116,7 +122,10 @@ const autoApply = async (req, res, next) => {
 
     // Check daily limit
     const todayCount = await Application.countTodayByUser(req.user.id);
-    const remainingToday = Math.max(0, (preferences.daily_limit || config.application.maxPerDay) - todayCount);
+    const remainingToday = Math.max(
+      0,
+      (preferences.daily_limit || config.application.maxPerDay) - todayCount,
+    );
     if (remainingToday === 0) {
       throw new AppError(ERROR_CODES.APPLICATION_LIMIT_REACHED, 'Daily application limit reached');
     }
@@ -125,14 +134,14 @@ const autoApply = async (req, res, next) => {
 
     // Get recent jobs and match
     const jobResult = await Job.search({ page: 1, limit: 200 });
-    const matched = matchJobsForUser(jobResult.jobs, preferences)
-      .filter((m) => m.match.score >= min_score);
+    const matched = matchJobsForUser(jobResult.jobs, preferences).filter(
+      (m) => m.match.score >= min_score,
+    );
 
     // Filter out jobs already applied to
-    const existingApps = await query(
-      `SELECT job_id FROM applications WHERE user_id = $1`,
-      [req.user.id],
-    );
+    const existingApps = await query(`SELECT job_id FROM applications WHERE user_id = $1`, [
+      req.user.id,
+    ]);
     const appliedJobIds = new Set(existingApps.rows.map((r) => r.job_id));
     const newMatches = matched.filter((m) => !appliedJobIds.has(m.job.id));
 
@@ -214,10 +223,9 @@ const getStats = async (req, res, next) => {
     const weekCount = parseInt(weekResult.rows[0].count, 10);
 
     // Get total count
-    const totalResult = await query(
-      `SELECT COUNT(*) FROM applications WHERE user_id = $1`,
-      [userId],
-    );
+    const totalResult = await query(`SELECT COUNT(*) FROM applications WHERE user_id = $1`, [
+      userId,
+    ]);
     const totalCount = parseInt(totalResult.rows[0].count, 10);
 
     // Get response rate
@@ -226,8 +234,10 @@ const getStats = async (req, res, next) => {
       [userId],
     );
     const responseCount = parseInt(responseResult.rows[0].count, 10);
-    const submittedCount = (byStatus.submitted || 0) + (byStatus.viewed || 0) + (byStatus.rejected || 0);
-    const responseRate = submittedCount > 0 ? Math.round((responseCount / submittedCount) * 100) : 0;
+    const submittedCount =
+      (byStatus.submitted || 0) + (byStatus.viewed || 0) + (byStatus.rejected || 0);
+    const responseRate =
+      submittedCount > 0 ? Math.round((responseCount / submittedCount) * 100) : 0;
 
     // Get scrape stats
     const scrapeResult = await query(
@@ -268,4 +278,11 @@ const getStats = async (req, res, next) => {
   }
 };
 
-module.exports = { listApplications, getApplication, applyToJob, updateApplicationStatus, autoApply, getStats };
+module.exports = {
+  listApplications,
+  getApplication,
+  applyToJob,
+  updateApplicationStatus,
+  autoApply,
+  getStats,
+};

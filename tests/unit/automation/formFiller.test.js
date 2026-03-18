@@ -205,9 +205,7 @@ describe('FormFiller', () => {
 
     it('returns summary with correct totals', () => {
       const filler = new FormFiller(mockProfile);
-      const result = filler.fillForm([
-        'first_name', 'last_name', 'email', 'phone', 'unknown',
-      ]);
+      const result = filler.fillForm(['first_name', 'last_name', 'email', 'phone', 'unknown']);
       expect(result.summary.total).toBe(5);
       expect(result.summary.filledCount).toBe(4);
       expect(result.summary.skippedCount).toBe(1);
@@ -302,10 +300,21 @@ describe('FormFiller', () => {
 
     it('has mappings for all standard fields', () => {
       const expectedFields = [
-        'first_name', 'last_name', 'email', 'phone', 'location',
-        'linkedin_url', 'portfolio', 'years_experience', 'current_company',
-        'current_title', 'salary_expectation', 'start_date', 'cover_letter',
-        'work_authorization', 'willing_to_relocate',
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'location',
+        'linkedin_url',
+        'portfolio',
+        'years_experience',
+        'current_company',
+        'current_title',
+        'salary_expectation',
+        'start_date',
+        'cover_letter',
+        'work_authorization',
+        'willing_to_relocate',
       ];
       for (const field of expectedFields) {
         expect(FIELD_MAPPINGS).toHaveProperty(field);

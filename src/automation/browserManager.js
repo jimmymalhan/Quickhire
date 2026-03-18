@@ -30,7 +30,9 @@ class BrowserManager {
    * Load the browser library dynamically
    */
   async _loadLibrary() {
-    if (this._lib) {return this._lib;}
+    if (this._lib) {
+      return this._lib;
+    }
 
     if (this.engine === BROWSER_ENGINES.PLAYWRIGHT) {
       try {
@@ -46,9 +48,7 @@ class BrowserManager {
       this._lib = require('puppeteer');
       return this._lib;
     } catch (err) {
-      throw new Error(
-        'No browser automation library available. Install puppeteer or playwright.'
-      );
+      throw new Error('No browser automation library available. Install puppeteer or playwright.');
     }
   }
 
@@ -58,7 +58,8 @@ class BrowserManager {
   async launch() {
     if (this.engine === BROWSER_ENGINES.MOCK) {
       this._mockState = {
-        html: this.fixtureHtml || '<html><head><title>Mock Browser</title></head><body></body></html>',
+        html:
+          this.fixtureHtml || '<html><head><title>Mock Browser</title></head><body></body></html>',
         url: 'about:blank',
         userAgent: this.userAgent,
         viewport: { width: 1920, height: 1080 },
@@ -154,7 +155,9 @@ class BrowserManager {
    * Evaluate JavaScript in the page context
    */
   async evaluate(fn, ...args) {
-    if (!this.page) {throw new Error('Browser not launched');}
+    if (!this.page) {
+      throw new Error('Browser not launched');
+    }
     return this.page.evaluate(fn, ...args);
   }
 
@@ -162,12 +165,16 @@ class BrowserManager {
    * Scroll down to trigger lazy loading
    */
   async scrollToBottom(maxScrolls = 10, delayMs = 1000) {
-    if (!this.page) {throw new Error('Browser not launched');}
+    if (!this.page) {
+      throw new Error('Browser not launched');
+    }
 
     for (let i = 0; i < maxScrolls; i++) {
       const previousHeight = await this.evaluate(() => globalThis.document.body.scrollHeight);
 
-      await this.evaluate(() => globalThis.window.scrollTo(0, globalThis.document.body.scrollHeight));
+      await this.evaluate(() =>
+        globalThis.window.scrollTo(0, globalThis.document.body.scrollHeight),
+      );
       await this._delay(delayMs);
 
       const newHeight = await this.evaluate(() => globalThis.document.body.scrollHeight);
@@ -239,7 +246,9 @@ class BrowserManager {
 
   _selectorExists(selector) {
     const html = this._mockState?.html || '';
-    if (!selector) {return false;}
+    if (!selector) {
+      return false;
+    }
 
     if (selector.startsWith('#')) {
       const id = selector.slice(1);
@@ -266,11 +275,7 @@ class BrowserManager {
       body: {
         scrollHeight: this._mockState?.html ? this._mockState.html.length : 0,
       },
-      querySelector: (selector) => (
-        this._selectorExists(selector)
-          ? { selector }
-          : null
-      ),
+      querySelector: (selector) => (this._selectorExists(selector) ? { selector } : null),
     };
     const window = {
       scrollTo: () => undefined,

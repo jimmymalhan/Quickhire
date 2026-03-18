@@ -30,7 +30,7 @@ describe('healthController', () => {
           data: expect.objectContaining({
             services: { database: 'connected' },
           }),
-        })
+        }),
       );
     });
 
@@ -46,7 +46,7 @@ describe('healthController', () => {
           data: expect.objectContaining({
             services: { database: 'disconnected' },
           }),
-        })
+        }),
       );
     });
 

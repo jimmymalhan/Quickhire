@@ -6,9 +6,7 @@ const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     winston.format.errors({ stack: true }),
-    config.logging.format === 'json'
-      ? winston.format.json()
-      : winston.format.simple(),
+    config.logging.format === 'json' ? winston.format.json() : winston.format.simple(),
   ),
   defaultMeta: { service: 'quickhire' },
   transports: [

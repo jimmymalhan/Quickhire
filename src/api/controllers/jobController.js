@@ -10,7 +10,16 @@ const CACHE_TTL = 300; // 5 minutes
 
 const searchJobs = async (req, res, next) => {
   try {
-    const { role, location, salary_min, salary_max, company, level, page = 1, limit = 20 } = req.query;
+    const {
+      role,
+      location,
+      salary_min,
+      salary_max,
+      company,
+      level,
+      page = 1,
+      limit = 20,
+    } = req.query;
 
     const parsedPage = Math.max(1, parseInt(page, 10) || 1);
     const parsedLimit = Math.min(100, Math.max(1, parseInt(limit, 10) || 20));
@@ -127,7 +136,10 @@ const getRecommendations = async (req, res, next) => {
     // Get user preferences
     const preferences = await UserPreference.findByUserId(req.user.id);
     if (!preferences) {
-      throw new AppError(ERROR_CODES.NOT_FOUND, 'Set up your preferences first to get recommendations');
+      throw new AppError(
+        ERROR_CODES.NOT_FOUND,
+        'Set up your preferences first to get recommendations',
+      );
     }
 
     // Check cache
@@ -144,8 +156,9 @@ const getRecommendations = async (req, res, next) => {
     });
 
     // Match against preferences
-    const matched = matchJobsForUser(jobResult.jobs, preferences)
-      .filter((m) => m.match.score >= minScore);
+    const matched = matchJobsForUser(jobResult.jobs, preferences).filter(
+      (m) => m.match.score >= minScore,
+    );
 
     // Paginate results
     const total = matched.length;

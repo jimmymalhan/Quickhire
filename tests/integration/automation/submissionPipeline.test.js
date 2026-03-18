@@ -50,7 +50,10 @@ describe('Submission Pipeline Integration', () => {
     it('form filler output feeds into submitter', async () => {
       const filler = new FormFiller(completeProfile);
       const validation = filler.validateRequiredFields([
-        'first_name', 'last_name', 'email', 'phone',
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
       ]);
       expect(validation.valid).toBe(true);
 
@@ -214,8 +217,8 @@ describe('Submission Pipeline Integration', () => {
       }
 
       // Daily cap of 3 should limit total submissions
-      const submitted = results.filter(r => r.status === 'submitted');
-      const capped = results.filter(r => r.status === 'capped');
+      const submitted = results.filter((r) => r.status === 'submitted');
+      const capped = results.filter((r) => r.status === 'capped');
       expect(submitted).toHaveLength(3);
       expect(capped).toHaveLength(2);
     });

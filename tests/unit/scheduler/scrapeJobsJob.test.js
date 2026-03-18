@@ -39,10 +39,7 @@ describe('ScrapeJobsJob', () => {
 
   describe('execute', () => {
     it('should scrape for each config', async () => {
-      const configs = [
-        { keywords: 'Engineer' },
-        { keywords: 'Developer' },
-      ];
+      const configs = [{ keywords: 'Engineer' }, { keywords: 'Developer' }];
       const job = new ScrapeJobsJob({ searchConfigs: configs });
 
       const result = await job.execute();

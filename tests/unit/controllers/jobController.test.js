@@ -5,7 +5,12 @@ jest.mock('../../../src/utils/logger');
 jest.mock('../../../src/automation/jobMatcher');
 jest.mock('../../../src/scheduler/schedulerInit');
 
-const { searchJobs, getJobById, triggerJobScrape, getRecommendations } = require('../../../src/api/controllers/jobController');
+const {
+  searchJobs,
+  getJobById,
+  triggerJobScrape,
+  getRecommendations,
+} = require('../../../src/api/controllers/jobController');
 const Job = require('../../../src/database/models/Job');
 const UserPreference = require('../../../src/database/models/UserPreference');
 const cache = require('../../../src/utils/cache');
@@ -94,9 +99,7 @@ describe('jobController', () => {
 
       await getJobById(req, res, next);
 
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ data: job }),
-      );
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ data: job }));
     });
 
     it('should return 404 for missing job', async () => {
@@ -105,9 +108,7 @@ describe('jobController', () => {
 
       await getJobById(req, res, next);
 
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' }),
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
 
     it('should return cached job when available', async () => {
@@ -198,9 +199,7 @@ describe('jobController', () => {
 
       await getRecommendations(req, res, next);
 
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' }),
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
 
     it('should filter by min_score', async () => {
@@ -215,9 +214,7 @@ describe('jobController', () => {
 
       await getRecommendations(req, res, next);
 
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ data: [] }),
-      );
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ data: [] }));
     });
 
     it('should return cached recommendations', async () => {

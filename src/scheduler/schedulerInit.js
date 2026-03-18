@@ -76,14 +76,32 @@ const getQueueStats = async () => {
   ]);
 
   return {
-    scraping: { waiting: scrapeWaiting, active: scrapeActive, completed: scrapeCompleted, failed: scrapeFailed },
-    applications: { waiting: appWaiting, active: appActive, completed: appCompleted, failed: appFailed },
+    scraping: {
+      waiting: scrapeWaiting,
+      active: scrapeActive,
+      completed: scrapeCompleted,
+      failed: scrapeFailed,
+    },
+    applications: {
+      waiting: appWaiting,
+      active: appActive,
+      completed: appCompleted,
+      failed: appFailed,
+    },
   };
 };
 
 const getScrapeStatus = () => {
-  if (!scrapeJob) {return null;}
+  if (!scrapeJob) {
+    return null;
+  }
   return scrapeJob.getStatus();
 };
 
-module.exports = { initScheduler, triggerScrape, triggerApplicationProcessing, getQueueStats, getScrapeStatus };
+module.exports = {
+  initScheduler,
+  triggerScrape,
+  triggerApplicationProcessing,
+  getQueueStats,
+  getScrapeStatus,
+};

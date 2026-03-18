@@ -20,7 +20,11 @@ jest.mock('../../../../src/utils/errorCodes', () => {
   };
 });
 
-const { getSettings, updateSettings, getNotificationSettings } = require('../../../../src/api/controllers/settingsController');
+const {
+  getSettings,
+  updateSettings,
+  getNotificationSettings,
+} = require('../../../../src/api/controllers/settingsController');
 const UserPreference = require('../../../../src/database/models/UserPreference');
 
 describe('settingsController', () => {
@@ -38,22 +42,21 @@ describe('settingsController', () => {
 
   describe('getSettings', () => {
     it('returns user preferences', async () => {
-      UserPreference.findByUserId.mockResolvedValue({ user_id: 'user-1', auto_apply_enabled: true });
+      UserPreference.findByUserId.mockResolvedValue({
+        user_id: 'user-1',
+        auto_apply_enabled: true,
+      });
 
       await getSettings(req, res, next);
       expect(UserPreference.findByUserId).toHaveBeenCalledWith('user-1');
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'success' })
-      );
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ status: 'success' }));
     });
 
     it('calls next with NOT_FOUND when no preferences', async () => {
       UserPreference.findByUserId.mockResolvedValue(null);
 
       await getSettings(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
 
     it('calls next on error', async () => {
@@ -71,17 +74,21 @@ describe('settingsController', () => {
         targetRoles: ['Engineer'],
         dailyLimit: 30,
       };
-      UserPreference.createOrUpdate.mockResolvedValue({ user_id: 'user-1', auto_apply_enabled: false });
+      UserPreference.createOrUpdate.mockResolvedValue({
+        user_id: 'user-1',
+        auto_apply_enabled: false,
+      });
 
       await updateSettings(req, res, next);
-      expect(UserPreference.createOrUpdate).toHaveBeenCalledWith('user-1', expect.objectContaining({
-        autoApplyEnabled: false,
-        targetRoles: ['Engineer'],
-        dailyLimit: 30,
-      }));
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'success' })
+      expect(UserPreference.createOrUpdate).toHaveBeenCalledWith(
+        'user-1',
+        expect.objectContaining({
+          autoApplyEnabled: false,
+          targetRoles: ['Engineer'],
+          dailyLimit: 30,
+        }),
       );
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ status: 'success' }));
     });
 
     it('handles partial updates', async () => {
@@ -89,9 +96,12 @@ describe('settingsController', () => {
       UserPreference.createOrUpdate.mockResolvedValue({ notification_enabled: true });
 
       await updateSettings(req, res, next);
-      expect(UserPreference.createOrUpdate).toHaveBeenCalledWith('user-1', expect.objectContaining({
-        notificationEnabled: true,
-      }));
+      expect(UserPreference.createOrUpdate).toHaveBeenCalledWith(
+        'user-1',
+        expect.objectContaining({
+          notificationEnabled: true,
+        }),
+      );
     });
 
     it('calls next on error', async () => {
@@ -119,7 +129,7 @@ describe('settingsController', () => {
             emailNotifications: true,
             pushNotifications: false,
           }),
-        })
+        }),
       );
     });
 
@@ -127,9 +137,7 @@ describe('settingsController', () => {
       UserPreference.findByUserId.mockResolvedValue(null);
 
       await getNotificationSettings(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
   });
 });

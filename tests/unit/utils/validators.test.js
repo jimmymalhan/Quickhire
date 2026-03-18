@@ -226,7 +226,7 @@ describe('validators - validatePagination', () => {
 describe('validators - sanitizeString', () => {
   test('escapes HTML special characters', () => {
     expect(sanitizeString('<script>alert("xss")</script>')).toBe(
-      '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;'
+      '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;',
     );
   });
 
@@ -259,7 +259,7 @@ describe('validators - sanitizeString', () => {
 
   test('handles mixed special characters', () => {
     expect(sanitizeString('<div class="test">Hello & \'World\'</div>')).toBe(
-      '&lt;div class=&quot;test&quot;&gt;Hello &amp; &#x27;World&#x27;&lt;/div&gt;'
+      '&lt;div class=&quot;test&quot;&gt;Hello &amp; &#x27;World&#x27;&lt;/div&gt;',
     );
   });
 

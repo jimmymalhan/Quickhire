@@ -28,7 +28,9 @@ describe('RateLimiter', () => {
 
     it('uses defaults when no options provided', () => {
       const defaultLimiter = new RateLimiter();
-      expect(defaultLimiter.options.maxPerHourPerCompany).toBe(DEFAULT_OPTIONS.maxPerHourPerCompany);
+      expect(defaultLimiter.options.maxPerHourPerCompany).toBe(
+        DEFAULT_OPTIONS.maxPerHourPerCompany,
+      );
       expect(defaultLimiter.options.maxPerHourGlobal).toBe(DEFAULT_OPTIONS.maxPerHourGlobal);
     });
 
@@ -108,7 +110,9 @@ describe('RateLimiter', () => {
     it('allows different company when one is limited', () => {
       const companyKey = 'techcorp';
       limiter.companyBuckets.set(companyKey, [
-        Date.now() - 1000, Date.now() - 1000, Date.now() - 1000,
+        Date.now() - 1000,
+        Date.now() - 1000,
+        Date.now() - 1000,
       ]);
       limiter.dailyCount = 3;
       limiter.globalBucket = [Date.now() - 1000, Date.now() - 1000, Date.now() - 1000];

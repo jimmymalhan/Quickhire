@@ -2,10 +2,7 @@ const { query } = require('../connection');
 
 const UserPreference = {
   async findByUserId(userId) {
-    const result = await query(
-      'SELECT * FROM user_preferences WHERE user_id = $1',
-      [userId],
-    );
+    const result = await query('SELECT * FROM user_preferences WHERE user_id = $1', [userId]);
     return result.rows[0] || null;
   },
 

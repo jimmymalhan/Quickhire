@@ -10,7 +10,11 @@ jest.mock('../../../src/utils/config', () => ({
   application: { maxPerDay: 50, retryAttempts: 3, retryDelayMs: 1, minIntervalSeconds: 0 },
 }));
 
-const { LinkedInFormSubmitter, SUBMISSION_STATES, LINKEDIN_ERRORS } = require('../../../src/automation/linkedInFormSubmitter');
+const {
+  LinkedInFormSubmitter,
+  SUBMISSION_STATES,
+  LINKEDIN_ERRORS,
+} = require('../../../src/automation/linkedInFormSubmitter');
 
 describe('LinkedInFormSubmitter', () => {
   let submitter;

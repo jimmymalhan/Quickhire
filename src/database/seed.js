@@ -18,11 +18,14 @@ const seedData = async () => {
 
     if (userId) {
       // Seed user preferences
-      await client.query(`
+      await client.query(
+        `
         INSERT INTO user_preferences (user_id, auto_apply_enabled, target_roles, target_locations, min_salary, max_salary, daily_limit)
         VALUES ($1, true, '{"Software Engineer","Backend Developer","Full Stack Developer"}', '{"San Francisco, CA","New York, NY","Remote"}', 100000, 200000, 25)
         ON CONFLICT (user_id) DO NOTHING
-      `, [userId]);
+      `,
+        [userId],
+      );
 
       // Seed sample jobs
       const jobs = [
@@ -34,12 +37,27 @@ const seedData = async () => {
       ];
 
       for (const [title, company, location, salaryMin, salaryMax, level, exp] of jobs) {
-        const hash = Buffer.from(`${title}-${company}-${location}`).toString('base64').substring(0, 64);
-        await client.query(`
+        const hash = Buffer.from(`${title}-${company}-${location}`)
+          .toString('base64')
+          .substring(0, 64);
+        await client.query(
+          `
           INSERT INTO jobs (title, company, location, salary_min, salary_max, job_level, experience_years, description, hash, posted_at)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW() - interval '1 day' * (random() * 14))
           ON CONFLICT (hash) DO NOTHING
-        `, [title, company, location, salaryMin, salaryMax, level, exp, `Exciting ${title} role at ${company}.`, hash]);
+        `,
+          [
+            title,
+            company,
+            location,
+            salaryMin,
+            salaryMax,
+            level,
+            exp,
+            `Exciting ${title} role at ${company}.`,
+            hash,
+          ],
+        );
       }
 
       logger.info('Seed data inserted successfully');

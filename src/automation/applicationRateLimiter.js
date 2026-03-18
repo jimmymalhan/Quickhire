@@ -143,7 +143,7 @@ class ApplicationRateLimiter {
 
   getWaitTime(company) {
     const check = this.canSubmit(company);
-    return check.allowed ? 0 : (check.retryAfterMs || 0);
+    return check.allowed ? 0 : check.retryAfterMs || 0;
   }
 
   reset() {

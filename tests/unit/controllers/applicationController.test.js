@@ -266,9 +266,7 @@ describe('applicationController', () => {
         { id: 'j2', title: 'Engineer', company: 'B' },
       ];
       Job.search.mockResolvedValue({ jobs, total: 2, page: 1, limit: 200 });
-      matchJobsForUser.mockReturnValue(
-        jobs.map((j) => ({ job: j, match: { score: 85 } })),
-      );
+      matchJobsForUser.mockReturnValue(jobs.map((j) => ({ job: j, match: { score: 85 } })));
       query.mockResolvedValue({ rows: [] });
       submitApplication
         .mockResolvedValueOnce({ id: 'app-1' })
@@ -291,9 +289,7 @@ describe('applicationController', () => {
         company: 'Co' + i,
       }));
       Job.search.mockResolvedValue({ jobs, total: 10, page: 1, limit: 200 });
-      matchJobsForUser.mockReturnValue(
-        jobs.map((j) => ({ job: j, match: { score: 90 } })),
-      );
+      matchJobsForUser.mockReturnValue(jobs.map((j) => ({ job: j, match: { score: 90 } })));
       query.mockResolvedValue({ rows: [] });
       submitApplication.mockResolvedValue({ id: 'app-x' });
       req.body = { max_applications: 3 };

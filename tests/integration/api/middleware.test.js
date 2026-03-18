@@ -35,9 +35,7 @@ describe('Integration - Middleware Stack', () => {
 
   describe('CORS', () => {
     test('allows requests from configured origin', async () => {
-      const res = await request(app)
-        .get('/')
-        .set('Origin', 'http://localhost:3000');
+      const res = await request(app).get('/').set('Origin', 'http://localhost:3000');
       expect(res.headers['access-control-allow-origin']).toBe('http://localhost:3000');
     });
 
@@ -71,9 +69,7 @@ describe('Integration - Middleware Stack', () => {
 
   describe('Compression', () => {
     test('compresses responses when Accept-Encoding is set', async () => {
-      const res = await request(app)
-        .get('/')
-        .set('Accept-Encoding', 'gzip');
+      const res = await request(app).get('/').set('Accept-Encoding', 'gzip');
       // Supertest may decompress, but the header should indicate it was compressed
       expect(res.status).toBe(200);
     });

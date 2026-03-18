@@ -1,4 +1,9 @@
-const { submitFeedback, submitNPS, voteFeature, listFeatureRequests } = require('../../../../src/api/controllers/feedbackController');
+const {
+  submitFeedback,
+  submitNPS,
+  voteFeature,
+  listFeatureRequests,
+} = require('../../../../src/api/controllers/feedbackController');
 
 describe('feedbackController', () => {
   let req, res;
@@ -22,9 +27,7 @@ describe('feedbackController', () => {
 
       await submitFeedback(req, res);
       expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'success' })
-      );
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ status: 'success' }));
     });
 
     it('returns 400 when category missing', async () => {
@@ -155,7 +158,7 @@ describe('feedbackController', () => {
       expect(res.json).toHaveBeenCalledWith(
         expect.objectContaining({
           data: expect.objectContaining({ feature_id: 'feature-1' }),
-        })
+        }),
       );
     });
   });

@@ -77,15 +77,9 @@ describe('runtimeController', () => {
 
     await streamRuntimeProgress(streamReq, streamRes);
 
-    expect(streamRes.setHeader).toHaveBeenCalledWith(
-      'Content-Type',
-      'text/event-stream',
-    );
+    expect(streamRes.setHeader).toHaveBeenCalledWith('Content-Type', 'text/event-stream');
     expect(streamRes.setHeader).toHaveBeenCalledWith('Cache-Control', 'no-cache');
-    expect(streamRes.setHeader).toHaveBeenCalledWith(
-      'Connection',
-      'keep-alive',
-    );
+    expect(streamRes.setHeader).toHaveBeenCalledWith('Connection', 'keep-alive');
     expect(streamRes.write).toHaveBeenCalledWith('event: progress\n');
     expect(streamRes.write.mock.calls[1][0]).toContain('local-agent-runtime');
     expect(setIntervalSpy).toHaveBeenCalled();

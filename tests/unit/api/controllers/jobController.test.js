@@ -44,7 +44,12 @@ jest.mock('../../../../src/utils/errorCodes', () => {
   };
 });
 
-const { searchJobs, getJobById, triggerJobScrape, getRecommendations } = require('../../../../src/api/controllers/jobController');
+const {
+  searchJobs,
+  getJobById,
+  triggerJobScrape,
+  getRecommendations,
+} = require('../../../../src/api/controllers/jobController');
 const Job = require('../../../../src/database/models/Job');
 const UserPreference = require('../../../../src/database/models/UserPreference');
 const cache = require('../../../../src/utils/cache');
@@ -81,7 +86,7 @@ describe('jobController', () => {
       await searchJobs(req, res, next);
       expect(Job.search).toHaveBeenCalled();
       expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'success', code: 200 })
+        expect.objectContaining({ status: 'success', code: 200 }),
       );
     });
 
@@ -105,7 +110,7 @@ describe('jobController', () => {
           location: 'NYC',
           salaryMin: 100000,
           jobLevel: 'mid',
-        })
+        }),
       );
     });
 
@@ -114,9 +119,7 @@ describe('jobController', () => {
       Job.search.mockResolvedValue({ jobs: [], total: 0, page: 1, limit: 20 });
 
       await searchJobs(req, res, next);
-      expect(Job.search).toHaveBeenCalledWith(
-        expect.objectContaining({ page: 1, limit: 20 })
-      );
+      expect(Job.search).toHaveBeenCalledWith(expect.objectContaining({ page: 1, limit: 20 }));
     });
 
     it('clamps page minimum to 1', async () => {
@@ -125,9 +128,7 @@ describe('jobController', () => {
       Job.search.mockResolvedValue({ jobs: [], total: 0, page: 1, limit: 20 });
 
       await searchJobs(req, res, next);
-      expect(Job.search).toHaveBeenCalledWith(
-        expect.objectContaining({ page: 1 })
-      );
+      expect(Job.search).toHaveBeenCalledWith(expect.objectContaining({ page: 1 }));
     });
 
     it('clamps limit to max 100', async () => {
@@ -136,9 +137,7 @@ describe('jobController', () => {
       Job.search.mockResolvedValue({ jobs: [], total: 0, page: 1, limit: 100 });
 
       await searchJobs(req, res, next);
-      expect(Job.search).toHaveBeenCalledWith(
-        expect.objectContaining({ limit: 100 })
-      );
+      expect(Job.search).toHaveBeenCalledWith(expect.objectContaining({ limit: 100 }));
     });
 
     it('includes pagination meta in response', async () => {
@@ -176,9 +175,7 @@ describe('jobController', () => {
 
       await getJobById(req, res, next);
       expect(Job.findById).toHaveBeenCalledWith('1');
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'success' })
-      );
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ status: 'success' }));
     });
 
     it('caches fetched job', async () => {
@@ -196,9 +193,7 @@ describe('jobController', () => {
       req.params = { id: 'nonexistent' };
 
       await getJobById(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
 
     it('calls next on database error', async () => {
@@ -218,11 +213,9 @@ describe('jobController', () => {
       await triggerJobScrape(req, res, next);
       expect(triggerScrape).toHaveBeenCalledWith(
         expect.objectContaining({ role: 'Engineer', location: 'NYC' }),
-        'user-1'
+        'user-1',
       );
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({ status: 'success' })
-      );
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ status: 'success' }));
     });
 
     it('calls next on error', async () => {
@@ -237,7 +230,12 @@ describe('jobController', () => {
     it('returns matched jobs sorted by score', async () => {
       cache.get.mockResolvedValue(null);
       UserPreference.findByUserId.mockResolvedValue({ target_roles: ['Engineer'] });
-      Job.search.mockResolvedValue({ jobs: [{ id: 1, title: 'Engineer' }], total: 1, page: 1, limit: 200 });
+      Job.search.mockResolvedValue({
+        jobs: [{ id: 1, title: 'Engineer' }],
+        total: 1,
+        page: 1,
+        limit: 200,
+      });
       matchJobsForUser.mockReturnValue([
         { job: { id: 1, title: 'Engineer' }, match: { score: 85, reason: 'Good match' } },
       ]);
@@ -246,10 +244,8 @@ describe('jobController', () => {
       expect(res.json).toHaveBeenCalledWith(
         expect.objectContaining({
           status: 'success',
-          data: expect.arrayContaining([
-            expect.objectContaining({ matchScore: 85 }),
-          ]),
-        })
+          data: expect.arrayContaining([expect.objectContaining({ matchScore: 85 })]),
+        }),
       );
     });
 
@@ -258,19 +254,12 @@ describe('jobController', () => {
       UserPreference.findByUserId.mockResolvedValue(null);
 
       await getRecommendations(req, res, next);
-      expect(next).toHaveBeenCalledWith(
-        expect.objectContaining({ code: 'NOT_FOUND' })
-      );
+      expect(next).toHaveBeenCalledWith(expect.objectContaining({ code: 'NOT_FOUND' }));
     });
 
     it('returns cached recommendations', async () => {
       const cached = JSON.stringify({ status: 'success', data: [] });
       UserPreference.findByUserId.mockResolvedValue({ target_roles: ['Engineer'] });
-      cache.get
-        .mockResolvedValueOnce(null) // First call won't match cache key
-        .mockResolvedValue(cached);
-      // The cache key includes user ID, so the second get call for recommendations will hit
-      // We need to mock properly for the recommendation cache key
       cache.get.mockResolvedValue(cached);
 
       await getRecommendations(req, res, next);

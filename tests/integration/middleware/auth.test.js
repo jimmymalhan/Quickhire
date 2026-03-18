@@ -80,7 +80,7 @@ describe('Integration - Auth Middleware', () => {
     const token = jwt.sign(
       { userId: 'user-123' },
       secret,
-      { expiresIn: '0s' } // expires immediately
+      { expiresIn: '0s' }, // expires immediately
     );
 
     // Small delay to ensure token is expired

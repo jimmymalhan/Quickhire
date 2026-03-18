@@ -60,11 +60,7 @@ describe('E2E Flow - Service Health', () => {
 // ============================================================
 describe('E2E Flow - Error Handling', () => {
   test('navigating to non-existent pages returns error status', async () => {
-    const routes = [
-      '/api/nonexistent',
-      '/completely-unknown',
-      '/api/unknown-endpoint',
-    ];
+    const routes = ['/api/nonexistent', '/completely-unknown', '/api/unknown-endpoint'];
 
     for (const route of routes) {
       const res = await request(app).get(route);
@@ -101,9 +97,7 @@ describe('E2E Flow - Security Headers', () => {
   });
 
   test('CORS headers set for configured origin', async () => {
-    const res = await request(app)
-      .get('/')
-      .set('Origin', 'http://localhost:3000');
+    const res = await request(app).get('/').set('Origin', 'http://localhost:3000');
 
     expect(res.headers['access-control-allow-origin']).toBe('http://localhost:3000');
     expect(res.headers['access-control-allow-credentials']).toBe('true');
@@ -187,9 +181,7 @@ describe('E2E Flow - Request Body Handling', () => {
 // ============================================================
 describe('E2E Flow - Compression', () => {
   test('responses are compressed when client supports it', async () => {
-    const res = await request(app)
-      .get('/')
-      .set('Accept-Encoding', 'gzip, deflate');
+    const res = await request(app).get('/').set('Accept-Encoding', 'gzip, deflate');
 
     expect(res.status).toBe(200);
     // Supertest decompresses automatically, but the response was sent compressed

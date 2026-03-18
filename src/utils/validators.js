@@ -13,7 +13,9 @@ const URL_REGEX = /^https?:\/\/.+/;
  * @returns {boolean}
  */
 function isValidEmail(email) {
-  if (!email || typeof email !== 'string') {return false;}
+  if (!email || typeof email !== 'string') {
+    return false;
+  }
   return EMAIL_REGEX.test(email.trim());
 }
 
@@ -23,7 +25,9 @@ function isValidEmail(email) {
  * @returns {boolean}
  */
 function isValidUUID(uuid) {
-  if (!uuid || typeof uuid !== 'string') {return false;}
+  if (!uuid || typeof uuid !== 'string') {
+    return false;
+  }
   return UUID_REGEX.test(uuid);
 }
 
@@ -33,7 +37,9 @@ function isValidUUID(uuid) {
  * @returns {boolean}
  */
 function isValidURL(url) {
-  if (!url || typeof url !== 'string') {return false;}
+  if (!url || typeof url !== 'string') {
+    return false;
+  }
   return URL_REGEX.test(url);
 }
 
@@ -88,7 +94,9 @@ function validatePagination(page, limit) {
  * @returns {string}
  */
 function sanitizeString(input) {
-  if (!input || typeof input !== 'string') {return '';}
+  if (!input || typeof input !== 'string') {
+    return '';
+  }
   return input
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -130,7 +138,7 @@ function validateRequiredFields(obj, requiredFields) {
   }
 
   const missing = requiredFields.filter(
-    (field) => obj[field] === undefined || obj[field] === null || obj[field] === ''
+    (field) => obj[field] === undefined || obj[field] === null || obj[field] === '',
   );
 
   return { valid: missing.length === 0, missing };
@@ -146,12 +154,24 @@ function validatePasswordStrength(password) {
   if (!password || typeof password !== 'string') {
     return { valid: false, errors: ['Password is required'] };
   }
-  if (password.length < 8) {errors.push('Password must be at least 8 characters');}
-  if (password.length > 128) {errors.push('Password must be at most 128 characters');}
-  if (!/[A-Z]/.test(password)) {errors.push('Password must contain at least one uppercase letter');}
-  if (!/[a-z]/.test(password)) {errors.push('Password must contain at least one lowercase letter');}
-  if (!/[0-9]/.test(password)) {errors.push('Password must contain at least one digit');}
-  if (!/[^A-Za-z0-9]/.test(password)) {errors.push('Password must contain at least one special character');}
+  if (password.length < 8) {
+    errors.push('Password must be at least 8 characters');
+  }
+  if (password.length > 128) {
+    errors.push('Password must be at most 128 characters');
+  }
+  if (!/[A-Z]/.test(password)) {
+    errors.push('Password must contain at least one uppercase letter');
+  }
+  if (!/[a-z]/.test(password)) {
+    errors.push('Password must contain at least one lowercase letter');
+  }
+  if (!/[0-9]/.test(password)) {
+    errors.push('Password must contain at least one digit');
+  }
+  if (!/[^A-Za-z0-9]/.test(password)) {
+    errors.push('Password must contain at least one special character');
+  }
 
   return { valid: errors.length === 0, errors };
 }

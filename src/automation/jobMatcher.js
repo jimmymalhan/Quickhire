@@ -23,8 +23,7 @@ const calculateMatchScore = (job, preferences) => {
     const locationMatch = preferences.target_locations.some(
       (loc) =>
         job.location &&
-        (job.location.toLowerCase().includes(loc.toLowerCase()) ||
-          loc.toLowerCase() === 'remote'),
+        (job.location.toLowerCase().includes(loc.toLowerCase()) || loc.toLowerCase() === 'remote'),
     );
     if (locationMatch) {
       score += 20;

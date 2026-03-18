@@ -129,9 +129,10 @@ const submitApplication = async (userId, jobId, options = {}) => {
   });
 
   // In mock mode, provide default profile data if none supplied
-  const effectiveProfile = config.features.mockLinkedIn && !userProfile.firstName
-    ? { firstName: 'Test', lastName: 'User', email: 'test@mock.example.com', ...userProfile }
-    : userProfile;
+  const effectiveProfile =
+    config.features.mockLinkedIn && !userProfile.firstName
+      ? { firstName: 'Test', lastName: 'User', email: 'test@mock.example.com', ...userProfile }
+      : userProfile;
 
   while (attempts < maxAttempts) {
     attempts++;
@@ -228,7 +229,7 @@ const submitBatch = async (userId, applications, options = {}) => {
     // Wait for rate limiter
     const waitTime = limiter.getWaitTime(app.company);
     if (waitTime > 0) {
-      await new Promise(resolve => setTimeout(resolve, waitTime));
+      await new Promise((resolve) => setTimeout(resolve, waitTime));
     }
 
     try {

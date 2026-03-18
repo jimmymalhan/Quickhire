@@ -70,7 +70,9 @@ function formatPagination(page, limit, total) {
  * @returns {object}
  */
 function formatUserResponse(user) {
-  if (!user) {return null;}
+  if (!user) {
+    return null;
+  }
   return {
     id: user.id,
     email: user.email,
@@ -87,7 +89,9 @@ function formatUserResponse(user) {
  * @returns {object}
  */
 function formatJobResponse(job) {
-  if (!job) {return null;}
+  if (!job) {
+    return null;
+  }
   return {
     id: job.id,
     linkedinJobId: job.linkedin_job_id || job.linkedinJobId,
@@ -110,7 +114,9 @@ function formatJobResponse(job) {
  * @returns {object}
  */
 function formatApplicationResponse(application) {
-  if (!application) {return null;}
+  if (!application) {
+    return null;
+  }
   return {
     id: application.id,
     userId: application.user_id || application.userId,
@@ -131,9 +137,15 @@ function formatApplicationResponse(application) {
  */
 function formatSalaryRange(min, max) {
   const fmt = (n) => `$${n.toLocaleString('en-US')}`;
-  if (min && max) {return `${fmt(min)} - ${fmt(max)}`;}
-  if (min) {return `${fmt(min)}+`;}
-  if (max) {return `Up to ${fmt(max)}`;}
+  if (min && max) {
+    return `${fmt(min)} - ${fmt(max)}`;
+  }
+  if (min) {
+    return `${fmt(min)}+`;
+  }
+  if (max) {
+    return `Up to ${fmt(max)}`;
+  }
   return 'Not specified';
 }
 
@@ -143,9 +155,13 @@ function formatSalaryRange(min, max) {
  * @returns {string}
  */
 function formatDate(date) {
-  if (!date) {return null;}
+  if (!date) {
+    return null;
+  }
   const d = date instanceof Date ? date : new Date(date);
-  if (isNaN(d.getTime())) {return null;}
+  if (isNaN(d.getTime())) {
+    return null;
+  }
   return d.toISOString();
 }
 
@@ -155,9 +171,13 @@ function formatDate(date) {
  * @returns {string}
  */
 function formatRelativeTime(date) {
-  if (!date) {return '';}
+  if (!date) {
+    return '';
+  }
   const d = date instanceof Date ? date : new Date(date);
-  if (isNaN(d.getTime())) {return '';}
+  if (isNaN(d.getTime())) {
+    return '';
+  }
 
   const now = new Date();
   const diffMs = now - d;
@@ -166,10 +186,18 @@ function formatRelativeTime(date) {
   const diffHr = Math.floor(diffMin / 60);
   const diffDay = Math.floor(diffHr / 24);
 
-  if (diffSec < 60) {return 'just now';}
-  if (diffMin < 60) {return `${diffMin} minute${diffMin > 1 ? 's' : ''} ago`;}
-  if (diffHr < 24) {return `${diffHr} hour${diffHr > 1 ? 's' : ''} ago`;}
-  if (diffDay < 30) {return `${diffDay} day${diffDay > 1 ? 's' : ''} ago`;}
+  if (diffSec < 60) {
+    return 'just now';
+  }
+  if (diffMin < 60) {
+    return `${diffMin} minute${diffMin > 1 ? 's' : ''} ago`;
+  }
+  if (diffHr < 24) {
+    return `${diffHr} hour${diffHr > 1 ? 's' : ''} ago`;
+  }
+  if (diffDay < 30) {
+    return `${diffDay} day${diffDay > 1 ? 's' : ''} ago`;
+  }
   return d.toLocaleDateString();
 }
 

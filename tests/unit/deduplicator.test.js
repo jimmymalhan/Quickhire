@@ -48,7 +48,9 @@ describe('Deduplicator', () => {
 
   describe('isDuplicate / markSeen', () => {
     it('should not detect unseen jobs as duplicates', () => {
-      expect(dedup.isDuplicate({ title: 'A', company: 'B', location: 'C', hash: 'abc123' })).toBe(false);
+      expect(dedup.isDuplicate({ title: 'A', company: 'B', location: 'C', hash: 'abc123' })).toBe(
+        false,
+      );
     });
 
     it('should detect seen jobs as duplicates', () => {
@@ -125,7 +127,11 @@ describe('Deduplicator', () => {
     it('should handle large batches efficiently', () => {
       const jobs = [];
       for (let i = 0; i < 1000; i++) {
-        jobs.push({ title: `Job ${i % 100}`, company: `Company ${i % 50}`, location: `City ${i % 20}` });
+        jobs.push({
+          title: `Job ${i % 100}`,
+          company: `Company ${i % 50}`,
+          location: `City ${i % 20}`,
+        });
       }
       const start = Date.now();
       const unique = dedup.deduplicateBatch(jobs);
@@ -158,9 +164,7 @@ describe('Deduplicator', () => {
     });
 
     it('should return empty when all exist', () => {
-      const jobs = [
-        { title: 'A', company: 'B', hash: 'h1' },
-      ];
+      const jobs = [{ title: 'A', company: 'B', hash: 'h1' }];
       const newJobs = dedup.deduplicateAgainstDb(jobs, ['h1']);
       expect(newJobs.length).toBe(0);
     });

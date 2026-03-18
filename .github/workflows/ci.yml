@@ -39,7 +39,7 @@ jobs:
         working-directory: frontend
         run: |
           npm ci
-          npm run lint 2>/dev/null || true
+          npm run lint
 
   test-unit:
     name: Unit Tests
@@ -142,14 +142,8 @@ jobs:
         working-directory: frontend
         run: |
           npm ci
-          npm test -- --coverage --watchAll=false
-
-      - name: Upload frontend coverage
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-frontend
-          path: frontend/coverage/
-          retention-days: 7
+          npm run build
+          npm test
 
   security-scan:
     name: Security Scan

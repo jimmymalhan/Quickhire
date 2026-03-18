@@ -46,7 +46,7 @@ describe('errorHandler middleware', () => {
           code: 'NOT_FOUND',
           message: 'Resource not found',
         }),
-      })
+      }),
     );
   });
 
@@ -67,7 +67,9 @@ describe('errorHandler middleware', () => {
   });
 
   it('includes details for AppError', () => {
-    const err = new AppError({ code: 'VALIDATION_ERROR', status: 400 }, 'Invalid', ['field1 required']);
+    const err = new AppError({ code: 'VALIDATION_ERROR', status: 400 }, 'Invalid', [
+      'field1 required',
+    ]);
 
     errorHandler(err, req, res, next);
     const response = res.json.mock.calls[0][0];
@@ -86,7 +88,7 @@ describe('errorHandler middleware', () => {
         error: expect.objectContaining({
           code: 'INTERNAL_ERROR',
         }),
-      })
+      }),
     );
   });
 

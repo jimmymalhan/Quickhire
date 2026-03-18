@@ -44,7 +44,7 @@ describe('Integration - Error Handler Middleware', () => {
           code: 'NOT_FOUND',
           message: 'User not found',
         }),
-      })
+      }),
     );
   });
 
@@ -93,7 +93,7 @@ describe('Integration - Error Handler Middleware', () => {
         error: expect.objectContaining({
           code: 'INTERNAL_ERROR',
         }),
-      })
+      }),
     );
   });
 
