@@ -1,0 +1,7 @@
+{
+  "updatedAt": "2026-03-18T21:42:05Z",
+  "pr": 3,
+  "state": "OPEN",
+  "checks": { "passing": 0, "pending": 0, "failing": 0 },
+  "mergeReady": true
+}

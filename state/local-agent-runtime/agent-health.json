@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-03-18T21:17:54.805Z",
+  "checkedAt": "2026-03-18T22:00:26.358Z",
   "agents": [
     {
       "id": "test-agent",
@@ -9,7 +9,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.352Z"
     },
     {
       "id": "lint-agent",
@@ -19,7 +19,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.353Z"
     },
     {
       "id": "build-agent",
@@ -29,7 +29,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.353Z"
     },
     {
       "id": "db-agent",
@@ -39,7 +39,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.353Z"
     },
     {
       "id": "health-agent",
@@ -49,7 +49,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.353Z"
     },
     {
       "id": "git-agent",
@@ -59,7 +59,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.353Z"
     },
     {
       "id": "scale-agent",
@@ -69,7 +69,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.353Z"
     },
     {
       "id": "supervisor-agent",
@@ -79,7 +79,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.353Z"
     },
     {
       "id": "code-writer-agent",
@@ -89,7 +89,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.353Z"
     },
     {
       "id": "backlog-agent",
@@ -99,7 +99,7 @@
       "recentSuccesses": 0,
       "totalRecentRuns": 0,
       "minutesSinceSuccess": null,
-      "checkedAt": "2026-03-18T21:17:54.805Z"
+      "checkedAt": "2026-03-18T22:00:26.357Z"
     }
   ]
 }

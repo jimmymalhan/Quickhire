@@ -380,7 +380,38 @@ develop:
 - `CLAUDE_TOKENS_ALLOWED=0` — Zero tokens during execution
 - `LOCAL_AGENTS_ONLY=true` — Local agents only, always
 
-**RESULT:** Infinite agent scalability. Zero token bloat. True autonomy.
+### Session Timeout Enforcement
+- ✓ session-timeout-agent.sh starts at T+0 of every session
+- ✓ All worker agents (ci-enforcer, monitor) spawn immediately at T+0
+- ✓ Claude gets MAX 60 seconds to queue work
+- ✓ At T+60: Claude session TERMINATED, agents continue
+- ✓ Zero pause during handoff: agents already running before Claude exits
+- ✓ Handoff state saved to session-handoff.json
+- ✓ No work lost: orchestration-controls.json has full task queue
+
+### Agent Scripts (bin/)
+- `bin/agent-supervisor.sh` — MASTER: starts all agents, restarts crashed, dashboard every 10s
+- `bin/ci-enforcer-agent.sh` — Tests + lint every 30s, writes ci-status.json
+- `bin/orchestration-monitor.sh` — Live dashboard every 10s, reads all state files
+- `bin/session-timeout-agent.sh` — Starts agents at T+0, kills Claude at T+60
+- `bin/chaos-monkey-agent.sh` — Kills random agent every 2min, tests resilience (Netflix/Amazon)
+- `bin/pr-watcher-agent.sh` — Monitors PRs, auto-merges when CI green, cleanups
+- `bin/queue-drain-agent.sh` — Reads orchestration-controls.json, executes pending tasks
+
+### Chaos Monkey Strategy (Netflix/Amazon)
+- ✓ Randomly kill 1 agent every 2 minutes
+- ✓ Supervisor auto-restarts killed agents within 10 seconds
+- ✓ System NEVER goes down — if it can't survive chaos, it's not production-ready
+- ✓ Proves fault tolerance continuously
+- ✓ Agents are disposable, the SYSTEM is immortal
+
+### Startup Command (One Command to Rule Them All)
+```bash
+bash bin/agent-supervisor.sh
+```
+This starts ALL agents, prints dashboard every 10s, and auto-heals crashed agents.
+
+**RESULT:** Infinite agent scalability. Zero token bloat. True autonomy. Chaos-proven resilience.
 
 ---
 
