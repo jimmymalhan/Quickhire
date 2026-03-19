@@ -6,8 +6,8 @@
     "eta_hrs": 15,
     "br": "feat/browser-extension",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-36",
+    "status": "ready",
+    "worker": "",
     "vote_score": 598,
     "top_voters": [
       "Sequoia Partner(+15)",
@@ -24,8 +24,8 @@
     "eta_hrs": 10,
     "br": "feat/white-label-api",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-42",
+    "status": "ready",
+    "worker": "",
     "vote_score": 574,
     "top_voters": [
       "Sequoia Partner(+15)",
@@ -42,8 +42,8 @@
     "eta_hrs": 20,
     "br": "feat/mobile-app",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-49",
+    "status": "ready",
+    "worker": "",
     "vote_score": 562,
     "top_voters": [
       "Sequoia Partner(+15)",
@@ -78,8 +78,8 @@
     "eta_hrs": 8,
     "br": "feat/recruiter-crm",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-57",
+    "status": "ready",
+    "worker": "",
     "vote_score": 540,
     "top_voters": [
       "a16z Partner(+15)",
@@ -96,8 +96,8 @@
     "eta_hrs": 4,
     "br": "feat/recruiter-tracker",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-72",
+    "status": "ready",
+    "worker": "",
     "vote_score": 500
   },
   {
@@ -107,8 +107,8 @@
     "eta_hrs": 12,
     "br": "feat/browser-ext",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-74",
+    "status": "ready",
+    "worker": "",
     "vote_score": 500
   },
   {
@@ -136,8 +136,8 @@
     "eta_hrs": 6,
     "br": "feat/referral-program",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-38",
+    "status": "ready",
+    "worker": "",
     "vote_score": 83,
     "top_voters": [
       "Sequoia Partner(+30)",
@@ -154,8 +154,8 @@
     "eta_hrs": 4,
     "br": "feat/zapier-integration",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-39",
+    "status": "ready",
+    "worker": "",
     "vote_score": 81,
     "top_voters": [
       "a16z Partner(+15)",
@@ -298,8 +298,8 @@
     "eta_hrs": 12,
     "br": "feat/ats-integration",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-48",
+    "status": "ready",
+    "worker": "",
     "vote_score": 62,
     "top_voters": [
       "Strategic VC(+36)",
@@ -316,8 +316,8 @@
     "eta_hrs": 15,
     "br": "feat/multi-tenant",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-50",
+    "status": "ready",
+    "worker": "",
     "vote_score": 58,
     "top_voters": [
       "a16z Partner(+15)",
@@ -406,8 +406,8 @@
     "eta_hrs": 8,
     "br": "feat/culture-nlp",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-56",
+    "status": "ready",
+    "worker": "",
     "vote_score": 41,
     "top_voters": [
       "a16z Partner(+15)",
@@ -418,26 +418,8 @@
     ]
   },
   {
-    "id": 39,
-    "p": 25,
-    "title": "Feat: A/B test framework for apply message variants",
-    "eta_hrs": 4,
-    "br": "feat/ab-framework",
-    "team": "quality",
-    "status": "ready",
-    "worker": "",
-    "vote_score": 35,
-    "top_voters": [
-      "YC Partner(+12)",
-      "VP Product(+1)",
-      "PM(+10)",
-      "Data Scientist(+8)",
-      "TechCorp (500 eng)(+4)"
-    ]
-  },
-  {
     "id": 38,
-    "p": 26,
+    "p": 25,
     "title": "Feat: SSO / SAML enterprise login",
     "eta_hrs": 6,
     "br": "feat/enterprise-sso",
@@ -454,14 +436,32 @@
     ]
   },
   {
+    "id": 39,
+    "p": 26,
+    "title": "Feat: A/B test framework for apply message variants",
+    "eta_hrs": 4,
+    "br": "feat/ab-framework",
+    "team": "quality",
+    "status": "ready",
+    "worker": "",
+    "vote_score": 35,
+    "top_voters": [
+      "YC Partner(+12)",
+      "VP Product(+1)",
+      "PM(+10)",
+      "Data Scientist(+8)",
+      "TechCorp (500 eng)(+4)"
+    ]
+  },
+  {
     "id": 40,
     "p": 27,
     "title": "Feat: semantic job matching v2 (sentence transformers)",
     "eta_hrs": 10,
     "br": "feat/semantic-match-v2",
     "team": "product",
-    "status": "ready",
-    "worker": "",
+    "status": "in-progress",
+    "worker": "worker-60",
     "vote_score": 32,
     "top_voters": [
       "a16z Partner(+15)",
@@ -470,12 +470,12 @@
     ]
   },
   {
-    "id": 41,
+    "id": 42,
     "p": 28,
-    "title": "Feat: audit log for compliance (SOC2 readiness)",
-    "eta_hrs": 8,
-    "br": "feat/audit-log",
-    "team": "platform",
+    "title": "Test: security pen test (OWASP top 10 scan)",
+    "eta_hrs": 6,
+    "br": "test/security-pentest",
+    "team": "quality",
     "status": "ready",
     "worker": "",
     "vote_score": 31,
@@ -487,12 +487,12 @@
     ]
   },
   {
-    "id": 42,
+    "id": 41,
     "p": 29,
-    "title": "Test: security pen test (OWASP top 10 scan)",
-    "eta_hrs": 6,
-    "br": "test/security-pentest",
-    "team": "quality",
+    "title": "Feat: audit log for compliance (SOC2 readiness)",
+    "eta_hrs": 8,
+    "br": "feat/audit-log",
+    "team": "platform",
     "status": "ready",
     "worker": "",
     "vote_score": 31,
@@ -510,7 +510,8 @@
     "eta": 2,
     "br": "test/e2e-apply",
     "team": "quality",
-    "status": "ready"
+    "status": "in-progress",
+    "worker": "worker-35"
   },
   {
     "id": 6,
@@ -519,16 +520,18 @@
     "eta": 5,
     "br": "feat/job-matching",
     "team": "product",
-    "status": "ready"
+    "status": "in-progress",
+    "worker": "worker-26"
   },
   {
-    "id": 9,
+    "id": 12,
     "p": 32,
-    "title": "Feat: email notification on apply",
-    "eta": 3,
-    "br": "feat/email-notify",
+    "title": "Feat: salary range filter",
+    "eta": 2,
+    "br": "feat/salary-filter",
     "team": "product",
-    "status": "ready"
+    "status": "in-progress",
+    "worker": "worker-32"
   },
   {
     "id": 2,
@@ -549,44 +552,8 @@
     "status": "ready"
   },
   {
-    "id": 8,
-    "p": 35,
-    "title": "Fix: API error handlers",
-    "eta": 2,
-    "br": "fix/api-errors",
-    "team": "quality",
-    "status": "ready"
-  },
-  {
-    "id": 10,
-    "p": 36,
-    "title": "Feat: auto-retry failed applications",
-    "eta": 4,
-    "br": "feat/auto-retry",
-    "team": "product",
-    "status": "ready"
-  },
-  {
-    "id": 12,
-    "p": 37,
-    "title": "Feat: salary range filter",
-    "eta": 2,
-    "br": "feat/salary-filter",
-    "team": "product",
-    "status": "ready"
-  },
-  {
-    "id": 1,
-    "p": 38,
-    "title": "Fix: untrack .claude/ CLAUDE.md from git",
-    "eta": 0.5,
-    "br": "fix/untrack-ai-rules",
-    "team": "platform",
-    "status": "ready"
-  },
-  {
     "id": 4,
-    "p": 39,
+    "p": 35,
     "title": "Feat: rate limiting + session mgmt",
     "eta": 4,
     "br": "feat/rate-limiting",
@@ -594,17 +561,8 @@
     "status": "ready"
   },
   {
-    "id": 5,
-    "p": 40,
-    "title": "Fix: cleanup all stale branches",
-    "eta": 0.5,
-    "br": "fix/branch-cleanup",
-    "team": "platform",
-    "status": "ready"
-  },
-  {
     "id": 7,
-    "p": 41,
+    "p": 36,
     "title": "Feat: application status tracker",
     "eta": 3,
     "br": "feat/app-tracker",
@@ -612,8 +570,62 @@
     "status": "ready"
   },
   {
-    "id": 11,
+    "id": 9,
+    "p": 37,
+    "title": "Feat: email notification on apply",
+    "eta": 3,
+    "br": "feat/email-notify",
+    "team": "product",
+    "status": "ready"
+  },
+  {
+    "id": 10,
+    "p": 38,
+    "title": "Feat: auto-retry failed applications",
+    "eta": 4,
+    "br": "feat/auto-retry",
+    "team": "product",
+    "status": "ready"
+  },
+  {
+    "id": 14,
+    "p": 39,
+    "title": "Release: tag v1.1.0 + CHANGELOG",
+    "eta": 1,
+    "br": "release/v1.1.0",
+    "team": "platform",
+    "status": "ready"
+  },
+  {
+    "id": 1,
+    "p": 40,
+    "title": "Fix: untrack .claude/ CLAUDE.md from git",
+    "eta": 0.5,
+    "br": "fix/untrack-ai-rules",
+    "team": "platform",
+    "status": "ready"
+  },
+  {
+    "id": 5,
+    "p": 41,
+    "title": "Fix: cleanup all stale branches",
+    "eta": 0.5,
+    "br": "fix/branch-cleanup",
+    "team": "platform",
+    "status": "ready"
+  },
+  {
+    "id": 8,
     "p": 42,
+    "title": "Fix: API error handlers",
+    "eta": 2,
+    "br": "fix/api-errors",
+    "team": "quality",
+    "status": "ready"
+  },
+  {
+    "id": 11,
+    "p": 43,
     "title": "Feat: company blacklist/whitelist",
     "eta": 2,
     "br": "feat/company-filter",
@@ -622,19 +634,10 @@
   },
   {
     "id": 13,
-    "p": 43,
+    "p": 44,
     "title": "CI: block AI rules in GitHub Actions",
     "eta": 1,
     "br": "ci/block-ai-rules",
-    "team": "platform",
-    "status": "ready"
-  },
-  {
-    "id": 14,
-    "p": 44,
-    "title": "Release: tag v1.1.0 + CHANGELOG",
-    "eta": 1,
-    "br": "release/v1.1.0",
     "team": "platform",
     "status": "ready"
   },

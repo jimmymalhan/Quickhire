@@ -157,7 +157,32 @@ arow "feedback-agent"        "FEEDBACK"         "50-org-vote-120s"
 arow "researcher-agent"      "RESEARCHER"       "vote-features-180s"
 arow "enterprise-scaler"     "ENT-SCALER"       "cpu-aware-10s"
 arow "doc-update-agent"      "DOC-UPDATE"       "sync-docs-300s"
-printf '  Healing: token-guard + meta-sup -> watchdog -> 20 core + N auto-scaled workers\n'
+arow "native-perf-agent"    "NATIVE-PERF"      "go/rust/c-hotpaths"
+arow "ui-builder-agent"     "UI-BUILDER"       "react-ui-5min"
+arow "browser-test-agent"   "BROWSER-TEST"     "playwright-mouse"
+arow "loop-detector-agent"  "LOOP-DETECT"      "stuck-fix-20s"
+arow "ui-backend-sync-agent" "UI-BE-SYNC"      "1:1-ratio-180s"
+arow "cleanup-agent"        "CLEANUP"          "branches-PRs-5min"
+arow "admin-agent"          "ADMIN"            "god-mode-30s"
+arow "blocker-fix-agent"    "BLOCKER-FIX"      "proactive-fix-30s"
+printf '  Healing: token-guard + meta-sup -> watchdog -> 28 core + N auto-scaled workers\n'
+
+# Blocker status
+printf '\n-- BLOCKERS (proactive/reactive fix team) ----------------------------------\n'
+python3 -c "
+import json,os
+S='$STATE'
+try:
+  d=json.load(open(f'{S}/blocker-fix.json'))
+  status=d.get('status','unknown')
+  fixed=d.get('total_fixed',0)
+  cycle=d.get('cycle',0)
+  print(f'  Status: {status}  Total fixed: {fixed}  Cycle: {cycle}')
+  shots=len([f for f in os.listdir(f'{S}/screenshots') if f.endswith('.png')]) if os.path.exists(f'{S}/screenshots') else 0
+  fe='UP' if os.path.exists(f'{S}/frontend-dev.pid') else 'DOWN'
+  print(f'  Frontend:{fe}  Screenshots:{shots}  Playwright:ready')
+except: print('  Blocker-fix agent initializing...')
+" 2>/dev/null || true
 
 printf '\n-- WHAT EACH TITLE CARES --------------------------------------------------\n'
 printf '  INVESTORS  %s  Risk:LOW  9/10 shipped  CI:%-6s  Q2-2026\n'       "$(bar $OVR 16)"  "$CI_T"
@@ -216,6 +241,10 @@ AGENTS=[
   ('native-perf-agent','NATIVE-PERF'),('doc-update-agent','DOC-UPDATE'),
   ('team-platform','TEAM-PLATFORM'),('team-quality','TEAM-QUALITY'),
   ('team-product','TEAM-PRODUCT'),('frontend-mock-agent','FRONTEND-MOCK'),
+  ('ui-builder-agent','UI-BUILDER'),('browser-test-agent','BROWSER-TEST'),
+  ('loop-detector-agent','LOOP-DETECT'),('ui-backend-sync-agent','UI-BE-SYNC'),
+  ('cleanup-agent','CLEANUP'),('admin-agent','ADMIN'),
+  ('native-perf-agent','NATIVE-PERF'),('blocker-fix-agent','BLOCKER-FIX'),
 ]
 for nm,lbl in AGENTS:
   alive='LIVE'

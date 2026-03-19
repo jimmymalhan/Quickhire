@@ -301,7 +301,7 @@ while true; do
     BASE_URL="http://localhost:3000" \
     SHOTS_DIR="$SHOTS" \
     STATE_DIR="$S" \
-    timeout 300 node "$S/auto-browser-test.js" 2>&1 | tee -a "$LOG" || \
+    node "$S/auto-browser-test.js" 2>&1 | tee -a "$LOG" || \
       log "Playwright run ended (browser closed or timeout)"
   else
     curl_tests

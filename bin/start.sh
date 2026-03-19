@@ -28,6 +28,21 @@ pkill -9 -f "orchestration-monitor.sh" 2>/dev/null||true
 pkill -9 -f "team-platform.sh"      2>/dev/null||true
 pkill -9 -f "team-quality.sh"       2>/dev/null||true
 pkill -9 -f "team-product.sh"       2>/dev/null||true
+pkill -9 -f "feedback-agent.sh"    2>/dev/null||true
+pkill -9 -f "researcher-agent.sh"  2>/dev/null||true
+pkill -9 -f "enterprise-scaler.sh" 2>/dev/null||true
+pkill -9 -f "native-perf-agent.sh" 2>/dev/null||true
+pkill -9 -f "ui-builder-agent.sh"  2>/dev/null||true
+pkill -9 -f "browser-test-agent.sh" 2>/dev/null||true
+pkill -9 -f "loop-detector-agent.sh" 2>/dev/null||true
+pkill -9 -f "ui-backend-sync-agent.sh" 2>/dev/null||true
+pkill -9 -f "cleanup-agent.sh"     2>/dev/null||true
+pkill -9 -f "admin-agent.sh"       2>/dev/null||true
+pkill -9 -f "engine.sh"            2>/dev/null||true
+pkill -9 -f "self-healer.sh"       2>/dev/null||true
+pkill -9 -f "doc-update-agent.sh"  2>/dev/null||true
+pkill -9 -f "frontend-mock-agent.sh" 2>/dev/null||true
+pkill -9 -f "scale-max.sh"         2>/dev/null||true
 rm -f "$STATE"/*.pid
 sleep 1
 
@@ -399,6 +414,9 @@ launch "ui-builder-agent"       "ui-builder-agent.sh"
 launch "browser-test-agent"     "browser-test-agent.sh"
 launch "loop-detector-agent"    "loop-detector-agent.sh"
 launch "ui-backend-sync-agent"  "ui-backend-sync-agent.sh"
+launch "cleanup-agent"          "cleanup-agent.sh"
+launch "admin-agent"            "admin-agent.sh"
+launch "blocker-fix-agent"      "blocker-fix-agent.sh"
 # Git author purge — background one-shot
 nohup bash "$BIN/git-purge.sh" >> "$STATE/git-purge.log" 2>&1 &
 
@@ -412,7 +430,7 @@ for i in $(seq 1 20); do
 
 echo ""
 echo "=================================================================="
-echo "  25 AGENTS — enterprise auto-scaler: MVP→100M users patterns — 3-layer healing — zero Claude tokens"
+echo "  26 AGENTS — enterprise auto-scaler: MVP→100M users patterns — 3-layer healing — zero Claude tokens"
 echo "=================================================================="
 echo "  Dashboard:  tail -f state/local-agent-runtime/company-fleet.log"
 echo "  Stop:       bash bin/stop.sh"
