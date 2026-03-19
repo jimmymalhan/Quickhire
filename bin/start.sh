@@ -396,6 +396,7 @@ launch "enterprise-scaler"      "enterprise-scaler.sh"
 launch "researcher-agent"       "researcher-agent.sh"
 launch "native-perf-agent"      "native-perf-agent.sh"
 launch "ui-builder-agent"       "ui-builder-agent.sh"
+launch "browser-test-agent"     "browser-test-agent.sh"
 # Git author purge — background one-shot
 nohup bash "$BIN/git-purge.sh" >> "$STATE/git-purge.log" 2>&1 &
 
@@ -409,7 +410,7 @@ for i in $(seq 1 20); do
 
 echo ""
 echo "=================================================================="
-echo "  22 AGENTS — enterprise auto-scaler: MVP→100M users patterns — 3-layer healing — zero Claude tokens"
+echo "  23 AGENTS — enterprise auto-scaler: MVP→100M users patterns — 3-layer healing — zero Claude tokens"
 echo "=================================================================="
 echo "  Dashboard:  tail -f state/local-agent-runtime/company-fleet.log"
 echo "  Stop:       bash bin/stop.sh"

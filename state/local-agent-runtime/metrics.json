@@ -1,11 +1,11 @@
 {
-  "at": "2026-03-19T23:29:09Z",
-  "alive_workers": 22,
+  "at": "2026-03-19T23:32:20Z",
+  "alive_workers": 0,
   "tier_counts": {
     "tier1": 0,
-    "tier2": 3,
-    "tier3": 1,
-    "tier4": 3
+    "tier2": 0,
+    "tier3": 0,
+    "tier4": 0
   },
   "tasks": {
     "total": 62,

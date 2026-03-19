@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-03-19T23:29:38Z",
+  "collected_at": "2026-03-19T23:32:21Z",
   "total_agents": 50,
   "teams": [
     "recruiters",
@@ -10,126 +10,126 @@
   ],
   "top_demanded": [
     {
-      "feature": "Rejection predictor",
-      "votes": 15,
+      "feature": "One-click apply",
+      "votes": 10,
       "priority": 1
-    },
-    {
-      "feature": "Resume optimizer",
-      "votes": 13,
-      "priority": 2
     },
     {
       "feature": "Follow-up email",
       "votes": 10,
+      "priority": 2
+    },
+    {
+      "feature": "Salary advisor",
+      "votes": 10,
       "priority": 3
     },
     {
-      "feature": "Job dedup",
+      "feature": "API errors",
       "votes": 10,
       "priority": 4
     },
     {
-      "feature": "LinkedIn scraper",
-      "votes": 9,
+      "feature": "Retry logic",
+      "votes": 10,
       "priority": 5
     },
     {
-      "feature": "Indeed scraper",
-      "votes": 9,
+      "feature": "K8s workers",
+      "votes": 10,
       "priority": 6
     },
     {
-      "feature": "API errors",
-      "votes": 9,
+      "feature": "One-click apply UI",
+      "votes": 10,
       "priority": 7
     },
     {
-      "feature": "OAuth LinkedIn",
-      "votes": 9,
+      "feature": "ML job scoring",
+      "votes": 10,
       "priority": 8
     },
     {
-      "feature": "ML job scoring",
+      "feature": "Glassdoor scraper",
       "votes": 9,
       "priority": 9
     },
     {
-      "feature": "Match scoring v2",
+      "feature": "Resume optimizer",
       "votes": 9,
       "priority": 10
     },
     {
-      "feature": "Skills gap",
-      "votes": 8,
+      "feature": "Interview prep",
+      "votes": 9,
       "priority": 11
     },
     {
-      "feature": "Docker scraper",
-      "votes": 8,
+      "feature": "Session mgmt",
+      "votes": 9,
       "priority": 12
     },
     {
-      "feature": "Grafana funnel",
-      "votes": 8,
+      "feature": "Salary negotiation",
+      "votes": 9,
       "priority": 13
     },
     {
-      "feature": "Salary negotiation",
-      "votes": 8,
+      "feature": "A/B test framework",
+      "votes": 9,
       "priority": 14
     },
     {
-      "feature": "Skills gap ML",
+      "feature": "Rejection predictor",
       "votes": 8,
       "priority": 15
     },
     {
-      "feature": "Funnel analytics",
+      "feature": "Form filler",
       "votes": 8,
       "priority": 16
     },
     {
-      "feature": "Company filter",
-      "votes": 7,
+      "feature": "Tracker dashboard",
+      "votes": 8,
       "priority": 17
     },
     {
-      "feature": "Auto-connect recruiters",
-      "votes": 7,
+      "feature": "ML scoring",
+      "votes": 8,
       "priority": 18
     },
     {
-      "feature": "Application tracker",
+      "feature": "Salary filter",
       "votes": 7,
       "priority": 19
     },
     {
-      "feature": "Glassdoor scraper",
+      "feature": "Email alerts",
       "votes": 7,
       "priority": 20
     }
   ],
   "negotiated_order": [
-    "Rejection predictor",
-    "Resume optimizer",
+    "One-click apply",
     "Follow-up email",
-    "Job dedup",
-    "LinkedIn scraper",
-    "Indeed scraper",
+    "Salary advisor",
     "API errors",
-    "OAuth LinkedIn",
+    "Retry logic",
+    "K8s workers",
+    "One-click apply UI",
     "ML job scoring",
-    "Match scoring v2",
-    "Skills gap",
-    "Docker scraper",
-    "Grafana funnel",
+    "Glassdoor scraper",
+    "Resume optimizer",
+    "Interview prep",
+    "Session mgmt",
     "Salary negotiation",
-    "Skills gap ML",
-    "Funnel analytics",
-    "Company filter",
-    "Auto-connect recruiters",
-    "Application tracker",
-    "Glassdoor scraper"
+    "A/B test framework",
+    "Rejection predictor",
+    "Form filler",
+    "Tracker dashboard",
+    "ML scoring",
+    "Salary filter",
+    "Email alerts"
   ]
 }

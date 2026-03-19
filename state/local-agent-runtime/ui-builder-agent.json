@@ -1,0 +1,12 @@
+{
+  "status": "done",
+  "branch": "feat/advanced-ui-1773962978",
+  "components": [
+    "CommandPalette",
+    "AutoApplyButton",
+    "JobCard",
+    "DesignSystem"
+  ],
+  "tests": "frontend/src/tests/e2e/ui-interaction.spec.js",
+  "at": "2026-03-19T23:29:39Z"
+}
