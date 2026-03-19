@@ -1,8 +1,67 @@
 jest.mock('../../../../src/utils/config', () => ({
   runtime: {
-    stateDir: '/tmp/non-existent-local-agent-runtime-state',
+    stateDir: '/tmp/test-local-agent-runtime-state',
   },
 }));
+
+const fs = require('fs');
+const path = require('path');
+
+const TEST_STATE_DIR = '/tmp/test-local-agent-runtime-state';
+const TEST_PROGRESS = {
+  task: 'Quickhire runtime integration',
+  current_stage: 'runtime-ui',
+  started_at: '2026-03-10T02:30:00.000Z',
+  updated_at: '2026-03-10T02:45:00.000Z',
+  overall: { status: 'running', percent: 40, remaining_percent: 60 },
+  stages: [
+    {
+      id: 'repo-stabilization',
+      label: 'Repo stabilization',
+      status: 'completed',
+      percent: 100,
+      weight: 30,
+      started_at: '2026-03-10T02:30:00.000Z',
+      completed_at: '2026-03-10T02:35:00.000Z',
+    },
+    {
+      id: 'runtime-ui',
+      label: 'Runtime UI',
+      status: 'running',
+      percent: 50,
+      weight: 70,
+      started_at: '2026-03-10T02:35:00.000Z',
+    },
+  ],
+};
+
+const originalReadFileSync = fs.readFileSync;
+const originalExistsSync = fs.existsSync;
+
+beforeAll(() => {
+  fs.existsSync = jest.fn((filePath) => {
+    if (filePath === path.join(TEST_STATE_DIR, 'progress.json')) {
+      return true;
+    }
+    return originalExistsSync(filePath);
+  });
+
+  fs.readFileSync = jest.fn((filePath, encoding) => {
+    if (filePath === path.join(TEST_STATE_DIR, 'progress.json')) {
+      return JSON.stringify(TEST_PROGRESS);
+    }
+    // Return empty JSON objects for other state files so they parse cleanly
+    if (typeof filePath === 'string' && filePath.startsWith(TEST_STATE_DIR)) {
+      return '{}';
+    }
+    return originalReadFileSync(filePath, encoding);
+  });
+});
+
+afterAll(() => {
+  fs.readFileSync = originalReadFileSync;
+  fs.existsSync = originalExistsSync;
+});
 
 const {
   getRuntimeProgress,
