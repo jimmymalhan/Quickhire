@@ -1,9 +1,9 @@
-# Confidence Score — 2026-03-19 23:48 UTC
+# Confidence Score — 2026-03-19 23:49 UTC
 
 ## Current State
 - **Overall:** 0% complete (0/62 tasks)
 - **CI:** PASS (694 passed, 694 total)
-- **Agents:** 28 alive
+- **Agents:** 22 alive
 - **ETA:** ~303 hrs to backlog complete
 
 ## Feature Confidence
