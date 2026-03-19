@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] — 2026-03-19 23:40 UTC
+## [Unreleased] — 2026-03-19 23:41 UTC
 ### Added
 - Frontend: Job Feed page with match score bars + auto-apply button
 - Frontend: Application Tracker (applied/interview/offer/rejected pipeline)
@@ -11,6 +11,7 @@
 - Feedback agent: 50-persona org negotiates feature priorities every 2min
 - Doc-update agent: keeps CLAUDE.md, ARCHITECTURE.md, GUARDRAILS.md in sync
 - Full 41-task backlog with ETA per task
+- Git author purge: removes all Co-Authored-By Claude, sets Jimmy Malhan only
 
 ## [v1.0.0] — 2026-03-17
 ### Added
