@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Local Agent Dispatch Plan",
+  "type": "object",
+  "required": ["task_id", "feature", "slices", "priority"],
+  "properties": {
+    "task_id": { "type": "string" },
+    "feature": { "type": "string" },
+    "priority": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "slices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "agent", "action", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "agent": { "type": "string" },
+          "action": { "type": "string" },
+          "status": { "enum": ["queued", "claimed", "running", "verifying", "retrying", "blocked", "done"] },
+          "blocker": { "type": "string" },
+          "proof": { "type": "string" }
+        }
+      }
+    }
+  }
+}
