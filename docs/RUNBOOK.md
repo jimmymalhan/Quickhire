@@ -4,6 +4,29 @@
 
 This runbook provides step-by-step procedures for common operational scenarios. Follow these procedures during incidents or routine maintenance.
 
+For local-agent execution, the high-level dashboard is:
+
+```bash
+bash bin/live-progress.sh
+```
+
+For raw runtime state, use:
+
+```bash
+tail -f state/local-agent-runtime/company-fleet.log
+```
+
+The dashboard should show the overall bar, the current task, ETA, active owner, and capacity band.
+
+Role views on the dashboard should read differently:
+
+- `CTO` sees release readiness, blocker count, merge status, and whether the plan is safe to ship.
+- `VP Engineering` sees utilization, throughput, queue health, and CI stability.
+- `Director` sees task ownership, replica coverage, escalation points, and blocker aging.
+- `Manager` sees the current task, next action, per-task progress, and handoff status.
+
+Workflow policy is documented in repo-local docs; live state is stored under `state/local-agent-runtime/`; the runbook assumes one active source of truth at a time.
+
 ---
 
 ## Service Health Check
@@ -172,6 +195,18 @@ kubectl exec -it <api-pod> -- redis-cli -h <redis-host> ping
 ---
 
 ## Routine Operations
+
+### Local-Agent Handoff
+
+1. Check the runtime state:
+   ```bash
+   tail -n 80 state/local-agent-runtime/company-fleet.log
+   ```
+2. Confirm which role owns the current work item.
+3. If the owner is stalled, let the replica set take over from the persisted checkpoint.
+4. Update runtime state by overwrite, not by creating a competing tracker.
+5. Resume the merge loop only after the CI gate is green.
+6. If a stale file conflicts with the checkpoint, refresh from the checkpoint and overwrite the stale state before continuing.
 
 ### Deploy New Version
 

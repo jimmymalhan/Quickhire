@@ -1,57 +1,86 @@
-const Redis = require('ioredis');
 const config = require('./config');
 const logger = require('./logger');
 
 let redis = null;
+let getRedisClient;
+let get;
+let set;
+let del;
 
-const getRedisClient = () => {
-  if (redis) {
+// ---------------------------------------------------------------------------
+// In-memory mock -- activated when MOCK_REDIS=true (e.g. in test setup).
+// No real Redis connection is created.
+// ---------------------------------------------------------------------------
+if (process.env.MOCK_REDIS === 'true') {
+  const _mockStore = new Map();
+
+  getRedisClient = () => ({
+    get: async (key) => _mockStore.get(key) || null,
+    set: async (key, value) => { _mockStore.set(key, value); },
+    del: async (key) => { _mockStore.delete(key); },
+    disconnect: async () => {},
+    quit: async () => {},
+    on: () => {},
+  });
+
+  get = async (key) => _mockStore.get(key) || null;
+  set = async (key, value) => { _mockStore.set(key, value); };
+  del = async (key) => { _mockStore.delete(key); };
+} else {
+  // ---------------------------------------------------------------------------
+  // Real Redis client
+  // ---------------------------------------------------------------------------
+  const Redis = require('ioredis');
+
+  getRedisClient = () => {
+    if (redis) {
+      return redis;
+    }
+
+    redis = new Redis({
+      host: config.redis.host,
+      port: config.redis.port,
+      password: config.redis.password,
+      retryStrategy: (times) => {
+        if (times > 3) {
+          logger.error('Redis connection failed after 3 retries');
+          return null;
+        }
+        return Math.min(times * 200, 2000);
+      },
+      lazyConnect: true,
+    });
+
+    redis.on('error', (err) => {
+      logger.error('Redis error', { error: err.message });
+    });
+
+    redis.on('connect', () => {
+      logger.info('Redis connected');
+    });
+
     return redis;
-  }
+  };
 
-  redis = new Redis({
-    host: config.redis.host,
-    port: config.redis.port,
-    password: config.redis.password,
-    retryStrategy: (times) => {
-      if (times > 3) {
-        logger.error('Redis connection failed after 3 retries');
-        return null;
-      }
-      return Math.min(times * 200, 2000);
-    },
-    lazyConnect: true,
-  });
+  get = async (key) => {
+    const client = getRedisClient();
+    return client.get(key);
+  };
 
-  redis.on('error', (err) => {
-    logger.error('Redis error', { error: err.message });
-  });
+  set = async (key, value, ttlSeconds) => {
+    const client = getRedisClient();
+    if (ttlSeconds) {
+      await client.set(key, value, 'EX', ttlSeconds);
+    } else {
+      await client.set(key, value);
+    }
+  };
 
-  redis.on('connect', () => {
-    logger.info('Redis connected');
-  });
-
-  return redis;
-};
-
-const get = async (key) => {
-  const client = getRedisClient();
-  return client.get(key);
-};
-
-const set = async (key, value, ttlSeconds) => {
-  const client = getRedisClient();
-  if (ttlSeconds) {
-    await client.set(key, value, 'EX', ttlSeconds);
-  } else {
-    await client.set(key, value);
-  }
-};
-
-const del = async (key) => {
-  const client = getRedisClient();
-  await client.del(key);
-};
+  del = async (key) => {
+    const client = getRedisClient();
+    await client.del(key);
+  };
+}
 
 class Cache {
   constructor(options = {}) {

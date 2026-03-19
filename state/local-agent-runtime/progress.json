@@ -1,73 +1,15 @@
 {
-  "task": "Quickhire runtime integration",
-  "started_at": "2026-03-17T12:00:00Z",
-  "updated_at": "2026-03-17T17:15:00Z",
-  "overall": {
-    "percent": 95,
-    "remaining_percent": 5,
-    "status": "running"
+  "task": "CI Green Pipeline Fix",
+  "phase": "1/4 - Git",
+  "status": "creating branch",
+  "eta": "3min",
+  "agents": {
+    "orchestrator": "running",
+    "git-agent": "active",
+    "ci-monitor": "idle",
+    "merge-agent": "idle",
+    "cleanup-agent": "idle"
   },
-  "current_stage": "ci-pr-merge",
-  "stages": [
-    {
-      "id": "repo-stabilization",
-      "label": "Repo stabilization",
-      "weight": 15,
-      "percent": 100,
-      "status": "completed",
-      "detail": "Jest isolation and worktree cleanup",
-      "started_at": "2026-03-17T12:00:00Z",
-      "completed_at": "2026-03-17T12:20:00Z"
-    },
-    {
-      "id": "runtime-ui",
-      "label": "Enhanced dashboard UI",
-      "weight": 25,
-      "percent": 100,
-      "status": "completed",
-      "detail": "Progress bars, ROI metrics, executive decisions, resource usage, blocker tracking",
-      "started_at": "2026-03-17T12:10:00Z",
-      "completed_at": "2026-03-17T16:00:00Z"
-    },
-    {
-      "id": "browser-fixture",
-      "label": "Safe browser fixture",
-      "weight": 15,
-      "percent": 100,
-      "status": "completed",
-      "detail": "Mock browser engine with HTML fixture support",
-      "started_at": "2026-03-17T12:15:00Z",
-      "completed_at": "2026-03-17T12:40:00Z"
-    },
-    {
-      "id": "test-repair",
-      "label": "Backend test suite repair",
-      "weight": 25,
-      "percent": 100,
-      "status": "completed",
-      "detail": "All 57 suites green - 1196 tests passing. Fixed: form validation, retry handler, rate limiter, config mocks, module isolation",
-      "started_at": "2026-03-17T13:00:00Z",
-      "completed_at": "2026-03-17T17:14:00Z"
-    },
-    {
-      "id": "frontend-verification",
-      "label": "Frontend verification",
-      "weight": 10,
-      "percent": 100,
-      "status": "completed",
-      "detail": "38/38 suites, 304/304 vitest tests passing",
-      "started_at": "2026-03-17T13:25:00Z",
-      "completed_at": "2026-03-17T13:30:00Z"
-    },
-    {
-      "id": "ci-pr-merge",
-      "label": "CI pipeline + PR + merge",
-      "weight": 10,
-      "percent": 50,
-      "status": "running",
-      "detail": "Creating PR, pushing to remote, running CI",
-      "started_at": "2026-03-17T17:15:00Z",
-      "completed_at": ""
-    }
-  ]
+  "capacity": "85%",
+  "updated": "2026-03-19T00:27:47Z"
 }

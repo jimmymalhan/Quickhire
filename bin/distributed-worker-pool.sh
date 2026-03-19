@@ -8,10 +8,84 @@ ROOT="${QUICKHIRE_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 STATE="$ROOT/state/local-agent-runtime"
 LOG="$STATE/distributed-pool.log"
 PID_DIR="$STATE/pids/pool"
+POOL_STATUS="$STATE/pool-status.json"
 
 mkdir -p "$PID_DIR"
 
 log(){ echo "[pool] $(date -u +%H:%M:%S) $*" | tee -a "$LOG"; }
+
+write_pool_status() {
+  python3 - "$PID_DIR" "$POOL_STATUS" "$STATE" <<'PY'
+import datetime as dt
+import json
+import os
+import pathlib
+import sys
+
+pid_dir = pathlib.Path(sys.argv[1])
+status_path = pathlib.Path(sys.argv[2])
+state_dir = pathlib.Path(sys.argv[3])
+
+def read_json(path, fallback):
+    try:
+        return json.loads(path.read_text())
+    except Exception:
+        return fallback
+
+summary = {
+    "generatedAt": dt.datetime.utcnow().isoformat(timespec="seconds") + "Z",
+    "targetCapacity": {
+        "minPercent": 80,
+        "maxPercent": 90,
+    },
+    "replicas": {
+        "ci-test": 3,
+        "lint": 2,
+        "pr-mon": 3,
+        "git-sync": 2,
+        "build": 2,
+    },
+    "workers": {},
+    "latestResults": {},
+}
+
+alive = 0
+total = 0
+for pid_file in sorted(pid_dir.glob("*")):
+    try:
+      pid = int(pid_file.read_text().strip() or "0")
+    except Exception:
+      pid = 0
+    name = pid_file.name
+    is_alive = False
+    if pid > 0:
+        try:
+            os.kill(pid, 0)
+            is_alive = True
+        except Exception:
+            is_alive = False
+    total += 1
+    if is_alive:
+        alive += 1
+    summary["workers"][name] = {
+        "pid": pid,
+        "status": "alive" if is_alive else "dead",
+    }
+
+for result_file in state_dir.glob("worker-result-*.json"):
+    payload = read_json(result_file, {})
+    worker_name = payload.get("worker") or result_file.stem.replace("worker-result-", "")
+    summary["latestResults"][worker_name] = payload
+
+summary["health"] = {
+    "alive": alive,
+    "total": total,
+    "capacityPercent": int((alive / total) * 100) if total else 0,
+}
+
+status_path.write_text(json.dumps(summary, indent=2) + "\n")
+PY
+}
 
 # ─── Worker: CI Test Runner (reads test files, writes results) ────
 ci_test_worker() {
@@ -146,6 +220,7 @@ TOTAL=$(ls "$PID_DIR" | wc -l | tr -d ' ')
 log "=== $TOTAL WORKERS SPAWNED ==="
 log "Worker types: ci-test(3) lint(2) pr-mon(3) git-sync(2) build(2) = 12 total"
 log "All workers reading/writing independently. Zero bottleneck."
+write_pool_status
 
 # Keep alive + report
 while true; do
@@ -160,5 +235,6 @@ while true; do
     fi
   done
   log "Pool health: $ALIVE alive, $DEAD dead, $TOTAL total"
+  write_pool_status
   sleep 30
 done

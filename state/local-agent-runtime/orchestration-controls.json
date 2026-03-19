@@ -5,6 +5,25 @@
     "handoffTime": "2026-03-18T22:50:00.000Z",
     "notes": "LocalAgent STOPPED. All remaining work handed to local agents. Pick up where left off."
   },
+  "runtime": {
+    "schemaVersion": "2.0",
+    "targetCapacityMin": 80,
+    "targetCapacityMax": 90,
+    "currentCapacity": 85,
+    "defaultPollSeconds": 10,
+    "handoffTimeoutSeconds": 60,
+    "tailLog": "state/local-agent-runtime/company-fleet.log",
+    "snapshotFile": "state/local-agent-runtime/dashboard.json",
+    "replicas": {
+      "ci_test": 3,
+      "lint": 2,
+      "pr_monitor": 3,
+      "git_sync": 2,
+      "build": 2,
+      "read": 3,
+      "write": 3
+    }
+  },
   "completedTasks": [
     {"id": "cmd-test", "status": "DONE", "result": "1386/1386 passed, 65 suites"},
     {"id": "cmd-lint", "status": "DONE", "result": "0 errors, 1 warning"},

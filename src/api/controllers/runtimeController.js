@@ -6,6 +6,40 @@ const fallbackStateDir = path.resolve(__dirname, '../../../state/local-agent-run
 const learningsDir = path.resolve(__dirname, '../../../.learnings');
 const runtimeSchemaVersion = '1.1';
 const orchestrationSchemaVersion = '1.0';
+const runtimeRefreshIntervalMs = 10000;
+
+const TEAM_DEFINITIONS = [
+  {
+    id: 'executive',
+    name: 'Executive chain',
+    lead: 'CEO / CTO / Director',
+    scope: 'Strategy, merge gates, and escalation policy',
+  },
+  {
+    id: 'quality',
+    name: 'Quality gate',
+    lead: 'QA Lead',
+    scope: 'Tests, lint, and build verification',
+  },
+  {
+    id: 'delivery',
+    name: 'Delivery lane',
+    lead: 'Git / PR / merge',
+    scope: 'Branching, PR review, and cleanup',
+  },
+  {
+    id: 'execution',
+    name: 'Execution pool',
+    lead: 'Code writer / backlog',
+    scope: 'Implementation, backlog, and unblock work',
+  },
+  {
+    id: 'platform',
+    name: 'Platform support',
+    lead: 'Supervisor / health',
+    scope: 'Runtime health, scale, and failover',
+  },
+];
 
 function readJson(filePath, fallback) {
   try {
@@ -68,6 +102,10 @@ function resolveControlsPath(stateDir) {
   return path.join(stateDir, 'orchestration-controls.json');
 }
 
+function resolveAgentHealthPath(stateDir) {
+  return path.join(stateDir, 'agent-health.json');
+}
+
 function buildToolLinks() {
   return [
     {
@@ -101,6 +139,157 @@ function buildToolLinks() {
       category: 'models',
     },
   ];
+}
+
+function buildOrgChart(stateDir, orchestration, sessions, tasks, blockers, overallProgress) {
+  const agentHealth = readJson(resolveAgentHealthPath(stateDir), {
+    checkedAt: null,
+    agents: [],
+  });
+  const agents = Array.isArray(agentHealth.agents) ? agentHealth.agents : [];
+  const healthyAgents = agents.filter((agent) => agent.status === 'healthy');
+  const activeSessions = sessions.filter((session) => session.status === 'running');
+  const activeOwners = new Set(activeSessions.map((session) => session.owner));
+
+  const classifyAgent = (agent) => {
+    const identity = `${agent.id || ''} ${agent.name || ''}`.toLowerCase();
+
+    if (identity.includes('test') || identity.includes('lint') || identity.includes('build')) {
+      return TEAM_DEFINITIONS[1];
+    }
+    if (identity.includes('git') || identity.includes('pr') || identity.includes('merge')) {
+      return TEAM_DEFINITIONS[2];
+    }
+    if (identity.includes('code') || identity.includes('backlog') || identity.includes('writer')) {
+      return TEAM_DEFINITIONS[3];
+    }
+    if (identity.includes('supervisor') || identity.includes('health') || identity.includes('scale')) {
+      return TEAM_DEFINITIONS[4];
+    }
+    return TEAM_DEFINITIONS[0];
+  };
+
+  const replicas = agents.map((agent) => {
+    const team = classifyAgent(agent);
+    const session = sessions.find(
+      (item) => item.owner === agent.name || item.owner === agent.id,
+    );
+
+    return {
+      id: agent.id,
+      name: agent.name,
+      role: team.id,
+      team: team.name,
+      scope: team.scope,
+      owner: session?.owner || agent.name,
+      status: agent.status || 'unknown',
+      recentFailures: toNumber(agent.recentFailures, 0),
+      recentSuccesses: toNumber(agent.recentSuccesses, 0),
+      totalRecentRuns: toNumber(agent.totalRecentRuns, 0),
+      minutesSinceSuccess:
+        agent.minutesSinceSuccess === null ? null : toNumber(agent.minutesSinceSuccess, null),
+      checkedAt: toIsoString(agent.checkedAt, agentHealth.checkedAt || null),
+      active: activeOwners.has(agent.name) || activeOwners.has(agent.id),
+      provider: session?.provider || 'local',
+      model: session?.model || 'local-agent-runtime',
+      lane: orchestration.controller.preferredLane,
+      isPrimary: team.id === 'executive',
+    };
+  });
+
+  const teams = TEAM_DEFINITIONS.map((team) => {
+    const teamReplicas = replicas.filter((replica) => replica.role === team.id);
+    const teamSessions = sessions.filter((session) =>
+      teamReplicas.some((replica) => replica.owner === session.owner || replica.id === session.owner),
+    );
+    const teamTasks = tasks.filter((task) =>
+      teamReplicas.some((replica) => replica.owner === task.owner || replica.id === task.owner),
+    );
+    const healthyReplicas = teamReplicas.filter((replica) => replica.status === 'healthy').length;
+    const blockedTasks = teamTasks.filter((task) => task.status === 'blocked').length;
+    const activeTasks = teamTasks.filter((task) => task.status === 'in_progress').length;
+
+    return {
+      id: team.id,
+      name: team.name,
+      lead: team.lead,
+      scope: team.scope,
+      status:
+        blockedTasks > 0
+          ? 'blocked'
+          : activeTasks > 0 || teamSessions.length > 0
+            ? 'running'
+            : 'idle',
+      replicaCount: Math.max(teamReplicas.length, 1),
+      healthyReplicas,
+      activeSessions: teamSessions.length,
+      activeTasks,
+      blockedTasks,
+      workLeftPercent: Math.max(0, 100 - overallProgress),
+      etaMinutes:
+        teamTasks.length > 0
+          ? teamTasks.reduce((sum, task) => sum + (task.etaMinutes || 0), 0) || null
+          : null,
+      agents: teamReplicas,
+    };
+  });
+
+  const roleChain = [
+    {
+      role: 'ceo',
+      owner: orchestration.controller.owner,
+      focus: 'Set priority, enforce merge gates, and keep the runtime local-first.',
+      status: orchestration.controller.status,
+    },
+    {
+      role: 'director',
+      owner: 'Engineering Director',
+      focus: 'Route work into the right team, keep blockers visible, and manage escalation.',
+      status: blockers.length > 0 ? 'watching blockers' : 'ready',
+    },
+    {
+      role: 'manager',
+      owner: 'QA Lead',
+      focus: 'Keep CI and runtime quality green before any merge loop continues.',
+      status: blockers.length > 0 ? 'gating' : 'green',
+    },
+    {
+      role: 'engineer',
+      owner: 'Local agent pool',
+      focus: 'Execute work, retry failures, and hand off to healthy replicas on stalls.',
+      status: activeSessions.length > 0 ? 'running' : 'idle',
+    },
+  ];
+
+  return {
+    capacityBand: {
+      minPercent: 80,
+      targetPercent: 90,
+      maxPercent: 90,
+      currentPercent: clamp(
+        activeSessions.length > 0
+          ? Math.round((activeSessions.length / Math.max(agents.length, activeSessions.length)) * 100)
+          : 0,
+        0,
+        100,
+        0,
+      ),
+      activeAgents: activeSessions.length,
+      healthyAgents: healthyAgents.length,
+      totalAgents: agents.length,
+    },
+    roleChain,
+    teams,
+    replicas,
+    failover: {
+      enabled: orchestration.controller.takeoverEnabled,
+      takeoverEnabled: orchestration.controller.takeoverEnabled,
+      primaryLane: orchestration.controller.preferredLane,
+      fallbackLane: orchestration.controller.cloudFallbackEnabled ? 'cloud' : 'local-agents',
+      hotStandby: healthyAgents.map((agent) => agent.name).slice(0, 3),
+      replicas: Math.max(healthyAgents.length - activeSessions.length, 0),
+    },
+  };
 }
 
 function buildDefaultOrchestrationState(options = {}) {
@@ -205,6 +394,7 @@ function countBy(items, keyFn) {
 
 function buildEmptySnapshot(stateDir) {
   const orchestration = buildDefaultOrchestrationState();
+  const orgChart = buildOrgChart(stateDir, orchestration, [], [], [], 0);
   return {
     generatedAt: new Date().toISOString(),
     project: {
@@ -263,6 +453,7 @@ function buildEmptySnapshot(stateDir) {
     lessons: [],
     decisions: [],
     orchestration,
+    orgChart,
     source: {
       provider: 'local-agent-runtime',
       stateDir,
@@ -273,9 +464,10 @@ function buildEmptySnapshot(stateDir) {
         coordination: path.join(stateDir, 'agent-coordination.json'),
         workflow: path.join(stateDir, 'workflow-state.json'),
         controls: resolveControlsPath(stateDir),
+        agentHealth: resolveAgentHealthPath(stateDir),
       },
       capturedAt: new Date().toISOString(),
-      refreshIntervalMs: 3000,
+      refreshIntervalMs: runtimeRefreshIntervalMs,
     },
   };
 }
@@ -297,7 +489,6 @@ function buildSnapshot() {
       memoryThreshold: 90,
     },
   });
-
   if (!progress) {
     return buildEmptySnapshot(stateDir);
   }
@@ -465,6 +656,7 @@ function buildSnapshot() {
     cpuThreshold: resourceUsage.cpuThreshold,
     memoryThreshold: resourceUsage.memoryThreshold,
   });
+  const orgChart = buildOrgChart(stateDir, orchestration, syntheticSessions, tasks, blockers, overallProgress);
 
   return {
     generatedAt: updatedAt,
@@ -533,6 +725,7 @@ function buildSnapshot() {
     lessons: parseLearningHeadings(path.join(learningsDir, 'LEARNINGS.md')),
     decisions: parseLearningHeadings(path.join(learningsDir, 'FEATURE_REQUESTS.md')),
     orchestration,
+    orgChart,
     source: {
       provider: 'local-agent-runtime',
       stateDir,
@@ -543,6 +736,7 @@ function buildSnapshot() {
         coordination: path.join(stateDir, 'agent-coordination.json'),
         workflow: path.join(stateDir, 'workflow-state.json'),
         controls: resolveControlsPath(stateDir),
+        agentHealth: resolveAgentHealthPath(stateDir),
         learnings: path.join(learningsDir, 'LEARNINGS.md'),
         featureRequests: path.join(learningsDir, 'FEATURE_REQUESTS.md'),
       },
@@ -552,11 +746,12 @@ function buildSnapshot() {
         coordinationFile: path.join(stateDir, 'agent-coordination.json'),
         workflowFile: path.join(stateDir, 'workflow-state.json'),
         controlsFile: resolveControlsPath(stateDir),
+        agentHealthFile: resolveAgentHealthPath(stateDir),
         learningsFile: path.join(learningsDir, 'LEARNINGS.md'),
         featureRequestsFile: path.join(learningsDir, 'FEATURE_REQUESTS.md'),
       },
       capturedAt: updatedAt,
-      refreshIntervalMs: 3000,
+      refreshIntervalMs: runtimeRefreshIntervalMs,
     },
   };
 }
@@ -712,7 +907,7 @@ const streamRuntimeProgress = async (_req, res) => {
   if (typeof res.flushHeaders === 'function') {
     res.flushHeaders();
   }
-  res.write('retry: 3000\n');
+  res.write(`retry: ${runtimeRefreshIntervalMs}\n`);
 
   const writeSnapshot = () => {
     const snapshot = buildSnapshot();
@@ -721,7 +916,7 @@ const streamRuntimeProgress = async (_req, res) => {
   };
 
   writeSnapshot();
-  const intervalId = setInterval(writeSnapshot, 3000);
+  const intervalId = setInterval(writeSnapshot, runtimeRefreshIntervalMs);
 
   _req.on('close', () => {
     clearInterval(intervalId);

@@ -1,6 +1,6 @@
 # Quickhire Local-Agent Execution Plan
 
-**Date**: 2026-03-17
+**Date**: 2026-03-18
 **Status**: Active
 **Primary Goal**: Stabilize the repo, make progress visible in realtime, and enable safe local-agent/browser testing against mock or local flows.
 
@@ -11,6 +11,42 @@
 - Restrict browser automation to local, mock, or sandbox flows until verification and controls are complete.
 - Prefer local-agent execution and local models first; use hosted tooling only as fallback.
 - No destructive Git or GitHub actions without confirmed credentials and a verified clean path.
+- The repository can document workflow policy, org structure, and operating habits, but it cannot change platform-level rules or memory.
+
+## Live Tracking
+
+High-level dashboard:
+
+```bash
+bash bin/live-progress.sh
+```
+
+Detailed runtime tail:
+
+```bash
+tail -f state/local-agent-runtime/company-fleet.log
+```
+
+Use the dashboard when you want overall work left, ETA, and active owners. Use the tail command when you want the raw state feed for agent, task, and session details.
+
+### Stakeholder Split
+
+The live dashboard should adapt to the audience without changing the underlying state source.
+
+- `CTO`: merge readiness, release risk, blockers, ETA, and whether the fleet can safely ship.
+- `VP Engineering`: capacity, throughput, CI health, queue health, and resource utilization.
+- `Director`: active work items, replica coverage, escalation points, and blocker aging.
+- `Manager`: current task, next action, owner, handoff state, and per-task progress.
+
+The tail stream is the detailed feed for auditability. It should be the place to inspect raw events, not the primary executive summary.
+
+## Persistence Model
+
+- Repo-local workflow policy is stored in docs in this repository.
+- Live orchestration state is stored in `state/local-agent-runtime/`.
+- The runtime should be overwritten in place so there is exactly one current view of work.
+- CI-green-before-merge is a hard gate, not a suggestion.
+- The merge loop starts only after the gate is satisfied and ends with cleanup.
 
 ## Phase 0: Repo Stabilization
 
@@ -72,6 +108,11 @@
   - conflict avoidance
   - timeout/takeover rules
   - fallback escalation when a local agent stalls
+- [ ] Add replica and failover policy.
+  - one primary supervisor
+  - replica workers for each operational role
+  - takeover on timeout or heartbeat loss
+  - continuation from persisted runtime state
 - [ ] Add runtime learning hooks.
   - capture failure reason
   - store remediation
@@ -97,6 +138,11 @@
   - active agent sessions
   - runtime decisions
   - lessons learned
+- [ ] Add one overall bar plus per-task bars in the dashboard and tail output.
+  - project completion
+  - task completion
+  - agent/session ownership
+  - capacity target at 80-90%
 - [ ] Add per-session visibility.
   - assigned owner
   - model/provider
@@ -104,10 +150,11 @@
   - last event
   - current command/action
 - [ ] Add organization-role views.
-  - manager
-  - director
+  - EM / Supervisor
+  - Manager
+  - Director
+  - VP Engineering
   - CTO
-  - CEO
   - each view should expose priority, tradeoffs, and blockers differently
 - [ ] Add charts for:
   - task throughput
@@ -148,6 +195,14 @@
 - [ ] Run an end-of-task review pass before merge.
 - [ ] Open a PR once local verification is green.
 - [ ] Merge only after checks pass.
+
+## Merge Loop
+
+1. Local work finishes and overwrites the runtime state.
+2. The CI watcher keeps polling until checks are green.
+3. The approval chain reviews the result in order.
+4. The merger runs only after all gates are green.
+5. Cleanup removes stale branches, processes, and temporary runtime artifacts.
 
 ## Deferred or Blocked Until Credentials/Confirmation
 

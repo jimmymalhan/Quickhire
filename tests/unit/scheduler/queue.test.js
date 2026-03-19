@@ -29,9 +29,17 @@ jest.mock('../../../src/utils/logger', () => ({
 }));
 
 describe('queue', () => {
+  let originalDisableQueues;
+
   beforeEach(() => {
+    originalDisableQueues = process.env.DISABLE_QUEUES;
+    process.env.DISABLE_QUEUES = 'false';
     jest.clearAllMocks();
     jest.resetModules();
+  });
+
+  afterEach(() => {
+    process.env.DISABLE_QUEUES = originalDisableQueues;
   });
 
   const loadQueueModule = () => {

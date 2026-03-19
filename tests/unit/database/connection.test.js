@@ -1,7 +1,14 @@
 /**
  * Unit tests for src/database/connection.js
  * Tests database connection module with mocked pg Pool.
+ *
+ * We explicitly disable MOCK_DB so that connection.js exercises the real
+ * pg Pool code path (which is itself mocked via jest.mock('pg')).
  */
+
+// Disable the in-memory mock so we test the real Pool branch.
+const _originalMockDb = process.env.MOCK_DB;
+process.env.MOCK_DB = 'false';
 
 // Mock pg module before requiring
 jest.mock('pg', () => {
@@ -162,4 +169,25 @@ describe('database - testConnection', () => {
       error: 'Connection refused',
     });
   });
+
+  test('can suppress logging when requested', async () => {
+    connection.pool.query.mockRejectedValue(new Error('Connection refused'));
+    const result = await connection.testConnection({
+      logSuccess: false,
+      logFailure: false,
+    });
+
+    expect(result).toBe(false);
+    expect(logger.info).not.toHaveBeenCalled();
+    expect(logger.error).not.toHaveBeenCalled();
+  });
+});
+
+// Restore original MOCK_DB value so other tests are unaffected.
+afterAll(() => {
+  if (_originalMockDb === undefined) {
+    delete process.env.MOCK_DB;
+  } else {
+    process.env.MOCK_DB = _originalMockDb;
+  }
 });

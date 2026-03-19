@@ -10,11 +10,36 @@ set -euo pipefail
 
 ROOT="${QUICKHIRE_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 LOG="$ROOT/state/local-agent-runtime/supervisor.log"
+STATE_FILE="$ROOT/state/local-agent-runtime/worker-state.json"
 HEALTH_URL="http://localhost:8000/api/health"
 POLL_MAX=20
 POLL_INTERVAL=2
 
 log() { echo "[supervisor] $(date -u +%H:%M:%S) $*" | tee -a "$LOG"; }
+
+write_state() {
+  local status="$1"
+  local action="$2"
+  local pid="$3"
+  python3 - "$STATE_FILE" "$status" "$action" "$pid" <<'PY'
+import datetime as dt
+import json
+import pathlib
+import sys
+
+path = pathlib.Path(sys.argv[1])
+payload = {
+    "status": sys.argv[2],
+    "action": sys.argv[3],
+    "activeCommandId": "supervisor-agent",
+    "pid": int(sys.argv[4]) if sys.argv[4].isdigit() else None,
+    "startedAt": None,
+    "lastHeartbeatAt": dt.datetime.utcnow().isoformat(timespec="seconds") + "Z",
+    "updatedAt": dt.datetime.utcnow().isoformat(timespec="seconds") + "Z",
+}
+path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+PY
+}
 
 # ── find the running server PID ───────────────────────────────────────────────
 find_pid() {
@@ -94,9 +119,11 @@ do_restart() {
   log "Starting node src/index.js"
   nohup node "$ROOT/src/index.js" >> "$ROOT/state/local-agent-runtime/server.log" 2>&1 &
   disown
+  write_state "running" "restart" "$pid"
 
   wait_healthy && log "Restart complete — new worker loaded fresh module cache" || {
     log "ERROR: restart failed — server not healthy"
+    write_state "blocked" "restart_failed" "$pid"
     exit 1
   }
 }
@@ -108,13 +135,16 @@ case "$ACTION" in
   *restart*|*reload*|*stale*|*refresh*)
     log "Forced restart requested"
     do_restart
+    write_state "running" "forced_restart" "$(find_pid)"
     echo "supervisor-agent: restart complete, worker running with fresh module cache"
     ;;
   *)
     if needs_restart; then
       do_restart
+      write_state "running" "auto_restart" "$(find_pid)"
       echo "supervisor-agent: auto-restart complete, stale module cache cleared"
     else
+      write_state "idle" "health_check" "$(find_pid)"
       echo "supervisor-agent: worker is current, no restart needed"
     fi
     ;;

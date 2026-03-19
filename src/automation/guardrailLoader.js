@@ -15,6 +15,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const logger = require('../utils/logger');
 
 const GUARDRAIL_FILE = path.resolve(__dirname, '../../.agent/guardrails/local-agent-first.md');
 const CONFIG_FILE = path.resolve(
@@ -94,9 +95,9 @@ function maxLocalRetries() {
  * Print guardrail banner to stdout at boot so operators can confirm config.
  * Always reads the guard file to prove it was loaded.
  */
-function printBanner(logger) {
+function printBanner(loggerOverride) {
   const cfg = loadConfig();
-  const log = logger || console;
+  const log = loggerOverride || logger;
 
   let guardFileLoaded = false;
   try {
@@ -119,7 +120,7 @@ function printBanner(logger) {
     '══════════════════════════════════════════════',
   ];
 
-  lines.forEach((l) => (log.info ? log.info(l) : console.log(l)));
+  lines.forEach((l) => log.info(l));
 }
 
 module.exports = { loadConfig, isagentEnabled, escalationTarget, maxLocalRetries, printBanner };

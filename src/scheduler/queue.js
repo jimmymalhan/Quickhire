@@ -2,6 +2,20 @@ const Bull = require('bull');
 const config = require('../utils/config');
 const logger = require('../utils/logger');
 
+function extractQueueErrorMessage(err) {
+  if (!err) {
+    return 'Unknown queue error';
+  }
+
+  return (
+    err.message ||
+    err.code ||
+    err.name ||
+    (typeof err.toString === 'function' ? err.toString() : '') ||
+    'Unknown queue error'
+  );
+}
+
 const createQueue = (name) => {
   if (process.env.DISABLE_QUEUES === 'true') {
     logger.info(`Queue "${name}" disabled (DISABLE_QUEUES=true)`);
@@ -31,11 +45,18 @@ const createQueue = (name) => {
   });
 
   queue.on('error', (err) => {
-    logger.error(`Queue ${name} error`, { error: err.message });
+    logger.error(`Queue ${name} error`, {
+      error: extractQueueErrorMessage(err),
+      code: err?.code,
+      name: err?.name,
+    });
   });
 
   queue.on('failed', (job, err) => {
-    logger.error(`Job ${job.id} in ${name} failed`, { error: err.message, data: job.data });
+    logger.error(`Job ${job.id} in ${name} failed`, {
+      error: extractQueueErrorMessage(err),
+      data: job.data,
+    });
   });
 
   queue.on('completed', (job) => {

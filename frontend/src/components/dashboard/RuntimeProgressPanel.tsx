@@ -16,6 +16,31 @@ function formatMinutes(minutes: number | null) {
   return remainder === 0 ? `${hours}h` : `${hours}h ${remainder}m`;
 }
 
+function formatRefreshInterval(intervalMs: number | undefined) {
+  if (!intervalMs) {
+    return '10s';
+  }
+
+  const seconds = Math.max(1, Math.round(intervalMs / 1000));
+  return `${seconds}s`;
+}
+
+function formatRelativeTime(timestamp: string | null) {
+  if (!timestamp) {
+    return 'just now';
+  }
+
+  const elapsedMs = Date.now() - new Date(timestamp).getTime();
+  const elapsedMinutes = Math.max(0, Math.round(elapsedMs / 60000));
+  if (elapsedMinutes < 1) {
+    return 'just now';
+  }
+  if (elapsedMinutes < 60) {
+    return `${elapsedMinutes}m ago`;
+  }
+  return `${Math.round(elapsedMinutes / 60)}h ago`;
+}
+
 function statusColor(status: RuntimeTaskStatus) {
   switch (status) {
     case 'done':
@@ -92,6 +117,9 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
   const activeSessions = snapshot.sessions.filter(
     (session) => session.status !== 'idle',
   );
+  const healthyReplicas = snapshot.orgChart.replicas.filter(
+    (replica) => replica.status === 'healthy',
+  );
   const sourceLabel = snapshot.source?.connected
     ? `${snapshot.source.provider} connected`
     : `${snapshot.source?.provider ?? 'runtime'} fallback`;
@@ -118,7 +146,7 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
               Product progress, blocker pressure, and session activity pulled from the runtime feed.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-3 text-right sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 text-right sm:grid-cols-3 lg:grid-cols-5">
             <div>
               <p className="text-xs text-primary-200">ETA to 100%</p>
               <p className="text-lg font-semibold">
@@ -130,12 +158,18 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
               <p className="text-lg font-semibold">{snapshot.blockerCount}</p>
             </div>
             <div>
-              <p className="text-xs text-primary-200">Active sessions</p>
-              <p className="text-lg font-semibold">{activeSessions.length}</p>
+              <p className="text-xs text-primary-200">Work left</p>
+              <p className="text-lg font-semibold">{snapshot.remainingPercent}%</p>
             </div>
             <div>
               <p className="text-xs text-primary-200">Source</p>
               <p className="text-lg font-semibold">{sourceLabel}</p>
+            </div>
+            <div>
+              <p className="text-xs text-primary-200">Refresh</p>
+              <p className="text-lg font-semibold">
+                {formatRefreshInterval(snapshot.source?.refreshIntervalMs)}
+              </p>
             </div>
           </div>
         </div>
@@ -241,6 +275,170 @@ function RuntimeProgressPanel({ snapshot }: RuntimeProgressPanelProps) {
           </div>
         </div>
       )}
+
+      {/* TEAM OWNERSHIP */}
+      <div className="mb-6 rounded-2xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/40">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
+              Org chart
+            </p>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              Active team ownership, replica health, and failover lanes pulled from runtime state.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 text-sm text-gray-600 dark:text-gray-300 sm:grid-cols-4">
+            <div className="rounded-xl bg-white px-3 py-2 dark:bg-gray-900">
+              <p className="text-xs uppercase tracking-[0.16em] text-gray-400">
+                Capacity
+              </p>
+              <p className="mt-1 font-semibold text-gray-900 dark:text-white">
+                {snapshot.orgChart.capacityBand.currentPercent}%
+              </p>
+            </div>
+            <div className="rounded-xl bg-white px-3 py-2 dark:bg-gray-900">
+              <p className="text-xs uppercase tracking-[0.16em] text-gray-400">
+                Healthy replicas
+              </p>
+              <p className="mt-1 font-semibold text-gray-900 dark:text-white">
+                {healthyReplicas.length}/{snapshot.orgChart.replicas.length}
+              </p>
+            </div>
+            <div className="rounded-xl bg-white px-3 py-2 dark:bg-gray-900">
+              <p className="text-xs uppercase tracking-[0.16em] text-gray-400">
+                Active agents
+              </p>
+              <p className="mt-1 font-semibold text-gray-900 dark:text-white">
+                {snapshot.orgChart.capacityBand.activeAgents}
+              </p>
+            </div>
+            <div className="rounded-xl bg-white px-3 py-2 dark:bg-gray-900">
+              <p className="text-xs uppercase tracking-[0.16em] text-gray-400">
+                Failover
+              </p>
+              <p className="mt-1 font-semibold text-gray-900 dark:text-white">
+                {snapshot.orgChart.failover.enabled ? 'armed' : 'off'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 grid gap-4 lg:grid-cols-[1.4fr_0.9fr]">
+          <div className="grid gap-3 md:grid-cols-2">
+            {snapshot.orgChart.teams.map((team) => (
+              <article
+                key={team.id}
+                className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      {team.name}
+                    </h4>
+                    <p className="mt-1 text-xs uppercase tracking-[0.16em] text-gray-400">
+                      {team.lead}
+                    </p>
+                  </div>
+                  <span
+                    className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
+                      team.status === 'blocked'
+                        ? 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300'
+                        : team.status === 'running'
+                          ? 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300'
+                          : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
+                    }`}
+                  >
+                    {team.status}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  {team.scope}
+                </p>
+                <div className="mt-3 grid grid-cols-2 gap-2 text-sm text-gray-600 dark:text-gray-300">
+                  <div className="rounded-lg bg-gray-50 px-3 py-2 dark:bg-gray-800">
+                    <p className="text-xs uppercase tracking-[0.14em] text-gray-400">
+                      Replicas
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900 dark:text-white">
+                      {team.healthyReplicas}/{team.replicaCount}
+                    </p>
+                  </div>
+                  <div className="rounded-lg bg-gray-50 px-3 py-2 dark:bg-gray-800">
+                    <p className="text-xs uppercase tracking-[0.14em] text-gray-400">
+                      Active tasks
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900 dark:text-white">
+                      {team.activeTasks}
+                    </p>
+                  </div>
+                  <div className="rounded-lg bg-gray-50 px-3 py-2 dark:bg-gray-800">
+                    <p className="text-xs uppercase tracking-[0.14em] text-gray-400">
+                      Sessions
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900 dark:text-white">
+                      {team.activeSessions}
+                    </p>
+                  </div>
+                  <div className="rounded-lg bg-gray-50 px-3 py-2 dark:bg-gray-800">
+                    <p className="text-xs uppercase tracking-[0.14em] text-gray-400">
+                      ETA
+                    </p>
+                    <p className="mt-1 font-semibold text-gray-900 dark:text-white">
+                      {formatMinutes(team.etaMinutes)}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="space-y-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary-600">
+                Replica pool
+              </p>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                Local ownership, model lanes, and heartbeat health for each replica.
+              </p>
+            </div>
+            <ul className="space-y-2">
+              {snapshot.orgChart.replicas.slice(0, 6).map((replica) => (
+                <li
+                  key={replica.id}
+                  className="rounded-lg bg-gray-50 px-3 py-3 text-sm dark:bg-gray-800"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        {replica.name}
+                      </p>
+                      <p className="text-xs uppercase tracking-[0.16em] text-gray-400">
+                        {replica.team} · {replica.model}
+                      </p>
+                    </div>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+                        replica.status === 'healthy'
+                          ? 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300'
+                          : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
+                      }`}
+                    >
+                      {replica.active ? 'active' : replica.status}
+                    </span>
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400">
+                    <span>{replica.owner}</span>
+                    <span>Lane {replica.lane}</span>
+                    <span>
+                      Checked {replica.checkedAt ? formatRelativeTime(replica.checkedAt) : 'now'}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
 
       {/* MAIN GRID: Tasks, Blockers, Sessions */}
       <div className="grid gap-4 lg:grid-cols-3">

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import Pagination from '../components/common/Pagination';
 import EmptyState from '../components/common/EmptyState';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -44,6 +44,7 @@ function SavedJobsPage() {
   const [filterStatus, setFilterStatus] = useState<SavedJobStatus | ''>('');
   const [filterPriority, setFilterPriority] = useState<SavedJobPriority | ''>('');
   const [sortBy, setSortBy] = useState<SavedJobFilters['sortBy']>('savedAt');
+  const noteInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFilterChange = useCallback(() => {
     const filters: SavedJobFilters = { sortBy };
@@ -92,6 +93,12 @@ function SavedJobsPage() {
     setEditingNoteId(job.id);
     setNoteText(job.notes);
   }, []);
+
+  useEffect(() => {
+    if (editingNoteId) {
+      noteInputRef.current?.focus();
+    }
+  }, [editingNoteId]);
 
   const handleBulkApply = useCallback(async () => {
     setShowConfirmApply(false);
@@ -342,6 +349,7 @@ function SavedJobsPage() {
                       {editingNoteId === savedJob.id ? (
                         <div className="flex items-center gap-1">
                           <input
+                            ref={noteInputRef}
                             type="text"
                             value={noteText}
                             onChange={(e) => setNoteText(e.target.value)}
@@ -350,7 +358,6 @@ function SavedJobsPage() {
                               if (e.key === 'Escape') setEditingNoteId(null);
                             }}
                             className="input-field py-1 text-xs"
-                            autoFocus
                             aria-label="Edit note"
                           />
                           <button

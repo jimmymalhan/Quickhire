@@ -19,6 +19,7 @@ ROOT="${QUICKHIRE_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 STATE="$ROOT/state/local-agent-runtime"
 LOG="$STATE/fleet.log"
 CHECKPOINT="$STATE/checkpoint.json"
+PROGRESS_FILE="$STATE/progress.json"
 LOCK="$STATE/fleet.lock"
 PID_DIR="$STATE/pids"
 
@@ -48,6 +49,35 @@ read_checkpoint_step() {
 
 read_checkpoint_status() {
   python3 -c "import json; print(json.load(open('$CHECKPOINT')).get('status','pending'))" 2>/dev/null || echo "pending"
+}
+
+write_progress() {
+  local percent="$1" stage="$2" status="$3" detail="$4" worker="$5"
+  local remaining=$((100 - percent))
+  [ "$remaining" -lt 0 ] && remaining=0
+  cat > "$PROGRESS_FILE" <<EOF
+{
+  "task": "Resilient fleet recovery",
+  "updatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "overall": {
+    "percent": $percent,
+    "remainingPercent": $remaining,
+    "status": "$status"
+  },
+  "currentStage": {
+    "id": "$stage",
+    "status": "$status",
+    "detail": "$detail"
+  },
+  "worker": "$worker",
+  "orchestration": {
+    "mode": "REPLICA_FAILOVER",
+    "lockFile": "$LOCK",
+    "checkpointFile": "$CHECKPOINT",
+    "replicas": 3
+  }
+}
+EOF
 }
 
 # ─── Locking (only 1 worker active at a time) ────────────────
@@ -102,6 +132,7 @@ step_resolve_conflicts() {
   }
 
   write_checkpoint "resolve_conflicts" "done"
+  write_progress 20 "resolve_conflicts" "done" "Conflicts resolved and branch aligned" "replica"
   log "  ✅ Conflicts resolved"
 }
 
@@ -129,6 +160,7 @@ step_commit_remaining() {
   fi
 
   write_checkpoint "commit_remaining" "done"
+  write_progress 35 "commit_remaining" "done" "Committed pending local changes" "replica"
 }
 
 step_push() {
@@ -137,6 +169,7 @@ step_push() {
   local branch=$(git branch --show-current)
   git push origin "$branch" --force-with-lease 2>&1 | tee -a "$LOG"
   write_checkpoint "push" "done"
+  write_progress 45 "push" "done" "Branch pushed to remote" "replica"
   log "  ✅ Pushed"
 }
 
@@ -165,6 +198,7 @@ step_verify_tests() {
   fi
 
   write_checkpoint "verify_tests" "done"
+  write_progress 60 "verify_tests" "done" "Tests and lint verified locally" "replica"
 }
 
 step_wait_ci() {
@@ -186,6 +220,7 @@ step_wait_ci() {
     if [ "$failing" -eq 0 ] && [ "$pending" -eq 0 ] && [ "$passing" -gt 0 ]; then
       log "  ✅ CI green"
       write_checkpoint "wait_ci" "done"
+      write_progress 75 "wait_ci" "done" "All CI checks green" "replica"
       return 0
     fi
 
@@ -195,6 +230,7 @@ step_wait_ci() {
 
   log "  ⏰ CI timeout but continuing"
   write_checkpoint "wait_ci" "done"
+  write_progress 75 "wait_ci" "running" "Waiting for CI to settle" "replica"
 }
 
 step_merge_pr() {
@@ -221,6 +257,7 @@ step_merge_pr() {
 
   log "  ⚠️ Auto-merge failed — PR may need manual merge or approval"
   write_checkpoint "merge_pr" "done"
+  write_progress 85 "merge_pr" "blocked" "Merge requires manual attention" "replica"
 }
 
 step_cleanup_branches() {
@@ -241,6 +278,7 @@ step_cleanup_branches() {
   done
 
   write_checkpoint "cleanup_branches" "done"
+  write_progress 95 "cleanup_branches" "done" "Branches and remotes cleaned" "replica"
   log "  ✅ Branches cleaned"
 }
 
@@ -288,12 +326,14 @@ step_final_verify() {
   if [ "$open_prs" = "0" ] && [ "$uncommitted" -le 2 ] && [ "$branch_now" = "main" ]; then
     log "✅ ALL WORK COMPLETE"
     write_checkpoint "all_done" "done"
+    write_progress 100 "all_done" "done" "Fleet recovery complete" "replica"
   else
     log "⚠️ Remaining:"
     [ "$open_prs" != "0" ] && log "  - $open_prs open PRs"
     [ "$uncommitted" -gt 2 ] && log "  - $uncommitted uncommitted files"
     [ "$branch_now" != "main" ] && log "  - On branch $branch_now (not main)"
     write_checkpoint "final_verify" "done_with_remaining"
+    write_progress 98 "final_verify" "running" "Residual work remains" "replica"
   fi
 }
 
