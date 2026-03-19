@@ -53,3 +53,23 @@ secrets.json
 .aws/
 *.pem
 .claude/worktrees/
+
+# AI assistant rules (keep local, don't pollute repo for other engineers)
+AGENTS.md
+.agents.md
+AGENTS.override.md
+LOCAL_AGENT_GOVERNOR.md
+AUTONOMOUS_AGENT_PROMPT.md
+.cursor/rules/
+.cursor/
+.codex/
+.orchestrator/
+
+# Local agent runtime state (machine-local, never version)
+state/local-agent-runtime/*.pid
+state/local-agent-runtime/*.log
+state/local-agent-runtime/.test-cache
+state/local-agent-runtime/company-fleet.log
+state/local-agent-runtime/learnings.log
+state/local-agent-runtime/dashboard.status
+state/local-agent-runtime/latest-status.txt

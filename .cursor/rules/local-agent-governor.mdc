@@ -1,7 +1,0 @@
----
-description: Local-only autonomy governor (pointer)
-alwaysApply: true
----
-
-Canonical policy is in LOCAL_AGENT_GOVERNOR.md. Treat it as hard constraints.
-If a conflict exists, follow LOCAL_AGENT_GOVERNOR.md.
