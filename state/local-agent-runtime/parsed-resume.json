@@ -1,0 +1,8 @@
+{
+  "name": "Jimmy Malhan",
+  "email": "jimmymalhan999@gmail.com",
+  "years_exp": 8,
+  "skill_count": 12,
+  "skills": ["python","typescript","go","react","postgresql","redis","kubernetes","docker","aws","machine learning","system design","distributed systems"],
+  "companies": ["Google","Stripe","Airbnb"]
+}

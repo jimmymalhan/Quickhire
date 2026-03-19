@@ -1,22 +1,22 @@
 {
-  "at": "2026-03-19T23:17:14Z",
-  "alive_workers": 51,
+  "at": "2026-03-19T23:29:09Z",
+  "alive_workers": 22,
   "tier_counts": {
     "tier1": 0,
-    "tier2": 2,
+    "tier2": 3,
     "tier3": 1,
-    "tier4": 2
+    "tier4": 3
   },
   "tasks": {
     "total": 62,
     "done": 0,
-    "in_progress": 26,
-    "ready": 36
+    "in_progress": 62,
+    "ready": 0
   },
   "throughput_per_tick": 0,
   "tasks_done": 0,
   "error_rate": 100,
   "circuit_breaker": "CLOSED",
-  "scale_tier": "GROWTH",
+  "scale_tier": "MVP",
   "consecutive_errors": 0
 }

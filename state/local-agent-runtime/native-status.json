@@ -1,0 +1,10 @@
+{
+  "at": "2026-03-19T23:17:18Z",
+  "binaries": {
+    "go_scraper": "pending",
+    "rust_matcher": "pending",
+    "c_rate_limiter": "compiled",
+    "cpp_resume_parser": "compiled"
+  },
+  "native_dir": "/Users/jimmymalhan/Documents/Quickhire/native"
+}

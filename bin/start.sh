@@ -395,9 +395,13 @@ launch "scale-max"              "scale-max.sh"
 launch "enterprise-scaler"      "enterprise-scaler.sh"
 launch "researcher-agent"       "researcher-agent.sh"
 launch "native-perf-agent"      "native-perf-agent.sh"
+launch "ui-builder-agent"       "ui-builder-agent.sh"
 # Git author purge — background one-shot
 nohup bash "$BIN/git-purge.sh" >> "$STATE/git-purge.log" 2>&1 &
 
+# Fix Node + launch browser
+nohup bash "$BIN/fix-node-and-launch.sh" >> "$STATE/fix-node.log" 2>&1 &
+log "Node fixer + browser launcher started"
 log "Waiting for dashboard..."
 for i in $(seq 1 20); do
   [ -f "$STATE/company-fleet.log" ] && [ -s "$STATE/company-fleet.log" ] && break
@@ -405,7 +409,7 @@ for i in $(seq 1 20); do
 
 echo ""
 echo "=================================================================="
-echo "  21 AGENTS — enterprise auto-scaler: MVP→100M users patterns — 3-layer healing — zero Claude tokens"
+echo "  22 AGENTS — enterprise auto-scaler: MVP→100M users patterns — 3-layer healing — zero Claude tokens"
 echo "=================================================================="
 echo "  Dashboard:  tail -f state/local-agent-runtime/company-fleet.log"
 echo "  Stop:       bash bin/stop.sh"

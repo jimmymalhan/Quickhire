@@ -1,0 +1,9 @@
+{
+  "sources": [
+    {"source":"LinkedIn","tokens":50.0,"cap":50,"rate_per_sec":0.5,"pct_available":100.0},
+    {"source":"Indeed","tokens":80.0,"cap":80,"rate_per_sec":1.0,"pct_available":100.0},
+    {"source":"Glassdoor","tokens":40.0,"cap":40,"rate_per_sec":0.3,"pct_available":100.0},
+    {"source":"Dice","tokens":60.0,"cap":60,"rate_per_sec":0.8,"pct_available":100.0},
+    {"source":"Wellfound","tokens":70.0,"cap":70,"rate_per_sec":1.2,"pct_available":100.0}
+  ]
+}
