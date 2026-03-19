@@ -1,0 +1,9 @@
+{
+  "cycle": 1,
+  "cpu_pct": 100.0,
+  "alive": 30,
+  "target_cpu": 70,
+  "floor_cpu": 45,
+  "max_workers": 120,
+  "at": "2026-03-19T23:11:13Z"
+}

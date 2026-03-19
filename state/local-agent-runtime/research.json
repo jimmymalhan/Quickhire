@@ -1,0 +1,86 @@
+{
+  "at": "2026-03-19T23:11:12Z",
+  "cycle": 7072,
+  "candidates_researched": 27,
+  "new_added": 27,
+  "total_backlog": 42,
+  "top_10_by_vote": [
+    {
+      "rank": 1,
+      "title": "Feat: browser extension (1-click apply anywhere)",
+      "score": 98,
+      "eta_hrs": 15,
+      "top_voter": "Sequoia Partner(+15)"
+    },
+    {
+      "rank": 2,
+      "title": "Feat: Slack bot (daily top 5 jobs + apply button)",
+      "score": 90,
+      "eta_hrs": 4,
+      "top_voter": "Sequoia Partner(+30)"
+    },
+    {
+      "rank": 3,
+      "title": "Feat: viral referral program (apply \u2192 share \u2192 credits)",
+      "score": 83,
+      "eta_hrs": 6,
+      "top_voter": "Sequoia Partner(+30)"
+    },
+    {
+      "rank": 4,
+      "title": "Feat: Zapier + Make.com integration",
+      "score": 81,
+      "eta_hrs": 4,
+      "top_voter": "a16z Partner(+15)"
+    },
+    {
+      "rank": 5,
+      "title": "Feat: GPT-based cover letter fine-tuned on successful apps",
+      "score": 77,
+      "eta_hrs": 8,
+      "top_voter": "Sequoia Partner(+15)"
+    },
+    {
+      "rank": 6,
+      "title": "Feat: resume parser (extract skills from PDF)",
+      "score": 77,
+      "eta_hrs": 6,
+      "top_voter": "a16z Partner(+30)"
+    },
+    {
+      "rank": 7,
+      "title": "Feat: white-label API for recruiting agencies",
+      "score": 74,
+      "eta_hrs": 10,
+      "top_voter": "Sequoia Partner(+15)"
+    },
+    {
+      "rank": 8,
+      "title": "Feat: job description summarizer (TL;DR in 3 bullets)",
+      "score": 74,
+      "eta_hrs": 4,
+      "top_voter": "a16z Partner(+15)"
+    },
+    {
+      "rank": 9,
+      "title": "Feat: bulk apply (100 jobs in 1 click)",
+      "score": 72,
+      "eta_hrs": 8,
+      "top_voter": "a16z Partner(+30)"
+    },
+    {
+      "rank": 10,
+      "title": "Feat: user onboarding wizard (profile \u2192 first apply in 5min)",
+      "score": 68,
+      "eta_hrs": 5,
+      "top_voter": "Sequoia Partner(+15)"
+    }
+  ],
+  "voter_breakdown": {
+    "investors": 5,
+    "org_roles": 12,
+    "total_org_headcount": 50,
+    "user_companies": 10,
+    "enterprise_cos": 3
+  }
+}

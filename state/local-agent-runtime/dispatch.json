@@ -1,0 +1,48 @@
+{
+  "updatedAt": "2026-03-19T22:25:23Z",
+  "assignments": [
+    {
+      "taskId": 8,
+      "title": "Feat: job matching algorithm",
+      "assignedTo": "team-product",
+      "team": "product",
+      "branch": "feat/job-matching",
+      "priority": 2,
+      "status": "assigned",
+      "assignedAt": "2026-03-19T22:25:23Z"
+    },
+    {
+      "taskId": 9,
+      "title": "Feat: application status tracker",
+      "assignedTo": "team-product",
+      "team": "product",
+      "branch": "feat/app-tracker",
+      "priority": 3,
+      "status": "assigned",
+      "assignedAt": "2026-03-19T22:25:23Z"
+    },
+    {
+      "taskId": 10,
+      "title": "Fix: add missing API error handlers",
+      "assignedTo": "team-quality",
+      "team": "quality",
+      "branch": "fix/api-errors",
+      "priority": 4,
+      "status": "assigned",
+      "assignedAt": "2026-03-19T22:25:23Z"
+    },
+    {
+      "taskId": 11,
+      "title": "Feat: email notification on apply",
+      "assignedTo": "team-product",
+      "team": "product",
+      "branch": "feat/email-notify",
+      "priority": 5,
+      "status": "assigned",
+      "assignedAt": "2026-03-19T22:25:23Z"
+    }
+  ],
+  "totalTasks": 11,
+  "readyTasks": 4,
+  "doneTasks": 6
+}

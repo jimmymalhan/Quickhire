@@ -1,0 +1,142 @@
+{
+  "at": "2026-03-19T23:11:12Z",
+  "total_hrs": 44.0,
+  "done_by": "2026-03-21 19:11",
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Fix: untrack .claude/ CLAUDE.md from git",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 0.5,
+      "cum_hrs": 0.5,
+      "eta_ts": "03/19 23:41"
+    },
+    {
+      "id": 2,
+      "title": "Feat: real LinkedIn scraper (replace mock)",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 8,
+      "cum_hrs": 8.5,
+      "eta_ts": "03/20 07:41"
+    },
+    {
+      "id": 3,
+      "title": "Feat: form submission engine",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 6,
+      "cum_hrs": 14.5,
+      "eta_ts": "03/20 13:41"
+    },
+    {
+      "id": 4,
+      "title": "Feat: rate limiting + session mgmt",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 4,
+      "cum_hrs": 18.5,
+      "eta_ts": "03/20 17:41"
+    },
+    {
+      "id": 5,
+      "title": "Fix: cleanup all stale branches",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 0.5,
+      "cum_hrs": 19.0,
+      "eta_ts": "03/20 18:11"
+    },
+    {
+      "id": 6,
+      "title": "Feat: job matching algorithm",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 5,
+      "cum_hrs": 24.0,
+      "eta_ts": "03/20 23:11"
+    },
+    {
+      "id": 7,
+      "title": "Feat: application status tracker",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 3,
+      "cum_hrs": 27.0,
+      "eta_ts": "03/21 02:11"
+    },
+    {
+      "id": 8,
+      "title": "Fix: API error handlers",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 2,
+      "cum_hrs": 29.0,
+      "eta_ts": "03/21 04:11"
+    },
+    {
+      "id": 9,
+      "title": "Feat: email notification on apply",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 3,
+      "cum_hrs": 32.0,
+      "eta_ts": "03/21 07:11"
+    },
+    {
+      "id": 10,
+      "title": "Feat: auto-retry failed applications",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 4,
+      "cum_hrs": 36.0,
+      "eta_ts": "03/21 11:11"
+    },
+    {
+      "id": 11,
+      "title": "Feat: company blacklist/whitelist",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 2,
+      "cum_hrs": 38.0,
+      "eta_ts": "03/21 13:11"
+    },
+    {
+      "id": 12,
+      "title": "Feat: salary range filter",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 2,
+      "cum_hrs": 40.0,
+      "eta_ts": "03/21 15:11"
+    },
+    {
+      "id": 13,
+      "title": "CI: block AI rules in GitHub Actions",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 1,
+      "cum_hrs": 41.0,
+      "eta_ts": "03/21 16:11"
+    },
+    {
+      "id": 14,
+      "title": "Release: tag v1.1.0 + CHANGELOG",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 1,
+      "cum_hrs": 42.0,
+      "eta_ts": "03/21 17:11"
+    },
+    {
+      "id": 15,
+      "title": "Test: apply to 3 sandbox jobs end-to-end",
+      "status": "ready",
+      "agent": "tbd",
+      "eta_hrs": 2,
+      "cum_hrs": 44.0,
+      "eta_ts": "03/21 19:11"
+    }
+  ]
+}

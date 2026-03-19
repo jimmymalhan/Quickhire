@@ -1,0 +1,32 @@
+{
+  "team": "product",
+  "status": "monitoring",
+  "backlog": [
+    {
+      "id": 1,
+      "title": "Real LinkedIn scraper",
+      "done": false,
+      "priority": 1
+    },
+    {
+      "id": 2,
+      "title": "Form submission engine",
+      "done": false,
+      "priority": 2
+    },
+    {
+      "id": 3,
+      "title": "Rate limiting",
+      "done": true,
+      "priority": 3
+    },
+    {
+      "id": 4,
+      "title": "Session management",
+      "done": true,
+      "priority": 4
+    }
+  ],
+  "openPRs": 0,
+  "updatedAt": "2026-03-19T23:11:12Z"
+}

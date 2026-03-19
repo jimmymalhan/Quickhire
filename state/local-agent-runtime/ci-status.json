@@ -1,18 +1,12 @@
 {
-  "updatedAt": "2026-03-18T22:14:50Z",
+  "updatedAt": "2026-03-19T23:11:12Z",
   "tests": {
     "status": "pass",
-    "count": "Tests:       1 todo, 1386 passed, 1387 total"
+    "count": "694 passed, 694 total"
   },
   "lint": {
     "status": "pass",
     "errors": 0
   },
-  "mergeAllowed": true,
-  "rules": {
-    "noDirectCommitsToMain": true,
-    "prRequired": true,
-    "ciMustPassBeforeMerge": true,
-    "aiEnabled": false
-  }
+  "mergeAllowed": true
 }

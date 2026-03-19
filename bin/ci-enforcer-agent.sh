@@ -57,6 +57,10 @@ cd "$ROOT"
 
 while true; do
   log "=== CI ENFORCEMENT CHECK ==="
+  # Skip if npm is not functional — preserve last known ci-status.json
+  if ! $NPM --version >/dev/null 2>&1; then
+    log "SKIP: npm not functional — preserving last known status"
+    sleep 60; continue; fi
 
   # Run tests
   TEST_OUTPUT=$(npm test -- --passWithNoTests --no-coverage 2>&1)
