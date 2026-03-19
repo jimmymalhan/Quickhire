@@ -1,15 +1,1 @@
-{
-  "task": "CI Green Pipeline Fix",
-  "phase": "1/4 - Git",
-  "status": "creating branch",
-  "eta": "3min",
-  "agents": {
-    "orchestrator": "running",
-    "git-agent": "active",
-    "ci-monitor": "idle",
-    "merge-agent": "idle",
-    "cleanup-agent": "idle"
-  },
-  "capacity": "85%",
-  "updated": "2026-03-19T00:27:47Z"
-}
+{"goal_pct":45,"project_pct":45,"task":"commit-changes","task_pct":0,"agents_live":8,"agents_total":8,"claude_pct":0,"active":"committing changes","owner":"code-agent","status":"running","next":"create PR","blocker":"none","updated":"2026-03-19T16:55:40Z"}
