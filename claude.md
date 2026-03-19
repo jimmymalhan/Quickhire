@@ -292,13 +292,31 @@ You have full permissions to:
 
 ### Git Workflow
 ```
-❌ NEVER commit directly to main
+❌ NEVER commit directly to main — ALL changes go through PRs
+❌ NEVER push directly to main — local agents, sub-agents, orchestrators included
 ❌ NEVER force push
+❌ NEVER merge without CI green
 ❌ NEVER merge without approval
+✅ ALWAYS create a feature branch first (fix/, feat/, team-/)
+✅ ALWAYS open a PR from feature branch → main
+✅ ALWAYS wait for ALL CI checks to pass before merge
 ✅ Create feature branches (team-name/feature)
 ✅ All work on develop first
 ✅ PRs to develop require 3+ approvals
 ✅ PRs to main require QA + product approval
+```
+
+### Hard Rule for Local Agents
+```
+ALL local agents, sub-agents, orchestrators, and any automated process MUST:
+1. Create a feature branch (never commit to main)
+2. Push to the feature branch only
+3. Open a PR from feature branch → main
+4. Wait for ALL CI checks to pass (poll until green)
+5. Only then merge via squash merge + delete branch
+6. NEVER use git push origin main
+7. NEVER bypass branch protection
+Violation = agent must be killed and restarted by supervisor
 ```
 
 ### Documentation

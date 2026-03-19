@@ -1,0 +1,276 @@
+{
+  "generatedAt": "2026-03-19T00:28:51Z",
+  "project": {
+    "name": "CI Green Pipeline Fix",
+    "status": "running",
+    "overallPercent": 40,
+    "remainingPercent": 60,
+    "etaMinutes": 12,
+    "etaLabel": "~12 min",
+    "currentStage": "running",
+    "startedAt": null,
+    "updatedAt": null
+  },
+  "controls": {
+    "mode": "LOCAL_AGENTS_ONLY",
+    "localAgentsOnly": true,
+    "capacity": {
+      "currentPercent": 85,
+      "targetMinPercent": 80,
+      "targetMaxPercent": 90
+    },
+    "replicas": {
+      "ci_test": 3,
+      "lint": 2,
+      "pr_monitor": 3,
+      "git_sync": 2,
+      "build": 2,
+      "read": 3,
+      "write": 3
+    },
+    "tailCommands": [
+      "tail -f state/local-agent-runtime/company-fleet.log",
+      "tail -f state/local-agent-runtime/dashboard.status",
+      "jq '.' state/local-agent-runtime/dashboard.json",
+      "bash bin/live-progress.sh"
+    ]
+  },
+  "queue": {
+    "pendingCount": 4,
+    "runningCount": 0,
+    "completedCount": 0,
+    "topPending": [
+      "MONITOR: Poll PR #3 CI checks until all green",
+      "DOCS: Create .github/AGENT_ORGCHART.md",
+      "DOCS: Update README.md with custom agents section for Kiro reuse",
+      "MONITOR: Terminal status updates every 10 seconds"
+    ],
+    "topRunning": []
+  },
+  "agents": {
+    "summary": {
+      "alive": 2,
+      "total": 2,
+      "healthChecked": 10,
+      "healthy": 10
+    },
+    "health": [
+      {
+        "id": "test-agent",
+        "name": "Test Runner",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.352Z"
+      },
+      {
+        "id": "lint-agent",
+        "name": "Lint Checker",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.353Z"
+      },
+      {
+        "id": "build-agent",
+        "name": "Build Runner",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.353Z"
+      },
+      {
+        "id": "db-agent",
+        "name": "Database Agent",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.353Z"
+      },
+      {
+        "id": "health-agent",
+        "name": "Health Checker",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.353Z"
+      },
+      {
+        "id": "git-agent",
+        "name": "Git Agent",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.353Z"
+      },
+      {
+        "id": "scale-agent",
+        "name": "Scale Agent",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.353Z"
+      },
+      {
+        "id": "supervisor-agent",
+        "name": "Supervisor",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.353Z"
+      },
+      {
+        "id": "code-writer-agent",
+        "name": "Code Writer",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.353Z"
+      },
+      {
+        "id": "backlog-agent",
+        "name": "Backlog Executor",
+        "status": "healthy",
+        "recentFailures": 0,
+        "recentSuccesses": 0,
+        "checkedAt": "2026-03-18T22:00:26.357Z"
+      }
+    ],
+    "roles": [
+      {
+        "name": "orchestrator-monitor",
+        "status": "running",
+        "doing": "writing dashboard.json every 10s",
+        "replicas": 1
+      },
+      {
+        "name": "session-chief",
+        "status": "running",
+        "doing": "choosing next highest-ROI task",
+        "replicas": 1
+      },
+      {
+        "name": "supervisor",
+        "status": "idle",
+        "doing": "health-checking local workers",
+        "replicas": 1
+      }
+    ],
+    "active": {
+      "ci-enforcer": {
+        "pid": 46317,
+        "status": "running"
+      },
+      "monitor": {
+        "pid": 46327,
+        "status": "running"
+      }
+    },
+    "chiefAssignments": []
+  },
+  "ci": {
+    "tests": "pass",
+    "lint": "pass",
+    "mergeAllowed": true,
+    "checks": {
+      "passing": 1,
+      "pending": 0,
+      "failing": 0
+    }
+  },
+  "handoff": {
+    "status": "none",
+    "timedOutAt": null,
+    "timeoutMinutes": 1,
+    "owners": {
+      "ci-enforcer": {
+        "pid": 46317,
+        "status": "running"
+      },
+      "monitor": {
+        "pid": 46327,
+        "status": "running"
+      }
+    },
+    "reason": "60-second session timeout"
+  },
+  "workflow": {
+    "completed": 13,
+    "inProgress": 3,
+    "resourceUsage": {
+      "cpuPercent": 35,
+      "memoryPercent": 48,
+      "cpuThreshold": 90,
+      "memoryThreshold": 90
+    }
+  },
+  "stakeholderViews": {
+    "cto": {
+      "title": "Merge gate and release confidence",
+      "headline": "Protect the release path and block merges until the gate is green.",
+      "metrics": [
+        "mergeAllowed=True",
+        "tests=pass lint=pass",
+        "overall=40% eta=~12 min",
+        "capacity=85% target=80-90%"
+      ],
+      "risks": [
+        "handoff status: None",
+        "4 queued items awaiting execution"
+      ],
+      "ask": "Keep CI green before merge and preserve the 80-90% capacity band."
+    },
+    "vp": {
+      "title": "Quality, security, and delivery health",
+      "headline": "Focus on test, lint, and security status with no noisy regressions.",
+      "metrics": [
+        "tests=pass lint=pass",
+        "workflow completed=13 in-progress=3",
+        "healthy agents=10/10",
+        "local-agents-only=True"
+      ],
+      "risks": [
+        "track any red CI check or lint regression",
+        "watch for stale health-check failures"
+      ],
+      "ask": "Hold the quality gate until the repo is fully clean."
+    },
+    "director": {
+      "title": "Execution flow and ownership",
+      "headline": "Keep the queue moving and make sure every task has a clear owner.",
+      "metrics": [
+        "queue pending=4 running=0 completed=0",
+        "active agents=2/2",
+        "current stage=running",
+        "top running=none"
+      ],
+      "risks": [
+        "watch blocked or stalled queue items",
+        "confirm ownership stays on the latest checkpoint"
+      ],
+      "ask": "Keep the handoff chain moving and avoid idle replicas."
+    },
+    "manager": {
+      "title": "Near-term work and ETA",
+      "headline": "See what is happening now, what is next, and when it finishes.",
+      "metrics": [
+        "eta=~12 min remaining=60%",
+        "top pending=MONITOR: Poll PR #3 CI checks until all green, DOCS: Create .github/AGENT_ORGCHART.md, DOCS: Update README.md with custom agents section for Kiro reuse",
+        "handoff=none",
+        "healthy agents=10/10"
+      ],
+      "risks": [
+        "clear the current top pending item first",
+        "reassign if a handoff times out"
+      ],
+      "ask": "Keep local agents busy on the next highest-ROI task."
+    }
+  },
+  "summaryLine": "TRACKER|2026-03-19T00:28:51Z|overall=40%|left=60%|eta=~12 min|capacity=85%|target=80-90%|agents=2/2|ci=pass/pass|pr=4|monitor=idle|stage=running",
+  "tailCommands": [
+    "tail -f state/local-agent-runtime/company-fleet.log",
+    "tail -f state/local-agent-runtime/dashboard.status",
+    "jq '.' state/local-agent-runtime/dashboard.json",
+    "bash bin/live-progress.sh"
+  ]
+}
