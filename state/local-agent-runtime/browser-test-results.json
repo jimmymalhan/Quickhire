@@ -1,0 +1,23 @@
+{
+  "passed": 4,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "Frontend root /",
+      "status": "pass"
+    },
+    {
+      "name": "Tracker page",
+      "status": "pass"
+    },
+    {
+      "name": "Salary page",
+      "status": "pass"
+    },
+    {
+      "name": "ML page",
+      "status": "pass"
+    }
+  ],
+  "at": "2026-03-19T23:57:39Z"
+}

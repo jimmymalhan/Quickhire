@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-03-19T23:57:36Z",
+  "collected_at": "2026-03-19T23:58:52Z",
   "total_agents": 50,
   "teams": [
     "recruiters",
@@ -11,7 +11,7 @@
   "top_demanded": [
     {
       "feature": "Rejection predictor",
-      "votes": 15,
+      "votes": 14,
       "priority": 1
     },
     {
@@ -20,116 +20,116 @@
       "priority": 2
     },
     {
-      "feature": "Job dedup",
+      "feature": "Fast apply",
       "votes": 10,
       "priority": 3
     },
     {
-      "feature": "ML scoring",
+      "feature": "Cover letter AI",
       "votes": 10,
       "priority": 4
     },
     {
-      "feature": "Form filler",
-      "votes": 9,
+      "feature": "Session mgmt",
+      "votes": 10,
       "priority": 5
     },
     {
-      "feature": "Resume builder UI",
-      "votes": 9,
+      "feature": "Form filler",
+      "votes": 10,
       "priority": 6
     },
     {
-      "feature": "Feedback loop ML",
+      "feature": "Interview prep",
       "votes": 9,
       "priority": 7
     },
     {
-      "feature": "A/B test framework",
+      "feature": "One-click apply UI",
       "votes": 9,
       "priority": 8
     },
     {
-      "feature": "Email alerts",
-      "votes": 8,
+      "feature": "A/B test framework",
+      "votes": 9,
       "priority": 9
     },
     {
-      "feature": "Application tracker",
+      "feature": "Rate limiting",
       "votes": 8,
       "priority": 10
     },
     {
-      "feature": "K8s workers",
+      "feature": "Grafana funnel",
       "votes": 8,
       "priority": 11
     },
     {
-      "feature": "Skills gap UI",
+      "feature": "Sandbox E2E tests",
       "votes": 8,
       "priority": 12
     },
     {
-      "feature": "OAuth LinkedIn",
-      "votes": 8,
+      "feature": "Company filter",
+      "votes": 7,
       "priority": 13
     },
     {
-      "feature": "Changelog v1.1.0",
-      "votes": 8,
+      "feature": "Email alerts",
+      "votes": 7,
       "priority": 14
     },
     {
-      "feature": "Profile scorer",
+      "feature": "Follow-up email",
       "votes": 7,
       "priority": 15
     },
     {
-      "feature": "Cover letter AI",
+      "feature": "LinkedIn scraper",
       "votes": 7,
       "priority": 16
     },
     {
-      "feature": "Salary advisor",
+      "feature": "Skills gap",
       "votes": 7,
       "priority": 17
     },
     {
-      "feature": "Job feed UI",
+      "feature": "Retry logic",
       "votes": 7,
       "priority": 18
     },
     {
-      "feature": "Rate limiting",
-      "votes": 6,
+      "feature": "Job feed UI",
+      "votes": 7,
       "priority": 19
     },
     {
-      "feature": "Salary negotiation",
-      "votes": 6,
+      "feature": "Salary insights UI",
+      "votes": 7,
       "priority": 20
     }
   ],
   "negotiated_order": [
     "Rejection predictor",
     "Resume optimizer",
-    "Job dedup",
-    "ML scoring",
-    "Form filler",
-    "Resume builder UI",
-    "Feedback loop ML",
-    "A/B test framework",
-    "Email alerts",
-    "Application tracker",
-    "K8s workers",
-    "Skills gap UI",
-    "OAuth LinkedIn",
-    "Changelog v1.1.0",
-    "Profile scorer",
+    "Fast apply",
     "Cover letter AI",
-    "Salary advisor",
-    "Job feed UI",
+    "Session mgmt",
+    "Form filler",
+    "Interview prep",
+    "One-click apply UI",
+    "A/B test framework",
     "Rate limiting",
-    "Salary negotiation"
+    "Grafana funnel",
+    "Sandbox E2E tests",
+    "Company filter",
+    "Email alerts",
+    "Follow-up email",
+    "LinkedIn scraper",
+    "Skills gap",
+    "Retry logic",
+    "Job feed UI",
+    "Salary insights UI"
   ]
 }
