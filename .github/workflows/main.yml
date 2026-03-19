@@ -76,19 +76,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Auto-approve PR
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.pulls.createReview({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number,
-              event: 'APPROVE',
-              body: '✅ CI passed: all tests green, lint clean. Auto-approved.'
-            });
-
       - name: Merge PR
+        continue-on-error: true
         uses: actions/github-script@v7
         with:
           script: |

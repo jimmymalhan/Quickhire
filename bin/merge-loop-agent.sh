@@ -13,10 +13,40 @@ ROOT="${QUICKHIRE_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 STATE="$ROOT/state/local-agent-runtime"
 LOG="$STATE/merge-loop.log"
 CP="$STATE/company-checkpoint.json"
+PROGRESS_FILE="$STATE/progress.json"
 
 mkdir -p "$STATE"
 
 log(){ echo "[merge-loop] $(date -u +%H:%M:%S) $*" | tee -a "$LOG"; }
+
+write_progress() {
+  local percent="$1" stage="$2" status="$3" detail="$4" pr_num="${5:-}" passing="${6:-0}" failing="${7:-0}" pending="${8:-0}"
+  local remaining=$((100 - percent))
+  [ "$remaining" -lt 0 ] && remaining=0
+  cat > "$PROGRESS_FILE" <<EOF
+{
+  "task": "Merge loop recovery",
+  "updatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "overall": {
+    "percent": $percent,
+    "remainingPercent": $remaining,
+    "status": "$status"
+  },
+  "currentStage": {
+    "id": "$stage",
+    "status": "$status",
+    "detail": "$detail"
+  },
+  "ci": {
+    "prNumber": "$pr_num",
+    "passing": $passing,
+    "failing": $failing,
+    "pending": $pending,
+    "mergeReady": $([ "$failing" -eq 0 ] && [ "$pending" -eq 0 ] && [ "$passing" -gt 0 ] && echo true || echo false)
+  }
+}
+EOF
+}
 
 MAX_LOOPS=20
 LOOP=0
@@ -52,6 +82,7 @@ import json, datetime
 d={'step':'verify','status':'done','agent':'merge-loop','team':'git-ops','ts':datetime.datetime.utcnow().isoformat()+'Z'}
 json.dump(d, open('$CP','w'), indent=2)
 " 2>/dev/null
+      write_progress 100 "verify" "done" "PR already merged and cleaned up" "$LAST_MERGED" 0 0 0
       exit 0
     fi
     log "No PRs at all — need to create one"
@@ -152,6 +183,7 @@ d={'step':'wait_ci','status':'running','agent':'merge-loop','team':'ci-cd',
    'ci':{'passing':$PASSING,'failing':$REAL_FAIL,'pending':$PENDING,'loop':$LOOP}}
 json.dump(d, open('$CP','w'), indent=2)
 " 2>/dev/null
+    write_progress 70 "wait_ci" "running" "Waiting for all CI checks to go green" "$PR_NUM" "$PASSING" "$REAL_FAIL" "$PENDING"
 
     if [ "$PENDING" -eq 0 ] && [ "$REAL_FAIL" -eq 0 ] && [ "$PASSING" -gt 0 ]; then
       log "✅ ALL CI GREEN — $PASSING checks passing, 0 failures, 0 pending"
@@ -164,10 +196,11 @@ json.dump(d, open('$CP','w'), indent=2)
   done
 
   if [ "$CI_GREEN" != "true" ]; then
-    log "❌ CI not fully green — looping back (attempt $LOOP)"
-    sleep 30
-    continue
-  fi
+      log "❌ CI not fully green — looping back (attempt $LOOP)"
+      write_progress 65 "wait_ci" "blocked" "CI not fully green" "$PR_NUM" "$PASSING" "$REAL_FAIL" "$PENDING"
+      sleep 30
+      continue
+    fi
 
   # ── Step 7: MERGE (only after ALL CI green) ─────────────
   log "ALL CI GREEN — attempting merge..."
@@ -178,6 +211,7 @@ json.dump(d, open('$CP','w'), indent=2)
 
   if [ "$FINAL_FAIL" -gt 0 ] || [ "$FINAL_PEND" -gt 0 ]; then
     log "❌ Last-second CI change: fail=$FINAL_FAIL pending=$FINAL_PEND — looping back"
+    write_progress 75 "merge" "blocked" "CI changed before merge" "$PR_NUM" 0 "$FINAL_FAIL" "$FINAL_PEND"
     sleep 15
     continue
   fi
@@ -218,6 +252,7 @@ d={'step':'verify','status':'done','agent':'merge-loop','team':'git-ops',
    'ts':datetime.datetime.utcnow().isoformat()+'Z'}
 json.dump(d, open('$CP','w'), indent=2)
 " 2>/dev/null
+    write_progress 100 "verify" "done" "Merged and cleaned up" "$PR_NUM" "$PASSING" 0 0
 
     log ""
     log "╔══════════════════════════════════════════════════════╗"

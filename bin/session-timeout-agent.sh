@@ -1,57 +1,117 @@
 #!/usr/bin/env bash
-# session-timeout-agent.sh — Kills LocalAgent session after 1 minute, agents continue
-# Hard rule: LocalAgent gets 60 seconds max, then local agents take over completely.
+# session-timeout-agent.sh — Ends the interactive session after 60s and hands work to local agents.
+# This bootstrap keeps execution local and writes a durable handoff snapshot for terminal/runtime monitoring.
 
 set -uo pipefail
 ROOT="${QUICKHIRE_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 STATE="$ROOT/state/local-agent-runtime"
 LOG="$STATE/session-timeout.log"
 CTRL="$STATE/orchestration-controls.json"
+HANDOFF="$STATE/session-handoff.json"
+AGENTS="$STATE/agent-pids.json"
+WORKER_STATE="$STATE/worker-state.json"
 
 mkdir -p "$STATE"
 
 log(){ echo "[session-timeout] $(date -u +%H:%M:%S) $*" | tee -a "$LOG"; }
 
+write_json() {
+  local target="$1"
+  local payload="$2"
+  local tmp
+  tmp="$(mktemp "$STATE/.tmp.XXXXXX")"
+  printf '%s\n' "$payload" > "$tmp"
+  mv "$tmp" "$target"
+}
+
+launch_agent() {
+  local name="$1"
+  local script="$2"
+  local logfile="$3"
+
+  nohup bash "$script" >> "$logfile" 2>&1 &
+  printf '%s' "$!" > "$STATE/${name}.pid"
+  log "Started $name (PID $!)"
+}
+
 log "=== SESSION TIMEOUT AGENT STARTED ==="
-log "LocalAgent has 60 seconds. After that, local agents only."
-log "Timer started at $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+log "Interactive session window: 60s"
+log "Handoff model: local agents continue after timeout"
 
-# Start all other agents immediately (they work in parallel with LocalAgent's 60s)
-log "Starting CI-enforcer agent..."
-nohup bash "$ROOT/bin/ci-enforcer-agent.sh" >> "$STATE/ci-enforcer.log" 2>&1 &
-CI_PID=$!
-log "CI-enforcer started (PID: $CI_PID)"
+# Start the local workers that can keep draining work without the interactive session.
+launch_agent "ci-enforcer" "$ROOT/bin/ci-enforcer-agent.sh" "$STATE/ci-enforcer.log"
+launch_agent "queue-drain" "$ROOT/bin/queue-drain-agent.sh" "$STATE/queue-drain.log"
+launch_agent "pr-watcher" "$ROOT/bin/pr-watcher-agent.sh" "$STATE/pr-watcher.log"
+launch_agent "distributed-pool" "$ROOT/bin/distributed-worker-pool.sh" "$STATE/distributed-pool.log"
 
-log "Starting orchestration monitor..."
-nohup bash "$ROOT/bin/orchestration-monitor.sh" >> "$STATE/monitor.log" 2>&1 &
-MON_PID=$!
-log "Monitor started (PID: $MON_PID)"
-
-# Wait 60 seconds
 REMAINING=60
 while [ "$REMAINING" -gt 0 ]; do
-  log "⏱️  LocalAgent session timeout in ${REMAINING}s | CI-enforcer: running | Monitor: running"
+  log "timeout=${REMAINING}s | local-agents=active | tail=$(basename "$STATE/company-fleet.log" 2>/dev/null || echo company-fleet.log)"
   sleep 10
   REMAINING=$((REMAINING - 10))
 done
 
-log "=== 60 SECONDS ELAPSED ==="
-log "LocalAgent session TERMINATED. Local agents continue."
-log "Active agents: ci-enforcer (PID $CI_PID), monitor (PID $MON_PID)"
+handoff_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+ci_pid="$(cat "$STATE/ci-enforcer.pid" 2>/dev/null || echo 0)"
+queue_pid="$(cat "$STATE/queue-drain.pid" 2>/dev/null || echo 0)"
+pr_pid="$(cat "$STATE/pr-watcher.pid" 2>/dev/null || echo 0)"
+pool_pid="$(cat "$STATE/distributed-pool.pid" 2>/dev/null || echo 0)"
 
-# Update orchestration state
-cat > "$STATE/session-handoff.json" << EOJSON
+write_json "$HANDOFF" "$(cat <<EOJSON
 {
-  "handoffTime": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-  "reason": "60-second session timeout",
-  "LocalAgentStatus": "TERMINATED",
-  "activeAgents": {
-    "ci-enforcer": { "pid": $CI_PID, "status": "running" },
-    "monitor": { "pid": $MON_PID, "status": "running" }
+  "schemaVersion": "2.0",
+  "handoffTime": "$handoff_time",
+  "reason": "interactive session timeout",
+  "timeoutMinutes": 1,
+  "status": "handoff-complete",
+  "interactiveSession": "terminated",
+  "resumePolicy": {
+    "localAgentsOnly": true,
+    "noClaudeTokens": true,
+    "tailCommand": "tail -f state/local-agent-runtime/company-fleet.log"
   },
-  "pendingWork": "Read orchestration-controls.json for remaining tasks"
+  "activeAgents": {
+    "ci-enforcer": { "pid": $ci_pid, "status": "running" },
+    "queue-drain": { "pid": $queue_pid, "status": "running" },
+    "pr-watcher": { "pid": $pr_pid, "status": "running" },
+    "distributed-pool": { "pid": $pool_pid, "status": "running" }
+  },
+  "pendingWork": "Follow orchestration-controls.json and company-fleet.log for the remaining queue",
+  "workLeft": {
+    "source": "orchestration-controls.json",
+    "tracker": "company-fleet.log",
+    "snapshot": "dashboard.json"
+  }
 }
 EOJSON
+)"
 
-log "Handoff state written to session-handoff.json"
-log "Local agents will continue autonomously. No LocalAgent tokens consumed."
+write_json "$AGENTS" "$(cat <<EOJSON
+{
+  "updatedAt": "$handoff_time",
+  "agents": {
+    "ci-enforcer": { "pid": $ci_pid, "role": "ci", "group": "write" },
+    "queue-drain": { "pid": $queue_pid, "role": "executor", "group": "write" },
+    "pr-watcher": { "pid": $pr_pid, "role": "merge", "group": "read" },
+    "distributed-pool": { "pid": $pool_pid, "role": "replicas", "group": "read" }
+  }
+}
+EOJSON
+)"
+
+write_json "$WORKER_STATE" "$(cat <<EOJSON
+{
+  "status": "handoff-complete",
+  "activeCommandId": null,
+  "startedAt": null,
+  "lastHeartbeatAt": "$handoff_time",
+  "updatedAt": "$handoff_time",
+  "workerBootedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+}
+EOJSON
+)"
+
+log "=== SESSION TIMEOUT ELAPSED ==="
+log "Handoff written to session-handoff.json"
+log "Agent registry written to agent-pids.json"
+log "Worker state overwritten for handoff visibility"

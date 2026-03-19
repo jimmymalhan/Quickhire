@@ -3,6 +3,8 @@ import type { RuntimeProgressSnapshot } from '../types';
 import { sampleRuntimeProgress } from '../data/sampleRuntimeProgress';
 import { runtimeService } from '../services/runtimeService';
 
+const fallbackRefreshIntervalMs = 10000;
+
 export function useRuntimeProgress() {
   const [runtimeProgress, setRuntimeProgress] = useState<RuntimeProgressSnapshot>(
     sampleRuntimeProgress,
@@ -37,7 +39,7 @@ export function useRuntimeProgress() {
           void loadRuntimeProgress();
           intervalId = window.setInterval(() => {
             void loadRuntimeProgress();
-          }, 5000);
+          }, fallbackRefreshIntervalMs);
         }
       },
     );

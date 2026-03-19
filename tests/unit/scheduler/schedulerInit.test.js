@@ -28,8 +28,16 @@ const {
 const { jobScrapeQueue, applicationQueue } = require('../../../src/scheduler/queue');
 
 describe('schedulerInit', () => {
+  let originalDisableQueues;
+
   beforeEach(() => {
+    originalDisableQueues = process.env.DISABLE_QUEUES;
+    process.env.DISABLE_QUEUES = 'false';
     jest.clearAllMocks();
+  });
+
+  afterEach(() => {
+    process.env.DISABLE_QUEUES = originalDisableQueues;
   });
 
   describe('initScheduler', () => {

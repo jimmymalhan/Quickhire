@@ -1,7 +1,16 @@
+const config = require('../../utils/config');
 const { testConnection } = require('../../database/connection');
 
 const healthCheck = async (_req, res) => {
-  const dbHealthy = await testConnection();
+  let dbHealthy = false;
+
+  try {
+    dbHealthy = await testConnection(
+      config.env === 'test' ? { logSuccess: false, logFailure: false } : undefined,
+    );
+  } catch (_err) {
+    dbHealthy = false;
+  }
 
   const status = dbHealthy ? 'healthy' : 'degraded';
   const statusCode = dbHealthy ? 200 : 503;

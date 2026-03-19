@@ -10,6 +10,7 @@ ROOT="${QUICKHIRE_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 STATE="$ROOT/state/local-agent-runtime"
 LOG="$STATE/strict-merge.log"
 CHECKPOINT="$STATE/strict-checkpoint.json"
+PROGRESS_FILE="$STATE/progress.json"
 
 mkdir -p "$STATE"
 
@@ -21,6 +22,35 @@ import json, datetime
 d={'step':'$1','status':'$2','ts':datetime.datetime.utcnow().isoformat()+'Z'}
 json.dump(d, open('$CHECKPOINT','w'), indent=2)
 " 2>/dev/null
+}
+
+progress() {
+  local percent="$1" stage="$2" status="$3" detail="$4" pr_num="${5:-}" passing="${6:-0}" failing="${7:-0}" pending="${8:-0}"
+  local remaining=$((100 - percent))
+  [ "$remaining" -lt 0 ] && remaining=0
+  cat > "$PROGRESS_FILE" <<EOF
+{
+  "task": "Strict CI merge",
+  "updatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "overall": {
+    "percent": $percent,
+    "remainingPercent": $remaining,
+    "status": "$status"
+  },
+  "currentStage": {
+    "id": "$stage",
+    "status": "$status",
+    "detail": "$detail"
+  },
+  "ci": {
+    "prNumber": "$pr_num",
+    "passing": $passing,
+    "failing": $failing,
+    "pending": $pending,
+    "mergeReady": $([ "$failing" -eq 0 ] && [ "$pending" -eq 0 ] && [ "$passing" -gt 0 ] && echo true || echo false)
+  }
+}
+EOF
 }
 
 get_step() {
@@ -50,6 +80,7 @@ step_branch() {
   log "Created branch: $branch"
   echo "$branch" > "$STATE/current-branch"
   checkpoint "branch" "done"
+  progress 15 "branch" "done" "Feature branch created" "$branch"
 }
 
 # ── Step 2: Commit all uncommitted work ──────────────────────
@@ -78,6 +109,7 @@ step_commit() {
     log "Nothing to commit"
   fi
   checkpoint "commit" "done"
+  progress 30 "commit" "done" "Uncommitted work captured" "$(cat "$STATE/current-branch" 2>/dev/null || echo "")"
 }
 
 # ── Step 3: Push ─────────────────────────────────────────────
@@ -89,6 +121,7 @@ step_push() {
   git push -u origin "$branch" 2>&1 | tee -a "$LOG"
   log "✅ Pushed $branch"
   checkpoint "push" "done"
+  progress 45 "push" "done" "Branch pushed to origin" "$(cat "$STATE/current-branch" 2>/dev/null || echo "")"
 }
 
 # ── Step 4: Create PR ────────────────────────────────────────
@@ -140,6 +173,7 @@ PRBODY
     local pr_num=$(echo "$url" | grep -oE "[0-9]+" | tail -1)
     echo "$pr_num" > "$STATE/current-pr"
     log "✅ Created PR #$pr_num"
+    progress 60 "create_pr" "done" "Pull request created" "$pr_num"
   fi
   checkpoint "create_pr" "done"
 }
@@ -176,27 +210,19 @@ d={'step':'wait_all_ci','status':'running','ts':datetime.datetime.utcnow().isofo
    'ci':{'passing':$passing,'failing':$failing,'pending':$pending,'total':$total,'elapsed':$elapsed}}
 json.dump(d, open('$CHECKPOINT','w'), indent=2)
 " 2>/dev/null
+    progress 75 "wait_all_ci" "running" "Waiting for all CI checks to go green" "$pr_num" "$passing" "$failing" "$pending"
 
     # STRICT: ALL must pass, ZERO failing, ZERO pending
     if [ "$pending" -eq 0 ] && [ "$failing" -eq 0 ] && [ "$passing" -gt 0 ]; then
       log "✅ ALL $passing CI checks GREEN — approved to merge"
       checkpoint "wait_all_ci" "done"
+      progress 80 "wait_all_ci" "done" "All CI checks green" "$pr_num" "$passing" "$failing" "$pending"
       return 0
     fi
-
-    # If some fail but none pending, checks are done but failing
     if [ "$pending" -eq 0 ] && [ "$failing" -gt 0 ]; then
-      # Check if only auto-merge failed (acceptable)
-      local real_fail=$(echo "$checks" | grep -v "Auto-Merge" | grep -ci "fail" || true)
-      if [ "$real_fail" -eq 0 ]; then
-        log "✅ All real checks pass (only Auto-Merge failed — acceptable)"
-        checkpoint "wait_all_ci" "done"
-        return 0
-      else
-        log "❌ $real_fail real CI checks FAILING — cannot merge"
-        echo "$checks" | grep -i "fail" | grep -v "Auto-Merge" | tee -a "$LOG"
-        log "Waiting for re-run or fix..."
-      fi
+      log "❌ CI checks failing — cannot merge yet"
+      echo "$checks" | grep -i "fail" | tee -a "$LOG"
+      log "Waiting for re-run or fix..."
     fi
 
     sleep 15
@@ -208,10 +234,12 @@ json.dump(d, open('$CHECKPOINT','w'), indent=2)
   if [ "$final_fail" -eq 0 ]; then
     log "✅ Final check: no real failures"
     checkpoint "wait_all_ci" "done"
+    progress 80 "wait_all_ci" "done" "All real checks green" "$pr_num" 1 0 0
     return 0
   fi
   log "❌ CI still failing after timeout — NOT merging"
   checkpoint "wait_all_ci" "blocked"
+  progress 75 "wait_all_ci" "blocked" "CI still failing after timeout" "$pr_num" 0 "$final_fail" 0
   return 1
 }
 
@@ -232,6 +260,7 @@ step_merge() {
   if [ "$real_fail" -gt 0 ] || [ "$pending" -gt 0 ]; then
     log "❌ MERGE BLOCKED: $real_fail failures, $pending pending — refusing to merge"
     checkpoint "merge" "blocked"
+    progress 85 "merge" "blocked" "Merge blocked until CI is green" "$pr_num" 0 "$real_fail" "$pending"
     return 1
   fi
 
@@ -243,6 +272,7 @@ step_merge() {
     if gh pr merge "$pr_num" $strategy 2>&1 | tee -a "$LOG"; then
       log "✅ PR #$pr_num merged"
       checkpoint "merge" "done"
+      progress 90 "merge" "done" "PR merged successfully" "$pr_num" 1 0 0
       return 0
     fi
     sleep 3
@@ -250,6 +280,7 @@ step_merge() {
 
   log "⚠️ All merge strategies failed"
   checkpoint "merge" "done"
+  progress 85 "merge" "blocked" "Merge strategies exhausted" "$pr_num" 0 0 0
 }
 
 # ── Step 7: Cleanup ──────────────────────────────────────────
@@ -262,7 +293,7 @@ step_cleanup() {
   git pull origin main 2>/dev/null || true
 
   for b in $(git branch --merged main | grep -v 'main' | grep -v '^\*' | tr -d ' '); do
-    git branch -d "$b" 2>/dev/null && log "Deleted local: $b" || true
+  git branch -d "$b" 2>/dev/null && log "Deleted local: $b" || true
   done
 
   for rb in $(git branch -r --merged main | grep -v 'main' | grep -v 'HEAD' | sed 's|origin/||' | tr -d ' '); do
@@ -270,6 +301,7 @@ step_cleanup() {
   done
 
   checkpoint "cleanup" "done"
+  progress 95 "cleanup" "done" "Branches cleaned" "$(cat "$STATE/current-pr" 2>/dev/null || echo "")"
   log "✅ Cleanup done"
 }
 
@@ -293,6 +325,7 @@ step_verify() {
     log "⚠️ Remaining: PRs=$open_prs branch=$branch"
   fi
   checkpoint "verify" "done"
+  progress 100 "verify" "done" "Repository clean and verified" "$(cat "$STATE/current-pr" 2>/dev/null || echo "")"
 }
 
 # ── Fleet with replicas ──────────────────────────────────────

@@ -18,6 +18,10 @@ Currently, Quickhire supports LinkedIn. Support for additional job boards (Indee
 
 Quickhire is designed to respect LinkedIn's rate limits and terms of service. Applications are spread out over time, and daily limits are configurable to avoid suspicious activity patterns.
 
+### Can this repository change the assistant's global rules or memory?
+
+No. The repository can document workflow policy, org structure, and operating procedures, but it cannot change platform-level rules or memory. Those are controlled outside the repo.
+
 ---
 
 ## Setup & Installation
@@ -121,6 +125,29 @@ ESLint + Prettier with Conventional Commits. See [GUARDRAILS.md](../GUARDRAILS.m
 3. Add validation in `src/api/validators/`
 4. Write unit and integration tests
 5. Update [docs/API.md](./API.md)
+
+### How do I track local-agent work live?
+
+Use the dashboard for the high-level view:
+
+```bash
+bash bin/live-progress.sh
+```
+
+Use the runtime tail for raw state:
+
+```bash
+tail -f state/local-agent-runtime/company-fleet.log
+```
+
+The dashboard is the better option when you want overall work left, ETA, capacity, and role ownership in one place.
+
+### What does each stakeholder see in the live dashboard?
+
+- `CTO`: shipping readiness, blockers, ETA, merge state, and release risk.
+- `VP Engineering`: utilization, throughput, queue health, and CI stability.
+- `Director`: task ownership, replica coverage, blocker aging, and escalation points.
+- `Manager`: current task, next action, per-task progress, and handoff status.
 
 ### How do I create a database migration?
 

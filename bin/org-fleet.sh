@@ -22,17 +22,220 @@ ROOT="${QUICKHIRE_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 STATE="$ROOT/state/local-agent-runtime"
 LOG="$STATE/org-fleet.log"
 CP="$STATE/org-checkpoint.json"
+PROGRESS="$STATE/progress.json"
+REPLICA_COUNT=3
+CAPACITY_MIN=80
+CAPACITY_MAX=90
+STEPS=("resolve_conflicts" "fix_code" "commit" "push" "create_pr" "wait_ci" "em_approve" "director_approve" "vp_approve" "cto_approve" "merge" "cleanup" "verify")
+STEP_LABELS=("Resolve Conflicts" "Fix Code" "Commit" "Push" "Create PR" "Wait CI" "EM Approve" "Director Approve" "VP Approve" "CTO Approve" "Merge" "Cleanup" "Verify")
 
 mkdir -p "$STATE"
 
 log(){ echo "[org] $(date -u +%H:%M:%S) $*" | tee -a "$LOG"; }
 
 save_cp() {
-  python3 -c "
-import json, datetime
-d={'step':'$1','status':'$2','agent':'$3','ts':datetime.datetime.utcnow().isoformat()+'Z'}
-json.dump(d, open('$CP','w'), indent=2)
-" 2>/dev/null
+  python3 - "$CP" "$PROGRESS" "$1" "$2" "$3" <<'PY' 2>/dev/null
+import datetime as dt
+import json
+import pathlib
+import sys
+
+cp_path = pathlib.Path(sys.argv[1])
+progress_path = pathlib.Path(sys.argv[2])
+step = sys.argv[3]
+status = sys.argv[4]
+agent = sys.argv[5]
+
+steps = ["resolve_conflicts", "fix_code", "commit", "push", "create_pr", "wait_ci", "em_approve", "director_approve", "vp_approve", "cto_approve", "merge", "cleanup", "verify"]
+labels = {
+    "resolve_conflicts": "Resolve Conflicts",
+    "fix_code": "Fix Code",
+    "commit": "Commit",
+    "push": "Push",
+    "create_pr": "Create PR",
+    "wait_ci": "Wait CI",
+    "em_approve": "EM Approve",
+    "director_approve": "Director Approve",
+    "vp_approve": "VP Approve",
+    "cto_approve": "CTO Approve",
+    "merge": "Merge",
+    "cleanup": "Cleanup",
+    "verify": "Verify",
+}
+now = dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+previous = {}
+if cp_path.exists():
+    try:
+        previous = json.loads(cp_path.read_text())
+    except Exception:
+        previous = {}
+
+started_at = previous.get("started_at", now)
+if previous.get("step") != step or previous.get("status") != "running":
+    started_at = now
+
+if step in steps:
+    current_index = steps.index(step)
+else:
+    current_index = -1
+
+if current_index < 0:
+    completed_count = 0
+elif status == "done":
+    completed_count = current_index + 1
+else:
+    completed_count = current_index
+
+overall = int((completed_count * 100) / len(steps)) if steps else 0
+remaining = max(0, 100 - overall)
+eta_minutes = 0 if overall >= 100 else max(1, round((remaining / 100) * len(steps) * 2))
+current_stage = step if step in steps else previous.get("step")
+active_stage_count = 0 if status == "done" else (1 if step in steps else 0)
+project_status = "done" if overall >= 100 else ("blocked" if status == "blocked" else "running")
+current_capacity = 90 if status == "done" else 85
+failover_mode = "checkpoint-handoff"
+stakeholder_views = {
+    "cto": {
+        "title": "Merge gate and release confidence",
+        "headline": "CTO cares about release readiness, merge safety, and execution risk.",
+        "metrics": [
+            f"overall={overall}%",
+            f"status={project_status}",
+            f"capacity={current_capacity}% target={CAPACITY_MIN}-{CAPACITY_MAX}%",
+        ],
+        "risks": [
+            f"{max(0, 100 - overall)}% work remaining" if overall < 100 else "no blocking risk",
+        ],
+        "ask": "Keep merges gated until confidence stays green.",
+    },
+    "vp": {
+        "title": "Quality, security, and health",
+        "headline": "VP cares about operational quality and whether replicas stay healthy.",
+        "metrics": [
+            f"replicas={REPLICA_COUNT}",
+            f"failover={failover_mode}",
+            f"stage={current_stage}",
+        ],
+        "risks": [
+            "watch for stalled checkpoints or health regressions",
+        ],
+        "ask": "Keep the runtime clean and resilient.",
+    },
+    "director": {
+        "title": "Execution flow and ownership",
+        "headline": "Director cares about stage flow, ownership, and checkpoint handoff.",
+        "metrics": [
+            f"completed={completed_count}/{len(steps)}",
+            f"current stage={current_stage}",
+            f"replicas per stage={REPLICA_COUNT}",
+        ],
+        "risks": [
+            "avoid stalled stage transitions",
+        ],
+        "ask": "Keep the next stage owned and moving.",
+    },
+    "manager": {
+        "title": "Near-term work and ETA",
+        "headline": "Manager cares about what is next and when the current slice finishes.",
+        "metrics": [
+            f"eta=~{eta_minutes} min" if overall < 100 else "eta=DONE",
+            f"current stage={current_stage}",
+            f"updated={now}",
+        ],
+        "risks": [
+            "handoff should stay on the latest checkpoint",
+        ],
+        "ask": "Keep the next slice small and clear.",
+    },
+}
+
+stages = []
+for index, stage in enumerate(steps):
+    if index < completed_count:
+        stage_status = "completed"
+    elif index == current_index and status == "blocked":
+        stage_status = "blocked"
+    elif index == current_index and status != "done":
+        stage_status = "running"
+    else:
+        stage_status = "queued"
+
+    stages.append({
+        "id": stage,
+        "label": labels.get(stage, stage.replace("_", " ").title()),
+        "weight": round(100 / len(steps), 2) if steps else 0,
+        "percent": 100 if stage_status == "completed" else (50 if stage_status == "running" else 0),
+        "status": stage_status,
+        "owner": agent if index == current_index else ("local-agent" if stage_status == "queued" else "checkpoint"),
+        "started_at": started_at if stage_status in {"running", "blocked"} and index == current_index else None,
+        "completed_at": now if stage_status == "completed" else None,
+        "detail": f"{labels.get(stage, stage)} via checkpoint failover",
+        "replicas": 3,
+    })
+
+checkpoint = {
+    "step": step,
+    "status": status,
+    "agent": agent,
+    "team": "org-fleet",
+    "replica": 1,
+    "replicas": REPLICA_COUNT,
+    "failover": {
+        "mode": failover_mode,
+        "replicaPolicy": "next replica picks up from latest checkpoint",
+    },
+    "capacity": {
+        "currentPercent": current_capacity,
+        "targetMinPercent": CAPACITY_MIN,
+        "targetMaxPercent": CAPACITY_MAX,
+    },
+    "topology": {
+        "mode": "LOCAL_AGENTS_ONLY",
+        "orgChart": [
+            "CTO",
+            "VP Engineering",
+            "Director",
+            "EM / Supervisor",
+            "IC replicas",
+        ],
+    },
+    "started_at": started_at,
+    "updated_at": now,
+}
+cp_path.write_text(json.dumps(checkpoint, indent=2) + "\n")
+
+progress = {
+    "task": "Quickhire runtime integration",
+    "started_at": previous.get("started_at", started_at),
+    "updated_at": now,
+    "overall": {
+        "percent": overall,
+        "remaining_percent": remaining,
+        "status": project_status,
+        "eta_minutes": eta_minutes,
+    },
+    "current_stage": current_stage,
+    "capacity": {
+        "current_percent": current_capacity,
+        "target_min_percent": CAPACITY_MIN,
+        "target_max_percent": CAPACITY_MAX,
+    },
+    "stakeholder_views": stakeholder_views,
+    "orchestration": {
+        "mode": "LOCAL_AGENTS_ONLY",
+        "failover": failover_mode,
+        "replicas_per_type": REPLICA_COUNT,
+    },
+    "org_chart": {
+        "cto": "final sign-off",
+        "vp": "quality gate",
+        "director": "integration review",
+        "em": "coordinates IC replicas",
+    },
+    "stages": stages,
+}
+progress_path.write_text(json.dumps(progress, indent=2) + "\n")
+PY
 }
 
 get_cp() { python3 -c "import json; d=json.load(open('$CP')); print(d.get('step','none'),d.get('status',''))" 2>/dev/null || echo "none "; }

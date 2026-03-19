@@ -110,6 +110,8 @@ export type RuntimeTaskStatus = 'queued' | 'in_progress' | 'blocked' | 'done';
 export type RuntimeSessionStatus = 'running' | 'idle' | 'stalled';
 export type RuntimeBlockerSeverity = 'low' | 'medium' | 'high';
 export type ExecutiveRole = 'ceo' | 'cto' | 'director' | 'manager' | 'engineer';
+export type RuntimeAgentStatus = 'healthy' | 'degraded' | 'stalled' | 'offline' | 'unknown';
+export type RuntimeOrgTeamStatus = 'idle' | 'running' | 'blocked';
 
 export interface RuntimeTask {
   id: string;
@@ -161,6 +163,76 @@ export interface RuntimeToolLink {
   category: string;
 }
 
+export interface RuntimeAgentReplica {
+  id: string;
+  name: string;
+  role: string;
+  team: string;
+  scope: string;
+  owner: string;
+  status: RuntimeAgentStatus;
+  recentFailures: number;
+  recentSuccesses: number;
+  totalRecentRuns: number;
+  minutesSinceSuccess: number | null;
+  checkedAt: string | null;
+  active: boolean;
+  provider: string;
+  model: string;
+  lane: string;
+  isPrimary: boolean;
+}
+
+export interface RuntimeOrgTeam {
+  id: string;
+  name: string;
+  lead: string;
+  scope: string;
+  status: RuntimeOrgTeamStatus;
+  replicaCount: number;
+  healthyReplicas: number;
+  activeSessions: number;
+  activeTasks: number;
+  blockedTasks: number;
+  workLeftPercent: number;
+  etaMinutes: number | null;
+  agents: RuntimeAgentReplica[];
+}
+
+export interface RuntimeOrgChainNode {
+  role: ExecutiveRole | 'engineer';
+  owner: string;
+  focus: string;
+  status: string;
+}
+
+export interface RuntimeOrgCapacityBand {
+  minPercent: number;
+  targetPercent: number;
+  maxPercent: number;
+  currentPercent: number;
+  activeAgents: number;
+  healthyAgents: number;
+  totalAgents: number;
+}
+
+export interface RuntimeOrgFailover {
+  enabled: boolean;
+  takeoverEnabled: boolean;
+  primaryLane: string;
+  fallbackLane: string;
+  hotStandby: string[];
+  replicas: number;
+}
+
+export interface RuntimeOrgChart {
+  capacityBand: RuntimeOrgCapacityBand;
+  roleChain: RuntimeOrgChainNode[];
+  teams: RuntimeOrgTeam[];
+  replicas: RuntimeAgentReplica[];
+  failover: RuntimeOrgFailover;
+}
+
 export interface RuntimeOrchestration {
   schemaVersion: string;
   controller: {
@@ -201,8 +273,32 @@ export interface ExecutiveDecision {
 
 export interface RuntimeProgressSnapshot {
   generatedAt: string;
+  project?: {
+    name: string;
+    currentStage: string | null;
+    status: string;
+    percent: number;
+    remainingPercent: number;
+    stageCount: number;
+    completedStageCount: number;
+    activeStageCount: number;
+    blockedStageCount: number;
+    etaMinutes: number | null;
+    startedAt: string | null;
+    updatedAt: string | null;
+  };
+  projectProgress?: {
+    totalStages: number;
+    completedStageCount: number;
+    activeStageCount: number;
+    blockedStageCount: number;
+    remainingStageCount: number;
+    status: string;
+    currentStage: string | null;
+  };
   overallProgress: number;
   remainingPercent: number;
+  workLeftPercent?: number;
   blockerCount: number;
   etaTotalMinutes: number;
   tasks: RuntimeTask[];
@@ -226,9 +322,15 @@ export interface RuntimeProgressSnapshot {
     cloudApiCallsSaved: number;
   };
   orchestration: RuntimeOrchestration;
+  orgChart: RuntimeOrgChart;
   source?: {
     provider: string;
     stateDir: string;
     connected: boolean;
+    refreshIntervalMs?: number;
+    schemaVersion?: string;
+    files?: Record<string, string>;
+    fields?: Record<string, string>;
+    capturedAt?: string;
   };
 }

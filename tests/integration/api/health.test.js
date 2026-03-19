@@ -47,10 +47,12 @@ describe('Integration - Health Check', () => {
     expect(res.body.data.services.database).toBe('disconnected');
   });
 
-  // NOTE: The healthController currently lacks try-catch for async errors.
-  // When testConnection rejects, Express does not catch async rejections
-  // without express-async-errors or an explicit wrapper.
-  // This is logged as a bug: healthController should wrap testConnection in try-catch.
-  // Skipping until the controller is fixed.
-  test.todo('GET /api/health handles DB check errors gracefully');
+  test('GET /api/health handles DB check errors gracefully', async () => {
+    testConnection.mockRejectedValue(new Error('db exploded'));
+
+    const res = await request(app).get('/api/health');
+    expect(res.status).toBe(503);
+    expect(res.body.status).toBe('degraded');
+    expect(res.body.data.services.database).toBe('disconnected');
+  });
 });

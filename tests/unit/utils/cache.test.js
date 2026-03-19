@@ -1,7 +1,12 @@
 /**
  * Unit tests for src/utils/cache.js
  * Tests the Redis cache wrapper with mocked dependencies.
+ *
+ * We disable MOCK_REDIS so cache.js exercises the real ioredis code path
+ * (which is itself mocked via jest.mock('ioredis')).
  */
+const _originalMockRedis = process.env.MOCK_REDIS;
+process.env.MOCK_REDIS = 'false';
 
 // Mock ioredis
 const mockRedisInstance = {
@@ -242,4 +247,13 @@ describe('cache - del', () => {
     await cache.del('missing-key');
     expect(mockRedisInstance.del).toHaveBeenCalledWith('missing-key');
   });
+});
+
+// Restore original MOCK_REDIS value so other tests are unaffected.
+afterAll(() => {
+  if (_originalMockRedis === undefined) {
+    delete process.env.MOCK_REDIS;
+  } else {
+    process.env.MOCK_REDIS = _originalMockRedis;
+  }
 });

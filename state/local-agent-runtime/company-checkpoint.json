@@ -1,7 +1,61 @@
 {
-  "step": "commit_all",
-  "status": "running",
-  "agent": "backend-ic1",
-  "team": "backend",
-  "ts": "2026-03-18T22:37:43.124950Z"
+  "step": "verify",
+  "status": "done",
+  "agent": "merge-loop",
+  "team": "all-complete",
+  "ts": "2026-03-18T22:45:23.620321Z",
+  "stakeholder_views": {
+    "cto": {
+      "title": "Merge gate and release confidence",
+      "headline": "CTO cares that the runtime is complete and the merge gate is safe.",
+      "metrics": [
+        "verify=done",
+        "status=done",
+        "tail=state/local-agent-runtime/company-fleet.log"
+      ],
+      "risks": [
+        "reload the dashboard if a stale snapshot is being shown"
+      ],
+      "ask": "Keep merge confidence high and preserve the handoff trail."
+    },
+    "vp": {
+      "title": "Quality, security, and health",
+      "headline": "VP cares that the runtime and logs stay stable.",
+      "metrics": [
+        "replicas=3",
+        "failover=checkpoint-handoff",
+        "capacity=85% target=80-90%"
+      ],
+      "risks": [
+        "watch for stale log tails or missing snapshot refresh"
+      ],
+      "ask": "Keep the quality gate stable."
+    },
+    "director": {
+      "title": "Execution flow and ownership",
+      "headline": "Director cares that the latest checkpoint reflects completion.",
+      "metrics": [
+        "step=verify",
+        "team=all-complete",
+        "agent=merge-loop"
+      ],
+      "risks": [
+        "avoid stale ownership or orphaned handoff state"
+      ],
+      "ask": "Keep the final checkpoint aligned to the live tracker."
+    },
+    "manager": {
+      "title": "Near-term work and ETA",
+      "headline": "Manager cares that there is no remaining work in this slice.",
+      "metrics": [
+        "eta=DONE",
+        "status=done",
+        "updated=2026-03-18T22:45:23.620321Z"
+      ],
+      "risks": [
+        "refresh the dashboard if needed"
+      ],
+      "ask": "Keep the team on the next highest-value task."
+    }
+  }
 }

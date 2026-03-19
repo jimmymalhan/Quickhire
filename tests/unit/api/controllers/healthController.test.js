@@ -2,6 +2,10 @@ jest.mock('../../../../src/database/connection', () => ({
   testConnection: jest.fn(),
 }));
 
+jest.mock('../../../../src/utils/config', () => ({
+  env: 'test',
+}));
+
 const { healthCheck } = require('../../../../src/api/controllers/healthController');
 const { testConnection } = require('../../../../src/database/connection');
 
@@ -22,6 +26,10 @@ describe('healthController', () => {
       testConnection.mockResolvedValue(true);
 
       await healthCheck(req, res);
+      expect(testConnection).toHaveBeenCalledWith({
+        logSuccess: false,
+        logFailure: false,
+      });
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -38,6 +46,10 @@ describe('healthController', () => {
       testConnection.mockResolvedValue(false);
 
       await healthCheck(req, res);
+      expect(testConnection).toHaveBeenCalledWith({
+        logSuccess: false,
+        logFailure: false,
+      });
       expect(res.status).toHaveBeenCalledWith(503);
       expect(res.json).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -64,6 +76,23 @@ describe('healthController', () => {
       await healthCheck(req, res);
       const response = res.json.mock.calls[0][0];
       expect(response.data.timestamp).toBeTruthy();
+    });
+
+    it('returns degraded status when database check throws', async () => {
+      testConnection.mockRejectedValue(new Error('connection boom'));
+
+      await healthCheck(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(503);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          status: 'degraded',
+          code: 503,
+          data: expect.objectContaining({
+            services: { database: 'disconnected' },
+          }),
+        }),
+      );
     });
   });
 });

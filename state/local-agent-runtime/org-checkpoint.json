@@ -1,6 +1,61 @@
 {
   "step": "verify",
   "status": "done",
-  "agent": "ic-verifier",
-  "ts": "2026-03-18T22:34:45.483907Z"
+  "agent": "merge-loop",
+  "team": "all-complete",
+  "ts": "2026-03-18T22:45:23.620321Z",
+  "stakeholder_views": {
+    "cto": {
+      "title": "Merge gate and release confidence",
+      "headline": "CTO cares that the org-fleet completed its approval chain cleanly.",
+      "metrics": [
+        "verify=done",
+        "status=done",
+        "org=ready"
+      ],
+      "risks": [
+        "avoid stale approval state"
+      ],
+      "ask": "Keep the final approval trail intact."
+    },
+    "vp": {
+      "title": "Quality, security, and health",
+      "headline": "VP cares about quality gates and resilience across the org chart.",
+      "metrics": [
+        "replicas=3",
+        "failover=checkpoint-handoff",
+        "capacity=85% target=80-90%"
+      ],
+      "risks": [
+        "watch for missing CI or health snapshots"
+      ],
+      "ask": "Keep the gate and the health checks aligned."
+    },
+    "director": {
+      "title": "Execution flow and ownership",
+      "headline": "Director cares about ownership and approval flow across layers.",
+      "metrics": [
+        "step=verify",
+        "team=all-complete",
+        "agent=merge-loop"
+      ],
+      "risks": [
+        "avoid stale ownership or off-by-one checkpoint state"
+      ],
+      "ask": "Keep the org chart in sync with the live work."
+    },
+    "manager": {
+      "title": "Near-term work and ETA",
+      "headline": "Manager cares that this slice is complete and there is nothing left to unblock.",
+      "metrics": [
+        "eta=DONE",
+        "status=done",
+        "updated=2026-03-18T22:45:23.620321Z"
+      ],
+      "risks": [
+        "refresh the tracker if the state file is stale"
+      ],
+      "ask": "Focus the next cycle on the next highest-ROI task."
+    }
+  }
 }

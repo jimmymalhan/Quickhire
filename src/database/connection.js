@@ -70,13 +70,21 @@ if (process.env.MOCK_DB === 'true') {
 
   const getClient = async () => getPool().connect();
 
-  const testConnection = async () => {
+  const testConnection = async (options = {}) => {
+    const { logSuccess = true, logFailure = true } = options;
+
     try {
       await query('SELECT 1');
-      logger.info('Database connection established');
+      if (logSuccess) {
+        logger.info('Database connection established');
+      }
       return true;
     } catch (err) {
-      logger.error('Database connection failed', { error: err.message });
+      if (logFailure) {
+        logger.error('Database connection failed', {
+          error: err.code || err.message || String(err),
+        });
+      }
       return false;
     }
   };

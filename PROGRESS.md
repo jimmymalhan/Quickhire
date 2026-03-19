@@ -2,7 +2,7 @@
 
 **Project**: Quickhire - Automatic LinkedIn Job Application Platform
 **Status**: 🚀 **IN PROGRESS** (Phase 1 Complete, Phase 2 Active)
-**Last Updated**: 2026-03-09
+**Last Updated**: 2026-03-18
 **Overall Progress**: **12% COMPLETE**
 
 ---
@@ -17,6 +17,30 @@ Current Phase: Phase 1 (Complete) → Phase 2 (Active)
 Teams Active: 5 leads + 50+ engineers
 Tasks in Queue: 850+ sub-tasks
 ```
+
+### Live Tracking
+
+```bash
+bash bin/live-progress.sh
+```
+
+```bash
+tail -f state/local-agent-runtime/company-fleet.log
+```
+
+The live view should show:
+- one overall bar for project completion
+- one bar for remaining work
+- one owner for the current task
+- one ETA for how much work is left
+- one capacity indicator targeting 80-90% utilization
+
+The same dashboard is split by stakeholder:
+
+- `CTO`: merge readiness, release risk, blockers, ETA, and whether the current plan is safe to ship.
+- `VP Engineering`: throughput, queue health, utilization, CI health, and whether the fleet is efficient.
+- `Director`: task ownership, replica coverage, blocker aging, and execution pace across active teams.
+- `Manager`: current step, next action, per-task progress, and what should be unblocked next.
 
 ---
 
@@ -56,12 +80,40 @@ Tasks in Queue: 850+ sub-tasks
 - 🟣 DevOps Lead (1) + 5 engineers
 - 🟠 Documentation Lead (1) + community team
 
+**Operating Rule**: this repository can document workflow policy and runtime procedures, but it cannot change platform-level rules or memory. The repo is the place to encode the local-agent operating model; the runtime state is the place to store current execution state.
+
+**Persistence Rule**: workflow policy belongs in repo-local docs; live state belongs under `state/local-agent-runtime/`; the same work item should not be tracked in multiple places at once.
+
+#### Org Chart
+
+```text
+CTO
+└── VP Engineering
+    └── Director
+        └── EM / Supervisor
+            ├── Conflict resolver replicas
+            ├── Code fixer replicas
+            ├── CI watcher replicas
+            ├── PR creator replicas
+            ├── Merger replicas
+            └── Cleanup / verifier replicas
+```
+
+#### Failover Model
+
+- If a worker stalls or dies, a replica takes over from the persisted checkpoint.
+- If a task blocks, the supervisor reassigns or splits the work before the queue stalls.
+- If CI is red, the merge loop stays paused and the watcher keeps polling.
+- If the primary orchestrator exits, another local orchestrator can resume from runtime state.
+- If the runtime file is stale, refresh from the checkpoint and overwrite the current state before proceeding.
+
 #### 2A: Backend - Setup & Dependencies
 ```
 Status: 🔄 IN PROGRESS
 ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 5%
 Sub-tasks: 15
 Assigned to: backend-lead
+Replica set: backend-worker-01, backend-worker-02, backend-worker-03
 ```
 
 #### 2B: Backend - Database Design & Migrations
@@ -70,6 +122,7 @@ Status: 🔄 IN PROGRESS
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 0%
 Sub-tasks: 25
 Assigned to: backend-lead
+Replica set: backend-worker-01, backend-worker-02, backend-worker-03
 ```
 
 #### 2C: Backend - Authentication (OAuth + JWT)
@@ -79,6 +132,7 @@ Status: ⏳ PENDING
 Sub-tasks: 40
 Assigned to: backend-lead
 Blocked by: Task #2 (Setup & Dependencies)
+Replica set: backend-worker-01, backend-worker-02, backend-worker-03
 ```
 
 #### 2D: Backend - Job Search & Scraping
@@ -88,6 +142,7 @@ Status: ⏳ PENDING
 Sub-tasks: 50
 Assigned to: backend-lead
 Blocked by: Task #3 (Database)
+Replica set: backend-worker-01, backend-worker-02, backend-worker-03
 ```
 
 #### 2E: Backend - Job Matching Algorithm
@@ -231,6 +286,13 @@ Sub-tasks: 30 | Status: ⏳ PENDING
 ```
 
 **Total QA Sub-tasks**: 380
+
+## DELIVERY NOTES
+
+- CI gate rule: do not merge until lint, tests, and required checks are green.
+- Merge loop rule: poll CI, wait for green, merge once, then clean up branches and stale processes.
+- Live status should be updated by overwriting the current runtime state rather than appending competing progress logs.
+- The preferred capacity band is 80-90%, not full saturation.
 
 ---
 
@@ -426,4 +488,3 @@ Before merging to main:
 **Last Updated**: 2026-03-09 12:00 UTC
 **Next Update**: After major milestone completion
 **Questions?**: Check GUARDRAILS.md or contact team-lead
-

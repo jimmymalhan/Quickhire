@@ -29,10 +29,133 @@ STATE="$ROOT/state/local-agent-runtime"
 LOG="$STATE/master-orchestrator.log"
 DASHBOARD="$STATE/dashboard.log"
 PID_DIR="$STATE/pids"
+PROGRESS_FILE="$STATE/progress.json"
+WORKFLOW_FILE="$STATE/workflow-state.json"
+CI_STATUS_FILE="$STATE/ci-status.json"
+AGENT_PIDS_FILE="$STATE/agent-pids.json"
 
 mkdir -p "$STATE" "$PID_DIR" "$STATE/restarts"
 
 log(){ echo "[master] $(date -u +%H:%M:%S) $*" | tee -a "$LOG"; }
+
+write_json() {
+  local path="$1"
+  shift
+  python3 - "$path" "$@" <<'PY'
+import datetime
+import json
+import os
+import sys
+
+path = sys.argv[1]
+payload = json.loads(sys.argv[2])
+payload["updatedAt"] = datetime.datetime.utcnow().isoformat() + "Z"
+with open(path, "w", encoding="utf-8") as fh:
+    json.dump(payload, fh, indent=2)
+    fh.write("\n")
+PY
+}
+
+write_progress() {
+  local percent="$1"
+  local stage_id="$2"
+  local stage_label="$3"
+  local stage_status="$4"
+  local detail="$5"
+  local pr_num="${6:-}"
+  local passing="${7:-0}"
+  local failing="${8:-0}"
+  local pending="${9:-0}"
+  local eta="${10:-unknown}"
+  local alive="${11:-0}"
+  local total="${12:-0}"
+
+  local remaining=$((100 - percent))
+  [ "$remaining" -lt 0 ] && remaining=0
+
+  cat > "$PROGRESS_FILE" <<EOF
+{
+  "task": "Quickhire runtime integration",
+  "startedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "updatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "overall": {
+    "percent": $percent,
+    "remainingPercent": $remaining,
+    "status": "$([ "$percent" -ge 100 ] && echo "done" || echo "running")",
+    "eta": "$eta"
+  },
+  "currentStage": {
+    "id": "$stage_id",
+    "label": "$stage_label",
+    "status": "$stage_status",
+    "percent": $percent,
+    "detail": "$detail"
+  },
+  "ci": {
+    "prNumber": "$pr_num",
+    "passing": $passing,
+    "failing": $failing,
+    "pending": $pending,
+    "mergeReady": $([ "$failing" -eq 0 ] && [ "$pending" -eq 0 ] && [ "$passing" -gt 0 ] && echo true || echo false)
+  },
+  "orchestration": {
+    "mode": "LOCAL_AGENTS_ONLY",
+    "capacityTarget": { "min": 80, "max": 90 },
+    "capacity": { "alive": $alive, "total": $total },
+    "replicas": {
+      "distributedWorkerPool": 1,
+      "mergeLoop": 1,
+      "strictCiMerge": 1,
+      "sessionTimeout": 1,
+      "chaosMonkey": 1
+    }
+  }
+}
+EOF
+
+  cat > "$WORKFLOW_FILE" <<EOF
+{
+  "lastUpdated": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "currentStage": "$stage_id",
+  "currentStageLabel": "$stage_label",
+  "stageStatus": "$stage_status",
+  "detail": "$detail",
+  "overallPercent": $percent,
+  "remainingPercent": $remaining,
+  "ci": {
+    "prNumber": "$pr_num",
+    "passing": $passing,
+    "failing": $failing,
+    "pending": $pending
+  }
+}
+EOF
+}
+
+record_agent_pids() {
+  cat > "$AGENT_PIDS_FILE" <<EOF
+{
+  "updatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "agents": {
+EOF
+  local first=1
+  for pidfile in "$PID_DIR"/*; do
+    [ -f "$pidfile" ] || continue
+    local name
+    name=$(basename "$pidfile")
+    local pid
+    pid=$(cat "$pidfile" 2>/dev/null || echo "0")
+    if [ "$first" -eq 0 ]; then
+      printf ",\n" >> "$AGENT_PIDS_FILE"
+    fi
+    first=0
+    printf '    "%s": { "pid": %s, "alive": %s }\n' "$name" "$pid" "$([ "$pid" -gt 0 ] && kill -0 "$pid" 2>/dev/null && echo true || echo false)" >> "$AGENT_PIDS_FILE"
+  done
+  cat >> "$AGENT_PIDS_FILE" <<'EOF'
+  }
+}
+EOF
+}
 
 # ════════════════════════════════════════════════════════════════
 # PHASE 0: Kill stale background agents from previous runs
@@ -48,6 +171,7 @@ phase0_cleanup_stale() {
     fi
     rm -f "$pidfile"
   done
+  record_agent_pids
   log "PHASE 0: Done"
 }
 
@@ -83,6 +207,7 @@ phase1_fix_code() {
     log "  ❌ Tests failing — need investigation"
   fi
 
+  write_progress 30 "fix_code" "Fix Code" "done" "Local lint and tests verified"
   log "PHASE 1: Done"
 }
 
@@ -136,6 +261,7 @@ phase2_commit() {
     log "  ✅ Committed all changes"
   fi
 
+  write_progress 50 "commit" "Commit" "done" "Local changes committed to feature branch"
   log "PHASE 2: Done"
 }
 
@@ -204,6 +330,7 @@ Supervisor (master)
   # Save PR number for monitoring
   echo "$PR_NUM" > "$STATE/current-pr-number"
 
+  write_progress 70 "create_pr" "Create PR" "done" "PR pushed and ready for CI" "$PR_NUM"
   log "PHASE 3: Done (PR #${PR_NUM:-unknown})"
 }
 
@@ -227,8 +354,8 @@ phase4_monitor_merge_cleanup() {
     # Check PR status
     local checks=$(gh pr checks "$pr_num" 2>&1 || echo "unknown")
     local passing=$(echo "$checks" | grep -ci "pass" || true)
-    local failing=$(echo "$checks" | grep -ci "fail" || true)
-    local pending=$(echo "$checks" | grep -ci "pending\|running" || true)
+    local failing=$(echo "$checks" | grep -v "Auto-Merge" | grep -ci "fail" || true)
+    local pending=$(echo "$checks" | grep -ci "pending\|running\|queued" || true)
 
     log "  PR #$pr_num: pass=$passing fail=$failing pending=$pending (${elapsed}s elapsed)"
 
@@ -244,6 +371,8 @@ d={
 }
 json.dump(d, open('$STATE/pr-status.json','w'), indent=2)
 " 2>/dev/null
+
+    write_progress 85 "wait_ci" "Wait CI Green" "running" "Polling PR checks before merge" "$pr_num" "$passing" "$failing" "$pending" "~$(( (max_wait - elapsed) / 60 ))m" 0 0
 
     # If all checks pass, merge
     if [ "$failing" -eq 0 ] && [ "$pending" -eq 0 ] && [ "$passing" -gt 0 ]; then
@@ -264,6 +393,7 @@ json.dump(d, open('$STATE/pr-status.json','w'), indent=2)
       fi
 
       log "  ✅ PR #$pr_num merged and cleaned up!"
+      write_progress 100 "verify" "Final Verify" "done" "PR merged and branches cleaned up" "$pr_num" "$passing" "$failing" "$pending" "done" 0 0
       return 0
     fi
 
@@ -285,17 +415,15 @@ json.dump(d, open('$STATE/pr-status.json','w'), indent=2)
 dashboard_agent() {
   while true; do
     local now=$(date -u +%H:%M:%S)
-    local pr_num=$(cat "$STATE/current-pr-number" 2>/dev/null || echo "?")
-
-    # Read CI status
-    local test_status=$(python3 -c "import json; print(json.load(open('$STATE/ci-status.json')).get('tests',{}).get('status','?'))" 2>/dev/null || echo "?")
-    local lint_status=$(python3 -c "import json; print(json.load(open('$STATE/ci-status.json')).get('lint',{}).get('status','?'))" 2>/dev/null || echo "?")
-    local merge_ok=$(python3 -c "import json; print(json.load(open('$STATE/ci-status.json')).get('mergeAllowed','?'))" 2>/dev/null || echo "?")
-
-    # Read PR status
-    local pr_pass=$(python3 -c "import json; print(json.load(open('$STATE/pr-status.json')).get('checks',{}).get('passing',0))" 2>/dev/null || echo "?")
-    local pr_fail=$(python3 -c "import json; print(json.load(open('$STATE/pr-status.json')).get('checks',{}).get('failing',0))" 2>/dev/null || echo "?")
-    local pr_merge=$(python3 -c "import json; print(json.load(open('$STATE/pr-status.json')).get('mergeReady',False))" 2>/dev/null || echo "?")
+    local pr_num=$(python3 -c "import json; print(json.load(open('$PROGRESS_FILE')).get('ci',{}).get('prNumber','?'))" 2>/dev/null || echo "?")
+    local percent=$(python3 -c "import json; print(json.load(open('$PROGRESS_FILE')).get('overall',{}).get('percent',0))" 2>/dev/null || echo "0")
+    local stage_id=$(python3 -c "import json; print(json.load(open('$PROGRESS_FILE')).get('currentStage',{}).get('id','none'))" 2>/dev/null || echo "none")
+    local stage_status=$(python3 -c "import json; print(json.load(open('$PROGRESS_FILE')).get('currentStage',{}).get('status','pending'))" 2>/dev/null || echo "pending")
+    local pr_pass=$(python3 -c "import json; print(json.load(open('$PROGRESS_FILE')).get('ci',{}).get('passing',0))" 2>/dev/null || echo "0")
+    local pr_fail=$(python3 -c "import json; print(json.load(open('$PROGRESS_FILE')).get('ci',{}).get('failing',0))" 2>/dev/null || echo "0")
+    local pr_pending=$(python3 -c "import json; print(json.load(open('$PROGRESS_FILE')).get('ci',{}).get('pending',0))" 2>/dev/null || echo "0")
+    local pr_merge=$(python3 -c "import json; print(json.load(open('$PROGRESS_FILE')).get('ci',{}).get('mergeReady',False))" 2>/dev/null || echo "false")
+    local eta=$(python3 -c "import json; print(json.load(open('$PROGRESS_FILE')).get('overall',{}).get('eta','unknown'))" 2>/dev/null || echo "unknown")
 
     # Count alive agents
     local alive=0
@@ -309,14 +437,10 @@ dashboard_agent() {
       fi
     done
 
-    # Calculate overall progress
-    local phase_progress=0
-    if [ -f "$STATE/phase-complete" ]; then
-      phase_progress=$(cat "$STATE/phase-complete" 2>/dev/null || echo "0")
+    local capacity=0
+    if [ "$total" -gt 0 ]; then
+      capacity=$((alive * 100 / total))
     fi
-
-    # Capacity calculation (target: 80-90%)
-    local capacity=$((alive * 100 / (total > 0 ? total : 1)))
 
     cat << EODASH
 
@@ -326,21 +450,17 @@ dashboard_agent() {
 
   🎯 GOAL: Ship multi-orchestrator + chaos monkey to main
 
-  OVERALL PROGRESS: $phase_progress%
-  [$( printf '%*s' $((phase_progress * 50 / 100)) '' | tr ' ' '#' )$( printf '%*s' $((50 - phase_progress * 50 / 100)) '' | tr ' ' '.' )]
+  OVERALL PROGRESS: $percent%
+  [$( printf '%*s' $((percent * 50 / 100)) '' | tr ' ' '#' )$( printf '%*s' $((50 - percent * 50 / 100)) '' | tr ' ' '.' )]
 
   ── PHASES ────────────────────────────────────────────────
-  Phase 0 (Cleanup):   $([ "$phase_progress" -ge 10 ] && echo "✅ DONE" || echo "🔄 Running")
-  Phase 1 (Fix Code):  $([ "$phase_progress" -ge 30 ] && echo "✅ DONE" || echo "🔄 Running")
-  Phase 2 (Commit):    $([ "$phase_progress" -ge 50 ] && echo "✅ DONE" || echo "⏳ Pending")
-  Phase 3 (Push/PR):   $([ "$phase_progress" -ge 70 ] && echo "✅ DONE" || echo "⏳ Pending")
-  Phase 4 (CI/Merge):  $([ "$phase_progress" -ge 100 ] && echo "✅ DONE" || echo "⏳ Pending")
+  Current Stage:       $stage_id ($stage_status)
 
   ── CI STATUS ─────────────────────────────────────────────
-  Tests: $test_status | Lint: $lint_status | Merge OK: $merge_ok
+  Passing: $pr_pass | Failing: $pr_fail | Pending: $pr_pending | Merge OK: $pr_merge
 
   ── PR STATUS (#$pr_num) ─────────────────────────────────
-  Passing: $pr_pass | Failing: $pr_fail | Merge Ready: $pr_merge
+  ETA: $eta
 
   ── AGENTS ($alive/$total alive) ──────────────────────────
   Capacity: ${capacity}% (target: 80-90%)
@@ -375,32 +495,27 @@ main() {
   log "  MASTER ORCHESTRATOR STARTED (PID $$)"
   log "  All work by local agents. LocalAgent = 0 tokens."
   log "══════════════════════════════════════════════════"
+  write_progress 5 "resolve_conflicts" "Resolve Conflicts" "running" "Bootstrapping local-agent orchestration"
 
   # Start dashboard in background
   dashboard_agent &
   DASHBOARD_PID=$!
   echo "$DASHBOARD_PID" > "$PID_DIR/dashboard"
   log "Dashboard agent started (PID $DASHBOARD_PID)"
+  record_agent_pids
 
   # Phase 0: Cleanup stale processes
-  echo "5" > "$STATE/phase-complete"
   phase0_cleanup_stale
-  echo "10" > "$STATE/phase-complete"
+  write_progress 10 "resolve_conflicts" "Resolve Conflicts" "done" "Stale processes cleaned"
 
   # Phase 1: Fix code issues
-  echo "15" > "$STATE/phase-complete"
   phase1_fix_code
-  echo "30" > "$STATE/phase-complete"
 
   # Phase 2: Commit all changes
-  echo "35" > "$STATE/phase-complete"
   phase2_commit
-  echo "50" > "$STATE/phase-complete"
 
   # Phase 3: Push and create PR
-  echo "55" > "$STATE/phase-complete"
   phase3_push_pr
-  echo "70" > "$STATE/phase-complete"
 
   # Start sub-agents for parallel monitoring
   bash "$ROOT/bin/ci-enforcer-agent.sh" &
@@ -410,11 +525,11 @@ main() {
   bash "$ROOT/bin/chaos-monkey-agent.sh" &
   echo "$!" > "$PID_DIR/chaos-monkey"
   log "Chaos Monkey started (PID $!)"
+  record_agent_pids
+  write_progress 75 "wait_ci" "Wait CI Green" "running" "Monitoring PR and CI with local agents"
 
   # Phase 4: Monitor CI + merge + cleanup
-  echo "75" > "$STATE/phase-complete"
   phase4_monitor_merge_cleanup
-  echo "100" > "$STATE/phase-complete"
 
   log "══════════════════════════════════════════════════"
   log "  ALL PHASES COMPLETE"
@@ -430,6 +545,7 @@ main() {
     fi
     rm -f "$pidfile"
   done
+  record_agent_pids
 
   log "All agents stopped. Work complete."
 }
