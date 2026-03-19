@@ -1,6 +1,6 @@
 {
-  "at": "2026-03-19T23:11:13Z",
-  "alive_workers": 49,
+  "at": "2026-03-19T23:17:14Z",
+  "alive_workers": 51,
   "tier_counts": {
     "tier1": 0,
     "tier2": 2,
@@ -15,7 +15,7 @@
   },
   "throughput_per_tick": 0,
   "tasks_done": 0,
-  "error_rate": 47,
+  "error_rate": 100,
   "circuit_breaker": "CLOSED",
   "scale_tier": "GROWTH",
   "consecutive_errors": 0

@@ -429,7 +429,6 @@ gh pr create \
 - Auto-apply button works end-to-end with mock
 
 ## Notes
-- No Co-Authored-By
 - Jimmy Malhan only" \
   --base main 2>/dev/null && log "PR created" || log "PR skipped (already exists or no gh auth)"
 

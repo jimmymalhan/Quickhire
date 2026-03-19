@@ -123,7 +123,6 @@ tail -f state/local-agent-runtime/company-fleet.log  # dashboard
 - All CI checks must pass before merge
 - Only contributor: Jimmy Malhan <jimmymalhan999@gmail.com>
 - AI rules (.claude/, CLAUDE.md) stay LOCAL — never commit them
-- No Co-Authored-By Claude in any commit
 
 ## Dashboard
 ```bash
@@ -233,7 +232,6 @@ guard_md = f"""# Quickhire — Guardrails
 
 ## Git Rules
 - Only contributor: **Jimmy Malhan <jimmymalhan999@gmail.com>**
-- No `Co-Authored-By: Claude` or any other AI author
 - One branch per feature: `feat/*`, `fix/*`, `test/*`, `release/*`
 - Delete branch after merge
 - Tag every release: `v1.x.0`
@@ -275,7 +273,6 @@ changelog = f"""# Changelog
 - Feedback agent: 50-persona org negotiates feature priorities every 2min
 - Doc-update agent: keeps CLAUDE.md, ARCHITECTURE.md, GUARDRAILS.md in sync
 - Full 41-task backlog with ETA per task
-- Git author purge: removes all Co-Authored-By Claude, sets Jimmy Malhan only
 
 ## [v1.0.0] — 2026-03-17
 ### Added

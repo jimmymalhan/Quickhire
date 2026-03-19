@@ -1,53 +1,7 @@
 [
   {
-    "id": 15,
-    "p": 1,
-    "title": "Test: apply to 3 sandbox jobs end-to-end",
-    "eta": 2,
-    "br": "test/e2e-apply",
-    "team": "quality",
-    "status": "in-progress",
-    "worker": "worker-35"
-  },
-  {
-    "id": 26,
-    "p": 2,
-    "title": "Feat: weekly digest email (new top-matched jobs)",
-    "eta_hrs": 3,
-    "br": "feat/weekly-digest",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-46",
-    "vote_score": 65,
-    "top_voters": [
-      "Sequoia Partner(+30)",
-      "YC Partner(+12)",
-      "Angel Investor(+9)",
-      "CEO(+3)",
-      "VP Product(+1)"
-    ]
-  },
-  {
-    "id": 34,
-    "p": 3,
-    "title": "Feat: job application funnel analytics (apply\u2192screen\u2192offer)",
-    "eta_hrs": 5,
-    "br": "feat/funnel-analytics",
-    "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-54",
-    "vote_score": 49,
-    "top_voters": [
-      "Sequoia Partner(+30)",
-      "CEO(+1)",
-      "VP Product(+1)",
-      "PM(+5)",
-      "Data Scientist(+8)"
-    ]
-  },
-  {
     "id": 35,
-    "p": 4,
+    "p": 1,
     "title": "Test: chaos engineering (kill scraper mid-apply, verify recovery)",
     "eta_hrs": 3,
     "br": "test/chaos-apply",
@@ -64,18 +18,54 @@
     ]
   },
   {
-    "id": 9,
-    "p": 5,
-    "title": "Feat: email notification on apply",
-    "eta": 3,
-    "br": "feat/email-notify",
+    "id": 34,
+    "p": 2,
+    "title": "Feat: job application funnel analytics (apply\u2192screen\u2192offer)",
+    "eta_hrs": 5,
+    "br": "feat/funnel-analytics",
+    "team": "platform",
+    "status": "in-progress",
+    "worker": "worker-54",
+    "vote_score": 49,
+    "top_voters": [
+      "Sequoia Partner(+30)",
+      "CEO(+1)",
+      "VP Product(+1)",
+      "PM(+5)",
+      "Data Scientist(+8)"
+    ]
+  },
+  {
+    "id": 31,
+    "p": 3,
+    "title": "Feat: rate limit dashboard (LinkedIn/Indeed quota monitor)",
+    "eta_hrs": 3,
+    "br": "feat/quota-dashboard",
+    "team": "platform",
+    "status": "in-progress",
+    "worker": "worker-51",
+    "vote_score": 57,
+    "top_voters": [
+      "a16z Partner(+15)",
+      "Strategic VC(+12)",
+      "CTO(+4)",
+      "VP Engineering(+3)",
+      "Senior Engineer(+8)"
+    ]
+  },
+  {
+    "id": 2,
+    "p": 4,
+    "title": "Feat: real LinkedIn scraper (replace mock)",
+    "eta": 8,
+    "br": "feat/linkedin-scraper",
     "team": "product",
     "status": "in-progress",
-    "worker": "worker-29"
+    "worker": "worker-22"
   },
   {
     "id": 12,
-    "p": 6,
+    "p": 5,
     "title": "Feat: salary range filter",
     "eta": 2,
     "br": "feat/salary-filter",
@@ -84,8 +74,82 @@
     "worker": "worker-32"
   },
   {
-    "id": 17,
+    "id": 26,
+    "p": 6,
+    "title": "Feat: weekly digest email (new top-matched jobs)",
+    "eta_hrs": 3,
+    "br": "feat/weekly-digest",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-46",
+    "vote_score": 65,
+    "top_voters": [
+      "Sequoia Partner(+30)",
+      "YC Partner(+12)",
+      "Angel Investor(+9)",
+      "CEO(+3)",
+      "VP Product(+1)"
+    ]
+  },
+  {
+    "id": 27,
     "p": 7,
+    "title": "Feat: push notifications (job alert + application update)",
+    "eta_hrs": 4,
+    "br": "feat/push-notifications",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-47",
+    "vote_score": 64,
+    "top_voters": [
+      "Sequoia Partner(+15)",
+      "YC Partner(+12)",
+      "Angel Investor(+9)",
+      "CEO(+2)",
+      "VP Product(+2)"
+    ]
+  },
+  {
+    "id": 36,
+    "p": 8,
+    "title": "Feat: culture fit scorer (Glassdoor reviews NLP)",
+    "eta_hrs": 8,
+    "br": "feat/culture-nlp",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-56",
+    "vote_score": 41,
+    "top_voters": [
+      "a16z Partner(+15)",
+      "PM(+5)",
+      "Data Scientist(+12)",
+      "Recruiter(+5)",
+      "TechCorp (500 eng)(+4)"
+    ]
+  },
+  {
+    "id": 10,
+    "p": 9,
+    "title": "Feat: auto-retry failed applications",
+    "eta": 4,
+    "br": "feat/auto-retry",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-30"
+  },
+  {
+    "id": 15,
+    "p": 10,
+    "title": "Test: apply to 3 sandbox jobs end-to-end",
+    "eta": 2,
+    "br": "test/e2e-apply",
+    "team": "quality",
+    "status": "in-progress",
+    "worker": "worker-35"
+  },
+  {
+    "id": 17,
+    "p": 11,
     "title": "Feat: Slack bot (daily top 5 jobs + apply button)",
     "eta_hrs": 4,
     "br": "feat/slack-bot",
@@ -102,114 +166,8 @@
     ]
   },
   {
-    "id": 21,
-    "p": 8,
-    "title": "Feat: resume parser (extract skills from PDF)",
-    "eta_hrs": 6,
-    "br": "feat/resume-parser",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-41",
-    "vote_score": 77,
-    "top_voters": [
-      "a16z Partner(+30)",
-      "Angel Investor(+9)",
-      "VP Product(+1)",
-      "Senior Engineer(+8)",
-      "PM(+5)"
-    ]
-  },
-  {
-    "id": 24,
-    "p": 9,
-    "title": "Feat: bulk apply (100 jobs in 1 click)",
-    "eta_hrs": 8,
-    "br": "feat/bulk-apply",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-44",
-    "vote_score": 72,
-    "top_voters": [
-      "a16z Partner(+30)",
-      "YC Partner(+12)",
-      "VP Engineering(+3)",
-      "Senior Engineer(+8)",
-      "Recruiter(+15)"
-    ]
-  },
-  {
-    "id": 39,
-    "p": 10,
-    "title": "Feat: A/B test framework for apply message variants",
-    "eta_hrs": 4,
-    "br": "feat/ab-framework",
-    "team": "quality",
-    "status": "in-progress",
-    "worker": "worker-59",
-    "vote_score": 35,
-    "top_voters": [
-      "YC Partner(+12)",
-      "VP Product(+1)",
-      "PM(+10)",
-      "Data Scientist(+8)",
-      "TechCorp (500 eng)(+4)"
-    ]
-  },
-  {
-    "id": 40,
-    "p": 11,
-    "title": "Feat: semantic job matching v2 (sentence transformers)",
-    "eta_hrs": 10,
-    "br": "feat/semantic-match-v2",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-60",
-    "vote_score": 32,
-    "top_voters": [
-      "a16z Partner(+15)",
-      "Data Scientist(+12)",
-      "Recruiter(+5)"
-    ]
-  },
-  {
-    "id": 16,
-    "p": 12,
-    "title": "Feat: browser extension (1-click apply anywhere)",
-    "eta_hrs": 15,
-    "br": "feat/browser-extension",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-36",
-    "vote_score": 98,
-    "top_voters": [
-      "Sequoia Partner(+15)",
-      "a16z Partner(+30)",
-      "YC Partner(+12)",
-      "Angel Investor(+9)",
-      "CEO(+1)"
-    ]
-  },
-  {
-    "id": 18,
-    "p": 13,
-    "title": "Feat: viral referral program (apply \u2192 share \u2192 credits)",
-    "eta_hrs": 6,
-    "br": "feat/referral-program",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-38",
-    "vote_score": 83,
-    "top_voters": [
-      "Sequoia Partner(+30)",
-      "YC Partner(+12)",
-      "Angel Investor(+18)",
-      "CEO(+3)",
-      "Sales(+5)"
-    ]
-  },
-  {
     "id": 20,
-    "p": 14,
+    "p": 12,
     "title": "Feat: GPT-based cover letter fine-tuned on successful apps",
     "eta_hrs": 8,
     "br": "feat/cover-letter-ft",
@@ -226,8 +184,26 @@
     ]
   },
   {
+    "id": 21,
+    "p": 13,
+    "title": "Feat: resume parser (extract skills from PDF)",
+    "eta_hrs": 6,
+    "br": "feat/resume-parser",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-41",
+    "vote_score": 77,
+    "top_voters": [
+      "a16z Partner(+30)",
+      "Angel Investor(+9)",
+      "VP Product(+1)",
+      "Senior Engineer(+8)",
+      "PM(+5)"
+    ]
+  },
+  {
     "id": 23,
-    "p": 15,
+    "p": 14,
     "title": "Feat: job description summarizer (TL;DR in 3 bullets)",
     "eta_hrs": 4,
     "br": "feat/jd-summarizer",
@@ -241,6 +217,24 @@
       "Angel Investor(+9)",
       "VP Product(+1)",
       "PM(+5)"
+    ]
+  },
+  {
+    "id": 24,
+    "p": 15,
+    "title": "Feat: bulk apply (100 jobs in 1 click)",
+    "eta_hrs": 8,
+    "br": "feat/bulk-apply",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-44",
+    "vote_score": 72,
+    "top_voters": [
+      "a16z Partner(+30)",
+      "YC Partner(+12)",
+      "VP Engineering(+3)",
+      "Senior Engineer(+8)",
+      "Recruiter(+15)"
     ]
   },
   {
@@ -262,44 +256,8 @@
     ]
   },
   {
-    "id": 27,
-    "p": 17,
-    "title": "Feat: push notifications (job alert + application update)",
-    "eta_hrs": 4,
-    "br": "feat/push-notifications",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-47",
-    "vote_score": 64,
-    "top_voters": [
-      "Sequoia Partner(+15)",
-      "YC Partner(+12)",
-      "Angel Investor(+9)",
-      "CEO(+2)",
-      "VP Product(+2)"
-    ]
-  },
-  {
-    "id": 31,
-    "p": 18,
-    "title": "Feat: rate limit dashboard (LinkedIn/Indeed quota monitor)",
-    "eta_hrs": 3,
-    "br": "feat/quota-dashboard",
-    "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-51",
-    "vote_score": 57,
-    "top_voters": [
-      "a16z Partner(+15)",
-      "Strategic VC(+12)",
-      "CTO(+4)",
-      "VP Engineering(+3)",
-      "Senior Engineer(+8)"
-    ]
-  },
-  {
     "id": 32,
-    "p": 19,
+    "p": 17,
     "title": "Feat: job data warehouse (PostgreSQL \u2192 BigQuery export)",
     "eta_hrs": 8,
     "br": "feat/data-warehouse",
@@ -317,7 +275,7 @@
   },
   {
     "id": 33,
-    "p": 20,
+    "p": 18,
     "title": "Test: load test (1000 concurrent auto-applies)",
     "eta_hrs": 4,
     "br": "test/load-test-1k",
@@ -335,7 +293,7 @@
   },
   {
     "id": 37,
-    "p": 21,
+    "p": 19,
     "title": "Feat: candidate tracking CRM for recruiters",
     "eta_hrs": 8,
     "br": "feat/recruiter-crm",
@@ -349,6 +307,40 @@
       "Recruiter(+10)",
       "Sales(+5)",
       "Agency Inc (50 recs)(+2)"
+    ]
+  },
+  {
+    "id": 39,
+    "p": 20,
+    "title": "Feat: A/B test framework for apply message variants",
+    "eta_hrs": 4,
+    "br": "feat/ab-framework",
+    "team": "quality",
+    "status": "in-progress",
+    "worker": "worker-59",
+    "vote_score": 35,
+    "top_voters": [
+      "YC Partner(+12)",
+      "VP Product(+1)",
+      "PM(+10)",
+      "Data Scientist(+8)",
+      "TechCorp (500 eng)(+4)"
+    ]
+  },
+  {
+    "id": 40,
+    "p": 21,
+    "title": "Feat: semantic job matching v2 (sentence transformers)",
+    "eta_hrs": 10,
+    "br": "feat/semantic-match-v2",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-60",
+    "vote_score": 32,
+    "top_voters": [
+      "a16z Partner(+15)",
+      "Data Scientist(+12)",
+      "Recruiter(+5)"
     ]
   },
   {
@@ -369,28 +361,18 @@
     ]
   },
   {
-    "id": 2,
+    "id": 4,
     "p": 23,
-    "title": "Feat: real LinkedIn scraper (replace mock)",
-    "eta": 8,
-    "br": "feat/linkedin-scraper",
+    "title": "Feat: rate limiting + session mgmt",
+    "eta": 4,
+    "br": "feat/rate-limiting",
     "team": "product",
     "status": "in-progress",
-    "worker": "worker-22"
-  },
-  {
-    "id": 3,
-    "p": 24,
-    "title": "Feat: form submission engine",
-    "eta": 6,
-    "br": "feat/form-submission",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-23"
+    "worker": "worker-24"
   },
   {
     "id": 6,
-    "p": 25,
+    "p": 24,
     "title": "Feat: job matching algorithm",
     "eta": 5,
     "br": "feat/job-matching",
@@ -399,14 +381,23 @@
     "worker": "worker-26"
   },
   {
-    "id": 10,
+    "id": 7,
+    "p": 25,
+    "title": "Feat: application status tracker",
+    "eta": 3,
+    "br": "feat/app-tracker",
+    "team": "product",
+    "status": "ready"
+  },
+  {
+    "id": 9,
     "p": 26,
-    "title": "Feat: auto-retry failed applications",
-    "eta": 4,
-    "br": "feat/auto-retry",
+    "title": "Feat: email notification on apply",
+    "eta": 3,
+    "br": "feat/email-notify",
     "team": "product",
     "status": "in-progress",
-    "worker": "worker-30"
+    "worker": "worker-29"
   },
   {
     "id": 11,
@@ -419,8 +410,44 @@
     "worker": "worker-31"
   },
   {
-    "id": 19,
+    "id": 16,
     "p": 28,
+    "title": "Feat: browser extension (1-click apply anywhere)",
+    "eta_hrs": 15,
+    "br": "feat/browser-extension",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-36",
+    "vote_score": 98,
+    "top_voters": [
+      "Sequoia Partner(+15)",
+      "a16z Partner(+30)",
+      "YC Partner(+12)",
+      "Angel Investor(+9)",
+      "CEO(+1)"
+    ]
+  },
+  {
+    "id": 18,
+    "p": 29,
+    "title": "Feat: viral referral program (apply \u2192 share \u2192 credits)",
+    "eta_hrs": 6,
+    "br": "feat/referral-program",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-38",
+    "vote_score": 83,
+    "top_voters": [
+      "Sequoia Partner(+30)",
+      "YC Partner(+12)",
+      "Angel Investor(+18)",
+      "CEO(+3)",
+      "Sales(+5)"
+    ]
+  },
+  {
+    "id": 19,
+    "p": 30,
     "title": "Feat: Zapier + Make.com integration",
     "eta_hrs": 4,
     "br": "feat/zapier-integration",
@@ -438,7 +465,7 @@
   },
   {
     "id": 22,
-    "p": 29,
+    "p": 31,
     "title": "Feat: white-label API for recruiting agencies",
     "eta_hrs": 10,
     "br": "feat/white-label-api",
@@ -456,13 +483,13 @@
   },
   {
     "id": 28,
-    "p": 30,
+    "p": 32,
     "title": "Feat: ATS integration (Greenhouse, Lever, Workday)",
     "eta_hrs": 12,
     "br": "feat/ats-integration",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-48",
+    "status": "ready",
+    "worker": "",
     "vote_score": 62,
     "top_voters": [
       "Strategic VC(+36)",
@@ -474,13 +501,13 @@
   },
   {
     "id": 29,
-    "p": 31,
+    "p": 33,
     "title": "Feat: mobile app (React Native)",
     "eta_hrs": 20,
     "br": "feat/mobile-app",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-49",
+    "status": "ready",
+    "worker": "",
     "vote_score": 62,
     "top_voters": [
       "Sequoia Partner(+15)",
@@ -492,13 +519,13 @@
   },
   {
     "id": 30,
-    "p": 32,
+    "p": 34,
     "title": "Feat: multi-tenant architecture (orgs + users + roles)",
     "eta_hrs": 15,
     "br": "feat/multi-tenant",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-50",
+    "status": "ready",
+    "worker": "",
     "vote_score": 58,
     "top_voters": [
       "a16z Partner(+15)",
@@ -509,26 +536,8 @@
     ]
   },
   {
-    "id": 36,
-    "p": 33,
-    "title": "Feat: culture fit scorer (Glassdoor reviews NLP)",
-    "eta_hrs": 8,
-    "br": "feat/culture-nlp",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-56",
-    "vote_score": 41,
-    "top_voters": [
-      "a16z Partner(+15)",
-      "PM(+5)",
-      "Data Scientist(+12)",
-      "Recruiter(+5)",
-      "TechCorp (500 eng)(+4)"
-    ]
-  },
-  {
     "id": 38,
-    "p": 34,
+    "p": 35,
     "title": "Feat: SSO / SAML enterprise login",
     "eta_hrs": 6,
     "br": "feat/enterprise-sso",
@@ -546,7 +555,7 @@
   },
   {
     "id": 41,
-    "p": 35,
+    "p": 36,
     "title": "Feat: audit log for compliance (SOC2 readiness)",
     "eta_hrs": 8,
     "br": "feat/audit-log",
@@ -563,7 +572,7 @@
   },
   {
     "id": 1,
-    "p": 36,
+    "p": 37,
     "title": "Fix: untrack .claude/ CLAUDE.md from git",
     "eta": 0.5,
     "br": "fix/untrack-ai-rules",
@@ -571,30 +580,21 @@
     "status": "ready"
   },
   {
-    "id": 4,
-    "p": 37,
-    "title": "Feat: rate limiting + session mgmt",
-    "eta": 4,
-    "br": "feat/rate-limiting",
+    "id": 3,
+    "p": 38,
+    "title": "Feat: form submission engine",
+    "eta": 6,
+    "br": "feat/form-submission",
     "team": "product",
     "status": "ready"
   },
   {
     "id": 5,
-    "p": 38,
+    "p": 39,
     "title": "Fix: cleanup all stale branches",
     "eta": 0.5,
     "br": "fix/branch-cleanup",
     "team": "platform",
-    "status": "ready"
-  },
-  {
-    "id": 7,
-    "p": 39,
-    "title": "Feat: application status tracker",
-    "eta": 3,
-    "br": "feat/app-tracker",
-    "team": "product",
     "status": "ready"
   },
   {

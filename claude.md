@@ -1,12 +1,12 @@
 # Quickhire — Project Context
-**Updated:** 2026-03-19 23:11 UTC | **Branch:** release/v1.1.0-1773959945 | **Tag:** v1.0.0 | **Progress:** 0% (0/62 tasks)
+**Updated:** 2026-03-19 23:17 UTC | **Branch:** docs/auto-update-20260319-1616 | **Tag:** v1.0.0 | **Progress:** 0% (0/62 tasks)
 
 ## Status
 - CI: PASS (694 passed, 694 total)
-- Agents alive: 26
-- Tasks: 0 done / 58 ready / 62 total
+- Agents alive: 27
+- Tasks: 0 done / 59 ready / 62 total
 - ETA to backlog complete: ~303hrs
-- Last commit: 6ac620a ci: block AI rules from being committed Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com> (45 minutes ago)
+- Last commit: c4d7fb4 docs: auto-update all docs with current project state [2026-03-19] (59 seconds ago)
 
 ## What's Built (20 features)
 - Backend API: Node.js/Express (694 tests passing)
@@ -31,16 +31,16 @@
 - 16-agent self-healing fleet: token-guard + meta-sup + watchdog + 13 workers
 
 ## What's Next (top 10 by priority)
-- Test: apply to 3 sandbox jobs end-to-end
-- Feat: weekly digest email (new top-matched jobs)
-- Feat: job application funnel analytics (apply→screen→offer)
 - Test: chaos engineering (kill scraper mid-apply, verify recovery)
-- Feat: email notification on apply
+- Feat: job application funnel analytics (apply→screen→offer)
+- Feat: rate limit dashboard (LinkedIn/Indeed quota monitor)
+- Feat: real LinkedIn scraper (replace mock)
 - Feat: salary range filter
-- Feat: Slack bot (daily top 5 jobs + apply button)
-- Feat: resume parser (extract skills from PDF)
-- Feat: bulk apply (100 jobs in 1 click)
-- Feat: A/B test framework for apply message variants
+- Feat: weekly digest email (new top-matched jobs)
+- Feat: push notifications (job alert + application update)
+- Feat: culture fit scorer (Glassdoor reviews NLP)
+- Feat: auto-retry failed applications
+- Test: apply to 3 sandbox jobs end-to-end
 
 ## Development
 ```bash
@@ -62,7 +62,6 @@ tail -f state/local-agent-runtime/company-fleet.log  # dashboard
 - All CI checks must pass before merge
 - Only contributor: Jimmy Malhan <jimmymalhan999@gmail.com>
 - AI rules (.claude/, CLAUDE.md) stay LOCAL — never commit them
-- No Co-Authored-By Claude in any commit
 
 ## Dashboard
 ```bash
