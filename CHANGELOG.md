@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] — 2026-03-19 23:47 UTC
+## [Unreleased] — 2026-03-19 23:48 UTC
 ### Added
 - Frontend: Job Feed page with match score bars + auto-apply button
 - Frontend: Application Tracker (applied/interview/offer/rejected pipeline)

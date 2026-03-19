@@ -1,259 +1,16 @@
 {
-  "at": "2026-03-19T23:44:58Z",
-  "total_hrs": 152.0,
-  "done_by": "2026-03-26 07:44",
+  "at": "2026-03-19T23:48:04Z",
+  "total_hrs": 44.0,
+  "done_by": "2026-03-21 19:48",
   "tasks": [
-    {
-      "id": 16,
-      "title": "Feat: browser extension (1-click apply anywhere)",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 4,
-      "eta_ts": "03/20 03:44"
-    },
-    {
-      "id": 17,
-      "title": "Feat: Slack bot (daily top 5 jobs + apply button",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 8,
-      "eta_ts": "03/20 07:44"
-    },
-    {
-      "id": 18,
-      "title": "Feat: viral referral program (apply \u2192 share \u2192 cr",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 12,
-      "eta_ts": "03/20 11:44"
-    },
-    {
-      "id": 19,
-      "title": "Feat: Zapier + Make.com integration",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 16,
-      "eta_ts": "03/20 15:44"
-    },
-    {
-      "id": 20,
-      "title": "Feat: GPT-based cover letter fine-tuned on succe",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 20,
-      "eta_ts": "03/20 19:44"
-    },
-    {
-      "id": 21,
-      "title": "Feat: resume parser (extract skills from PDF)",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 24,
-      "eta_ts": "03/20 23:44"
-    },
-    {
-      "id": 22,
-      "title": "Feat: white-label API for recruiting agencies",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 28,
-      "eta_ts": "03/21 03:44"
-    },
-    {
-      "id": 23,
-      "title": "Feat: job description summarizer (TL;DR in 3 bul",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 32,
-      "eta_ts": "03/21 07:44"
-    },
-    {
-      "id": 24,
-      "title": "Feat: bulk apply (100 jobs in 1 click)",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 36,
-      "eta_ts": "03/21 11:44"
-    },
-    {
-      "id": 25,
-      "title": "Feat: user onboarding wizard (profile \u2192 first ap",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 40,
-      "eta_ts": "03/21 15:44"
-    },
-    {
-      "id": 26,
-      "title": "Feat: weekly digest email (new top-matched jobs)",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 44,
-      "eta_ts": "03/21 19:44"
-    },
-    {
-      "id": 27,
-      "title": "Feat: push notifications (job alert + applicatio",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 48,
-      "eta_ts": "03/21 23:44"
-    },
-    {
-      "id": 28,
-      "title": "Feat: ATS integration (Greenhouse, Lever, Workda",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 52,
-      "eta_ts": "03/22 03:44"
-    },
-    {
-      "id": 29,
-      "title": "Feat: mobile app (React Native)",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 56,
-      "eta_ts": "03/22 07:44"
-    },
-    {
-      "id": 30,
-      "title": "Feat: multi-tenant architecture (orgs + users + ",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 60,
-      "eta_ts": "03/22 11:44"
-    },
-    {
-      "id": 31,
-      "title": "Feat: rate limit dashboard (LinkedIn/Indeed quot",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 64,
-      "eta_ts": "03/22 15:44"
-    },
-    {
-      "id": 32,
-      "title": "Feat: job data warehouse (PostgreSQL \u2192 BigQuery ",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 68,
-      "eta_ts": "03/22 19:44"
-    },
-    {
-      "id": 33,
-      "title": "Test: load test (1000 concurrent auto-applies)",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 72,
-      "eta_ts": "03/22 23:44"
-    },
-    {
-      "id": 34,
-      "title": "Feat: job application funnel analytics (apply\u2192sc",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 76,
-      "eta_ts": "03/23 03:44"
-    },
-    {
-      "id": 35,
-      "title": "Test: chaos engineering (kill scraper mid-apply,",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 80,
-      "eta_ts": "03/23 07:44"
-    },
-    {
-      "id": 36,
-      "title": "Feat: culture fit scorer (Glassdoor reviews NLP)",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 84,
-      "eta_ts": "03/23 11:44"
-    },
-    {
-      "id": 37,
-      "title": "Feat: candidate tracking CRM for recruiters",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 88,
-      "eta_ts": "03/23 15:44"
-    },
-    {
-      "id": 38,
-      "title": "Feat: SSO / SAML enterprise login",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 92,
-      "eta_ts": "03/23 19:44"
-    },
-    {
-      "id": 39,
-      "title": "Feat: A/B test framework for apply message varia",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 96,
-      "eta_ts": "03/23 23:44"
-    },
-    {
-      "id": 40,
-      "title": "Feat: semantic job matching v2 (sentence transfo",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 100,
-      "eta_ts": "03/24 03:44"
-    },
-    {
-      "id": 41,
-      "title": "Feat: audit log for compliance (SOC2 readiness)",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 104,
-      "eta_ts": "03/24 07:44"
-    },
-    {
-      "id": 42,
-      "title": "Test: security pen test (OWASP top 10 scan)",
-      "status": "ready",
-      "agent": "",
-      "eta_hrs": 4,
-      "cum_hrs": 108,
-      "eta_ts": "03/24 11:44"
-    },
     {
       "id": 1,
       "title": "Fix: untrack .claude/ CLAUDE.md from git",
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 0.5,
-      "cum_hrs": 108.5,
-      "eta_ts": "03/24 12:14"
+      "cum_hrs": 0.5,
+      "eta_ts": "03/20 00:18"
     },
     {
       "id": 2,
@@ -261,8 +18,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 8,
-      "cum_hrs": 116.5,
-      "eta_ts": "03/24 20:14"
+      "cum_hrs": 8.5,
+      "eta_ts": "03/20 08:18"
     },
     {
       "id": 3,
@@ -270,8 +27,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 6,
-      "cum_hrs": 122.5,
-      "eta_ts": "03/25 02:14"
+      "cum_hrs": 14.5,
+      "eta_ts": "03/20 14:18"
     },
     {
       "id": 4,
@@ -279,8 +36,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 4,
-      "cum_hrs": 126.5,
-      "eta_ts": "03/25 06:14"
+      "cum_hrs": 18.5,
+      "eta_ts": "03/20 18:18"
     },
     {
       "id": 5,
@@ -288,8 +45,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 0.5,
-      "cum_hrs": 127.0,
-      "eta_ts": "03/25 06:44"
+      "cum_hrs": 19.0,
+      "eta_ts": "03/20 18:48"
     },
     {
       "id": 6,
@@ -297,8 +54,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 5,
-      "cum_hrs": 132.0,
-      "eta_ts": "03/25 11:44"
+      "cum_hrs": 24.0,
+      "eta_ts": "03/20 23:48"
     },
     {
       "id": 7,
@@ -306,8 +63,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 3,
-      "cum_hrs": 135.0,
-      "eta_ts": "03/25 14:44"
+      "cum_hrs": 27.0,
+      "eta_ts": "03/21 02:48"
     },
     {
       "id": 8,
@@ -315,8 +72,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 2,
-      "cum_hrs": 137.0,
-      "eta_ts": "03/25 16:44"
+      "cum_hrs": 29.0,
+      "eta_ts": "03/21 04:48"
     },
     {
       "id": 9,
@@ -324,8 +81,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 3,
-      "cum_hrs": 140.0,
-      "eta_ts": "03/25 19:44"
+      "cum_hrs": 32.0,
+      "eta_ts": "03/21 07:48"
     },
     {
       "id": 10,
@@ -333,8 +90,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 4,
-      "cum_hrs": 144.0,
-      "eta_ts": "03/25 23:44"
+      "cum_hrs": 36.0,
+      "eta_ts": "03/21 11:48"
     },
     {
       "id": 11,
@@ -342,8 +99,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 2,
-      "cum_hrs": 146.0,
-      "eta_ts": "03/26 01:44"
+      "cum_hrs": 38.0,
+      "eta_ts": "03/21 13:48"
     },
     {
       "id": 12,
@@ -351,8 +108,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 2,
-      "cum_hrs": 148.0,
-      "eta_ts": "03/26 03:44"
+      "cum_hrs": 40.0,
+      "eta_ts": "03/21 15:48"
     },
     {
       "id": 13,
@@ -360,8 +117,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 1,
-      "cum_hrs": 149.0,
-      "eta_ts": "03/26 04:44"
+      "cum_hrs": 41.0,
+      "eta_ts": "03/21 16:48"
     },
     {
       "id": 14,
@@ -369,8 +126,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 1,
-      "cum_hrs": 150.0,
-      "eta_ts": "03/26 05:44"
+      "cum_hrs": 42.0,
+      "eta_ts": "03/21 17:48"
     },
     {
       "id": 15,
@@ -378,8 +135,8 @@
       "status": "ready",
       "agent": "tbd",
       "eta_hrs": 2,
-      "cum_hrs": 152.0,
-      "eta_ts": "03/26 07:44"
+      "cum_hrs": 44.0,
+      "eta_ts": "03/21 19:48"
     }
   ]
 }
