@@ -42,8 +42,8 @@
     "eta_hrs": 20,
     "br": "feat/mobile-app",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-49",
+    "status": "ready",
+    "worker": "",
     "vote_score": 562,
     "top_voters": [
       "Sequoia Partner(+15)",
@@ -118,8 +118,8 @@
     "eta_hrs": 4,
     "br": "feat/slack-bot",
     "team": "product",
-    "status": "ready",
-    "worker": "",
+    "status": "in-progress",
+    "worker": "worker-37",
     "vote_score": 90,
     "top_voters": [
       "Sequoia Partner(+30)",
@@ -154,8 +154,8 @@
     "eta_hrs": 4,
     "br": "feat/zapier-integration",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-39",
+    "status": "ready",
+    "worker": "",
     "vote_score": 81,
     "top_voters": [
       "a16z Partner(+15)",
@@ -166,26 +166,8 @@
     ]
   },
   {
-    "id": 21,
-    "p": 11,
-    "title": "Feat: resume parser (extract skills from PDF)",
-    "eta_hrs": 6,
-    "br": "feat/resume-parser",
-    "team": "product",
-    "status": "in-progress",
-    "worker": "worker-41",
-    "vote_score": 77,
-    "top_voters": [
-      "a16z Partner(+30)",
-      "Angel Investor(+9)",
-      "VP Product(+1)",
-      "Senior Engineer(+8)",
-      "PM(+5)"
-    ]
-  },
-  {
     "id": 20,
-    "p": 12,
+    "p": 11,
     "title": "Feat: GPT-based cover letter fine-tuned on successful apps",
     "eta_hrs": 8,
     "br": "feat/cover-letter-ft",
@@ -199,6 +181,24 @@
       "YC Partner(+12)",
       "CEO(+1)",
       "VP Product(+2)"
+    ]
+  },
+  {
+    "id": 21,
+    "p": 12,
+    "title": "Feat: resume parser (extract skills from PDF)",
+    "eta_hrs": 6,
+    "br": "feat/resume-parser",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-41",
+    "vote_score": 77,
+    "top_voters": [
+      "a16z Partner(+30)",
+      "Angel Investor(+9)",
+      "VP Product(+1)",
+      "Senior Engineer(+8)",
+      "PM(+5)"
     ]
   },
   {
@@ -298,8 +298,8 @@
     "eta_hrs": 12,
     "br": "feat/ats-integration",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-48",
+    "status": "ready",
+    "worker": "",
     "vote_score": 62,
     "top_voters": [
       "Strategic VC(+36)",
@@ -316,8 +316,8 @@
     "eta_hrs": 15,
     "br": "feat/multi-tenant",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-50",
+    "status": "ready",
+    "worker": "",
     "vote_score": 58,
     "top_voters": [
       "a16z Partner(+15)",
@@ -352,8 +352,8 @@
     "eta_hrs": 4,
     "br": "test/load-test-1k",
     "team": "quality",
-    "status": "in-progress",
-    "worker": "worker-53",
+    "status": "ready",
+    "worker": "",
     "vote_score": 55,
     "top_voters": [
       "a16z Partner(+15)",
@@ -406,8 +406,8 @@
     "eta_hrs": 8,
     "br": "feat/culture-nlp",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-56",
+    "status": "ready",
+    "worker": "",
     "vote_score": 41,
     "top_voters": [
       "a16z Partner(+15)",
@@ -424,8 +424,8 @@
     "eta_hrs": 4,
     "br": "feat/ab-framework",
     "team": "quality",
-    "status": "ready",
-    "worker": "",
+    "status": "in-progress",
+    "worker": "worker-59",
     "vote_score": 35,
     "top_voters": [
       "YC Partner(+12)",
@@ -504,40 +504,44 @@
     ]
   },
   {
-    "id": 9,
-    "p": 30,
-    "title": "Feat: email notification on apply",
-    "eta": 3,
-    "br": "feat/email-notify",
-    "team": "product",
-    "status": "ready"
-  },
-  {
     "id": 15,
-    "p": 31,
+    "p": 30,
     "title": "Test: apply to 3 sandbox jobs end-to-end",
     "eta": 2,
     "br": "test/e2e-apply",
     "team": "quality",
-    "status": "ready"
-  },
-  {
-    "id": 12,
-    "p": 32,
-    "title": "Feat: salary range filter",
-    "eta": 2,
-    "br": "feat/salary-filter",
-    "team": "product",
-    "status": "ready"
+    "status": "in-progress",
+    "worker": "worker-35"
   },
   {
     "id": 2,
-    "p": 33,
+    "p": 31,
     "title": "Feat: real LinkedIn scraper (replace mock)",
     "eta": 8,
     "br": "feat/linkedin-scraper",
     "team": "product",
-    "status": "ready"
+    "status": "in-progress",
+    "worker": "worker-22"
+  },
+  {
+    "id": 6,
+    "p": 32,
+    "title": "Feat: job matching algorithm",
+    "eta": 5,
+    "br": "feat/job-matching",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-26"
+  },
+  {
+    "id": 9,
+    "p": 33,
+    "title": "Feat: email notification on apply",
+    "eta": 3,
+    "br": "feat/email-notify",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-29"
   },
   {
     "id": 3,
@@ -558,17 +562,8 @@
     "status": "ready"
   },
   {
-    "id": 6,
-    "p": 36,
-    "title": "Feat: job matching algorithm",
-    "eta": 5,
-    "br": "feat/job-matching",
-    "team": "product",
-    "status": "ready"
-  },
-  {
     "id": 7,
-    "p": 37,
+    "p": 36,
     "title": "Feat: application status tracker",
     "eta": 3,
     "br": "feat/app-tracker",
@@ -577,7 +572,7 @@
   },
   {
     "id": 8,
-    "p": 38,
+    "p": 37,
     "title": "Fix: API error handlers",
     "eta": 2,
     "br": "fix/api-errors",
@@ -585,17 +580,17 @@
     "status": "ready"
   },
   {
-    "id": 10,
-    "p": 39,
-    "title": "Feat: auto-retry failed applications",
-    "eta": 4,
-    "br": "feat/auto-retry",
+    "id": 12,
+    "p": 38,
+    "title": "Feat: salary range filter",
+    "eta": 2,
+    "br": "feat/salary-filter",
     "team": "product",
     "status": "ready"
   },
   {
     "id": 1,
-    "p": 40,
+    "p": 39,
     "title": "Fix: untrack .claude/ CLAUDE.md from git",
     "eta": 0.5,
     "br": "fix/untrack-ai-rules",
@@ -604,11 +599,20 @@
   },
   {
     "id": 5,
-    "p": 41,
+    "p": 40,
     "title": "Fix: cleanup all stale branches",
     "eta": 0.5,
     "br": "fix/branch-cleanup",
     "team": "platform",
+    "status": "ready"
+  },
+  {
+    "id": 10,
+    "p": 41,
+    "title": "Feat: auto-retry failed applications",
+    "eta": 4,
+    "br": "feat/auto-retry",
+    "team": "product",
     "status": "ready"
   },
   {

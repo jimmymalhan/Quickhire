@@ -202,6 +202,54 @@ except: pass
 " 2>/dev/null||true
 fi
 
+
+printf '\n-- LIVE AGENT ACTIVITY (what every agent is doing RIGHT NOW) ---------------\n'
+python3 -c "
+import os,re,datetime
+S='$STATE'
+AGENTS=[
+  ('company-fleet','DASHBOARD'),('watchdog','WATCHDOG'),('meta-supervisor','META-SUP'),
+  ('token-guard','TOKEN-GUARD'),('governor','GOVERNOR'),('autopilot','AUTOPILOT'),
+  ('engine','ENGINE'),('self-healer','SELF-HEALER'),('feedback-agent','FEEDBACK'),
+  ('researcher-agent','RESEARCHER'),('enterprise-scaler','ENT-SCALER'),
+  ('ui-builder-agent','UI-BUILDER'),('browser-test-agent','BROWSER-TEST'),
+  ('native-perf-agent','NATIVE-PERF'),('doc-update-agent','DOC-UPDATE'),
+  ('team-platform','TEAM-PLATFORM'),('team-quality','TEAM-QUALITY'),
+  ('team-product','TEAM-PRODUCT'),('frontend-mock-agent','FRONTEND-MOCK'),
+]
+for nm,lbl in AGENTS:
+  alive='LIVE'
+  try:
+    pid=int(open(f'{S}/{nm}.pid').read().strip()); os.kill(pid,0)
+  except: alive='OFF'
+  last=''
+  try:
+    lines=[l.strip() for l in open(f'{S}/{nm}.log').readlines() if l.strip()]
+    raw=lines[-1] if lines else ''
+    last=re.sub(r'^\[\d+:\d+:\d+\]\s*\[[^\]]+\]\s*','',raw)[-58:]
+  except: pass
+  sym='+' if alive=='LIVE' else '-'
+  print(f'  [{sym}] {lbl:<18} {last}')
+" 2>/dev/null || true
+
+printf '\n-- UI BROWSER TESTS (Playwright mouse automation) -------------------------\n'
+python3 -c "
+import json,os
+S='$STATE'
+SHOTS=f'{S}/screenshots'
+shots=len([f for f in os.listdir(SHOTS) if f.endswith('.png')]) if os.path.exists(SHOTS) else 0
+try:
+  r=json.load(open(f'{S}/browser-test-results.json'))
+  total=r['passed']+r['failed']
+  pct=int(r['passed']*100/max(total,1))
+  print(f'  Result: {\"ALL PASS\" if r[\"failed\"]==0 else \"PARTIAL\"}  {r[\"passed\"]}/{total} ({pct}%)  screenshots:{shots}')
+  for t in r.get('tests',[]):
+    sym='+' if t['status']==\"pass\" else '!'
+    err=(' ERR:'+t['error'][:35]) if t.get('error') else ''
+    print(f'    [{sym}] {t[\"name\"][:56]}{err}')
+except: print(f'  Waiting for browser agent to start...  screenshots saved:{shots}')
+" 2>/dev/null || true
+
 printf '\n  %s  overall=%d%%  alive=%d/%d  CI=%s  refresh=%ds\n' \
   "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$OVR" "$ALIVE" "$TOTAL" "$CI_T" "$INTERVAL"
   } >> "$LOG"
