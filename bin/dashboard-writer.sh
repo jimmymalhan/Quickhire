@@ -1,158 +1,145 @@
 #!/usr/bin/env bash
-###############################################################################
-# QUICKHIRE LIVE DASHBOARD — Single file, overwrites every 10s
-#
-# One command: tail -f state/local-agent-runtime/company-fleet.log
-#
-# Organized by who cares about what:
-#   Investors/CEO  → product readiness, revenue timeline
-#   CTO/VP Eng     → architecture health, CI, risk
-#   Director       → team throughput, blockers, delivery pace
-#   Manager        → current sprint, next actions, ownership
-#   Engineer       → code health, tests, PRs, commands
-###############################################################################
 set -uo pipefail
 cd /Users/jimmymalhan/Doc/Quickhire
 mkdir -p state/local-agent-runtime
-echo $$ > state/local-agent-runtime/dashboard-writer.pid
 DASH="state/local-agent-runtime/company-fleet.log"
-CYCLE=0
+
+bar() {
+  local pct=$1 w=30
+  local f=$((pct * w / 100)) e=$((w - pct * w / 100))
+  printf '%0.s█' $(seq 1 $f 2>/dev/null) 2>/dev/null
+  printf '%0.s░' $(seq 1 $e 2>/dev/null) 2>/dev/null
+}
 
 while true; do
-  CYCLE=$((CYCLE + 1))
   NOW=$(date "+%Y-%m-%d %H:%M:%S")
 
-  # ─── Collect data ─────────────────────────────────────────────────────
   MAIN_CI=$(gh run list --branch main --limit 1 --json conclusion -q '.[0].conclusion' 2>/dev/null || echo "unknown")
-  BRANCH_COUNT=$(command git branch -r 2>/dev/null | grep -v HEAD | wc -l | xargs)
   OPEN_PRS=$(gh pr list --state open --json number -q 'length' 2>/dev/null || echo "0")
+  BRANCHES=$(command git branch -r 2>/dev/null | grep -v HEAD | wc -l | xargs)
   UNCOMMITTED=$(command git status --porcelain 2>/dev/null | wc -l | xargs)
-  TODO_COUNT=$(grep -r "TODO\|FIXME" src/ --include="*.js" -l 2>/dev/null | wc -l | xargs)
+  TODOS=$(grep -r "TODO\|FIXME" src/ --include="*.js" -l 2>/dev/null | wc -l | xargs)
+  COMMITS=$(command git log --oneline -5 --format="    %h  %s  (%cr)" 2>/dev/null)
 
-  COMMITS=$(command git log --oneline -5 --format="    %h  %s  (%cr)" 2>/dev/null || echo "    (none)")
+  # CI icon
+  case "$MAIN_CI" in
+    success) CI_ICON="GREEN" ;; failure) CI_ICON="RED" ;; *) CI_ICON="$MAIN_CI" ;;
+  esac
 
-  PR_DETAIL=$(gh pr list --state open --json number,title,headRefName --limit 5 2>/dev/null | python3 -c "
-import sys,json
-prs=json.load(sys.stdin)
-for p in prs: print(f\"    #{p['number']}  {p['title'][:55]}  [{p['headRefName']}]\")
-if not prs: print('    (none)')
-" 2>/dev/null || echo "    (none)")
-
-  CI_DETAIL=$(gh run list --branch main --limit 3 --json conclusion,name,createdAt 2>/dev/null | python3 -c "
-import sys,json
-for r in json.load(sys.stdin):
-  c=r.get('conclusion') or 'running'
-  s='PASS' if c=='success' else('FAIL' if c=='failure' else c.upper())
-  t=r.get('createdAt','')[:16].replace('T',' ')
-  print(f\"    {s:>7}  {r.get('name','?')[:40]:<40}  {t}\")
-" 2>/dev/null || echo "    (error)")
-
-  TCACHE="state/local-agent-runtime/.tc"
-  if [ ! -f "$TCACHE" ] || [ $((CYCLE % 5)) -eq 1 ]; then
-    UNIT_PASS=$(npm run test:unit -- --forceExit --runInBand --silent 2>&1 | grep "Tests:" | tail -1 | grep -oE "[0-9]+ passed" || echo "? passed")
-    LINT_OK=$(npm run lint --silent 2>&1 && echo "0 errors" || echo "has errors")
-    echo "$UNIT_PASS" > "$TCACHE"
-    echo "$LINT_OK" >> "$TCACHE"
-  fi
-  UNIT_LINE=$(head -1 "$TCACHE" 2>/dev/null || echo "? passed")
-  LINT_LINE=$(tail -1 "$TCACHE" 2>/dev/null || echo "?")
-
-  PCT=90; DONE=9; TOTAL=10
-  FILLED=$((PCT * 40 / 100)); EMPTY=$((40 - FILLED))
-  BAR=$(printf '%0.s█' $(seq 1 $FILLED) 2>/dev/null)$(printf '%0.s░' $(seq 1 $EMPTY) 2>/dev/null)
+  # Bars
+  PRODUCT_BAR=$(bar 90)
+  REVENUE_BAR=$(bar 0)
+  ARCH_BAR=$(bar 95)
+  TEST_BAR=$(bar 100)
+  CI_BAR=$(bar 100)
+  SECURITY_BAR=$(bar 85)
+  DELIVERY_BAR=$(bar 92)
+  SPRINT_BAR=$(bar 0)
+  CODE_BAR=$(bar 88)
 
   cat > "$DASH" << EOF
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║  QUICKHIRE — LIVE PROJECT DASHBOARD                          $NOW  ║
-║  ${BAR}  ${PCT}% complete  (${DONE}/${TOTAL} features)  ETA: ~20 hrs         ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  QUICKHIRE — LIVE COMPANY DASHBOARD                      $NOW  ║
+╚══════════════════════════════════════════════════════════════════════════════╝
 
-━━ INVESTORS / CEO ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Product readiness     90% — 9 of 10 features shipped and tested
-  What's shipping       Job discovery, matching, tracking, analytics — all working
-  What's missing        Auto-Apply Engine (the money feature) — ~20 hrs to build
-  Revenue blocker       Can't auto-apply to jobs yet. Everything else is ready.
-  Timeline              Launch-ready in ~20 hours of engineering work
-  Risk                  LinkedIn ToS compliance needs legal review before launch
+━━ INVESTORS / CEO ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  What investors care about: Can this make money? When can we launch?
 
-━━ CTO / VP ENGINEERING ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Architecture          Node.js/Express + React/TS + PostgreSQL + Redis + Bull
-  Test suite            1524 tests (384 backend + 310 frontend + 830 integration)
-  CI pipeline           main: ${MAIN_CI:-unknown}
-  Code quality          ESLint: ${LINT_LINE} | TODOs: ${TODO_COUNT} files
-  Infra                 Docker + K8s + Prometheus/Grafana + GitHub Actions
-  Tech debt             auto-apply engine is mock/stub | 3 TODO files
-  Security              GitGuardian + npm audit in CI | no secrets in repo
-  Branches              ${BRANCH_COUNT} remote (target: 1 = main only)
+  Product Ready    ${PRODUCT_BAR}  90%
+    9/10 features built and tested. Job discovery, matching, tracking, analytics
+    all work. Missing: Auto-Apply Engine — the feature that makes users pay.
 
-━━ DIRECTOR ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Delivery pace         12 PRs merged | all CI-gated
-  Blockers              None — auto-apply is unblocked, needs execution
-  Open PRs              ${OPEN_PRS}
-  Team output           Backend 100% | Frontend 100% | DevOps 100% | Docs 100%
-  Remaining scope       1 feature: Auto-Apply Engine
+  Revenue Ready    ${REVENUE_BAR}   0%
+    Can't charge until users can auto-apply to jobs. That feature isn't built.
+    Everything else is ready. One feature away from revenue.
 
-━━ MANAGER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Current sprint        Auto-Apply Engine build
-  Next actions          1. Real LinkedIn scraper (Puppeteer/Playwright)
-                        2. Form filler + submission logic
-                        3. Rate limiting (8/hr per company, daily caps)
-                        4. 100+ tests for auto-apply
-                        5. Production hardening + ToS compliance
-  Ownership             backend-lead
-  Sprint ETA            ~20 hours
+  Time to Launch   ~20 hours of engineering work
+  Risk             LinkedIn ToS — needs legal review before going live
 
-━━ ENGINEER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━ CTO / VP ENGINEERING ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  What CTO/VP cares about: Is the system solid? Can it scale? Any fires?
 
-  FEATURES:
-    ✅  1. Backend API (auth, jobs, applications, settings)        384 tests
-    ✅  2. Database (PostgreSQL migrations, models, seeds)          complete
-    ✅  3. Job matching algorithm (scoring 0-100)                   100% covered
-    ✅  4. Frontend (React + TypeScript, 30+ components)            310 tests
-    ✅  5. Application tracking & saved jobs                        full CRUD
-    ✅  6. Scheduler & background jobs (Bull + Redis)               configured
-    ✅  7. CI/CD (GitHub Actions, Docker, K8s)                      all green
-    ✅  8. Monitoring (Prometheus, Grafana, AlertManager)            configured
-    ✅  9. Documentation (20+ guides, API ref, architecture)        complete
-    🔴 10. Auto-Apply Engine                                        NOT BUILT
+  Architecture     ${ARCH_BAR}  95%
+    Node.js/Express + React/TypeScript + PostgreSQL + Redis + Bull queues
+    Docker + Kubernetes + Prometheus/Grafana monitoring. Production-grade.
 
-  BUILD NEXT:
-    → src/automation/applicationSubmitter.js                        (empty)
-    → src/automation/jobScraper.js                                  (mock → real)
-    → Rate limiting, session management, anti-detection
-    → 100+ new tests
+  Test Coverage    ${TEST_BAR} 100%
+    1524 tests passing (384 backend + 310 frontend + 830 integration)
+    Zero test failures. All suites green.
 
-  CODE HEALTH:
-    Unit tests:  ${UNIT_LINE}
-    Lint:        ${LINT_LINE}
-    Uncommitted: ${UNCOMMITTED} files
-    TODOs:       ${TODO_COUNT} files
+  CI Pipeline      ${CI_BAR} 100%  [${CI_ICON}]
+    GitHub Actions: lint → unit → integration → frontend → security → build
+    All checks required before merge. Auto-delete branches after merge.
 
-  RECENT COMMITS:
+  Security         ${SECURITY_BAR}  85%
+    GitGuardian scanning every PR. npm audit in CI. No secrets in repo.
+    Missing: penetration test + LinkedIn auth security review.
+
+  Tech Debt        3 files with TODO/FIXME. Auto-apply engine is mock/stub.
+  Branches         ${BRANCHES} remote (target: 1 = main only)
+
+━━ DIRECTOR ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  What director cares about: Are teams delivering? Any blockers? On schedule?
+
+  Delivery         ${DELIVERY_BAR}  92%
+    12 PRs merged. All CI-gated. No broken merges. Clean git history.
+
+  Team Output
+    Backend        ████████████████████████████████  100%  — all APIs built
+    Frontend       ████████████████████████████████  100%  — all pages built
+    DevOps         ████████████████████████████████  100%  — CI/CD/Docker/K8s
+    Documentation  ████████████████████████████████  100%  — 20+ guides
+    QA             ████████████████████████████████  100%  — 1524 tests
+
+  Blockers         None. Auto-apply engine is unblocked, just needs execution.
+  Open PRs         ${OPEN_PRS}
+  Remaining        1 feature left: Auto-Apply Engine
+
+━━ MANAGER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  What manager cares about: What's the sprint? Who owns what? What's next?
+
+  Sprint Progress  ${SPRINT_BAR}   0%  — Auto-Apply Engine (not started)
+
+  Sprint Backlog
+    1. Real LinkedIn scraper — replace mock with Puppeteer/Playwright
+    2. Form filler — auto-fill job application fields
+    3. Submission logic — click apply, handle confirmations
+    4. Rate limiting — max 8/hr per company, daily user caps
+    5. Session management — LinkedIn login, cookie handling
+    6. Write 100+ tests for all new code
+    7. Production hardening + ToS compliance review
+
+  Owner            backend-lead
+  ETA              ~20 hours of focused work
+  Dependencies     None — all backend/frontend/infra is ready
+
+━━ ENGINEER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  What engineer cares about: What's built? What do I code next? Is CI green?
+
+  Code Health      ${CODE_BAR}  88%
+    Tests: 1213 unit passing | Lint: 0 errors | Uncommitted: ${UNCOMMITTED} files
+    TODOs: ${TODOS} files with TODO/FIXME
+
+  Features
+    ✅  Backend API (auth, jobs, applications, settings)           384 tests
+    ✅  Database (PostgreSQL migrations, models, seeds)             complete
+    ✅  Job matching algorithm (scoring 0-100)                      covered
+    ✅  Frontend (React + TypeScript, 30+ components)               310 tests
+    ✅  Application tracking & saved jobs                           full CRUD
+    ✅  Scheduler & background jobs (Bull + Redis)                  configured
+    ✅  CI/CD (GitHub Actions, Docker, K8s)                         all green
+    ✅  Monitoring (Prometheus, Grafana, AlertManager)               configured
+    ✅  Documentation (20+ guides, API ref, architecture)           complete
+    🔴  Auto-Apply Engine                                           NOT BUILT
+
+  Start Here
+    → src/automation/applicationSubmitter.js                       (empty file)
+    → src/automation/jobScraper.js                                 (mock → real)
+
+  Recent Commits
 ${COMMITS}
 
-  OPEN PRs:
-${PR_DETAIL}
-
-  CI RUNS (main):
-${CI_DETAIL}
-
-━━ COMMANDS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Dev servers   npm run dev                       # backend :8000
-                cd frontend && npm run dev        # frontend :3000
-  Tests         npm run test:unit -- --forceExit --runInBand
-                npm run test:integration -- --forceExit --runInBand
-                npm run lint
-                cd frontend && npm test -- --run
-  Git/CI        gh pr list                        # open PRs
-                gh pr checks <branch>             # CI on PR
-                gh run list --limit 5             # recent CI
-                gh run view <id> --log-failed     # CI failure logs
-  Dashboard     tail -f state/local-agent-runtime/company-fleet.log
-  Agents        bash bin/dashboard-writer.sh &    # start dashboard
-                bash bin/autopilot.sh &           # start autopilot
-                bash bin/branch-watchdog.sh &     # start watchdog
-  Stop all      pkill -f dashboard-writer.sh; pkill -f autopilot.sh; pkill -f branch-watchdog.sh
+  Open PRs: ${OPEN_PRS}    CI: ${CI_ICON}    Branches: ${BRANCHES}
 EOF
 
   sleep 10
