@@ -1,0 +1,13 @@
+name: Block AI Rules
+on: [pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fail if AI rules committed
+        run: |
+          if git ls-files | grep -qE '^\.claude/|^CLAUDE\.md|^AGENTS\.md|^\.codex/'; then
+            echo 'ERROR: AI rule files must not be committed'
+            exit 1
+          fi
