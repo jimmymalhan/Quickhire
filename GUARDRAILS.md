@@ -1,5 +1,5 @@
 # Quickhire — Guardrails
-**Updated:** 2026-03-19 23:18 UTC
+**Updated:** 2026-03-19 23:21 UTC
 
 ## 7 Active Guardrails (enforced by governor.sh every 30s)
 
@@ -15,6 +15,7 @@
 
 ## Git Rules
 - Only contributor: **Jimmy Malhan <jimmymalhan999@gmail.com>**
+- No `Co-Authored-By: Claude` or any other AI author
 - One branch per feature: `feat/*`, `fix/*`, `test/*`, `release/*`
 - Delete branch after merge
 - Tag every release: `v1.x.0`
