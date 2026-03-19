@@ -1,142 +1,565 @@
 {
-  "at": "2026-03-19T23:36:21Z",
-  "total_hrs": 44.0,
-  "done_by": "2026-03-21 19:36",
+  "at": "2026-03-19T23:40:27Z",
+  "total_hrs": 232.0,
+  "done_by": "2026-03-29 15:40",
   "tasks": [
     {
-      "id": 1,
-      "title": "Fix: untrack .claude/ CLAUDE.md from git",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 0.5,
-      "cum_hrs": 0.5,
-      "eta_ts": "03/20 00:06"
-    },
-    {
-      "id": 2,
-      "title": "Feat: real LinkedIn scraper (replace mock)",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 8,
-      "cum_hrs": 8.5,
-      "eta_ts": "03/20 08:06"
-    },
-    {
-      "id": 3,
-      "title": "Feat: form submission engine",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 6,
-      "cum_hrs": 14.5,
-      "eta_ts": "03/20 14:06"
-    },
-    {
-      "id": 4,
-      "title": "Feat: rate limiting + session mgmt",
-      "status": "ready",
-      "agent": "tbd",
+      "id": 35,
+      "title": "Test: chaos engineering (kill scraper mid-apply,",
+      "status": "in-progress",
+      "agent": "worker-55",
       "eta_hrs": 4,
-      "cum_hrs": 18.5,
-      "eta_ts": "03/20 18:06"
+      "cum_hrs": 4,
+      "eta_ts": "03/20 03:40"
     },
     {
-      "id": 5,
-      "title": "Fix: cleanup all stale branches",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 0.5,
-      "cum_hrs": 19.0,
-      "eta_ts": "03/20 18:36"
-    },
-    {
-      "id": 6,
-      "title": "Feat: job matching algorithm",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 5,
-      "cum_hrs": 24.0,
-      "eta_ts": "03/20 23:36"
-    },
-    {
-      "id": 7,
-      "title": "Feat: application status tracker",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 3,
-      "cum_hrs": 27.0,
-      "eta_ts": "03/21 02:36"
-    },
-    {
-      "id": 8,
-      "title": "Fix: API error handlers",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 2,
-      "cum_hrs": 29.0,
-      "eta_ts": "03/21 04:36"
+      "id": 26,
+      "title": "Feat: weekly digest email (new top-matched jobs)",
+      "status": "in-progress",
+      "agent": "worker-46",
+      "eta_hrs": 4,
+      "cum_hrs": 8,
+      "eta_ts": "03/20 07:40"
     },
     {
       "id": 9,
       "title": "Feat: email notification on apply",
-      "status": "ready",
-      "agent": "tbd",
+      "status": "in-progress",
+      "agent": "worker-29",
       "eta_hrs": 3,
-      "cum_hrs": 32.0,
-      "eta_ts": "03/21 07:36"
+      "cum_hrs": 11,
+      "eta_ts": "03/20 10:40"
     },
     {
-      "id": 10,
-      "title": "Feat: auto-retry failed applications",
-      "status": "ready",
-      "agent": "tbd",
+      "id": 34,
+      "title": "Feat: job application funnel analytics (apply\u2192sc",
+      "status": "in-progress",
+      "agent": "worker-54",
       "eta_hrs": 4,
-      "cum_hrs": 36.0,
-      "eta_ts": "03/21 11:36"
-    },
-    {
-      "id": 11,
-      "title": "Feat: company blacklist/whitelist",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 2,
-      "cum_hrs": 38.0,
-      "eta_ts": "03/21 13:36"
-    },
-    {
-      "id": 12,
-      "title": "Feat: salary range filter",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 2,
-      "cum_hrs": 40.0,
-      "eta_ts": "03/21 15:36"
-    },
-    {
-      "id": 13,
-      "title": "CI: block AI rules in GitHub Actions",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 1,
-      "cum_hrs": 41.0,
-      "eta_ts": "03/21 16:36"
-    },
-    {
-      "id": 14,
-      "title": "Release: tag v1.1.0 + CHANGELOG",
-      "status": "ready",
-      "agent": "tbd",
-      "eta_hrs": 1,
-      "cum_hrs": 42.0,
-      "eta_ts": "03/21 17:36"
+      "cum_hrs": 15,
+      "eta_ts": "03/20 14:40"
     },
     {
       "id": 15,
       "title": "Test: apply to 3 sandbox jobs end-to-end",
-      "status": "ready",
-      "agent": "tbd",
+      "status": "in-progress",
+      "agent": "worker-35",
       "eta_hrs": 2,
-      "cum_hrs": 44.0,
-      "eta_ts": "03/21 19:36"
+      "cum_hrs": 17,
+      "eta_ts": "03/20 16:40"
+    },
+    {
+      "id": 47,
+      "title": "Feat: Skills gap ML model (resume vs job desc)",
+      "status": "in-progress",
+      "agent": "worker-67",
+      "eta_hrs": 4,
+      "cum_hrs": 21,
+      "eta_ts": "03/20 20:40"
+    },
+    {
+      "id": 44,
+      "title": "Feat: Conversion funnel analytics (view\u2192apply\u2192re",
+      "status": "in-progress",
+      "agent": "worker-64",
+      "eta_hrs": 4,
+      "cum_hrs": 25,
+      "eta_ts": "03/21 00:40"
+    },
+    {
+      "id": 17,
+      "title": "Feat: Slack bot (daily top 5 jobs + apply button",
+      "status": "in-progress",
+      "agent": "worker-37",
+      "eta_hrs": 4,
+      "cum_hrs": 29,
+      "eta_ts": "03/21 04:40"
+    },
+    {
+      "id": 24,
+      "title": "Feat: bulk apply (100 jobs in 1 click)",
+      "status": "in-progress",
+      "agent": "worker-44",
+      "eta_hrs": 4,
+      "cum_hrs": 33,
+      "eta_ts": "03/21 08:40"
+    },
+    {
+      "id": 40,
+      "title": "Feat: semantic job matching v2 (sentence transfo",
+      "status": "in-progress",
+      "agent": "worker-60",
+      "eta_hrs": 4,
+      "cum_hrs": 37,
+      "eta_ts": "03/21 12:40"
+    },
+    {
+      "id": 55,
+      "title": "Feat: Zapier/webhook integration for job alerts",
+      "status": "in-progress",
+      "agent": "worker-75",
+      "eta_hrs": 4,
+      "cum_hrs": 41,
+      "eta_ts": "03/21 16:40"
+    },
+    {
+      "id": 45,
+      "title": "Feat: ML feedback loop (learn from rejections)",
+      "status": "in-progress",
+      "agent": "worker-65",
+      "eta_hrs": 4,
+      "cum_hrs": 45,
+      "eta_ts": "03/21 20:40"
+    },
+    {
+      "id": 39,
+      "title": "Feat: A/B test framework for apply message varia",
+      "status": "in-progress",
+      "agent": "worker-59",
+      "eta_hrs": 4,
+      "cum_hrs": 49,
+      "eta_ts": "03/22 00:40"
+    },
+    {
+      "id": 43,
+      "title": "Feat: A/B test framework for apply button varian",
+      "status": "in-progress",
+      "agent": "worker-63",
+      "eta_hrs": 4,
+      "cum_hrs": 53,
+      "eta_ts": "03/22 04:40"
+    },
+    {
+      "id": 51,
+      "title": "Feat: Job acceptance probability predictor",
+      "status": "in-progress",
+      "agent": "worker-71",
+      "eta_hrs": 4,
+      "cum_hrs": 57,
+      "eta_ts": "03/22 08:40"
+    },
+    {
+      "id": 12,
+      "title": "Feat: salary range filter",
+      "status": "in-progress",
+      "agent": "worker-32",
+      "eta_hrs": 2,
+      "cum_hrs": 59,
+      "eta_ts": "03/22 10:40"
+    },
+    {
+      "id": 6,
+      "title": "Feat: job matching algorithm",
+      "status": "in-progress",
+      "agent": "worker-26",
+      "eta_hrs": 5,
+      "cum_hrs": 64,
+      "eta_ts": "03/22 15:40"
+    },
+    {
+      "id": 49,
+      "title": "Feat: Salary negotiation counter-offer script",
+      "status": "in-progress",
+      "agent": "worker-69",
+      "eta_hrs": 4,
+      "cum_hrs": 68,
+      "eta_ts": "03/22 19:40"
+    },
+    {
+      "id": 2,
+      "title": "Feat: real LinkedIn scraper (replace mock)",
+      "status": "in-progress",
+      "agent": "worker-22",
+      "eta_hrs": 8,
+      "cum_hrs": 76,
+      "eta_ts": "03/23 03:40"
+    },
+    {
+      "id": 31,
+      "title": "Feat: rate limit dashboard (LinkedIn/Indeed quot",
+      "status": "in-progress",
+      "agent": "worker-51",
+      "eta_hrs": 4,
+      "cum_hrs": 80,
+      "eta_ts": "03/23 07:40"
+    },
+    {
+      "id": 25,
+      "title": "Feat: user onboarding wizard (profile \u2192 first ap",
+      "status": "in-progress",
+      "agent": "worker-45",
+      "eta_hrs": 4,
+      "cum_hrs": 84,
+      "eta_ts": "03/23 11:40"
+    },
+    {
+      "id": 16,
+      "title": "Feat: browser extension (1-click apply anywhere)",
+      "status": "in-progress",
+      "agent": "worker-36",
+      "eta_hrs": 4,
+      "cum_hrs": 88,
+      "eta_ts": "03/23 15:40"
+    },
+    {
+      "id": 54,
+      "title": "Feat: Browser extension for 1-click apply anywhe",
+      "status": "in-progress",
+      "agent": "worker-74",
+      "eta_hrs": 4,
+      "cum_hrs": 92,
+      "eta_ts": "03/23 19:40"
+    },
+    {
+      "id": 18,
+      "title": "Feat: viral referral program (apply \u2192 share \u2192 cr",
+      "status": "in-progress",
+      "agent": "worker-38",
+      "eta_hrs": 4,
+      "cum_hrs": 96,
+      "eta_ts": "03/23 23:40"
+    },
+    {
+      "id": 21,
+      "title": "Feat: resume parser (extract skills from PDF)",
+      "status": "in-progress",
+      "agent": "worker-41",
+      "eta_hrs": 4,
+      "cum_hrs": 100,
+      "eta_ts": "03/24 03:40"
+    },
+    {
+      "id": 46,
+      "title": "Feat: Match scoring v2 (semantic similarity)",
+      "status": "in-progress",
+      "agent": "worker-66",
+      "eta_hrs": 4,
+      "cum_hrs": 104,
+      "eta_ts": "03/24 07:40"
+    },
+    {
+      "id": 23,
+      "title": "Feat: job description summarizer (TL;DR in 3 bul",
+      "status": "in-progress",
+      "agent": "worker-43",
+      "eta_hrs": 4,
+      "cum_hrs": 108,
+      "eta_ts": "03/24 11:40"
+    },
+    {
+      "id": 27,
+      "title": "Feat: push notifications (job alert + applicatio",
+      "status": "in-progress",
+      "agent": "worker-47",
+      "eta_hrs": 4,
+      "cum_hrs": 112,
+      "eta_ts": "03/24 15:40"
+    },
+    {
+      "id": 32,
+      "title": "Feat: job data warehouse (PostgreSQL \u2192 BigQuery ",
+      "status": "in-progress",
+      "agent": "worker-52",
+      "eta_hrs": 4,
+      "cum_hrs": 116,
+      "eta_ts": "03/24 19:40"
+    },
+    {
+      "id": 56,
+      "title": "Feat: Slack bot for daily job digest",
+      "status": "in-progress",
+      "agent": "worker-76",
+      "eta_hrs": 4,
+      "cum_hrs": 120,
+      "eta_ts": "03/24 23:40"
+    },
+    {
+      "id": 59,
+      "title": "Feat: Job board aggregator (50+ sources)",
+      "status": "in-progress",
+      "agent": "worker-79",
+      "eta_hrs": 4,
+      "cum_hrs": 124,
+      "eta_ts": "03/25 03:40"
+    },
+    {
+      "id": 3,
+      "title": "Feat: form submission engine",
+      "status": "in-progress",
+      "agent": "worker-23",
+      "eta_hrs": 6,
+      "cum_hrs": 130,
+      "eta_ts": "03/25 09:40"
+    },
+    {
+      "id": 53,
+      "title": "Feat: Multi-profile manager (different resumes)",
+      "status": "in-progress",
+      "agent": "worker-73",
+      "eta_hrs": 4,
+      "cum_hrs": 134,
+      "eta_ts": "03/25 13:40"
+    },
+    {
+      "id": 37,
+      "title": "Feat: candidate tracking CRM for recruiters",
+      "status": "in-progress",
+      "agent": "worker-57",
+      "eta_hrs": 4,
+      "cum_hrs": 138,
+      "eta_ts": "03/25 17:40"
+    },
+    {
+      "id": 48,
+      "title": "Feat: Auto-personalize cover letter from profile",
+      "status": "in-progress",
+      "agent": "worker-68",
+      "eta_hrs": 4,
+      "cum_hrs": 142,
+      "eta_ts": "03/25 21:40"
+    },
+    {
+      "id": 20,
+      "title": "Feat: GPT-based cover letter fine-tuned on succe",
+      "status": "in-progress",
+      "agent": "worker-40",
+      "eta_hrs": 4,
+      "cum_hrs": 146,
+      "eta_ts": "03/26 01:40"
+    },
+    {
+      "id": 61,
+      "title": "Feat: Commute time/remote filter",
+      "status": "in-progress",
+      "agent": "worker-81",
+      "eta_hrs": 4,
+      "cum_hrs": 150,
+      "eta_ts": "03/26 05:40"
+    },
+    {
+      "id": 62,
+      "title": "Feat: Visa sponsorship filter",
+      "status": "in-progress",
+      "agent": "worker-82",
+      "eta_hrs": 4,
+      "cum_hrs": 154,
+      "eta_ts": "03/26 09:40"
+    },
+    {
+      "id": 22,
+      "title": "Feat: white-label API for recruiting agencies",
+      "status": "in-progress",
+      "agent": "worker-42",
+      "eta_hrs": 4,
+      "cum_hrs": 158,
+      "eta_ts": "03/26 13:40"
+    },
+    {
+      "id": 19,
+      "title": "Feat: Zapier + Make.com integration",
+      "status": "in-progress",
+      "agent": "worker-39",
+      "eta_hrs": 4,
+      "cum_hrs": 162,
+      "eta_ts": "03/26 17:40"
+    },
+    {
+      "id": 4,
+      "title": "Feat: rate limiting + session mgmt",
+      "status": "in-progress",
+      "agent": "worker-24",
+      "eta_hrs": 4,
+      "cum_hrs": 166,
+      "eta_ts": "03/26 21:40"
+    },
+    {
+      "id": 8,
+      "title": "Fix: API error handlers",
+      "status": "in-progress",
+      "agent": "worker-28",
+      "eta_hrs": 2,
+      "cum_hrs": 168,
+      "eta_ts": "03/26 23:40"
+    },
+    {
+      "id": 50,
+      "title": "Feat: Interview scheduling assistant (calendar)",
+      "status": "in-progress",
+      "agent": "worker-70",
+      "eta_hrs": 4,
+      "cum_hrs": 172,
+      "eta_ts": "03/27 03:40"
+    },
+    {
+      "id": 57,
+      "title": "Feat: LinkedIn connection message personalizer",
+      "status": "in-progress",
+      "agent": "worker-77",
+      "eta_hrs": 4,
+      "cum_hrs": 176,
+      "eta_ts": "03/27 07:40"
+    },
+    {
+      "id": 38,
+      "title": "Feat: SSO / SAML enterprise login",
+      "status": "in-progress",
+      "agent": "worker-58",
+      "eta_hrs": 4,
+      "cum_hrs": 180,
+      "eta_ts": "03/27 11:40"
+    },
+    {
+      "id": 33,
+      "title": "Test: load test (1000 concurrent auto-applies)",
+      "status": "in-progress",
+      "agent": "worker-53",
+      "eta_hrs": 4,
+      "cum_hrs": 184,
+      "eta_ts": "03/27 15:40"
+    },
+    {
+      "id": 42,
+      "title": "Test: security pen test (OWASP top 10 scan)",
+      "status": "in-progress",
+      "agent": "worker-62",
+      "eta_hrs": 4,
+      "cum_hrs": 188,
+      "eta_ts": "03/27 19:40"
+    },
+    {
+      "id": 60,
+      "title": "Feat: Company culture fit scorer",
+      "status": "in-progress",
+      "agent": "worker-80",
+      "eta_hrs": 4,
+      "cum_hrs": 192,
+      "eta_ts": "03/27 23:40"
+    },
+    {
+      "id": 36,
+      "title": "Feat: culture fit scorer (Glassdoor reviews NLP)",
+      "status": "in-progress",
+      "agent": "worker-56",
+      "eta_hrs": 4,
+      "cum_hrs": 196,
+      "eta_ts": "03/28 03:40"
+    },
+    {
+      "id": 14,
+      "title": "Release: tag v1.1.0 + CHANGELOG",
+      "status": "in-progress",
+      "agent": "worker-34",
+      "eta_hrs": 1,
+      "cum_hrs": 197,
+      "eta_ts": "03/28 04:40"
+    },
+    {
+      "id": 11,
+      "title": "Feat: company blacklist/whitelist",
+      "status": "in-progress",
+      "agent": "worker-31",
+      "eta_hrs": 2,
+      "cum_hrs": 199,
+      "eta_ts": "03/28 06:40"
+    },
+    {
+      "id": 29,
+      "title": "Feat: mobile app (React Native)",
+      "status": "in-progress",
+      "agent": "worker-49",
+      "eta_hrs": 4,
+      "cum_hrs": 203,
+      "eta_ts": "03/28 10:40"
+    },
+    {
+      "id": 52,
+      "title": "Feat: Real-time recruiter response tracker",
+      "status": "in-progress",
+      "agent": "worker-72",
+      "eta_hrs": 4,
+      "cum_hrs": 207,
+      "eta_ts": "03/28 14:40"
+    },
+    {
+      "id": 28,
+      "title": "Feat: ATS integration (Greenhouse, Lever, Workda",
+      "status": "in-progress",
+      "agent": "worker-48",
+      "eta_hrs": 4,
+      "cum_hrs": 211,
+      "eta_ts": "03/28 18:40"
+    },
+    {
+      "id": 30,
+      "title": "Feat: multi-tenant architecture (orgs + users + ",
+      "status": "in-progress",
+      "agent": "worker-50",
+      "eta_hrs": 4,
+      "cum_hrs": 215,
+      "eta_ts": "03/28 22:40"
+    },
+    {
+      "id": 41,
+      "title": "Feat: audit log for compliance (SOC2 readiness)",
+      "status": "in-progress",
+      "agent": "worker-61",
+      "eta_hrs": 4,
+      "cum_hrs": 219,
+      "eta_ts": "03/29 02:40"
+    },
+    {
+      "id": 7,
+      "title": "Feat: application status tracker",
+      "status": "in-progress",
+      "agent": "worker-27",
+      "eta_hrs": 3,
+      "cum_hrs": 222,
+      "eta_ts": "03/29 05:40"
+    },
+    {
+      "id": 10,
+      "title": "Feat: auto-retry failed applications",
+      "status": "in-progress",
+      "agent": "worker-30",
+      "eta_hrs": 4,
+      "cum_hrs": 226,
+      "eta_ts": "03/29 09:40"
+    },
+    {
+      "id": 1,
+      "title": "Fix: untrack .claude/ CLAUDE.md from git",
+      "status": "in-progress",
+      "agent": "worker-21",
+      "eta_hrs": 0.5,
+      "cum_hrs": 226.5,
+      "eta_ts": "03/29 10:10"
+    },
+    {
+      "id": 5,
+      "title": "Fix: cleanup all stale branches",
+      "status": "in-progress",
+      "agent": "worker-25",
+      "eta_hrs": 0.5,
+      "cum_hrs": 227.0,
+      "eta_ts": "03/29 10:40"
+    },
+    {
+      "id": 13,
+      "title": "CI: block AI rules in GitHub Actions",
+      "status": "in-progress",
+      "agent": "worker-33",
+      "eta_hrs": 1,
+      "cum_hrs": 228.0,
+      "eta_ts": "03/29 11:40"
+    },
+    {
+      "id": 58,
+      "title": "Feat: Automated reference request sender",
+      "status": "in-progress",
+      "agent": "worker-78",
+      "eta_hrs": 4,
+      "cum_hrs": 232.0,
+      "eta_ts": "03/29 15:40"
     }
   ]
 }

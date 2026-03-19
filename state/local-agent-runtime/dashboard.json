@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-19T23:36:21Z",
+  "generatedAt": "2026-03-19T23:40:27Z",
   "project": {
     "name": "commit-changes",
     "status": "running",
@@ -266,7 +266,7 @@
       "ask": "Keep local agents busy on the next highest-ROI task."
     }
   },
-  "summaryLine": "TRACKER|2026-03-19T23:36:21Z|overall=40%|left=60%|eta=~12 min|capacity=85%|target=80-90%|agents=2/2|ci=pass/pass|pr=4|monitor=idle|stage=running",
+  "summaryLine": "TRACKER|2026-03-19T23:40:27Z|overall=40%|left=60%|eta=~12 min|capacity=85%|target=80-90%|agents=2/2|ci=pass/pass|pr=4|monitor=idle|stage=running",
   "tailCommands": [
     "tail -f state/local-agent-runtime/company-fleet.log",
     "tail -f state/local-agent-runtime/dashboard.status",

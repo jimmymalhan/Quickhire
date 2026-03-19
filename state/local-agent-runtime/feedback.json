@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-03-19T23:36:21Z",
+  "collected_at": "2026-03-19T23:40:27Z",
   "total_agents": 50,
   "teams": [
     "recruiters",
@@ -10,67 +10,67 @@
   ],
   "top_demanded": [
     {
-      "feature": "Follow-up email",
-      "votes": 10,
+      "feature": "Resume optimizer",
+      "votes": 13,
       "priority": 1
     },
     {
-      "feature": "Grafana funnel",
+      "feature": "Rate limiting",
       "votes": 10,
       "priority": 2
     },
     {
-      "feature": "Funnel analytics",
+      "feature": "Retry logic",
       "votes": 10,
       "priority": 3
     },
     {
-      "feature": "Salary filter",
-      "votes": 9,
+      "feature": "Tracker dashboard",
+      "votes": 10,
       "priority": 4
+    },
+    {
+      "feature": "Skills gap ML",
+      "votes": 10,
+      "priority": 5
     },
     {
       "feature": "One-click apply",
       "votes": 9,
-      "priority": 5
-    },
-    {
-      "feature": "Job matching",
-      "votes": 9,
       "priority": 6
     },
     {
-      "feature": "Sandbox E2E tests",
+      "feature": "Salary insights UI",
       "votes": 9,
       "priority": 7
     },
     {
-      "feature": "A/B test framework",
+      "feature": "Sandbox E2E tests",
       "votes": 9,
       "priority": 8
     },
     {
-      "feature": "Conversion tracking",
-      "votes": 9,
+      "feature": "Dedup engine",
+      "votes": 8,
       "priority": 9
     },
     {
-      "feature": "Form filler",
+      "feature": "K8s workers",
       "votes": 8,
       "priority": 10
     },
     {
-      "feature": "Docker scraper",
+      "feature": "Prometheus metrics",
       "votes": 8,
       "priority": 11
     },
     {
-      "feature": "Tracker dashboard",
+      "feature": "Funnel analytics",
       "votes": 8,
       "priority": 12
     },
     {
-      "feature": "Profile scorer",
+      "feature": "Fast apply",
       "votes": 7,
       "priority": 13
     },
@@ -80,56 +80,56 @@
       "priority": 14
     },
     {
-      "feature": "Skills gap",
+      "feature": "Salary advisor",
       "votes": 7,
       "priority": 15
     },
     {
-      "feature": "Rate limiting",
+      "feature": "Skills gap",
       "votes": 7,
       "priority": 16
     },
     {
-      "feature": "Cover letter AI",
+      "feature": "Salary filter",
       "votes": 6,
       "priority": 17
     },
     {
-      "feature": "API errors",
+      "feature": "Company filter",
       "votes": 6,
       "priority": 18
     },
     {
-      "feature": "OAuth LinkedIn",
+      "feature": "Follow-up email",
       "votes": 6,
       "priority": 19
     },
     {
-      "feature": "ML job scoring",
+      "feature": "LinkedIn scraper",
       "votes": 6,
       "priority": 20
     }
   ],
   "negotiated_order": [
-    "Follow-up email",
-    "Grafana funnel",
-    "Funnel analytics",
-    "Salary filter",
-    "One-click apply",
-    "Job matching",
-    "Sandbox E2E tests",
-    "A/B test framework",
-    "Conversion tracking",
-    "Form filler",
-    "Docker scraper",
-    "Tracker dashboard",
-    "Profile scorer",
-    "Rejection predictor",
-    "Skills gap",
+    "Resume optimizer",
     "Rate limiting",
-    "Cover letter AI",
-    "API errors",
-    "OAuth LinkedIn",
-    "ML job scoring"
+    "Retry logic",
+    "Tracker dashboard",
+    "Skills gap ML",
+    "One-click apply",
+    "Salary insights UI",
+    "Sandbox E2E tests",
+    "Dedup engine",
+    "K8s workers",
+    "Prometheus metrics",
+    "Funnel analytics",
+    "Fast apply",
+    "Rejection predictor",
+    "Salary advisor",
+    "Skills gap",
+    "Salary filter",
+    "Company filter",
+    "Follow-up email",
+    "LinkedIn scraper"
   ]
 }
