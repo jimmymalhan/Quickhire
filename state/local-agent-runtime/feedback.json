@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-03-20T00:16:45Z",
+  "collected_at": "2026-03-20T00:26:57Z",
   "total_agents": 50,
   "teams": [
     "recruiters",
@@ -10,126 +10,126 @@
   ],
   "top_demanded": [
     {
-      "feature": "Rejection predictor",
-      "votes": 11,
+      "feature": "One-click apply UI",
+      "votes": 10,
       "priority": 1
     },
     {
-      "feature": "Salary advisor",
+      "feature": "OAuth LinkedIn",
       "votes": 10,
       "priority": 2
     },
     {
-      "feature": "Skills gap",
-      "votes": 10,
+      "feature": "Profile scorer",
+      "votes": 9,
       "priority": 3
     },
     {
-      "feature": "Rate limiting",
-      "votes": 10,
+      "feature": "Resume optimizer",
+      "votes": 9,
       "priority": 4
     },
     {
-      "feature": "Dedup engine",
-      "votes": 10,
+      "feature": "Form filler",
+      "votes": 9,
       "priority": 5
     },
     {
-      "feature": "K8s workers",
-      "votes": 10,
+      "feature": "Grafana funnel",
+      "votes": 9,
       "priority": 6
     },
     {
-      "feature": "Salary negotiation",
-      "votes": 10,
+      "feature": "Salary filter",
+      "votes": 8,
       "priority": 7
     },
     {
-      "feature": "Skills gap ML",
-      "votes": 10,
+      "feature": "Company filter",
+      "votes": 8,
       "priority": 8
     },
     {
-      "feature": "Funnel analytics",
-      "votes": 10,
+      "feature": "Email alerts",
+      "votes": 8,
       "priority": 9
     },
     {
-      "feature": "Conversion tracking",
-      "votes": 10,
-      "priority": 10
-    },
-    {
       "feature": "Auto-connect recruiters",
-      "votes": 9,
-      "priority": 11
-    },
-    {
-      "feature": "Application tracker",
-      "votes": 9,
-      "priority": 12
-    },
-    {
-      "feature": "API errors",
-      "votes": 9,
-      "priority": 13
-    },
-    {
-      "feature": "Skills gap UI",
-      "votes": 9,
-      "priority": 14
-    },
-    {
-      "feature": "OAuth LinkedIn",
-      "votes": 9,
-      "priority": 15
-    },
-    {
-      "feature": "Feedback loop ML",
-      "votes": 9,
-      "priority": 16
-    },
-    {
-      "feature": "Fast apply",
       "votes": 8,
-      "priority": 17
+      "priority": 10
     },
     {
       "feature": "Follow-up email",
       "votes": 8,
+      "priority": 11
+    },
+    {
+      "feature": "Rejection predictor",
+      "votes": 8,
+      "priority": 12
+    },
+    {
+      "feature": "Prometheus metrics",
+      "votes": 8,
+      "priority": 13
+    },
+    {
+      "feature": "Resume builder UI",
+      "votes": 8,
+      "priority": 14
+    },
+    {
+      "feature": "Changelog v1.1.0",
+      "votes": 8,
+      "priority": 15
+    },
+    {
+      "feature": "Salary advisor",
+      "votes": 7,
+      "priority": 16
+    },
+    {
+      "feature": "Skills gap",
+      "votes": 7,
+      "priority": 17
+    },
+    {
+      "feature": "API errors",
+      "votes": 7,
       "priority": 18
     },
     {
-      "feature": "Sandbox E2E tests",
-      "votes": 8,
+      "feature": "Match scoring v2",
+      "votes": 7,
       "priority": 19
     },
     {
-      "feature": "Salary filter",
-      "votes": 7,
+      "feature": "LinkedIn scraper",
+      "votes": 6,
       "priority": 20
     }
   ],
   "negotiated_order": [
+    "One-click apply UI",
+    "OAuth LinkedIn",
+    "Profile scorer",
+    "Resume optimizer",
+    "Form filler",
+    "Grafana funnel",
+    "Salary filter",
+    "Company filter",
+    "Email alerts",
+    "Auto-connect recruiters",
+    "Follow-up email",
     "Rejection predictor",
+    "Prometheus metrics",
+    "Resume builder UI",
+    "Changelog v1.1.0",
     "Salary advisor",
     "Skills gap",
-    "Rate limiting",
-    "Dedup engine",
-    "K8s workers",
-    "Salary negotiation",
-    "Skills gap ML",
-    "Funnel analytics",
-    "Conversion tracking",
-    "Auto-connect recruiters",
-    "Application tracker",
     "API errors",
-    "Skills gap UI",
-    "OAuth LinkedIn",
-    "Feedback loop ML",
-    "Fast apply",
-    "Follow-up email",
-    "Sandbox E2E tests",
-    "Salary filter"
+    "Match scoring v2",
+    "LinkedIn scraper"
   ]
 }
