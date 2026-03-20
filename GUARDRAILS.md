@@ -1,5 +1,5 @@
 # Quickhire — Guardrails
-**Updated:** 2026-03-20 00:03 UTC
+**Updated:** 2026-03-20 00:08 UTC
 
 ## 7 Active Guardrails (enforced by governor.sh every 30s)
 
