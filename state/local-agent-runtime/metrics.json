@@ -1,6 +1,6 @@
 {
-  "at": "2026-03-20T00:14:20Z",
-  "alive_workers": 23,
+  "at": "2026-03-20T00:16:29Z",
+  "alive_workers": 22,
   "tier_counts": {
     "tier1": 0,
     "tier2": 2,
@@ -8,9 +8,9 @@
     "tier4": 2
   },
   "tasks": {
-    "total": 62,
+    "total": 77,
     "done": 0,
-    "in_progress": 62,
+    "in_progress": 77,
     "ready": 0
   },
   "throughput_per_tick": 0,
