@@ -1,12 +1,12 @@
 # Quickhire — Project Context
-**Updated:** 2026-03-20 00:03 UTC | **Branch:** feat/ui-profile-1773965030 | **Tag:** v1.0.0 | **Progress:** 0% (0/62 tasks)
+**Updated:** 2026-03-20 00:14 UTC | **Branch:** docs/auto-update-20260319-1713 | **Tag:** v1.0.0 | **Progress:** 0% (0/62 tasks)
 
 ## Status
 - CI: PASS (694 passed, 694 total)
-- Agents alive: 28
-- Tasks: 0 done / 60 ready / 62 total
+- Agents alive: 33
+- Tasks: 0 done / 59 ready / 62 total
 - ETA to backlog complete: ~303hrs
-- Last commit: cf70fab feat: advanced UI — command palette, animated apply button, job cards with ML insights (5 minutes ago)
+- Last commit: 65fe5ec docs: auto-update all docs with current project state [2026-03-19] (33 seconds ago)
 
 ## What's Built (20 features)
 - Backend API: Node.js/Express (694 tests passing)

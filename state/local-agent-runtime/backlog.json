@@ -24,8 +24,8 @@
     "eta_hrs": 10,
     "br": "feat/white-label-api",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-42",
+    "status": "ready",
+    "worker": "",
     "vote_score": 574,
     "top_voters": [
       "Sequoia Partner(+15)",
@@ -42,8 +42,8 @@
     "eta_hrs": 20,
     "br": "feat/mobile-app",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-49",
+    "status": "ready",
+    "worker": "",
     "vote_score": 562,
     "top_voters": [
       "Sequoia Partner(+15)",
@@ -60,8 +60,8 @@
     "eta_hrs": 3,
     "br": "feat/quota-dashboard",
     "team": "platform",
-    "status": "ready",
-    "worker": "",
+    "status": "in-progress",
+    "worker": "worker-51",
     "vote_score": 557,
     "top_voters": [
       "a16z Partner(+15)",
@@ -154,8 +154,8 @@
     "eta_hrs": 4,
     "br": "feat/zapier-integration",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-39",
+    "status": "ready",
+    "worker": "",
     "vote_score": 81,
     "top_voters": [
       "a16z Partner(+15)",
@@ -190,8 +190,8 @@
     "eta_hrs": 8,
     "br": "feat/cover-letter-ft",
     "team": "product",
-    "status": "in-progress",
-    "worker": "worker-40",
+    "status": "ready",
+    "worker": "",
     "vote_score": 77,
     "top_voters": [
       "Sequoia Partner(+15)",
@@ -298,8 +298,8 @@
     "eta_hrs": 12,
     "br": "feat/ats-integration",
     "team": "platform",
-    "status": "in-progress",
-    "worker": "worker-48",
+    "status": "ready",
+    "worker": "",
     "vote_score": 62,
     "top_voters": [
       "Strategic VC(+36)",
@@ -334,8 +334,8 @@
     "eta_hrs": 8,
     "br": "feat/data-warehouse",
     "team": "platform",
-    "status": "ready",
-    "worker": "",
+    "status": "in-progress",
+    "worker": "worker-52",
     "vote_score": 55,
     "top_voters": [
       "a16z Partner(+30)",
@@ -352,8 +352,8 @@
     "eta_hrs": 4,
     "br": "test/load-test-1k",
     "team": "quality",
-    "status": "ready",
-    "worker": "",
+    "status": "in-progress",
+    "worker": "worker-53",
     "vote_score": 55,
     "top_voters": [
       "a16z Partner(+15)",
@@ -370,8 +370,8 @@
     "eta_hrs": 5,
     "br": "feat/funnel-analytics",
     "team": "platform",
-    "status": "ready",
-    "worker": "",
+    "status": "in-progress",
+    "worker": "worker-54",
     "vote_score": 49,
     "top_voters": [
       "Sequoia Partner(+30)",
@@ -388,8 +388,8 @@
     "eta_hrs": 3,
     "br": "test/chaos-apply",
     "team": "quality",
-    "status": "ready",
-    "worker": "",
+    "status": "in-progress",
+    "worker": "worker-55",
     "vote_score": 44,
     "top_voters": [
       "a16z Partner(+15)",
@@ -418,8 +418,26 @@
     ]
   },
   {
-    "id": 38,
+    "id": 39,
     "p": 25,
+    "title": "Feat: A/B test framework for apply message variants",
+    "eta_hrs": 4,
+    "br": "feat/ab-framework",
+    "team": "quality",
+    "status": "in-progress",
+    "worker": "worker-59",
+    "vote_score": 35,
+    "top_voters": [
+      "YC Partner(+12)",
+      "VP Product(+1)",
+      "PM(+10)",
+      "Data Scientist(+8)",
+      "TechCorp (500 eng)(+4)"
+    ]
+  },
+  {
+    "id": 38,
+    "p": 26,
     "title": "Feat: SSO / SAML enterprise login",
     "eta_hrs": 6,
     "br": "feat/enterprise-sso",
@@ -436,32 +454,14 @@
     ]
   },
   {
-    "id": 39,
-    "p": 26,
-    "title": "Feat: A/B test framework for apply message variants",
-    "eta_hrs": 4,
-    "br": "feat/ab-framework",
-    "team": "quality",
-    "status": "ready",
-    "worker": "",
-    "vote_score": 35,
-    "top_voters": [
-      "YC Partner(+12)",
-      "VP Product(+1)",
-      "PM(+10)",
-      "Data Scientist(+8)",
-      "TechCorp (500 eng)(+4)"
-    ]
-  },
-  {
     "id": 40,
     "p": 27,
     "title": "Feat: semantic job matching v2 (sentence transformers)",
     "eta_hrs": 10,
     "br": "feat/semantic-match-v2",
     "team": "product",
-    "status": "ready",
-    "worker": "",
+    "status": "in-progress",
+    "worker": "worker-60",
     "vote_score": 32,
     "top_voters": [
       "a16z Partner(+15)",
@@ -470,25 +470,8 @@
     ]
   },
   {
-    "id": 41,
-    "p": 28,
-    "title": "Feat: audit log for compliance (SOC2 readiness)",
-    "eta_hrs": 8,
-    "br": "feat/audit-log",
-    "team": "platform",
-    "status": "ready",
-    "worker": "",
-    "vote_score": 31,
-    "top_voters": [
-      "Strategic VC(+12)",
-      "CTO(+2)",
-      "Sales(+5)",
-      "FinTechBank(+12)"
-    ]
-  },
-  {
     "id": 42,
-    "p": 29,
+    "p": 28,
     "title": "Test: security pen test (OWASP top 10 scan)",
     "eta_hrs": 6,
     "br": "test/security-pentest",
@@ -504,17 +487,65 @@
     ]
   },
   {
-    "id": 2,
+    "id": 41,
+    "p": 29,
+    "title": "Feat: audit log for compliance (SOC2 readiness)",
+    "eta_hrs": 8,
+    "br": "feat/audit-log",
+    "team": "platform",
+    "status": "ready",
+    "worker": "",
+    "vote_score": 31,
+    "top_voters": [
+      "Strategic VC(+12)",
+      "CTO(+2)",
+      "Sales(+5)",
+      "FinTechBank(+12)"
+    ]
+  },
+  {
+    "id": 12,
     "p": 30,
+    "title": "Feat: salary range filter",
+    "eta": 2,
+    "br": "feat/salary-filter",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-32"
+  },
+  {
+    "id": 15,
+    "p": 31,
+    "title": "Test: apply to 3 sandbox jobs end-to-end",
+    "eta": 2,
+    "br": "test/e2e-apply",
+    "team": "quality",
+    "status": "in-progress",
+    "worker": "worker-35"
+  },
+  {
+    "id": 2,
+    "p": 32,
     "title": "Feat: real LinkedIn scraper (replace mock)",
     "eta": 8,
     "br": "feat/linkedin-scraper",
     "team": "product",
-    "status": "ready"
+    "status": "in-progress",
+    "worker": "worker-22"
+  },
+  {
+    "id": 6,
+    "p": 33,
+    "title": "Feat: job matching algorithm",
+    "eta": 5,
+    "br": "feat/job-matching",
+    "team": "product",
+    "status": "in-progress",
+    "worker": "worker-26"
   },
   {
     "id": 3,
-    "p": 31,
+    "p": 34,
     "title": "Feat: form submission engine",
     "eta": 6,
     "br": "feat/form-submission",
@@ -522,17 +553,17 @@
     "status": "ready"
   },
   {
-    "id": 6,
-    "p": 32,
-    "title": "Feat: job matching algorithm",
-    "eta": 5,
-    "br": "feat/job-matching",
+    "id": 4,
+    "p": 35,
+    "title": "Feat: rate limiting + session mgmt",
+    "eta": 4,
+    "br": "feat/rate-limiting",
     "team": "product",
     "status": "ready"
   },
   {
     "id": 7,
-    "p": 33,
+    "p": 36,
     "title": "Feat: application status tracker",
     "eta": 3,
     "br": "feat/app-tracker",
@@ -540,48 +571,21 @@
     "status": "ready"
   },
   {
-    "id": 12,
-    "p": 34,
-    "title": "Feat: salary range filter",
-    "eta": 2,
-    "br": "feat/salary-filter",
-    "team": "product",
-    "status": "ready"
-  },
-  {
-    "id": 8,
-    "p": 35,
-    "title": "Fix: API error handlers",
-    "eta": 2,
-    "br": "fix/api-errors",
-    "team": "quality",
-    "status": "ready"
-  },
-  {
-    "id": 10,
-    "p": 36,
-    "title": "Feat: auto-retry failed applications",
-    "eta": 4,
-    "br": "feat/auto-retry",
-    "team": "product",
-    "status": "ready"
-  },
-  {
-    "id": 14,
+    "id": 9,
     "p": 37,
-    "title": "Release: tag v1.1.0 + CHANGELOG",
-    "eta": 1,
-    "br": "release/v1.1.0",
-    "team": "platform",
+    "title": "Feat: email notification on apply",
+    "eta": 3,
+    "br": "feat/email-notify",
+    "team": "product",
     "status": "ready"
   },
   {
-    "id": 15,
+    "id": 11,
     "p": 38,
-    "title": "Test: apply to 3 sandbox jobs end-to-end",
+    "title": "Feat: company blacklist/whitelist",
     "eta": 2,
-    "br": "test/e2e-apply",
-    "team": "quality",
+    "br": "feat/company-filter",
+    "team": "product",
     "status": "ready"
   },
   {
@@ -594,17 +598,8 @@
     "status": "ready"
   },
   {
-    "id": 4,
-    "p": 40,
-    "title": "Feat: rate limiting + session mgmt",
-    "eta": 4,
-    "br": "feat/rate-limiting",
-    "team": "product",
-    "status": "ready"
-  },
-  {
     "id": 5,
-    "p": 41,
+    "p": 40,
     "title": "Fix: cleanup all stale branches",
     "eta": 0.5,
     "br": "fix/branch-cleanup",
@@ -612,29 +607,38 @@
     "status": "ready"
   },
   {
-    "id": 9,
-    "p": 42,
-    "title": "Feat: email notification on apply",
-    "eta": 3,
-    "br": "feat/email-notify",
-    "team": "product",
+    "id": 8,
+    "p": 41,
+    "title": "Fix: API error handlers",
+    "eta": 2,
+    "br": "fix/api-errors",
+    "team": "quality",
     "status": "ready"
   },
   {
-    "id": 11,
-    "p": 43,
-    "title": "Feat: company blacklist/whitelist",
-    "eta": 2,
-    "br": "feat/company-filter",
+    "id": 10,
+    "p": 42,
+    "title": "Feat: auto-retry failed applications",
+    "eta": 4,
+    "br": "feat/auto-retry",
     "team": "product",
     "status": "ready"
   },
   {
     "id": 13,
-    "p": 44,
+    "p": 43,
     "title": "CI: block AI rules in GitHub Actions",
     "eta": 1,
     "br": "ci/block-ai-rules",
+    "team": "platform",
+    "status": "ready"
+  },
+  {
+    "id": 14,
+    "p": 44,
+    "title": "Release: tag v1.1.0 + CHANGELOG",
+    "eta": 1,
+    "br": "release/v1.1.0",
     "team": "platform",
     "status": "ready"
   },

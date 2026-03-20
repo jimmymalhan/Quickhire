@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-03-20T00:03:53Z",
+  "collected_at": "2026-03-20T00:14:29Z",
   "total_agents": 50,
   "teams": [
     "recruiters",
@@ -11,125 +11,125 @@
   "top_demanded": [
     {
       "feature": "Resume optimizer",
-      "votes": 15,
+      "votes": 13,
       "priority": 1
     },
     {
-      "feature": "Rejection predictor",
-      "votes": 12,
+      "feature": "One-click apply",
+      "votes": 10,
       "priority": 2
     },
     {
-      "feature": "Application tracker",
+      "feature": "LinkedIn scraper",
       "votes": 10,
       "priority": 3
     },
     {
-      "feature": "Resume builder UI",
+      "feature": "Interview prep",
       "votes": 10,
       "priority": 4
     },
     {
-      "feature": "Match scoring v2",
+      "feature": "Rejection predictor",
       "votes": 10,
       "priority": 5
     },
     {
-      "feature": "Form filler",
-      "votes": 9,
+      "feature": "Skills gap",
+      "votes": 10,
       "priority": 6
     },
     {
-      "feature": "Docker scraper",
-      "votes": 9,
+      "feature": "Dedup engine",
+      "votes": 10,
       "priority": 7
     },
     {
-      "feature": "K8s workers",
-      "votes": 9,
+      "feature": "Salary negotiation",
+      "votes": 10,
       "priority": 8
     },
     {
-      "feature": "ML job scoring",
-      "votes": 9,
+      "feature": "Skills gap ML",
+      "votes": 10,
       "priority": 9
     },
     {
-      "feature": "Auto-connect recruiters",
-      "votes": 8,
+      "feature": "Conversion tracking",
+      "votes": 10,
       "priority": 10
     },
     {
-      "feature": "API errors",
-      "votes": 8,
+      "feature": "Company filter",
+      "votes": 9,
       "priority": 11
     },
     {
-      "feature": "OAuth LinkedIn",
-      "votes": 8,
+      "feature": "Salary advisor",
+      "votes": 9,
       "priority": 12
     },
     {
-      "feature": "Changelog v1.1.0",
-      "votes": 8,
+      "feature": "Session mgmt",
+      "votes": 9,
       "priority": 13
     },
     {
-      "feature": "Cover letter AI",
-      "votes": 7,
+      "feature": "Tracker dashboard",
+      "votes": 9,
       "priority": 14
     },
     {
-      "feature": "Interview prep",
-      "votes": 7,
+      "feature": "OAuth LinkedIn",
+      "votes": 9,
       "priority": 15
     },
     {
-      "feature": "Salary advisor",
-      "votes": 7,
+      "feature": "ML scoring",
+      "votes": 9,
       "priority": 16
     },
     {
-      "feature": "Dedup engine",
-      "votes": 7,
+      "feature": "Match scoring v2",
+      "votes": 9,
       "priority": 17
     },
     {
-      "feature": "Tracker dashboard",
-      "votes": 7,
+      "feature": "Job feed UI",
+      "votes": 8,
       "priority": 18
     },
     {
-      "feature": "Salary negotiation",
-      "votes": 7,
+      "feature": "A/B test framework",
+      "votes": 8,
       "priority": 19
     },
     {
-      "feature": "Funnel analytics",
+      "feature": "Profile scorer",
       "votes": 7,
       "priority": 20
     }
   ],
   "negotiated_order": [
     "Resume optimizer",
-    "Rejection predictor",
-    "Application tracker",
-    "Resume builder UI",
-    "Match scoring v2",
-    "Form filler",
-    "Docker scraper",
-    "K8s workers",
-    "ML job scoring",
-    "Auto-connect recruiters",
-    "API errors",
-    "OAuth LinkedIn",
-    "Changelog v1.1.0",
-    "Cover letter AI",
+    "One-click apply",
+    "LinkedIn scraper",
     "Interview prep",
-    "Salary advisor",
+    "Rejection predictor",
+    "Skills gap",
     "Dedup engine",
-    "Tracker dashboard",
     "Salary negotiation",
-    "Funnel analytics"
+    "Skills gap ML",
+    "Conversion tracking",
+    "Company filter",
+    "Salary advisor",
+    "Session mgmt",
+    "Tracker dashboard",
+    "OAuth LinkedIn",
+    "ML scoring",
+    "Match scoring v2",
+    "Job feed UI",
+    "A/B test framework",
+    "Profile scorer"
   ]
 }
