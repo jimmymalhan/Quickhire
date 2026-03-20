@@ -1,5 +1,5 @@
 # Quickhire — System Architecture
-**Updated:** 2026-03-19 23:58 UTC
+**Updated:** 2026-03-20 00:03 UTC
 
 ## Overview
 LinkedIn Auto-Job-Applier — scrapes jobs, scores them with ML, auto-applies, tracks results.
